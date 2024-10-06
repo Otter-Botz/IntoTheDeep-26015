@@ -28,6 +28,9 @@ public class TeleOpDriver extends LinearOpMode {
             // slider controls
             controlSlider();
 
+            driveBase();
+
+
             // Reset
             if (gamepad1.guide) {
                 RobotController.resetIMU();
@@ -82,7 +85,6 @@ public class TeleOpDriver extends LinearOpMode {
             while (opModeIsActive() && org.firstinspires.ftc.teamcode.common.RobotController.linearSlide.isBusy()) {
 
             }
-            isSliderHold = false;
             org.firstinspires.ftc.teamcode.common.RobotController.linearSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
         else if (gamepad2.right_bumper) { // line 2 position
@@ -112,5 +114,7 @@ public class TeleOpDriver extends LinearOpMode {
 
         org.firstinspires.ftc.teamcode.common.RobotController.setSliderIdlePosition();
     }
+
+
 }
 
