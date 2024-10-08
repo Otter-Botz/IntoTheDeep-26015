@@ -43,6 +43,7 @@ public class RobotController {
     public void initTeleOp(){
         initDriveMotors();
         initLinearSlide();
+
         initIMU();
 
     }
@@ -152,10 +153,10 @@ public class RobotController {
         linearSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
         private void initDriveMotors() {
-        frontLeftDriveMotor = hardwareMap.dcMotor.get("frontLeftMotor");
-        rearLeftDriveMotor = hardwareMap.dcMotor.get("backLeftMotor");
-        frontRightDriveMotor = hardwareMap.dcMotor.get("frontRightMotor");
-        rearRightDriveMotor = hardwareMap.dcMotor.get("backRightMotor");
+        frontLeftDriveMotor = hardwareMap.dcMotor.get("leftFront");
+        rearLeftDriveMotor = hardwareMap.dcMotor.get("leftBack");
+        frontRightDriveMotor = hardwareMap.dcMotor.get("rightFront");
+        rearRightDriveMotor = hardwareMap.dcMotor.get("rightBack");
 
         // Reverse the left side motors
         frontLeftDriveMotor.setDirection(DcMotorSimple.Direction.REVERSE);
