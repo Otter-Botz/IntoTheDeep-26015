@@ -21,12 +21,14 @@ public class PID_Slider extends OpMode {
 
     private DcMotor LinearSlide1;
 
+
     @Override
     public void init() {
         controller = new PIDController(p,i, d);
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
         LinearSlide1 = hardwareMap.get(DcMotor.class, "LinearSlide1");
+      
 
     }
 
