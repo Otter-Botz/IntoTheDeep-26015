@@ -17,7 +17,7 @@ public class PID_Slider extends OpMode {
 
     public static int target = 0;
 
-    private final double ticks_in_degrees = 70/180;
+    private final double ticks_in_degrees = 700/180;
 
     private DcMotor LinearSlide1;
 
@@ -38,7 +38,7 @@ public class PID_Slider extends OpMode {
         int slidePos = LinearSlide1.getCurrentPosition();
         double pid = controller.calculate(slidePos, target);
         double ff = Math.cos(Math.toRadians(target/ ticks_in_degrees)) * f;
-        double power = pid + f;
+        double power = pid + ff;
         LinearSlide1.setPower(power);
         telemetry.addData("pos", slidePos);
         telemetry.addData("target", target);
