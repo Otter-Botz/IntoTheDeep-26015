@@ -19,7 +19,7 @@ public class PID_Slider extends OpMode {
 
     private final double ticks_in_degrees = 700/180;
 
-    private DcMotor LinearSlide1;
+    private DcMotor armMotor;
 
 
     @Override
@@ -27,7 +27,7 @@ public class PID_Slider extends OpMode {
         controller = new PIDController(p,i, d);
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
-        LinearSlide1 = hardwareMap.get(DcMotor.class, "LinearSlide1");
+       armMotor = hardwareMap.get(DcMotor.class, "armMotor");
       
 
     }
@@ -35,11 +35,11 @@ public class PID_Slider extends OpMode {
     @Override
     public void loop() {
         controller.setPID(p, i , d);
-        int slidePos = LinearSlide1.getCurrentPosition();
+        int slidePos = armMotor.getCurrentPosition();
         double pid = controller.calculate(slidePos, target);
         double ff = Math.cos(Math.toRadians(target/ ticks_in_degrees)) * f;
         double power = pid + ff;
-        LinearSlide1.setPower(power);
+        armMotor.setPower(power);
         telemetry.addData("pos", slidePos);
         telemetry.addData("target", target);
         telemetry.update();

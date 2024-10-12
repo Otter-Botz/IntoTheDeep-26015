@@ -1,3 +1,5 @@
+
+/*
 package org.firstinspires.ftc.teamcode.common;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
@@ -199,6 +201,7 @@ public class RobotController {
      * <p>
      * Positive Yaw is counter-clockwise
      */
+ /*
     public void moveRobot(double x, double y, double yaw) {
         // Calculate wheel powers.
         double leftFrontPower    =  x -y -yaw;
@@ -723,7 +726,7 @@ public class RobotController {
 //        //parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
 //        expImu.initialize(parameters);
 //    }
-
+/*
     private void initExpIMU() {
         expImu = hardwareMap.get(IMU.class, "imu1");
         // Adjust the orientation parameters to match your robot
@@ -755,3 +758,4 @@ public class RobotController {
         return linearOpMode.opModeIsActive();
     }
 }
+*/
