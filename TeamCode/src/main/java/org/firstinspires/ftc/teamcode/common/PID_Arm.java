@@ -1,19 +1,14 @@
 package org.firstinspires.ftc.teamcode.common;
 
-import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.controller.PIDController;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.common.interfaces.armMan;
-
 @Config
 @TeleOp
-public class PID_Arm implements armMan {
+public class PID_Arm  {
     private PIDController controller;
 
     public static double p = 0, i = 0, d = 0;
@@ -28,17 +23,17 @@ public class PID_Arm implements armMan {
 
 
 
-    @Override
+
     public void up() {
         target = 600;
     }
 
-    @Override
+
     public void down() {
         target = 300;
     }
 
-    @Override
+
     public void math() {
 
 
@@ -53,7 +48,7 @@ public class PID_Arm implements armMan {
        // telemetry.update();
     }
 
-    @Override
+
     public void init(HardwareMap hwMap) {
         armMotor = hwMap.get(DcMotor.class, "armMotor");
         controller = new PIDController(p, i, d);
