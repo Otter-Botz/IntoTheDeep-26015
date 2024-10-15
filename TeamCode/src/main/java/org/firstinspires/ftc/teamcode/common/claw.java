@@ -18,14 +18,14 @@ public class claw implements armSystem {
     @Override
     public void set1() {
         //open
-        clawServo.setPosition(0.5);
+        clawServo.setPosition(0.1);
 
     }
 
     @Override
     public void set2() {
-        //down
-        clawServo.setPosition(0.8);
+        //close
+        clawServo.setPosition(0.35);
     }
 
     @Override

@@ -10,7 +10,6 @@ public class TeleOpFinal extends LinearOpMode {
     claw claw = new claw();
     ArmSlider armSlider = new ArmSlider();
     PID_Arm PID_Arm = new PID_Arm();
-
     vroomVroom vroom = new vroomVroom();
 
 
@@ -21,8 +20,8 @@ public class TeleOpFinal extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         waitForStart();
-       claw.init(hardwareMap);
-       armSlider.init(hardwareMap);
+        claw.init(hardwareMap);
+        armSlider.init(hardwareMap);
         PID_Arm.init(hardwareMap);
         vroom.init(hardwareMap);
 
@@ -32,6 +31,10 @@ public class TeleOpFinal extends LinearOpMode {
         if (gamepad1.options) {
             vroom.resetYaw();
         }
+
+
+
+
 
 
 

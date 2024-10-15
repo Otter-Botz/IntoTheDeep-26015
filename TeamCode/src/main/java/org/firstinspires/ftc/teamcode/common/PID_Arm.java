@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 @Config
-@TeleOp
+
 public class PID_Arm  {
     private PIDController controller;
 
@@ -43,6 +43,7 @@ public class PID_Arm  {
         double ff = Math.cos(Math.toRadians(target/ ticks_in_degrees)) * f;
         double power = pid + ff;
         armMotor.setPower(power);
+        // add tele back into main class
        // telemetry.addData("pos", slidePos);
        // telemetry.addData("target", target);
        // telemetry.update();

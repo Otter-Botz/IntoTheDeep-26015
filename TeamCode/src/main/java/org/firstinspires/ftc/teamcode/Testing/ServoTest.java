@@ -13,7 +13,7 @@ public class ServoTest  extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        CRServo servo1 = hardwareMap.crservo.get("servo1");
+        //CRServo servo1 = hardwareMap.crservo.get("servo1");
         Servo servo2 = hardwareMap.servo.get("servo2");
         waitForStart();
 
@@ -31,12 +31,14 @@ public class ServoTest  extends LinearOpMode {
             */
 
 
-
+// huh
                 if (gamepad1.a) {
-                    servo2.setPosition(0.5);
+                    //close
+                    servo2.setPosition(0.35);
                 }
                 else if (gamepad1.b) {
-                    servo2.setPosition(0.6);
+                    //open
+                    servo2.setPosition(0.1);
                 }
 
 
