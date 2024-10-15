@@ -21,10 +21,7 @@ public class vroomVroom  {
 
     private IMU imu;
 
-    double y; // Remember, Y stick value is reversed
-    double x;
-    double rx;
-    double power;
+
 
 
 
@@ -55,8 +52,7 @@ public class vroomVroom  {
 
 
 
-        public void math(){
-
+        public void math(double y, double x, double rx, double power ){
 
 
 
