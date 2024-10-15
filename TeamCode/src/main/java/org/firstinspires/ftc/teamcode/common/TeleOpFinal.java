@@ -28,21 +28,20 @@ public class TeleOpFinal extends LinearOpMode {
         if (gamepad1.options) {
             vroom.resetYaw();
         }
-
-        if (gamepad1.a){
+        else if (gamepad1.a){
             claw.set1();
         }
-
-        if (gamepad1.b){
+        else if (gamepad1.b){
             claw.set2();
         }
+        else if (gamepad1.x){
+            PID_Arm.up();
+        }
+        else if (gamepad1.y){
+            PID_Arm.down();
+        }
 
-        if (gamepad1.x){
-            ArmSlider.set1();
-        }
-        if (gamepad1.y){
-            ArmSlider.set2();
-        }
+
 
 
 
