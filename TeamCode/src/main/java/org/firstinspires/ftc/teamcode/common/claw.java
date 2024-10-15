@@ -28,6 +28,7 @@ public class claw implements armSystem {
         clawServo.setPosition(0.8);
     }
 
+    @Override
     public void init(HardwareMap hwMap) {
         clawServo = hwMap.get(Servo.class,  "clawServo");
 
