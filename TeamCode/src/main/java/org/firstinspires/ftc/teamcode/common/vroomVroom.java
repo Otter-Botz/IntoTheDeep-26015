@@ -3,15 +3,12 @@ package org.firstinspires.ftc.teamcode.common;
 
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 
 public class vroomVroom  {
     private DcMotor frontLeftMotor;
@@ -52,7 +49,7 @@ public class vroomVroom  {
 
 
 
-        public void math(double y, double x, double rx, double power ){
+        public void vrooooooom(double y, double x, double rx, double power ){
 
 
 
