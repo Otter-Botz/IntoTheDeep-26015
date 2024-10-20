@@ -23,7 +23,7 @@ public class vroomVroom  {
 
 
         public  void init(HardwareMap hwMap) {
-            frontLeftMotor = hwMap.get(DcMotor.class, "leftFront");
+            frontLeftMotor = hwMap.get(DcMotor.class, "rightFront");
             backLeftMotor = hwMap.get(DcMotor.class, "leftFront");
             frontRightMotor = hwMap.get(DcMotor.class, "leftBack");
             backRightMotor = hwMap.get(DcMotor.class, "rightBack");
