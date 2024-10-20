@@ -51,6 +51,11 @@ public class TeleOpFinal extends LinearOpMode {
         else if (gamepad2.left_stick_y>1){
             ArmSlider.set2();
         }
+        else if (gamepad2.right_stick_y<1){
+            PID_Slider.Sliderset1();
+        } else if (gamepad2.right_stick_y>1) {
+            PID_Slider.Sliderset2();
+        }
         //what
 
 

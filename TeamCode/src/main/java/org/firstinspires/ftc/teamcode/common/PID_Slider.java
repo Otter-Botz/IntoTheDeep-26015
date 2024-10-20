@@ -41,4 +41,23 @@ public class PID_Slider {
     }
 
 
+    public void Sliderset1() {
+        //up
+        sliderMotor.setPower(0.6);
+        sliderMotorMotor.setPower(0.6);
+    }
+
+
+    public void Sliderset2() {
+        //down
+        sliderMotor.setPower(-0.6);
+        sliderMotorMotor.setPower(-0.6);
+    }
+
+
+
+
+
+
+
 }

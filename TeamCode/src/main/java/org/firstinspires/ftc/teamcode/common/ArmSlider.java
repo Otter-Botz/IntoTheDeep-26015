@@ -18,13 +18,13 @@ public class ArmSlider implements armSystem {
     @Override
     public void set1() {
         //up
-        armSliderServo.setPower(0.5);
+        armSliderServo.setPower(0.6);
     }
 
     @Override
     public void set2() {
         //down
-        armSliderServo.setPower(-0.5);
+        armSliderServo.setPower(-0.6);
     }
 
     @Override
