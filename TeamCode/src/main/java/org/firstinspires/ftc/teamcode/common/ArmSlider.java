@@ -8,28 +8,18 @@ import org.firstinspires.ftc.teamcode.common.interfaces.armSystem;
 
 
 
-public class ArmSlider implements armSystem {
-    private CRServo armSliderServo;
+public class ArmSlider  {
+     CRServo armSliderServo;
 
 
 
 
 
-    @Override
-    public void set1() {
-        //up
-        armSliderServo.setPower(0.6);
-    }
 
-    @Override
-    public void set2() {
-        //down
-        armSliderServo.setPower(-0.6);
-    }
 
-    @Override
+
     public void init(HardwareMap hwMap) {
-        armSliderServo = hwMap.get(CRServo.class, "armSliderServo");
+        armSliderServo = hwMap.get(CRServo.class, "servoSlide");
 
     }
 }

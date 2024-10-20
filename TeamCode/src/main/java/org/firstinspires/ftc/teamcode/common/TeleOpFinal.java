@@ -10,7 +10,7 @@ public class TeleOpFinal extends LinearOpMode {
     PID_Arm PID_Arm = new PID_Arm();
     vroomVroom vroom = new vroomVroom();
     PID_Slider PID_Slider = new PID_Slider();
-
+    wrist wrist = new wrist();
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -21,7 +21,7 @@ public class TeleOpFinal extends LinearOpMode {
         PID_Arm.init(hardwareMap);
         vroom.init(hardwareMap);
         PID_Slider.init(hardwareMap);
-
+        wrist.init(hardwareMap);
         vroom.vrooooooom(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, gamepad1.right_trigger );
         PID_Arm.math();
 
@@ -45,17 +45,15 @@ public class TeleOpFinal extends LinearOpMode {
         else if (gamepad2.x && PID_Arm.target == 600){
             PID_Arm.down();
         }
-        else if (gamepad2.left_stick_y<1){
-            ArmSlider.set1();
+        /*
+        else if (gamepad2.b) {
+            wrist.set1();
+        } else if (gamepad2.b) {
+            wrist.set2();
         }
-        else if (gamepad2.left_stick_y>1){
-            ArmSlider.set2();
-        }
-        else if (gamepad2.right_stick_y<1){
-            PID_Slider.Sliderset1();
-        } else if (gamepad2.right_stick_y>1) {
-            PID_Slider.Sliderset2();
-        }
+        */
+
+        ArmSlider.armSliderServo.setPower(gamepad2.left_stick_y);
         //what
 
 
