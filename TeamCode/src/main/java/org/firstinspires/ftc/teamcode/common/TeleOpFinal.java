@@ -43,7 +43,9 @@ public class TeleOpFinal extends LinearOpMode {
         else if (gamepad1.left_stick_x<1) {
             ArmSlider.set1();
         }
-        //bogos binted
+        else if (gamepad1.left_stick_x>1){
+            ArmSlider.set2();
+        }
         //hello
 
 
