@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.common;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp(name = "OTTERRRRR")
 public class TeleOpFinal extends LinearOpMode {
@@ -15,8 +16,7 @@ public class TeleOpFinal extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-
-
+             DcMotor armMotor = hardwareMap.get(DcMotor.class, "armMotor");
             claw.init(hardwareMap);
             ArmSlider.init(hardwareMap);
             PID_Arm.init(hardwareMap);
@@ -60,17 +60,12 @@ public class TeleOpFinal extends LinearOpMode {
             //what
         }
 
-
-
+        telemetry.addData("Ticks", armMotor.getCurrentPosition());
+        telemetry.update();
 
 
 
 
     }
 }
-
-
-
-
-
 
