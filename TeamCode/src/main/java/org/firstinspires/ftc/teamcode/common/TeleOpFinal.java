@@ -36,10 +36,10 @@ public class TeleOpFinal extends LinearOpMode {
             //close
             claw.set2();
         }
-        else if (gamepad1.x){
+        else if (gamepad1.x && PID_Arm.target == 300){
             PID_Arm.up();
         }
-        else if (gamepad1.y){
+        else if (gamepad1.x && PID_Arm.target == 600){
             PID_Arm.down();
         }
         else if (gamepad1.left_stick_y<1){
