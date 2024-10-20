@@ -35,8 +35,8 @@ public class PID_Slider {
     }
 
     public void init(HardwareMap hwMap) {
-        sliderMotor = hwMap.get(DcMotor.class, "sliderMotor");
-        sliderMotorMotor = hwMap.get(DcMotor.class, "sliderMotorMotor");
+        sliderMotor = hwMap.get(DcMotor.class, "slideMotor");
+        sliderMotorMotor = hwMap.get(DcMotor.class, "slideMotorMotor");
         controller = new PIDController(p, i, d);
     }
 
