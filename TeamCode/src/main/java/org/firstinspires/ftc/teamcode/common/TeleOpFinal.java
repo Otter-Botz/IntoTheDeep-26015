@@ -31,7 +31,7 @@ public class TeleOpFinal extends LinearOpMode {
         else if (gamepad1.a){
             claw.set1();
         }
-        else if (gamepad1.a){
+        else if (gamepad1.b){
             claw.set2();
         }
         else if (gamepad1.x){
@@ -40,12 +40,7 @@ public class TeleOpFinal extends LinearOpMode {
         else if (gamepad1.y){
             PID_Arm.down();
         }
-        else if (gamepad1.left_stick_y<1) {
-            ArmSlider.set1();
-        }
-        else if (gamepad1.left_stick_y>1){
-            ArmSlider.set2();
-        }
+        //bogos
         //hello
 
 
