@@ -40,10 +40,10 @@ public class TeleOpFinal extends LinearOpMode {
         else if (gamepad1.y){
             PID_Arm.down();
         }
-        else if (gamepad1.left_stick_x<1) {
+        else if (gamepad1.left_stick_y<1) {
             ArmSlider.set1();
         }
-        else if (gamepad1.left_stick_x>1){
+        else if (gamepad1.left_stick_y>1){
             ArmSlider.set2();
         }
         //hello
