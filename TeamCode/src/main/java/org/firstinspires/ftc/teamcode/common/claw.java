@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.common.interfaces.armSystem;
 public class claw implements armSystem {
 
     private Servo clawServo;
+    double servoPosition = clawServo.getPosition();
 
 
 
