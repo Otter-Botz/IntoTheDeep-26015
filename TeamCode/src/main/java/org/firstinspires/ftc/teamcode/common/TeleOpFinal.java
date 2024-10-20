@@ -28,6 +28,9 @@ public class TeleOpFinal extends LinearOpMode {
         if (gamepad1.options) {
             vroom.resetYaw();
         }
+        else if (gamepad1.dpad_down) {
+            gamepad2.rumble(1);
+        }
         else if (gamepad1.a && claw.servoPosition == 0.35){
             //open
             claw.set1();
@@ -36,16 +39,16 @@ public class TeleOpFinal extends LinearOpMode {
             //close
             claw.set2();
         }
-        else if (gamepad1.x && PID_Arm.target == 300){
+        else if (gamepad2.x && PID_Arm.target == 300){
             PID_Arm.up();
         }
-        else if (gamepad1.x && PID_Arm.target == 600){
+        else if (gamepad2.x && PID_Arm.target == 600){
             PID_Arm.down();
         }
-        else if (gamepad1.left_stick_y<1){
+        else if (gamepad2.left_stick_y<1){
             ArmSlider.set1();
         }
-        else if (gamepad1.left_stick_y>1){
+        else if (gamepad2.left_stick_y>1){
             ArmSlider.set2();
         }
         //what
