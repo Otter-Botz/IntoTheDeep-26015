@@ -19,26 +19,26 @@ public class vroomVroom  {
     private IMU imu;
 
 
-
-
-
+    //o
         public  void init(HardwareMap hwMap) {
-            frontLeftMotor = hwMap.get(DcMotor.class, "rightFront");
-            backLeftMotor = hwMap.get(DcMotor.class, "leftFront");
-            frontRightMotor = hwMap.get(DcMotor.class, "leftBack");
+            frontLeftMotor = hwMap.get(DcMotor.class, "leftFront");
+            backLeftMotor = hwMap.get(DcMotor.class, "leftBack");
+            frontRightMotor = hwMap.get(DcMotor.class, "rightFront");
             backRightMotor = hwMap.get(DcMotor.class, "rightBack");
 
             frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-            backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+            //backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
              imu = hwMap.get(IMU.class, "imu");
             // Adjust the orientation parameters to match your robot
             IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                     RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                    RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD));
+                    RevHubOrientationOnRobot.UsbFacingDirection.LEFT));
             // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
             imu.initialize(parameters);
+
+
         }
 
         public void resetYaw(){

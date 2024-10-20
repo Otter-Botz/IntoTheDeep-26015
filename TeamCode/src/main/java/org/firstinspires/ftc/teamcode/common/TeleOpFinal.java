@@ -1,8 +1,9 @@
 package org.firstinspires.ftc.teamcode.common;
 
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.IMU;
 
 @TeleOp(name = "OTTERRRRR")
 public class TeleOpFinal extends LinearOpMode {
@@ -16,7 +17,7 @@ public class TeleOpFinal extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-             DcMotor armMotor = hardwareMap.get(DcMotor.class, "armMotor");
+
             claw.init(hardwareMap);
             ArmSlider.init(hardwareMap);
             PID_Arm.init(hardwareMap);
@@ -25,8 +26,9 @@ public class TeleOpFinal extends LinearOpMode {
             wrist.init(hardwareMap);
 
             waitForStart();
+            //o
         while (opModeIsActive()) {
-            vroom.vrooooooom(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, gamepad1.right_trigger);
+            vroom.vrooooooom(-gamepad1.left_stick_y, gamepad1.left_stick_x, -gamepad1.right_stick_x, gamepad1.right_trigger);
             PID_Arm.math();
 
             if (gamepad1.options) {
@@ -58,14 +60,20 @@ public class TeleOpFinal extends LinearOpMode {
         */
          ArmSlider.armSliderServo.setPower(gamepad2.left_stick_y);
             //what
+
         }
 
-        telemetry.addData("Ticks", armMotor.getCurrentPosition());
-        telemetry.update();
+
+
 
 
 
 
     }
 }
+
+
+
+
+
 

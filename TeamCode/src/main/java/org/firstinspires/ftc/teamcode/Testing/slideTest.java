@@ -10,11 +10,13 @@ public class slideTest extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
 
-        DcMotor slideMotor = hardwareMap.dcMotor.get("linearSlide1");
+        DcMotor slideMotor = hardwareMap.dcMotor.get("slideMotor");
+        DcMotor slideMotorMotor = hardwareMap.dcMotor.get("slideMotorMotor");
         waitForStart();
 
         while (opModeIsActive()) {
           slideMotor.setPower(gamepad1.left_stick_y);
+          slideMotorMotor.setPower(gamepad1.left_stick_y);
 
 
         }
