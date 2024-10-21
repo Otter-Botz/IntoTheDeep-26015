@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.common.interfaces.armSystem;
 
 public class wrist implements armSystem {
     private Servo wristServo;
+
     @Override
     public void set1() {
         wristServo.setPosition(0.1);

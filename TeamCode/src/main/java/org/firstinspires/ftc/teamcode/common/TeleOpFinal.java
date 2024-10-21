@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.common;
 
+
+
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -20,7 +22,7 @@ public class TeleOpFinal extends LinearOpMode {
 
             claw.init(hardwareMap);
             ArmSlider.init(hardwareMap);
-            PID_Arm.init(hardwareMap);
+            //PID_Arm.init(hardwareMap);
             vroom.init(hardwareMap);
             PID_Slider.init(hardwareMap);
             wrist.init(hardwareMap);
@@ -29,7 +31,7 @@ public class TeleOpFinal extends LinearOpMode {
             //o
         while (opModeIsActive()) {
             vroom.vrooooooom(-gamepad1.left_stick_y, gamepad1.left_stick_x, -gamepad1.right_stick_x, gamepad1.right_trigger);
-            PID_Arm.math();
+            //PID_Arm.math();
 
             if (gamepad1.options) {
                 vroom.resetYaw();
@@ -51,13 +53,13 @@ public class TeleOpFinal extends LinearOpMode {
         }
         */
 
-        /*
-        else if (gamepad2.b) {
+
+        else if (gamepad2.a) {
             wrist.set1();
         } else if (gamepad2.b) {
             wrist.set2();
         }
-        */
+
          ArmSlider.armSliderServo.setPower(gamepad2.left_stick_y);
             //what
 
