@@ -23,6 +23,7 @@ public class armTest extends LinearOpMode {
             if (gamepad1.a) {
                 armMotorUno.setTargetPosition(525);
                 armMotorUno.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                armMotorUno.setPower(0.3);
             }
             telemetry.addData("pos", armMotorUno.getCurrentPosition());
             telemetry.update();

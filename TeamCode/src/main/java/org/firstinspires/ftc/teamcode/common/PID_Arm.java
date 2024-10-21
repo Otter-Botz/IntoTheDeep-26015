@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.common;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -48,6 +50,7 @@ public class PID_Arm  {
        // telemetry.addData("target", target);
        // telemetry.update();
     }
+
 
 
     public void init(HardwareMap hwMap) {

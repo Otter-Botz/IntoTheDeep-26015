@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.common;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IMU;
 
 @TeleOp(name = "OTTERRRRR")
@@ -13,7 +14,6 @@ public class TeleOpFinal extends LinearOpMode {
     vroomVroom vroom = new vroomVroom();
     PID_Slider PID_Slider = new PID_Slider();
     wrist wrist = new wrist();
-
     @Override
     public void runOpMode() throws InterruptedException {
 
