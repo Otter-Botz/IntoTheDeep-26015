@@ -54,12 +54,13 @@ public class TeleOpFinal extends LinearOpMode {
         */
 
 
-        else if (gamepad2.a) {
+        else if (gamepad1.x) {
             wrist.set1();
-        } else if (gamepad2.b) {
+        } else if (gamepad1.y) {
             wrist.set2();
         }
-
+        PID_Slider.sliderMotor.setPower(-gamepad2.right_stick_y);
+        PID_Slider.sliderMotorMotor.setPower(-gamepad2.right_stick_y);
          ArmSlider.armSliderServo.setPower(gamepad2.left_stick_y);
             //what
 
