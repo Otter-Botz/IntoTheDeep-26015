@@ -35,7 +35,7 @@ public class TeleOpFinal extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            clawServo.setPosition(0.35);
+
             vroom.vrooooooom(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, gamepad1.right_trigger);
             PID_Arm.math();
 
@@ -46,11 +46,11 @@ public class TeleOpFinal extends LinearOpMode {
                 gamepad2.rumble(1);
             } else if (gamepad1.a ) {
                 //open
-                // 0.1
+                // 0.4
                 claw.set1();
             } else if (gamepad1.b ) {
                 //close
-                //0.35
+                //0.7
                 claw.set2();
             }
 
@@ -66,9 +66,9 @@ public class TeleOpFinal extends LinearOpMode {
         else if (gamepad2.dpad_up){
             PID_Arm.armMotor.setPower(0.2);
         }
-           else if (gamepad1.x) {
+           else if (gamepad2.b) {
            wrist.set1();
-        } else if (gamepad1.y) {
+        } else if (gamepad2.a) {
             wrist.set2();
         }
        PID_Slider.sliderMotor.setPower(-gamepad2.right_stick_y);
