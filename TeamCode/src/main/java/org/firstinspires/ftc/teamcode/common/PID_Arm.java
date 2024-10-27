@@ -21,7 +21,7 @@ public class PID_Arm extends OpMode {
     public static int target = 0;
 
     private final double ticks_in_degrees = 1425.1/360;
-    private DcMotor armMotor;
+    public DcMotor armMotor;
 
     @Override
     public void init() {
