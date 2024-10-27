@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.common;
 
 
+
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -10,11 +12,6 @@ import org.firstinspires.ftc.teamcode.common.interfaces.armSystem;
 public class claw implements armSystem {
 
     private Servo clawServo;
-
-   // double servoPosition = clawServo.getPosition();
-
-
-
 
     @Override
     public void set1() {
@@ -34,4 +31,6 @@ public class claw implements armSystem {
         clawServo = hwMap.get(Servo.class,  "clawServo");
 
     }
+
+
 }

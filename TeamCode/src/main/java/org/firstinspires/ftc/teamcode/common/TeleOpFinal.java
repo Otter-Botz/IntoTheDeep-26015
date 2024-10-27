@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "OTTERRRRR")
 public class TeleOpFinal extends LinearOpMode {
@@ -16,42 +17,50 @@ public class TeleOpFinal extends LinearOpMode {
     vroomVroom vroom = new vroomVroom();
     PID_Slider PID_Slider = new PID_Slider();
     wrist wrist = new wrist();
+
     @Override
     public void runOpMode() throws InterruptedException {
 
 
             claw.init(hardwareMap);
             ArmSlider.init(hardwareMap);
-            //PID_Arm.init(hardwareMap);
+            PID_Arm.init(hardwareMap);
             vroom.init(hardwareMap);
             PID_Slider.init(hardwareMap);
             wrist.init(hardwareMap);
+            Servo clawServo = hardwareMap.get(Servo.class,  "clawServo");
 
-            waitForStart();
-            //o
+
+        waitForStart();
+
         while (opModeIsActive()) {
-            vroom.vrooooooom(-gamepad1.left_stick_y, gamepad1.left_stick_x, -gamepad1.right_stick_x, gamepad1.right_trigger);
-            //PID_Arm.math();
+
+            clawServo.setPosition(0.35);
+            vroom.vrooooooom(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, gamepad1.right_trigger);
+            PID_Arm.math();
+
 
             if (gamepad1.options) {
                 vroom.resetYaw();
             } else if (gamepad1.dpad_down) {
                 gamepad2.rumble(1);
-            } else if (gamepad1.a) {
+            } else if (gamepad1.a ) {
                 //open
+                // 0.1
                 claw.set1();
-            } else if (gamepad1.b) {
+            } else if (gamepad1.b ) {
                 //close
+                //0.35
                 claw.set2();
             }
-        /*
-        else if (gamepad2.x && PID_Arm.target == 300){
+
+        else if (gamepad2.x){
             PID_Arm.up();
         }
-        else if (gamepad2.x && PID_Arm.target == 600){
+        else if (gamepad2.y){
             PID_Arm.down();
         }
-        */
+
 
 
         else if (gamepad1.x) {

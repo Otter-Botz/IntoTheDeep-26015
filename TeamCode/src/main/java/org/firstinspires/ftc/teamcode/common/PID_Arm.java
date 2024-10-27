@@ -1,5 +1,5 @@
 package org.firstinspires.ftc.teamcode.common;
-/*
+
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-
+/*
 @Config
 @TeleOp
 public class PID_Arm extends OpMode {
@@ -67,8 +67,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class PID_Arm  {
     private PIDController controller;
 
-    public static double p = 0, i = 0, d = 0;
-    public static double f = 0;
+    public static double p = 0.005, i = 0.03, d = 0.0005;
+    public static double f = 0.12;
 
     public static int target = 0;
 
@@ -81,12 +81,12 @@ public class PID_Arm  {
 
 
     public void up() {
-        target = 600;
+        target = 250;
     }
 
 
     public void down() {
-        target = 300;
+        target = -190;
     }
 
 
@@ -110,7 +110,7 @@ public class PID_Arm  {
     public void init(HardwareMap hwMap) {
         armMotor = hwMap.get(DcMotor.class, "armMotor");
         controller = new PIDController(p, i, d);
-    }
+    }}
     // telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
-}
+
