@@ -57,11 +57,11 @@ public class TeleOpFinal extends LinearOpMode {
         else if (gamepad2.x){
             PID_Arm.up();
         }
+
+
         else if (gamepad2.y){
             PID_Arm.down();
         }
-
-
 
         else if (gamepad1.x) {
             wrist.set1();
