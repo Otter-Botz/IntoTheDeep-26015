@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 @Autonomous(name= "RedRight" )
-public class RedRight extends LinearOpMode {
+public class Rright extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
