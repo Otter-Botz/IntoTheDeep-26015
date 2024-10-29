@@ -74,7 +74,8 @@ public class TeleOpFinal extends LinearOpMode {
             PID_Slider.sliderMotor.setPower(-gamepad2.right_stick_y);
             PID_Slider.sliderMotorMotor.setPower(-gamepad2.right_stick_y);
             ArmSlider.armSliderServo.setPower(gamepad2.left_stick_y);
-
+            telemetry.addData("pos", PID_Arm.armMotor.getCurrentPosition());
+            telemetry.update();
 
         }
 
