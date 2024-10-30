@@ -12,8 +12,8 @@ import org.firstinspires.ftc.teamcode.common.PID_Slider;
 import org.firstinspires.ftc.teamcode.common.claw;
 import org.firstinspires.ftc.teamcode.common.wrist;
 
-@Autonomous(name = "Bleft")
-public class Bleft extends LinearOpMode {
+@Autonomous(name = "Biddle")
+public class Biddle extends LinearOpMode {
     claw claw = new claw();
     ArmSlider ArmSlider = new ArmSlider();
     PID_Arm PID_Arm = new PID_Arm();
