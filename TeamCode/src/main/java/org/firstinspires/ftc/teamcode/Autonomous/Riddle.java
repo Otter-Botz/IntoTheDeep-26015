@@ -22,8 +22,8 @@ import org.firstinspires.ftc.teamcode.common.vroomVroom;
 import org.firstinspires.ftc.teamcode.common.wrist;
 
 
-@Autonomous(name= "Blight" )
-public class Blight extends LinearOpMode {
+@Autonomous(name= "Riddle" )
+public class Riddle extends LinearOpMode {
 
     claw claw = new claw();
     ArmSlider ArmSlider = new ArmSlider();
@@ -44,21 +44,13 @@ public class Blight extends LinearOpMode {
         Pose2d initialPose = new Pose2d(72, -36, Math.toRadians(180));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
-        TrajectoryActionBuilder blight = drive.actionBuilder(initialPose);
+        TrajectoryActionBuilder Riddle = drive.actionBuilder(initialPose);
 
 
 
 
     }
 }
-
-
-
-
-
-
-
-
 
 
 
