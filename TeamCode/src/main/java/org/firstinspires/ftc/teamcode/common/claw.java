@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.common.interfaces.armSystem;
 
 public class claw implements armSystem {
 
-    private Servo clawServo;
+    public Servo clawServo;
 
     @Override
     public void set1() {

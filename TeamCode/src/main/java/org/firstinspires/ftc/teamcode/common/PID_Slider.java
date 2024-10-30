@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class PID_Slider {
 
-    DcMotor sliderMotorMotor;
-    DcMotor sliderMotor;
+    public DcMotor sliderMotorMotor;
+    public DcMotor sliderMotor;
 
 
     public void init(HardwareMap hwMap) {

@@ -74,7 +74,7 @@ public class PID_Arm  {
 
     private final double ticks_in_degrees = 700/180;
 
-  DcMotor armMotor;
+  public DcMotor armMotor;
 
 
 

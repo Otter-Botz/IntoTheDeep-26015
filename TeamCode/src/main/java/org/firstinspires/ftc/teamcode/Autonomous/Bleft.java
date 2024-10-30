@@ -39,58 +39,140 @@ public class Bleft extends LinearOpMode {
                     .straferight(30)
                     .build();
             //Move to rung
+            PID_Slider.sliderMotor.setPower(0.5);
+            PID_Slider.sliderMotorMotor.setPower(-0.5);
+            PID_Slider.sliderMotorMotor.setTargetPosition(900);
+            PID_Slider.sliderMotor.setTargetPosition(900);
+            PID_Arm.armMotor.setPower(0.4);
+            PID_Arm.armMotor.setTargetPosition(300);
+            //Arm Motor to be tuned
+            claw.set1();
+            //Claw Open
+            claw.set2();
+            //Claw Close
+            PID_Slider.sliderMotor.setPower(-0.5);
+            PID_Slider.sliderMotorMotor.setPower(0.5);
+            PID_Slider.sliderMotorMotor.setTargetPosition(-900);
+            PID_Slider.sliderMotor.setTargetPosition(-900);
+            PID_Arm.armMotor.setPower(-0.4);
+            PID_Arm.armMotor.setTargetPosition(-300);
+            //Arm Motor to be tuned
             // Robot moves to the specified coordinates while linearly
             // interpolating between the start heading and a specified end heading.
             new TrajectoryBuilder(new Pose2d())
                     .lineToLinearHeading(new Pose2d(40, 40, Math.toRadians(90)))
                     .build();
             //Slider Up/Claw outtake
+            PID_Slider.sliderMotor.setPower(0.5);
+            PID_Slider.sliderMotorMotor.setPower(-0.5);
+            PID_Slider.sliderMotorMotor.setTargetPosition(900);
+            PID_Slider.sliderMotor.setTargetPosition(900);
+            PID_Arm.armMotor.setPower(0.4);
+            PID_Arm.armMotor.setTargetPosition(300);
+            //Slider Up
+            claw.set1();
+            //Claw Open
+            claw.set2();
+            //Claw Closed
             new TrajectoryBuilder(new Pose2d())
                     .back(23)
                     .strafeleft(17)
                     .forward(8);
             //Claw pick up
+            //Wrist Positions
+            //To be tuned
+            claw.set1();
+            //Claw Open
+            claw.set2();
+            //Claw Close
             new TrajectoryBuilder(new Pose2d())
                     .back(23)
                     .straferight(14)
                     .forward(13.5);
             //Slider up/Claw outtake
+            PID_Slider.sliderMotor.setPower(0.5);
+            PID_Slider.sliderMotorMotor.setPower(-0.5);
+            PID_Slider.sliderMotorMotor.setTargetPosition(900);
+            PID_Slider.sliderMotor.setTargetPosition(900);
+            PID_Arm.armMotor.setPower(0.4);
+            PID_Arm.armMotor.setTargetPosition(300);
+            claw.set1();
+            //Claw Open
+            claw.set2();
+            //Claw Close
+            PID_Slider.sliderMotor.setPower(-0.5);
+            PID_Slider.sliderMotorMotor.setPower(0.5);
+            PID_Slider.sliderMotorMotor.setTargetPosition(-900);
+            PID_Slider.sliderMotor.setTargetPosition(-900);
+            PID_Arm.armMotor.setPower(-0.4);
+            PID_Arm.armMotor.setTargetPosition(-300);
+
             new TrajectoryBuilder(new Pose2d())
                     .back(13)
                     .strafeleft(13.5)
                     .forward(8);
             //Robo to second spike
+            claw.set1();
+            //Claw Open
+            claw.set2();
+            // Close
             new TrajectoryBuilder(new Pose2d())
                     .back(30)
                     .straferight(20)
                     .forward(35);
             //Basket number 2
+            PID_Slider.sliderMotor.setPower(0.5);
+            PID_Slider.sliderMotorMotor.setPower(-0.5);
+            PID_Slider.sliderMotorMotor.setTargetPosition(900);
+            PID_Slider.sliderMotor.setTargetPosition(900);
+            PID_Arm.armMotor.setPower(0.4);
+            PID_Arm.armMotor.setTargetPosition(300);
+            claw.set1();
+            //Claw Open
+            claw.set2();
+            //Claw Close
+            PID_Slider.sliderMotor.setPower(-0.5);
+            PID_Slider.sliderMotorMotor.setPower(0.5);
+            PID_Slider.sliderMotorMotor.setTargetPosition(-900);
+            PID_Slider.sliderMotor.setTargetPosition(-900);
+            PID_Arm.armMotor.setPower(-0.4);
+            PID_Arm.armMotor.setTargetPosition(-300);
+
             new TrajectoryBuilder(new Pose2d())
                     .back(20)
                     .strafeleft(25)
                     .forward(35);
             //Robo to third spike
+            claw.set1();
+            //Claw Open
+            claw.set2();
+            //Claw close
             new TrajectoryBuilder(new Pose2d())
                     .back(20)
                     .strafeleft(25)
                     .forward(35);
             //Robo to Basket
-            //slidermotor.setpower(0.5);
-            //slidermotormotor.setpower(0.5);
-            //slidermotor.setTargetPosition(1350);
+            PID_Slider.sliderMotor.setPower(0.5);
+            PID_Slider.sliderMotorMotor.setPower(-0.5);
+            PID_Slider.sliderMotorMotor.setTargetPosition(900);
+            PID_Slider.sliderMotor.setTargetPosition(900);
+            PID_Arm.armMotor.setPower(0.4);
+            PID_Arm.armMotor.setTargetPosition(300);
+            //Arm Slider Code might need to be tuned
+            claw.set1();
+            //Claw Open
+            claw.set2();
+            //Claw Close
+            PID_Slider.sliderMotor.setPower(-0.5);
+            PID_Slider.sliderMotorMotor.setPower(0.5);
+            PID_Slider.sliderMotorMotor.setTargetPosition(-900);
+            PID_Slider.sliderMotor.setTargetPosition(-900);
+            PID_Arm.armMotor.setPower(-0.4);
+            PID_Arm.armMotor.setTargetPosition(-300);
 
             //slider
             //Slider up and outtake
             //Park?
-
-
-
-
-
-
-
-
-
 
 
         }
