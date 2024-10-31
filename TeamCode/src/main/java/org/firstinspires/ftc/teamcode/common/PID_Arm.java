@@ -70,7 +70,7 @@ public class PID_Arm  {
     public static double p = 0.005, i = 0.03, d = 0.0005;
     public static double f = 0.12;
 
-    public static int target = -974;
+    public static int target = 70;
 
     private final double ticks_in_degrees = 700/180;
 
@@ -81,12 +81,12 @@ public class PID_Arm  {
 
 
     public void up() {
-        target = -550;
+        target = 534;
     }
 
 
     public void down() {
-        target = -1069;
+        target = 16;
     }
 
 
