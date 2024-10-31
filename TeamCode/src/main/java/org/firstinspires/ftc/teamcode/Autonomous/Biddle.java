@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.TrajectoryBuilder;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -12,7 +13,7 @@ import org.firstinspires.ftc.teamcode.common.PID_Slider;
 import org.firstinspires.ftc.teamcode.common.claw;
 import org.firstinspires.ftc.teamcode.common.wrist;
 
-@Autonomous(name = "Biddle")
+@Disabled
 public class Biddle extends LinearOpMode {
     claw claw = new claw();
     ArmSlider ArmSlider = new ArmSlider();
@@ -30,7 +31,7 @@ public class Biddle extends LinearOpMode {
         wrist.init(hardwareMap);
         Servo clawServo = hardwareMap.get(Servo.class, "clawServo");
 
-
+        /*
         waitForStart();
 
         while (opModeIsActive()) {
@@ -174,9 +175,9 @@ public class Biddle extends LinearOpMode {
             //Slider up and outtake
             //Park?
 
-
+            */
         }
     }
-}
+
 
 

@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
@@ -22,7 +23,7 @@ import org.firstinspires.ftc.teamcode.common.vroomVroom;
 import org.firstinspires.ftc.teamcode.common.wrist;
 
 
-@Autonomous(name= "Riddle" )
+@Disabled
 public class Riddle extends LinearOpMode {
 
     claw claw = new claw();
@@ -41,7 +42,7 @@ public class Riddle extends LinearOpMode {
         vroom.init(hardwareMap);
         PID_Slider.init(hardwareMap);
         wrist.init(hardwareMap);
-        Pose2d initialPose = new Pose2d(72, -36, Math.toRadians(180));
+        Pose2d initialPose = new Pose2d(-72, -18, Math.toRadians(0));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
         TrajectoryActionBuilder Riddle = drive.actionBuilder(initialPose);
