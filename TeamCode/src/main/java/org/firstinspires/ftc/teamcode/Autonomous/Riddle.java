@@ -45,7 +45,36 @@ public class Riddle extends LinearOpMode {
         Pose2d initialPose = new Pose2d(-72, -18, Math.toRadians(0));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
-        TrajectoryActionBuilder Riddle = drive.actionBuilder(initialPose);
+        TrajectoryActionBuilder Riddle = drive.actionBuilder(initialPose)
+                .strafeTo(new Vector2d(0, 38));
+                PID_Arm.up();
+                PID_Slider.sliderMotor.setPower(0.5);
+                PID_Slider.sliderMotorMotor.setPower(-0.5);
+                PID_Slider.sliderMotor.setTargetPosition(900);
+                PID_Slider.sliderMotorMotor.setTargetPosition(900);
+                claw.set1();
+                PID_Slider.sliderMotor.setTargetPosition(0);
+                PID_Slider.sliderMotorMotor.setTargetPosition(0);
+
+
+        TrajectoryActionBuilder Riddle2 = drive.actionBuilder(initialPose)
+                .strafeTo(new Vector2d(49,36));
+                claw.set2();
+                PID_Arm.up();
+                //grab all samples and put them in the high basket
+
+
+
+        TrajectoryActionBuilder Riddle3 = drive.actionBuilder(initialPose)
+                //PARK LEFT SIDE IN WHITE AREA
+                .strafeTo(new Vector2d(26,-11));
+            /* PARK RIGHT SIDE IN WHITE AREA
+                 .strafeTo(new Vector2d(26,11));*/
+
+        // still have to park in wing code
+
+
+
 
 
 
