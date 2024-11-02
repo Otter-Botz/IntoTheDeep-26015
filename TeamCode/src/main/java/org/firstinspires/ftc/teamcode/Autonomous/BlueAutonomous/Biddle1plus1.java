@@ -14,10 +14,10 @@ import org.firstinspires.ftc.teamcode.common.PID_Slider;
 import org.firstinspires.ftc.teamcode.common.claw;
 import org.firstinspires.ftc.teamcode.common.wrist;
 
-public class BlueAuton1Speciemenand1basket {
+public class Biddle1plus1 {
 
     @Disabled
-    public class BlueAuton1specimenand3baskets extends LinearOpMode {
+    public class BlueAuton1specimenand1baskets extends LinearOpMode {
         org.firstinspires.ftc.teamcode.common.claw claw = new claw();
         org.firstinspires.ftc.teamcode.common.ArmSlider ArmSlider = new ArmSlider();
         org.firstinspires.ftc.teamcode.common.PID_Arm PID_Arm = new PID_Arm();

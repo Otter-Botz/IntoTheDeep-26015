@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.common.claw;
 import org.firstinspires.ftc.teamcode.common.wrist;
 
 @Disabled
-public class BlueAuton1specimenand3baskets extends LinearOpMode {
+public class Biddle1plus3 extends LinearOpMode {
     claw claw = new claw();
     ArmSlider ArmSlider = new ArmSlider();
     PID_Arm PID_Arm = new PID_Arm();

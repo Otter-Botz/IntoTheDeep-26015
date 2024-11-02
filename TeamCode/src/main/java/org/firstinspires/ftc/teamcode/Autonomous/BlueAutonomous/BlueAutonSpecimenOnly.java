@@ -18,7 +18,7 @@ public class BlueAutonSpecimenOnly {
     public class BlueAuton1Speciemenand1basket {
 
         @Disabled
-        public class BlueAuton1specimenand3baskets extends LinearOpMode {
+        public class BlueAuton1specimenaOnly extends LinearOpMode {
             org.firstinspires.ftc.teamcode.common.claw claw = new claw();
             org.firstinspires.ftc.teamcode.common.ArmSlider ArmSlider = new ArmSlider();
             org.firstinspires.ftc.teamcode.common.PID_Arm PID_Arm = new PID_Arm();
@@ -64,6 +64,17 @@ public class BlueAutonSpecimenOnly {
                 // In other words, it constantly turns to a certain heading (once more, in radians) while moving to the specified coordinates.
                 BlueAutonomousDrive.strafeToLinearHeading(new Vector2d(36, 36), Math.toRadians(90));
                 BlueAutonomousDrive.build();
+
+                //Park
+                // Robot moves to the specified x coordinate in the direction of the robot heading (straight line).
+                // Both `lineToX()` and `lineToXConstantHeading()` are equivalent.
+                // 🚨 Will cause an error if your heading is perpendicular to direction your robot is traveling! 🚨
+
+                BlueAutonomousDrive.lineToX(15)
+                        .lineToXConstantHeading(15);
+                // Robot moves to the specified coordinates while linearly interpolating between the start heading and a specified end heading
+                // In other words, it constantly turns to a certain heading (once more, in radians) while moving to the specified coordinates.
+                BlueAutonomousDrive.strafeToLinearHeading(new Vector2d(36, 36), Math.toRadians(90));
 
             }
         }
