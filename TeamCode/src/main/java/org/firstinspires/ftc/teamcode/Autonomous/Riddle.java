@@ -60,7 +60,13 @@ public class Riddle extends LinearOpMode {
         TrajectoryActionBuilder Riddle2 = drive.actionBuilder(initialPose)
                 .strafeTo(new Vector2d(49,36));
                 claw.set2();
-                PID_Arm.up();
+                PID_Arm.armMotor.setTargetPosition(-300);
+                PID_Slider.sliderMotor.setPower(0.5);
+                PID_Slider.sliderMotorMotor.setPower(-0.5);
+                PID_Slider.sliderMotor.setTargetPosition(400);
+                PID_Slider.sliderMotorMotor.setTargetPosition(-400);
+
+
                 //grab all samples and put them in the high basket
 
 
