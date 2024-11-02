@@ -60,24 +60,56 @@ public class Riddle extends LinearOpMode {
         TrajectoryActionBuilder Riddle2 = drive.actionBuilder(initialPose)
                 .strafeTo(new Vector2d(49,36));
                 claw.set2();
-                PID_Arm.armMotor.setTargetPosition(-300);
+
+                PID_Arm.armMotor.setTargetPosition(500);
                 PID_Slider.sliderMotor.setPower(0.5);
-                PID_Slider.sliderMotorMotor.setPower(-0.5);
-                PID_Slider.sliderMotor.setTargetPosition(400);
-                PID_Slider.sliderMotorMotor.setTargetPosition(-400);
-
-
-                //grab all samples and put them in the high basket
-
+                PID_Slider.sliderMotorMotor.setPower(0.5);
+                PID_Arm.armMotor.setPower(0.5);
+                PID_Slider.sliderMotor.setTargetPosition(900);
+                PID_Slider.sliderMotorMotor.setTargetPosition(-900);
+                claw.set1();
+                PID_Slider.sliderMotor.setTargetPosition(0);
+                PID_Slider.sliderMotorMotor.setTargetPosition(0);
+                PID_Arm.armMotor.setTargetPosition(0);
 
 
         TrajectoryActionBuilder Riddle3 = drive.actionBuilder(initialPose)
+                .strafeTo(new Vector2d(60,36));
+                PID_Arm.armMotor.setPower(0.5);
+                PID_Slider.sliderMotor.setPower(0.5);
+                PID_Slider.sliderMotorMotor.setPower(0.5);
+                claw.set2();
+                PID_Arm.armMotor.setTargetPosition(500);
+                PID_Slider.sliderMotor.setTargetPosition(900);
+                PID_Slider.sliderMotorMotor.setTargetPosition(-900);
+                claw.set1();
+                PID_Slider.sliderMotor.setTargetPosition(0);
+                PID_Slider.sliderMotorMotor.setTargetPosition(0);
+                PID_Arm.armMotor.setTargetPosition(0);
+
+        TrajectoryActionBuilder Riddle4 = drive.actionBuilder(initialPose);
+            Riddle.turnTo(Math.toRadians(90))
+            .turnTo(Math.PI / 6);
+            Riddle.build();
+            claw.set2();
+            PID_Arm.armMotor.setPower(0.5);
+            PID_Slider.sliderMotor.setPower(0.5);
+            PID_Slider.sliderMotorMotor.setPower(0.5);
+            PID_Arm.armMotor.setTargetPosition(500);
+            PID_Slider.sliderMotor.setTargetPosition(900);
+            PID_Slider.sliderMotorMotor.setTargetPosition(-900);
+            PID_Slider.sliderMotor.setTargetPosition(0);
+            PID_Slider.sliderMotorMotor.setTargetPosition(0);
+            PID_Arm.armMotor.setTargetPosition(0);
+
+        TrajectoryActionBuilder Riddle5 = drive.actionBuilder(initialPose)
                 //PARK LEFT SIDE IN WHITE AREA
                 .strafeTo(new Vector2d(26,-11));
             /* PARK RIGHT SIDE IN WHITE AREA
                  .strafeTo(new Vector2d(26,11));*/
 
-        // still have to park in wing code
+        //  park in wing
+        // .strafeTo(new Vector2d(-58,62));
 
 
 
