@@ -1,11 +1,8 @@
 package org.firstinspires.ftc.teamcode.Autonomous.RedAutonomous;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Roadrunnerlol.MecanumDrive;
@@ -16,8 +13,7 @@ import org.firstinspires.ftc.teamcode.common.claw;
 import org.firstinspires.ftc.teamcode.common.vroomVroom;
 import org.firstinspires.ftc.teamcode.common.wrist;
 
-@Disabled
-public class riddle1plus0 extends LinearOpMode {
+public class riddle1plus1 extends LinearOpMode {
 
     org.firstinspires.ftc.teamcode.common.claw claw = new claw();
     org.firstinspires.ftc.teamcode.common.ArmSlider ArmSlider = new ArmSlider();
@@ -26,7 +22,7 @@ public class riddle1plus0 extends LinearOpMode {
     org.firstinspires.ftc.teamcode.common.PID_Slider PID_Slider = new PID_Slider();
     org.firstinspires.ftc.teamcode.common.wrist wrist = new wrist();
 
-@Override
+    @Override
     public void runOpMode() throws InterruptedException {
         claw.init(hardwareMap);
         ArmSlider.init(hardwareMap);
@@ -47,8 +43,24 @@ public class riddle1plus0 extends LinearOpMode {
         claw.set1();
         PID_Slider.sliderMotor.setTargetPosition(0);
         PID_Slider.sliderMotorMotor.setTargetPosition(0);
-        //hook specimen on rung
+        //placing specimen on rung
 
+
+        TrajectoryActionBuilder Riddle2 = drive.actionBuilder(initialPose)
+                .strafeTo(new Vector2d(49,36));
+        claw.set2();
+
+        PID_Arm.armMotor.setTargetPosition(500);
+        PID_Slider.sliderMotor.setPower(0.5);
+        PID_Slider.sliderMotorMotor.setPower(0.5);
+        PID_Arm.armMotor.setPower(0.5);
+        PID_Slider.sliderMotor.setTargetPosition(900);
+        PID_Slider.sliderMotorMotor.setTargetPosition(-900);
+        claw.set1();
+        PID_Slider.sliderMotor.setTargetPosition(0);
+        PID_Slider.sliderMotorMotor.setTargetPosition(0);
+        PID_Arm.armMotor.setTargetPosition(0);
+       // first sample in basket
 
         TrajectoryActionBuilder Riddle5 = drive.actionBuilder(initialPose)
                 //PARK LEFT SIDE IN WHITE AREA
@@ -58,5 +70,6 @@ public class riddle1plus0 extends LinearOpMode {
 
         //  park in wing
         // .strafeTo(new Vector2d(-58,62));
+
     }
 }
