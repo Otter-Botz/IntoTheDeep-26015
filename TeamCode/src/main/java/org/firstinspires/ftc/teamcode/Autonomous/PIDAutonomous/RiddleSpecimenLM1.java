@@ -1,8 +1,5 @@
 package org.firstinspires.ftc.teamcode.Autonomous.PIDAutonomous;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.linearOpMode;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -12,7 +9,7 @@ import org.firstinspires.ftc.teamcode.common.PID_Slider;
 import org.firstinspires.ftc.teamcode.common.claw;
 import org.firstinspires.ftc.teamcode.common.wrist;
 
-public class BiddleSpecmenLM1 extends LinearOpMode {
+public class RiddleSpecimenLM1 extends LinearOpMode {
 
     org.firstinspires.ftc.teamcode.common.claw claw = new claw();
     org.firstinspires.ftc.teamcode.common.ArmSlider ArmSlider = new ArmSlider();

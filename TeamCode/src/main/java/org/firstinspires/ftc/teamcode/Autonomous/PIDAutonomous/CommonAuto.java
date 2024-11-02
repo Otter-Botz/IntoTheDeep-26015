@@ -22,10 +22,11 @@ public class CommonAuto {
     private double          headingError  = 0;
     private double  targetHeading = 0;
     private double  turnSpeed     = 0;
-    public CommonAuto(BiddleSpecmenLM1 callingLinearOpMode) {
+    public CommonAuto(LinearOpMode callingLinearOpMode) {
         this.linearOpMode = callingLinearOpMode;
         this.hardwareMap = callingLinearOpMode.hardwareMap;
     }
+
 
 
     public void moveLeft(double power, double distance) {
