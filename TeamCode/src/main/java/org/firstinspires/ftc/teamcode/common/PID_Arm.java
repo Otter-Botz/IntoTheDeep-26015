@@ -67,12 +67,12 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class PID_Arm  {
     private PIDController controller;
 
-    public static double p = 0.005, i = 0.03, d = 0.0005;
-    public static double f = 0.12;
+   // public static double p = 0.005, i = 0.03, d = 0.0005;
+   // public static double f = 0.12;
 
-    public static int target = 70;
+    //public static int target = -81;
 
-    private final double ticks_in_degrees = 700/180;
+    //private final double ticks_in_degrees = 700/180;
 
   public DcMotor armMotor;
 
@@ -81,12 +81,12 @@ public class PID_Arm  {
 
 
     public void up() {
-        target = 534;
+        //target = 430;
     }
 
 
     public void down() {
-        target = 16;
+        //target = -81;
     }
 
 
@@ -94,7 +94,7 @@ public class PID_Arm  {
 
     public void math() {
 
-
+        /*
         controller.setPID(p, i , d);
         int slidePos = armMotor.getCurrentPosition();
         double pid = controller.calculate(slidePos, target);
@@ -105,13 +105,17 @@ public class PID_Arm  {
        // telemetry.addData("pos", slidePos);
        // telemetry.addData("target", target);
        // telemetry.update();
+
+         */
     }
 
 
 
     public void init(HardwareMap hwMap) {
         armMotor = hwMap.get(DcMotor.class, "armMotor");
-        controller = new PIDController(p, i, d);
+        //controller = new PIDController(p, i, d);
+
+
     }}
     // telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 

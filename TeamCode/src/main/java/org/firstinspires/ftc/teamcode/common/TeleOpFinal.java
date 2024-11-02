@@ -27,7 +27,6 @@ public class TeleOpFinal extends LinearOpMode {
         vroom.init(hardwareMap);
         PID_Slider.init(hardwareMap);
         wrist.init(hardwareMap);
-        Servo clawServo = hardwareMap.get(Servo.class, "clawServo");
 
 
         waitForStart();
@@ -36,6 +35,7 @@ public class TeleOpFinal extends LinearOpMode {
 
 
             vroom.vrooooooom(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, gamepad1.right_trigger);
+
             PID_Arm.math();
 
             //Rumble and Reset Yaw
@@ -55,25 +55,28 @@ public class TeleOpFinal extends LinearOpMode {
                 claw.set2();
             }
             //Slider Arm
+            /*
             else if (gamepad2.x) {
                 PID_Arm.up();
             } else if (gamepad2.y) {
                 PID_Arm.down();
-            } else if (gamepad2.dpad_down) {
-                PID_Arm.armMotor.setPower(-0.2);
-            } else if (gamepad2.dpad_up) {
-                PID_Arm.armMotor.setPower(0.2);
             }
+            */
+
             //Wrist
             else if (gamepad2.b) {
                 wrist.set1();
             } else if (gamepad2.a) {
                 wrist.set2();
+            } else if (gamepad2.dpad_up){
+                wrist.wristServo.setPosition(0);
             }
             //PID Sliders
-            PID_Slider.sliderMotor.setPower(-gamepad2.right_stick_y);
-            PID_Slider.sliderMotorMotor.setPower(-gamepad2.right_stick_y);
+            PID_Slider.sliderMotor.setPower(gamepad2.right_stick_y);
+            PID_Slider.sliderMotorMotor.setPower(gamepad2.right_stick_y);
             ArmSlider.armSliderServo.setPower(gamepad2.left_stick_y);
+            PID_Arm.armMotor.setPower(gamepad2.right_trigger);
+            PID_Arm.armMotor.setPower(-gamepad2.left_trigger);
             telemetry.addData("pos", PID_Arm.armMotor.getCurrentPosition());
             telemetry.update();
 
