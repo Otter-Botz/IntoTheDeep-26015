@@ -35,7 +35,6 @@ public class TeleOpFinal extends LinearOpMode {
 
 
             vroom.vrooooooom(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, gamepad1.right_trigger);
-
             PID_Arm.math();
 
             //Rumble and Reset Yaw
@@ -55,13 +54,13 @@ public class TeleOpFinal extends LinearOpMode {
                 claw.set2();
             }
             //Slider Arm
-            /*
+
             else if (gamepad2.x) {
                 PID_Arm.up();
             } else if (gamepad2.y) {
                 PID_Arm.down();
             }
-            */
+
 
             //Wrist
             else if (gamepad2.b) {
@@ -70,21 +69,31 @@ public class TeleOpFinal extends LinearOpMode {
                 wrist.set2();
             } else if (gamepad2.dpad_up){
                 wrist.wristServo.setPosition(0);
+            } else if (gamepad2.options){
+                //PID_Arm.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                //PID_Arm.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             }
             //PID Sliders
             PID_Slider.sliderMotor.setPower(gamepad2.right_stick_y);
             PID_Slider.sliderMotorMotor.setPower(gamepad2.right_stick_y);
             ArmSlider.armSliderServo.setPower(gamepad2.left_stick_y);
-            PID_Arm.armMotor.setPower(gamepad2.right_trigger);
-            PID_Arm.armMotor.setPower(-gamepad2.left_trigger);
-            telemetry.addData("pos", PID_Arm.armMotor.getCurrentPosition());
-            telemetry.update();
+            /*
+            if(gamepad2.right_trigger!= 0) {
+                PID_Arm.armMotor.setPower(gamepad2.right_trigger/2.5);
+            } else if(gamepad2.left_trigger != 0){
+                PID_Arm.armMotor.setPower(-gamepad2.left_trigger/2.5);
+            }else{
+                PID_Arm.armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                PID_Arm.armMotor.setPower(0);
+             */
+            }
+
 
         }
 
 
     }
-}
+
 
 
 
