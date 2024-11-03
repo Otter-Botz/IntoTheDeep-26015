@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Autonomous.PIDAutonomous;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -8,7 +9,7 @@ import org.firstinspires.ftc.teamcode.common.PID_Arm;
 import org.firstinspires.ftc.teamcode.common.PID_Slider;
 import org.firstinspires.ftc.teamcode.common.claw;
 import org.firstinspires.ftc.teamcode.common.wrist;
-
+@Autonomous
 public class BiddleSpecimenLM1 extends LinearOpMode {
 
     org.firstinspires.ftc.teamcode.common.claw claw = new claw();
@@ -32,13 +33,15 @@ public class BiddleSpecimenLM1 extends LinearOpMode {
 
         waitForStart();
 
-        commonAuto.driveStraight(DRIVE_SPEED, 20);
+        commonAuto.driveStraight(DRIVE_SPEED,4);
+        commonAuto.moveRight(DRIVE_SPEED,5);
+        commonAuto.driveStraight(DRIVE_SPEED, 10);
         //Arm Code
-        claw.set1();
+        //claw.set1();
         //Claw Open
-        claw.set2();
+        //claw.set2();
         //Claw Close
-        commonAuto.moveBack(DRIVE_SPEED,-20);
+        commonAuto.moveBack(DRIVE_SPEED,-14);
 
 
 

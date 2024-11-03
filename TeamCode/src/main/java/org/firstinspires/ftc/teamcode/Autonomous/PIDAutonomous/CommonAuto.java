@@ -44,6 +44,8 @@ public class CommonAuto {
         backLeftMotor.setPower(power);
         backRightMotor.setPower(-power);
 
+        moveToTargetPosition( targetBackLeft, targetBackRight, targetFrontLeft, targetFrontRight);
+
     }
     public void moveRight(double power, double distance) {
         int moveCounts = (int)(distance * COUNTS_PER_INCH);
@@ -59,6 +61,8 @@ public class CommonAuto {
         frontRightMotor.setPower(-power);
         backLeftMotor.setPower(-power);
         backRightMotor.setPower(power);
+
+        moveToTargetPosition( targetBackLeft, targetBackRight, targetFrontLeft, targetFrontRight);
 
 
     }
@@ -77,7 +81,23 @@ public class CommonAuto {
         backLeftMotor.setPower(power);
         backRightMotor.setPower(power);
 
+        moveToTargetPosition( targetBackLeft, targetBackRight, targetFrontLeft, targetFrontRight);
+
     }
+    public void moveToTargetPosition(int targetFrontLeft, int targetFrontRight, int targetRearLeft, int targetRearRight){
+        // Set Target FIRST, then turn on RUN_TO_POSITION
+        frontLeftMotor.setTargetPosition(targetFrontLeft);
+        frontRightMotor.setTargetPosition(targetFrontRight);
+        backLeftMotor.setTargetPosition(targetRearLeft);
+        backRightMotor.setTargetPosition(targetRearRight);
+
+        frontLeftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        frontRightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backLeftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backRightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+
+
     public void moveBack(double power, double distance) {
         int moveCounts = (int) (distance * COUNTS_PER_INCH);
 
@@ -92,5 +112,8 @@ public class CommonAuto {
         frontRightMotor.setPower(-power);
         backLeftMotor.setPower(-power);
         backRightMotor.setPower(-power);
+
+        moveToTargetPosition( targetBackLeft, targetBackRight, targetFrontLeft, targetFrontRight);
+
     }
 }
