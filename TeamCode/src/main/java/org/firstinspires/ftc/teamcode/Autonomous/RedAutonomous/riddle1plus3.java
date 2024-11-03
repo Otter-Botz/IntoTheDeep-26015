@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.common.wrist;
 
 
 @Disabled
-public class Riddle extends LinearOpMode {
+public class riddle1plus3 extends LinearOpMode {
 
     claw claw = new claw();
     ArmSlider ArmSlider = new ArmSlider();
