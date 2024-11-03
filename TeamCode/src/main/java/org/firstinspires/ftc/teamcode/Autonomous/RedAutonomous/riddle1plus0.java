@@ -39,7 +39,7 @@ public class riddle1plus0 extends LinearOpMode {
 
         TrajectoryActionBuilder Riddle = drive.actionBuilder(initialPose)
                 .strafeTo(new Vector2d(0, 38));
-        PID_Arm.up();
+        //PID_Arm.up();
         PID_Slider.sliderMotor.setPower(0.5);
         PID_Slider.sliderMotorMotor.setPower(-0.5);
         PID_Slider.sliderMotor.setTargetPosition(900);

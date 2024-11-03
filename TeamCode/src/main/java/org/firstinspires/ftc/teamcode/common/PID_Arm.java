@@ -1,13 +1,8 @@
 package org.firstinspires.ftc.teamcode.common;
 
-import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.controller.PIDController;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 /*
 @Config
 @TeleOp
@@ -54,44 +49,52 @@ public class PID_Arm extends OpMode {
 
 
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-
-import com.acmerobotics.dashboard.config.Config;
-import com.arcrobotics.ftclib.controller.PIDController;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 @Config
 
-public class PID_Arm  {
+public class PID_Arm {
     private PIDController controller;
 
     public static double p = 0.005, i = 0.03, d = 0.0005;
     public static double f = 0.12;
 
-    public static int target = 71;
+    private int target = -750;
 
-    private final double ticks_in_degrees = 700/180;
+    private final double ticks_in_degrees = 700 / 180;
 
-  public DcMotor armMotor;
-
-
+    public DcMotor armMotor;
 
 
 
+
+    /*
     public void up() {
-        target = 859;
+        target = -65;
     }
+
+
 
 
     public void down() {
-        target = -13;
+        target = -789;
     }
 
+    public  void minusTarget(){
+        target = target - 10;
+
+    }
+    public  void addTarget(){
+        target = target + 10;
+
+    }
+
+     */
 
 
 
+
+/*
     public void math() {
 
 
@@ -111,13 +114,19 @@ public class PID_Arm  {
 
 
 
+ */
+
     public void init(HardwareMap hwMap) {
         armMotor = hwMap.get(DcMotor.class, "armMotor");
 
-        controller = new PIDController(p, i, d);
+        //controller = new PIDController(p, i, d);
+    }
+}
 
 
-    }}
+
+
+
     // telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
 
