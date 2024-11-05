@@ -1,9 +1,12 @@
 package org.firstinspires.ftc.teamcode.common;
 
 
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "OTTERRRRR")
 public class TeleOpFinal extends LinearOpMode {
@@ -30,9 +33,8 @@ public class TeleOpFinal extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-
             vroom.vrooooooom(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, gamepad1.right_trigger);
-            // PID_Arm.math();
+            PID_Arm.math();
 
             //Rumble and Reset Yaw
             if (gamepad1.options) {
@@ -51,14 +53,12 @@ public class TeleOpFinal extends LinearOpMode {
                 claw.set2();
             }
             //Slider Arm
-            /*
+
             else if (gamepad2.x) {
                 PID_Arm.up();
             } else if (gamepad2.y) {
                 PID_Arm.down();
             }
-
-             */
 
 
             //Wrist
@@ -66,40 +66,41 @@ public class TeleOpFinal extends LinearOpMode {
                 wrist.set1();
             } else if (gamepad2.a) {
                 wrist.set2();
-            } else if (gamepad2.dpad_up) {
+            } else if (gamepad2.dpad_up){
                 wrist.wristServo.setPosition(0);
+            } else if (gamepad2.options){
+                //PID_Arm.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                //PID_Arm.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             }
-
-                /*
-            } else if (gamepad2.right_bumper){
-                PID_Arm.minusTarget();
-            } else if (gamepad2.left_bumper) {
-                PID_Arm.addTarget();
-            }
-
-                 */
             //PID Sliders
             PID_Slider.sliderMotor.setPower(gamepad2.right_stick_y);
             PID_Slider.sliderMotorMotor.setPower(gamepad2.right_stick_y);
             ArmSlider.armSliderServo.setPower(gamepad2.left_stick_y);
 
-            if (gamepad2.right_trigger != 0) {
-                PID_Arm.armMotor.setPower(gamepad2.right_trigger / 2);
-            } else if (gamepad2.left_trigger != 0) {
-                PID_Arm.armMotor.setPower(-gamepad2.left_trigger / 2);
-            } else {
-                PID_Arm.armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                PID_Arm.armMotor.setPower(0);
+            if (gamepad2.left_stick_y != 0){
+            PID_Arm.target = PID_Arm.target + PID_Arm.armticks * 10;
             }
 
-            telemetry.addData("pos", PID_Arm.armMotor.getCurrentPosition());
-
-            telemetry.update();
+            /*
+            if(gamepad2.right_trigger!= 0) {
+                PID_Arm.armMotor.setPower(gamepad2.right_trigger/2.5);
+            } else if(gamepad2.left_trigger != 0){
+                PID_Arm.armMotor.setPower(-gamepad2.left_trigger/2.5);
+            }else{
+                PID_Arm.armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                PID_Arm.armMotor.setPower(0);
+             */
+            }
 
 
         }
 
 
     }
-}
+
+
+
+
+
+
 
