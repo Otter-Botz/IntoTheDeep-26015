@@ -19,12 +19,12 @@ import org.firstinspires.ftc.teamcode.common.wrist;
 @Disabled
 public class riddle1plus0 extends LinearOpMode {
 
-    org.firstinspires.ftc.teamcode.common.claw claw = new claw();
-    org.firstinspires.ftc.teamcode.common.ArmSlider ArmSlider = new ArmSlider();
-    org.firstinspires.ftc.teamcode.common.PID_Arm PID_Arm = new PID_Arm();
+    claw claw = new claw();
+    ArmSlider ArmSlider = new ArmSlider();
+    PID_Arm PID_Arm = new PID_Arm();
     vroomVroom vroom = new vroomVroom();
-    org.firstinspires.ftc.teamcode.common.PID_Slider PID_Slider = new PID_Slider();
-    org.firstinspires.ftc.teamcode.common.wrist wrist = new wrist();
+    PID_Slider PID_Slider = new PID_Slider();
+    wrist wrist = new wrist();
 
 @Override
     public void runOpMode() throws InterruptedException {

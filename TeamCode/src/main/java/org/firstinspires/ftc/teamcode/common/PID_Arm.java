@@ -59,16 +59,16 @@ public class PID_Arm {
     public static double p = 0.005, i = 0.03, d = 0.0005;
     public static double f = 0.12;
 
-    public double target = -750;
+    private int target = -750;
 
     private final double ticks_in_degrees = 700 / 180;
 
     public DcMotor armMotor;
 
-    public double armticks = armMotor.getCurrentPosition() - 0.8;
 
 
 
+    /*
     public void up() {
         target = -65;
     }
@@ -89,12 +89,12 @@ public class PID_Arm {
 
     }
 
+     */
 
 
 
 
-
-
+/*
     public void math() {
 
 
@@ -114,7 +114,7 @@ public class PID_Arm {
 
 
 
-
+ */
 
     public void init(HardwareMap hwMap) {
         armMotor = hwMap.get(DcMotor.class, "armMotor");

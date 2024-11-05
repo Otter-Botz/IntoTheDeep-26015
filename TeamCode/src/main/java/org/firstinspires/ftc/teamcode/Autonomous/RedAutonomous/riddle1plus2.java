@@ -15,12 +15,12 @@ import org.firstinspires.ftc.teamcode.common.wrist;
 
 public class riddle1plus2 extends LinearOpMode {
 
-    org.firstinspires.ftc.teamcode.common.claw claw = new claw();
-    org.firstinspires.ftc.teamcode.common.ArmSlider ArmSlider = new ArmSlider();
-    org.firstinspires.ftc.teamcode.common.PID_Arm PID_Arm = new PID_Arm();
+    claw claw = new claw();
+    ArmSlider ArmSlider = new ArmSlider();
+    PID_Arm PID_Arm = new PID_Arm();
     vroomVroom vroom = new vroomVroom();
-    org.firstinspires.ftc.teamcode.common.PID_Slider PID_Slider = new PID_Slider();
-    org.firstinspires.ftc.teamcode.common.wrist wrist = new wrist();
+    PID_Slider PID_Slider = new PID_Slider();
+    wrist wrist = new wrist();
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -35,6 +35,7 @@ public class riddle1plus2 extends LinearOpMode {
 
         TrajectoryActionBuilder Riddle = drive.actionBuilder(initialPose)
                 .strafeTo(new Vector2d(0, 38));
+        /*
        // PID_Arm.up();
         PID_Slider.sliderMotor.setPower(0.5);
         PID_Slider.sliderMotorMotor.setPower(-0.5);
@@ -44,25 +45,31 @@ public class riddle1plus2 extends LinearOpMode {
         PID_Slider.sliderMotor.setTargetPosition(0);
         PID_Slider.sliderMotorMotor.setTargetPosition(0);
 
+         */
+
 
         TrajectoryActionBuilder Riddle2 = drive.actionBuilder(initialPose)
                 .strafeTo(new Vector2d(49,36));
+        /*
         claw.set2();
 
-        //PID_Arm.armMotor.setTargetPosition(500);
+        PID_Arm.armMotor.setTargetPosition(500);
         PID_Slider.sliderMotor.setPower(0.5);
         PID_Slider.sliderMotorMotor.setPower(0.5);
-        //PID_Arm.armMotor.setPower(0.5);
+        PID_Arm.armMotor.setPower(0.5);
         PID_Slider.sliderMotor.setTargetPosition(900);
         PID_Slider.sliderMotorMotor.setTargetPosition(-900);
         claw.set1();
         PID_Slider.sliderMotor.setTargetPosition(0);
         PID_Slider.sliderMotorMotor.setTargetPosition(0);
-       // PID_Arm.armMotor.setTargetPosition(0);
+        PID_Arm.armMotor.setTargetPosition(0);
+
+         */
 
 
         TrajectoryActionBuilder Riddle3 = drive.actionBuilder(initialPose)
                 .strafeTo(new Vector2d(60,36));
+        /*
        // PID_Arm.armMotor.setPower(0.5);
         PID_Slider.sliderMotor.setPower(0.5);
         PID_Slider.sliderMotorMotor.setPower(0.5);
@@ -74,6 +81,8 @@ public class riddle1plus2 extends LinearOpMode {
         PID_Slider.sliderMotor.setTargetPosition(0);
         PID_Slider.sliderMotorMotor.setTargetPosition(0);
        // PID_Arm.armMotor.setTargetPosition(0);
+
+         */
 
         TrajectoryActionBuilder Riddle5 = drive.actionBuilder(initialPose)
                 //PARK LEFT SIDE IN WHITE AREA

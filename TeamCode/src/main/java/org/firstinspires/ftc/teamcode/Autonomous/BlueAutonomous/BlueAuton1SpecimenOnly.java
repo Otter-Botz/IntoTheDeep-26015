@@ -18,11 +18,11 @@ import org.firstinspires.ftc.teamcode.common.wrist;
 
         @Autonomous
         public class BlueAuton1SpecimenOnly extends LinearOpMode {
-            org.firstinspires.ftc.teamcode.common.claw claw = new claw();
-            org.firstinspires.ftc.teamcode.common.ArmSlider ArmSlider = new ArmSlider();
-            org.firstinspires.ftc.teamcode.common.PID_Arm PID_Arm = new PID_Arm();
-            org.firstinspires.ftc.teamcode.common.PID_Slider PID_Slider = new PID_Slider();
-            org.firstinspires.ftc.teamcode.common.wrist wrist = new wrist();
+            claw claw = new claw();
+            ArmSlider ArmSlider = new ArmSlider();
+            PID_Arm PID_Arm = new PID_Arm();
+            PID_Slider PID_Slider = new PID_Slider();
+            wrist wrist = new wrist();
 
             @Override
             public void runOpMode() throws InterruptedException {
@@ -45,9 +45,9 @@ import org.firstinspires.ftc.teamcode.common.wrist;
                         // Both `lineToX()` and `lineToXConstantHeading()` are equivalent.
                         // 🚨 Will cause an error if your heading is perpendicular to direction your robot is traveling! 🚨
                         .lineToX(48)
-                        .lineToXConstantHeading(48);
-
-                PID_Arm.up();
+                        .lineToXConstantHeading(48)
+                                .endTrajectory();
+                //PID_Arm.up();
                 PID_Slider.sliderMotor.setPower(0.5);
                 PID_Slider.sliderMotorMotor.setPower(-0.5);
                 PID_Slider.sliderMotor.setTargetPosition(900);
