@@ -19,11 +19,17 @@ public class MeepMeepTesting {
                 .build();
 
         myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-16, 70, 270))
+
+
                 .strafeToLinearHeading(new Vector2d(0, 38), Math.toRadians(270))
-                .waitSeconds(3)
+                .waitSeconds(2)
                 .strafeToLinearHeading(new Vector2d(-45, 38), Math.toRadians(270))
-                .waitSeconds(3)
+                .waitSeconds(2)
                 .build());
+                //i
+
+
+
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_INTO_THE_DEEP_JUICE_DARK)
                 .setDarkMode(true)
