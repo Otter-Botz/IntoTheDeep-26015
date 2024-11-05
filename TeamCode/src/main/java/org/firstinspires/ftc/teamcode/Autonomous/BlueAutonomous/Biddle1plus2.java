@@ -44,8 +44,8 @@ import org.firstinspires.ftc.teamcode.common.wrist;
             // Both `lineToX()` and `lineToXConstantHeading()` are equivalent.
             // 🚨 Will cause an error if your heading is perpendicular to direction your robot is traveling! 🚨
             BlueAutonomousDrive.lineToX(46)
-                    .lineToXConstantHeading(46);
-            BlueAutonomousDrive.build();
+                    .lineToXConstantHeading(46)
+            .build();
             //Slider Up
             PID_Arm.armMotor.setPower(0.4);
             PID_Arm.armMotor.setTargetPosition(300);
@@ -57,19 +57,19 @@ import org.firstinspires.ftc.teamcode.common.wrist;
 
             PID_Arm.armMotor.setTargetPosition(-300);
 
-            BlueAutonomousDrive.lineToXConstantHeading(-8);
+            BlueAutonomousDrive.lineToXConstantHeading(-8)
             // Robot moves to the specified coordinates while linearly interpolating between the start heading and a specified end heading
             // In other words, it constantly turns to a certain heading (once more, in radians) while moving to the specified coordinates.
-            BlueAutonomousDrive.strafeToLinearHeading(new Vector2d(36, 36), Math.toRadians(90));
-            BlueAutonomousDrive.build();
+            .strafeToLinearHeading(new Vector2d(36, 36), Math.toRadians(90))
+            .build();
             //Claw Open
             claw.set1();
             //Claw Close
             claw.set2();
 
             // Robot moves to the specified coordinates in a spline path while following a tangent heading interpolator
-            BlueAutonomousDrive.splineTo(new Vector2d(48, 48), Math.PI / 2);
-            BlueAutonomousDrive.build();
+            BlueAutonomousDrive.splineTo(new Vector2d(48, 48), Math.PI / 2)
+            .build();
             PID_Slider.sliderMotor.setPower(0.5);
             PID_Slider.sliderMotorMotor.setPower(0.5);
             PID_Slider.sliderMotor.setTargetPosition(1250);
@@ -84,8 +84,8 @@ import org.firstinspires.ftc.teamcode.common.wrist;
             PID_Slider.sliderMotorMotor.setTargetPosition(-1250);
 
             // Robot moves to the specified coordinates in a spline path while following a tangent heading interpolator
-            BlueAutonomousDrive.splineTo(new Vector2d(-48, -48), Math.PI / 2);
-            BlueAutonomousDrive.build();
+            BlueAutonomousDrive.splineTo(new Vector2d(-48, -48), Math.PI / 2)
+            .build();
             //Claw Open
             claw.set1();
 
@@ -93,8 +93,8 @@ import org.firstinspires.ftc.teamcode.common.wrist;
             claw.set2();
 
             // Robot moves to the specified coordinates in a spline path while following a tangent heading interpolator
-            BlueAutonomousDrive.splineTo(new Vector2d(48, 48), Math.PI / 2);
-            BlueAutonomousDrive.build();
+            BlueAutonomousDrive.splineTo(new Vector2d(48, 48), Math.PI / 2)
+            .build();
             PID_Slider.sliderMotor.setPower(0.5);
             PID_Slider.sliderMotorMotor.setPower(0.5);
             PID_Slider.sliderMotor.setTargetPosition(1250);

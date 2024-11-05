@@ -45,8 +45,8 @@ import org.firstinspires.ftc.teamcode.common.wrist;
                         // Both `lineToX()` and `lineToXConstantHeading()` are equivalent.
                         // 🚨 Will cause an error if your heading is perpendicular to direction your robot is traveling! 🚨
                         .lineToX(48)
-                        .lineToXConstantHeading(48);
-
+                        .lineToXConstantHeading(48)
+                                .endTrajectory();
                 //PID_Arm.up();
                 PID_Slider.sliderMotor.setPower(0.5);
                 PID_Slider.sliderMotorMotor.setPower(-0.5);

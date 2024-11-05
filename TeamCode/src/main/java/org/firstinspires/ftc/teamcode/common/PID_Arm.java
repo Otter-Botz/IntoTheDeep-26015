@@ -68,7 +68,7 @@ public class PID_Arm {
 
 
 
-    /*
+
     public void up() {
         target = -65;
     }
@@ -89,12 +89,12 @@ public class PID_Arm {
 
     }
 
-     */
 
 
 
 
-/*
+
+
     public void math() {
 
 
@@ -114,7 +114,7 @@ public class PID_Arm {
 
 
 
- */
+
 
     public void init(HardwareMap hwMap) {
         armMotor = hwMap.get(DcMotor.class, "armMotor");

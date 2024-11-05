@@ -43,8 +43,8 @@ public class Biddle1plus3 extends LinearOpMode {
                 // Both `lineToX()` and `lineToXConstantHeading()` are equivalent.
                 // 🚨 Will cause an error if your heading is perpendicular to direction your robot is traveling! 🚨
                 BlueAutonomousDrive.lineToX(46)
-                .lineToXConstantHeading(46);
-                BlueAutonomousDrive.build();
+                .lineToXConstantHeading(46)
+                .build();
                 //Slider Up
                 PID_Arm.armMotor.setPower(0.4);
                 PID_Arm.armMotor.setTargetPosition(300);
@@ -56,19 +56,19 @@ public class Biddle1plus3 extends LinearOpMode {
 
                 PID_Arm.armMotor.setTargetPosition(-300);
 
-                BlueAutonomousDrive.lineToXConstantHeading(-8);
+                BlueAutonomousDrive.lineToXConstantHeading(-8)
                 // Robot moves to the specified coordinates while linearly interpolating between the start heading and a specified end heading
                 // In other words, it constantly turns to a certain heading (once more, in radians) while moving to the specified coordinates.
-                BlueAutonomousDrive.strafeToLinearHeading(new Vector2d(36, 36), Math.toRadians(90));
-                BlueAutonomousDrive.build();
+                .strafeToLinearHeading(new Vector2d(36, 36), Math.toRadians(90))
+                .build();
                 //Claw Open
                 claw.set1();
                 //Claw Close
                 claw.set2();
 
                 // Robot moves to the specified coordinates in a spline path while following a tangent heading interpolator
-                BlueAutonomousDrive.splineTo(new Vector2d(48, 48), Math.PI / 2);
-                BlueAutonomousDrive.build();
+                BlueAutonomousDrive.splineTo(new Vector2d(48, 48), Math.PI / 2)
+                .build();
                 PID_Slider.sliderMotor.setPower(0.5);
                 PID_Slider.sliderMotorMotor.setPower(0.5);
                 PID_Slider.sliderMotor.setTargetPosition(1250);
@@ -83,8 +83,8 @@ public class Biddle1plus3 extends LinearOpMode {
                 PID_Slider.sliderMotorMotor.setTargetPosition(-1250);
 
                 // Robot moves to the specified coordinates in a spline path while following a tangent heading interpolator
-                BlueAutonomousDrive.splineTo(new Vector2d(-48, -48), Math.PI / 2);
-                BlueAutonomousDrive.build();
+                BlueAutonomousDrive.splineTo(new Vector2d(-48, -48), Math.PI / 2)
+                .build();
                 //Claw Open
                 claw.set1();
 
@@ -92,8 +92,8 @@ public class Biddle1plus3 extends LinearOpMode {
                 claw.set2();
 
                 // Robot moves to the specified coordinates in a spline path while following a tangent heading interpolator
-                BlueAutonomousDrive.splineTo(new Vector2d(48, 48), Math.PI / 2);
-                BlueAutonomousDrive.build();
+                BlueAutonomousDrive.splineTo(new Vector2d(48, 48), Math.PI / 2)
+                .build();
                 PID_Slider.sliderMotor.setPower(0.5);
                 PID_Slider.sliderMotorMotor.setPower(0.5);
                 PID_Slider.sliderMotor.setTargetPosition(1250);
@@ -111,8 +111,8 @@ public class Biddle1plus3 extends LinearOpMode {
                 PID_Slider.sliderMotorMotor.setTargetPosition(-1250);
 
                 // Robot moves to the specified coordinates in a spline path while following a tangent heading interpolator
-                BlueAutonomousDrive.splineTo(new Vector2d(-48, -48), Math.PI / 2);
-                BlueAutonomousDrive.build();
+                BlueAutonomousDrive.splineTo(new Vector2d(-48, -48), Math.PI / 2)
+                        .build();
                 //Claw Open
                 claw.set1();
 
@@ -120,8 +120,8 @@ public class Biddle1plus3 extends LinearOpMode {
                 claw.set2();
 
                 // Robot moves to the specified coordinates in a spline path while following a tangent heading interpolator
-                BlueAutonomousDrive.splineTo(new Vector2d(48, 48), Math.PI / 2);
-                BlueAutonomousDrive.build();
+                BlueAutonomousDrive.splineTo(new Vector2d(48, 48), Math.PI / 2)
+                .build();
                 PID_Slider.sliderMotor.setPower(0.5);
                 PID_Slider.sliderMotorMotor.setPower(0.5);
                 PID_Slider.sliderMotor.setTargetPosition(1250);
@@ -142,15 +142,15 @@ public class Biddle1plus3 extends LinearOpMode {
                 // Turns to a heading of `Math.PI / 6` degrees, ending at the original heading
 
                 BlueAutonomousDrive.turnTo(Math.toRadians(90)) // Turns to a heading of 90 degrees
-                .turnTo(Math.PI / 6);
-                BlueAutonomousDrive.build();
+                .turnTo(Math.PI / 6)
+                .build();
 
                 // Robot moves to the specified x coordinate in the direction of the robot heading (straight line).
                 // Both `lineToX()` and `lineToXConstantHeading()` are equivalent.
                 // 🚨 Will cause an error if your heading is perpendicular to direction your robot is traveling! 🚨
                 BlueAutonomousDrive.lineToX(100)
-                .lineToXConstantHeading(100);
-                BlueAutonomousDrive.build();
+                .lineToXConstantHeading(100)
+                .build();
 
                 //Park in right middle
         // Robot turns counterclockwise to the specified angle
@@ -161,21 +161,21 @@ public class Biddle1plus3 extends LinearOpMode {
         // Turns to a heading of `Math.PI / 6` degrees, ending at the original heading
 
         BlueAutonomousDrive.turnTo(Math.toRadians(90)) // Turns to a heading of 90 degrees
-                .turnTo(Math.PI / 6);
-        BlueAutonomousDrive.build();
+                .turnTo(Math.PI / 6)
+        .build();
 
         // Robot moves to the specified x coordinate in the direction of the robot heading (straight line).
         // Both `lineToX()` and `lineToXConstantHeading()` are equivalent.
         // 🚨 Will cause an error if your heading is perpendicular to direction your robot is traveling! 🚨
         BlueAutonomousDrive.lineToX(30)
-                .lineToXConstantHeading(30);
-        BlueAutonomousDrive.build();
+                .lineToXConstantHeading(30)
+        .build();
 
         // Robot moves to the specified coordinates while linearly interpolating between the start heading and a specified end heading
         // In other words, it constantly turns to a certain heading (once more, in radians) while moving to the specified coordinates.
 
-        BlueAutonomousDrive.strafeToLinearHeading(new Vector2d(36, 36), Math.toRadians(90));
-        BlueAutonomousDrive.lineToX(48)
+        BlueAutonomousDrive.strafeToLinearHeading(new Vector2d(36, 36), Math.toRadians(90))
+        .lineToX(48)
                 .lineToXConstantHeading(48);
 
         //Park in left middle
@@ -187,23 +187,26 @@ public class Biddle1plus3 extends LinearOpMode {
         // Turns to a heading of `Math.PI / 6` degrees, ending at the original heading
 
         BlueAutonomousDrive.turnTo(Math.toRadians(90)) // Turns to a heading of 90 degrees
-                .turnTo(Math.PI / 6);
-        BlueAutonomousDrive.build();
+                .turnTo(Math.PI / 6)
+        .build();
 
         // Robot moves to the specified x coordinate in the direction of the robot heading (straight line).
         // Both `lineToX()` and `lineToXConstantHeading()` are equivalent.
         // 🚨 Will cause an error if your heading is perpendicular to direction your robot is traveling! 🚨
         BlueAutonomousDrive.lineToX(30)
-                .lineToXConstantHeading(30);
-        BlueAutonomousDrive.build();
+                .lineToXConstantHeading(30)
+        .build();
 
         // Robot moves to the specified coordinates while linearly interpolating between the start heading and a specified end heading
         // In other words, it constantly turns to a certain heading (once more, in radians) while moving to the specified coordinates.
 
-        BlueAutonomousDrive.strafeToLinearHeading(new Vector2d(36, 36), Math.toRadians(90));
-        BlueAutonomousDrive.lineToX(48)
+        BlueAutonomousDrive.strafeToLinearHeading(new Vector2d(36, 36), Math.toRadians(90))
+                .lineToX(48)
                 .lineToXConstantHeading(48)
                 .build();
+
+
+
 
 
 
