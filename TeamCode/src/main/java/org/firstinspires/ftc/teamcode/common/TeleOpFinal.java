@@ -72,8 +72,8 @@ public class TeleOpFinal extends LinearOpMode {
                 //PID_Arm.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 //PID_Arm.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             }
-            else if (gamepad2.left_bumper){
-                PID_Slider.highbasket();
+           /* else if (gamepad2.left_bumper){
+                PID_Slider.highbasket();*/
             }
             //PID Sliders
             PID_Slider.sliderMotor.setPower(gamepad2.right_stick_y);
