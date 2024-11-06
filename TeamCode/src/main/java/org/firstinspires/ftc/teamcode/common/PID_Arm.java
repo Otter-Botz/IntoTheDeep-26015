@@ -61,8 +61,8 @@ public class PID_Arm {
 
     public double target = -750;
 
-   // public int armticks1 = armMotor.getCurrentPosition();
- //   public double  armticks = armticks1 - 0.8;
+    public int armticks1 = armMotor.getCurrentPosition();
+    public double  armticks = armticks1 - 0.8;
     private final double ticks_in_degrees = 700 / 180;
 
     public DcMotor armMotor;

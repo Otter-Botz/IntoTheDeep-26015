@@ -17,6 +17,22 @@ public class PID_Slider {
         sliderMotorMotor = hwMap.get(DcMotor.class, "slideMotorMotor");
     }
 
+    public void highbasket() {
+        sliderMotor.setTargetPosition(900);
+        sliderMotorMotor.setTargetPosition(-900);
+    }
+
+    public void lowbasket() {
+        sliderMotor.setTargetPosition(500);
+        sliderMotorMotor.setTargetPosition(-500);
+    }
+
+    public void restpos(){
+        sliderMotor.setTargetPosition(0);
+        sliderMotorMotor.setTargetPosition(0);
+    }
+
+
 
 
 
