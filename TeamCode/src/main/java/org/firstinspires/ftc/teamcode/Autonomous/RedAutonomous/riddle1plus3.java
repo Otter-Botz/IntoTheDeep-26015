@@ -11,7 +11,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import org.firstinspires.ftc.teamcode.Roadrunnerlol.MecanumDrive;
 import org.firstinspires.ftc.teamcode.common.ArmSlider;
 import org.firstinspires.ftc.teamcode.common.PID_Arm;
-import org.firstinspires.ftc.teamcode.common.PID_Slider;
+import org.firstinspires.ftc.teamcode.common.Slider;
 import org.firstinspires.ftc.teamcode.common.claw;
 import org.firstinspires.ftc.teamcode.common.vroomVroom;
 import org.firstinspires.ftc.teamcode.common.wrist;
@@ -24,7 +24,7 @@ public class riddle1plus3 extends LinearOpMode {
     ArmSlider ArmSlider = new ArmSlider();
     PID_Arm PID_Arm = new PID_Arm();
     vroomVroom vroom = new vroomVroom();
-    PID_Slider PID_Slider = new PID_Slider();
+    Slider PID_Slider = new Slider();
     wrist wrist = new wrist();
 
 

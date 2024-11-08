@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.Roadrunnerlol.MecanumDrive;
 import org.firstinspires.ftc.teamcode.common.ArmSlider;
 import org.firstinspires.ftc.teamcode.common.PID_Arm;
-import org.firstinspires.ftc.teamcode.common.PID_Slider;
+import org.firstinspires.ftc.teamcode.common.Slider;
 import org.firstinspires.ftc.teamcode.common.claw;
 import org.firstinspires.ftc.teamcode.common.wrist;
 
@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.common.wrist;
         claw claw = new claw();
         ArmSlider ArmSlider = new ArmSlider();
         PID_Arm PID_Arm = new PID_Arm();
-        PID_Slider PID_Slider = new PID_Slider();
+        Slider PID_Slider = new Slider();
         wrist wrist = new wrist();
         @Override
         public void runOpMode() throws InterruptedException {
