@@ -26,7 +26,7 @@ public class Riddle3SpecimenAuto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        Pose2d initialPose = new Pose2d(0, -70, Math.toRadians(270));
+        Pose2d initialPose = new Pose2d(-16, 60, Math.toRadians(270));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
         claw.init(hardwareMap);
