@@ -10,13 +10,14 @@ import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.arcrobotics.ftclib.controller.PIDController;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.Roadrunnerlol.MecanumDrive;
 
-
+@Autonomous
 public class Biddle4Specimen extends LinearOpMode {
 
     public static double p = 0.005, i = 0.03, d = 0.0005;
@@ -64,19 +65,20 @@ public class Biddle4Specimen extends LinearOpMode {
             return new down();
         }
 
-        //place specimen on rung for arm
-        public class rung implements Action {
 
-            @Override
-            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                target = -300;
-                return false;
-            }
+    public class backDown implements Action {
 
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+            target = -200;
+            return false;
         }
-        public Action armDownOnRung(){
-            return new rung();
-        }
+
+    }
+    public Action backDown(){
+        return new backDown();
+    }
+
 
         //math for PID
         public void math() {
@@ -92,61 +94,72 @@ public class Biddle4Specimen extends LinearOpMode {
     }
 
 
-    public class claw {}
 
 
 
 
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void runOpMode() {
         autoArm armMotor = new autoArm(hardwareMap);
-        Pose2d initialPose = new Pose2d(-16, 70, Math.toRadians(270));
+        Pose2d initialPose = new Pose2d(-16, 62, Math.toRadians(270));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
-        armMotor.math();
+       // armMotor.math();
 
+         double lastX = -57;
+         double lastY = 40;
+         double nextX = -69;
+         double nextY = 40;
+        TrajectoryActionBuilder score1Transfer1 = drive.actionBuilder(initialPose)
 
-        TrajectoryActionBuilder specimenPreload = drive.actionBuilder(initialPose)
+                .strafeToConstantHeading(new Vector2d(0, 33))
+                .strafeToConstantHeading(new Vector2d(lastX, lastY))
+                .waitSeconds(1);
 
-                .strafeToLinearHeading(new Vector2d(0, 36), Math.toRadians(270))
+        TrajectoryActionBuilder sampleTransfer2 = drive.actionBuilder(
+                        new Pose2d(lastX, lastY, Math.toRadians(270)))
+                .strafeToConstantHeading(new Vector2d(nextX, nextY))
                 .waitSeconds(1);
-        TrajectoryActionBuilder sampleTransfer1 = drive.actionBuilder(initialPose)
-                .strafeToLinearHeading(new Vector2d(-47, 42), Math.toRadians(270))
+
+        lastX = nextX;
+        lastY = nextY;
+
+        TrajectoryActionBuilder sampleTransfer3 = drive.actionBuilder (
+                new Pose2d(lastX, lastY, Math.toRadians(270)))
+                .turnTo(268)
                 .waitSeconds(1);
-        TrajectoryActionBuilder sampleTransfer2 = drive.actionBuilder(initialPose)
-                .strafeToLinearHeading(new Vector2d(-59, 42), Math.toRadians(270))
+
+        nextX=-57;
+        nextY=55;
+        TrajectoryActionBuilder specimenPickup1 = drive.actionBuilder(
+                new Pose2d(lastX, lastY, Math.toRadians(270)))
+                .strafeToLinearHeading(new Vector2d(nextX,nextY), Math.toRadians(270))
                 .waitSeconds(1);
-        TrajectoryActionBuilder sampleTransfer3 = drive.actionBuilder(initialPose)
-                .turn(-0.5)
+
+        lastX = nextX;
+        lastY = nextY;
+        TrajectoryActionBuilder score1Pickup2 = drive.actionBuilder( new Pose2d(lastX, lastY, Math.toRadians(270)))
+
+                .strafeToLinearHeading(new Vector2d(0, 39), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(0, 32), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(-57, 55), Math.toRadians(270))
                 .waitSeconds(1);
-        TrajectoryActionBuilder specimenPickup1 = drive.actionBuilder(initialPose)
-                .turn(0.5)
+
+        /*
+        TrajectoryActionBuilder score2Pickup3 = drive.actionBuilder(initialPose)
+
+                .strafeToLinearHeading(new Vector2d(0, 39), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(0, 34), Math.toRadians(270))
                 .strafeToLinearHeading(new Vector2d(-47, 50), Math.toRadians(270))
                 .waitSeconds(1);
-        TrajectoryActionBuilder specimenScore1 = drive.actionBuilder(initialPose)
+        TrajectoryActionBuilder score3Park = drive.actionBuilder(initialPose)
 
-                .strafeToLinearHeading(new Vector2d(0, 36), Math.toRadians(270))
-                .waitSeconds(1);
-        TrajectoryActionBuilder specimenPickup2 = drive.actionBuilder(initialPose)
-
-                .strafeToLinearHeading(new Vector2d(-47, 50), Math.toRadians(270))
-                .waitSeconds(1);
-        TrajectoryActionBuilder specimenScore2 = drive.actionBuilder(initialPose)
-                .strafeToLinearHeading(new Vector2d(0, 36), Math.toRadians(270))
-                .waitSeconds(1);
-        TrajectoryActionBuilder specimenPickup3 = drive.actionBuilder(initialPose)
-
-                .strafeToLinearHeading(new Vector2d(-47, 50), Math.toRadians(270))
-                .waitSeconds(1);
-        TrajectoryActionBuilder scoreAndPark = drive.actionBuilder(initialPose)
-
-                .strafeToLinearHeading(new Vector2d(0, 36), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(0, 39), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(0, 34), Math.toRadians(270))
                 .strafeToLinearHeading(new Vector2d(-59, 42), Math.toRadians(270))
                 .strafeToLinearHeading(new Vector2d(-59, 60), Math.toRadians(270));
-
-
-
-
-        Action trajectoryActionCloseOut = specimenPreload.fresh()
+*/
+        Action trajectoryActionCloseOut = score1Transfer1.fresh()
+                .strafeToLinearHeading(new Vector2d(-59, 60), Math.toRadians(270))
                 .build();
 
         // actions that need to happen on init; for instance, a claw tightening.
@@ -165,12 +178,30 @@ public class Biddle4Specimen extends LinearOpMode {
 
         Actions.runBlocking(
                 new SequentialAction(
-                        specimenPreload.build(),
-                        armMotor.armUp(),
-                        armMotor.armDownOnRung(),
-                        sampleTransfer1.build(),
-                        armMotor.armDown(),
+                       // armMotor.armUp(),
+                        score1Transfer1.build(),
+                      //  armMotor.armDown(),
+                       // armMotor.backDown(),
+                        sampleTransfer2.build(),
+                       // armMotor.armDown(),
+                       // armMotor.backDown(),
+                        sampleTransfer3.build(),
+                      //  armMotor.armDown(),
+                      //  armMotor.backDown(),
+                        specimenPickup1.build(),
+                       // armMotor.backDown(),
+                       // armMotor.armUp(),
+                        score1Pickup2.build(),
+                       // armMotor.backDown(),
+                       // armMotor.armUp(),
+                       // score2Pickup3.build(),
+                        //armMotor.backDown(),
+                        //armMotor.armUp(),
+                       // score3Park.build(),
+
                         trajectoryActionCloseOut
+
+
                 )
         );
     }

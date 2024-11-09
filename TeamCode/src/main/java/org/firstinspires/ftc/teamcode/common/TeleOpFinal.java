@@ -39,52 +39,62 @@ public class TeleOpFinal extends LinearOpMode {
             //Rumble and Reset Yaw
             if (gamepad1.options) {
                 vroom.resetYaw();
-            } else if (gamepad1.dpad_down) {
-                gamepad2.rumble(1);
+            }
+
+            if (gamepad1.dpad_down) {
+                gamepad2.rumble(1000);
             }
             //claw code
-            else if (gamepad1.a) {
+           if (gamepad1.a) {
                 //open
                 // 0.4
                 claw.set1();
-            } else if (gamepad1.b) {
+            }
+           else if (gamepad1.b) {
                 //close
                 //0.7
                 claw.set2();
             }
-            //Slider Arm
-            else if (gamepad2.x) {
+           //Slider Arm
+            if (gamepad2.x) {
                 PID_Arm.up();
             } else if (gamepad2.y) {
-                PID_Arm.down();
+            PID_Arm.down();
             }
-
-
             //Wrist
-            else if (gamepad2.b) {
+            if (gamepad2.b) {
                 wrist.set1();
             } else if (gamepad2.a) {
                 wrist.set2();
-            } else if (gamepad2.options){
+            }
+
+            if (gamepad2.options) {
                 //PID_Arm.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 //PID_Arm.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            }
-            else if (gamepad2.dpad_up){
+            } else if (gamepad2.dpad_up) {
                 Slider.highbasket();
-            }
-            else if (gamepad2.dpad_down){
-               Slider.lowbasket();
-            }
-            else if (gamepad2.dpad_left){
+            } else if (gamepad2.dpad_down) {
+                Slider.lowbasket();
+            } else if (gamepad2.dpad_left) {
                 Slider.restpos();
             }
-            else if (gamepad2.dpad_right){
-                Slider.highrung();
-            }
             //PID Sliders
-            Slider.sliderMotor.setPower(gamepad2.right_stick_y);
-            Slider.sliderMotorMotor.setPower(gamepad2.right_stick_y);
+            Slider.sliderMotor.setPower(-gamepad2.right_stick_y);
+            Slider.sliderMotorMotor.setPower(-gamepad2.right_stick_y);
             ArmSlider.armSliderServo.setPower(gamepad2.left_stick_y);
+
+           /* if (gamepad2.left_stick_y != 0){
+            PID_Arm.target = PID_Arm.target + PID_Arm.armticks * 10;
+            }*/
+
+            if (gamepad2.left_bumper) {
+                claw.clawServo.setPosition(0);
+            } else if (gamepad2.right_bumper) {
+                wrist.wristServo.setPosition(0);
+            }
+
+
+
 
             /*
             if(gamepad2.right_trigger!= 0) {
@@ -95,13 +105,16 @@ public class TeleOpFinal extends LinearOpMode {
                 PID_Arm.armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
                 PID_Arm.armMotor.setPower(0);
              */
-            }
+            telemetry.addData("pos", PID_Arm.armMotor.getCurrentPosition());
+            telemetry.update();
 
 
         }
 
 
-    }}
+    }
+}
+
 
 
 
