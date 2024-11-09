@@ -14,7 +14,7 @@ public class TeleOpFinal extends LinearOpMode {
     ArmSlider ArmSlider = new ArmSlider();
     PID_Arm PID_Arm = new PID_Arm();
     vroomVroom vroom = new vroomVroom();
-    PID_Slider PID_Slider = new PID_Slider();
+    Slider Slider = new Slider();
     wrist wrist = new wrist();
 
     @Override
@@ -25,7 +25,7 @@ public class TeleOpFinal extends LinearOpMode {
         ArmSlider.init(hardwareMap);
         PID_Arm.init(hardwareMap);
         vroom.init(hardwareMap);
-        PID_Slider.init(hardwareMap);
+        Slider.init(hardwareMap);
         wrist.init(hardwareMap);
 
 
@@ -66,18 +66,22 @@ public class TeleOpFinal extends LinearOpMode {
                 wrist.set1();
             } else if (gamepad2.a) {
                 wrist.set2();
-            } else if (gamepad2.dpad_up){
-                wrist.wristServo.setPosition(0);
             } else if (gamepad2.options){
                 //PID_Arm.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 //PID_Arm.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             }
-            else if (gamepad2.left_bumper){
-                PID_Slider.highbasket();
+            else if (gamepad2.dpad_up){
+                Slider.highbasket();
+            }
+            else if (gamepad2.dpad_down){
+               Slider.lowbasket();
+            }
+            else if (gamepad2.dpad_left){
+                Slider.restpos();
             }
             //PID Sliders
-            PID_Slider.sliderMotor.setPower(gamepad2.right_stick_y);
-            PID_Slider.sliderMotorMotor.setPower(gamepad2.right_stick_y);
+            Slider.sliderMotor.setPower(gamepad2.right_stick_y);
+            Slider.sliderMotorMotor.setPower(gamepad2.right_stick_y);
             ArmSlider.armSliderServo.setPower(gamepad2.left_stick_y);
 
            /* if (gamepad2.left_stick_y != 0){
