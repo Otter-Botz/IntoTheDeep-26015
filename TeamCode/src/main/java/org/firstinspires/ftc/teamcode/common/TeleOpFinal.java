@@ -53,7 +53,6 @@ public class TeleOpFinal extends LinearOpMode {
                 claw.set2();
             }
             //Slider Arm
-
             else if (gamepad2.x) {
                 PID_Arm.up();
             } else if (gamepad2.y) {
@@ -79,20 +78,13 @@ public class TeleOpFinal extends LinearOpMode {
             else if (gamepad2.dpad_left){
                 Slider.restpos();
             }
+            else if (gamepad2.dpad_right){
+                Slider.highrung();
+            }
             //PID Sliders
             Slider.sliderMotor.setPower(gamepad2.right_stick_y);
             Slider.sliderMotorMotor.setPower(gamepad2.right_stick_y);
             ArmSlider.armSliderServo.setPower(gamepad2.left_stick_y);
-
-           /* if (gamepad2.left_stick_y != 0){
-            PID_Arm.target = PID_Arm.target + PID_Arm.armticks * 10;
-            }*/
-
-
-
-
-
-
 
             /*
             if(gamepad2.right_trigger!= 0) {
