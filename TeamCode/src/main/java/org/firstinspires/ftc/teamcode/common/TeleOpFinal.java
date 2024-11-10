@@ -17,6 +17,18 @@ public class TeleOpFinal extends LinearOpMode {
     Slider Slider = new Slider();
     wrist wrist = new wrist();
 
+    public void highBasket() {
+        Slider.sliderMotor.setTargetPosition(900);
+        Slider.sliderMotorMotor.setTargetPosition(-900);
+        PID_Arm.armMotor.setTargetPosition(705);
+        wrist.wristServo.setPosition(0.1);
+    }
+    public void highRung() {
+        Slider.sliderMotor.setTargetPosition(700);
+        Slider.sliderMotorMotor.setTargetPosition(-700);
+        PID_Arm.armMotor.setTargetPosition(705);
+        wrist.wristServo.setPosition(0.4);
+    }
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -27,6 +39,7 @@ public class TeleOpFinal extends LinearOpMode {
         vroom.init(hardwareMap);
         Slider.init(hardwareMap);
         wrist.init(hardwareMap);
+
 
 
         waitForStart();
@@ -71,26 +84,23 @@ public class TeleOpFinal extends LinearOpMode {
             if (gamepad2.options) {
                 //PID_Arm.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 //PID_Arm.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            } else if (gamepad2.dpad_up) {
-                Slider.highbasket();
-            } else if (gamepad2.dpad_down) {
-                Slider.lowbasket();
-            } else if (gamepad2.dpad_left) {
-                Slider.restpos();
             }
             //PID Sliders
             Slider.sliderMotor.setPower(-gamepad2.right_stick_y);
             Slider.sliderMotorMotor.setPower(-gamepad2.right_stick_y);
             ArmSlider.armSliderServo.setPower(gamepad2.left_stick_y);
 
-           /* if (gamepad2.left_stick_y != 0){
-            PID_Arm.target = PID_Arm.target + PID_Arm.armticks * 10;
-            }*/
 
             if (gamepad2.left_bumper) {
                 claw.clawServo.setPosition(0);
             } else if (gamepad2.right_bumper) {
                 wrist.wristServo.setPosition(0);
+            }
+            else if (gamepad2.dpad_up){
+                highBasket();
+            }
+            else if (gamepad2.dpad_down) {
+                highRung();
             }
 
 
