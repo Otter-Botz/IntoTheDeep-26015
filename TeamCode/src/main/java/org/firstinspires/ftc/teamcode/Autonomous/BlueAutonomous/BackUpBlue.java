@@ -134,7 +134,7 @@ public class BackUpBlue extends LinearOpMode {
                 .strafeToLinearHeading(new Vector2d(-60, 5), Math.toRadians(270))
                 .waitSeconds(0)
                 .strafeToLinearHeading(new Vector2d(-60, 55), Math.toRadians(270))
-                .waitSeconds(1)
+                .waitSeconds(0)
 
         //Second Sample
                 .strafeToLinearHeading(new Vector2d(-60, 5), Math.toRadians(270))
@@ -142,7 +142,7 @@ public class BackUpBlue extends LinearOpMode {
                 .strafeToLinearHeading(new Vector2d(-72, 5), Math.toRadians(270))
                 .waitSeconds(0)
                 .strafeToLinearHeading(new Vector2d(-72, 55), Math.toRadians(270))
-                .waitSeconds(1)
+                .waitSeconds(0)
 
 //              Score 1
                 .strafeToLinearHeading(new Vector2d(-57, 55), Math.toRadians(270))
