@@ -1,8 +1,9 @@
 package org.firstinspires.ftc.teamcode.Autonomous.BlueAutonomous;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.linearOpMode;
 
 import androidx.annotation.NonNull;
-
+import com.qualcomm.robotcore.hardware.Servo;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
@@ -164,6 +165,21 @@ public class HighBasketAutoBlue extends LinearOpMode {
         slideMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         setSliderIdlePosition();
     }
+
+    public void setPosition(double position) {
+
+    }
+
+    public void ClawOpen() {
+
+        claw.set1();
+
+    }
+
+    public void ClawClose() {
+
+        claw.set2();
+    }
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -179,22 +195,43 @@ public class HighBasketAutoBlue extends LinearOpMode {
 
         waitForStart();
 
+        double Tab1X = 0;
+        double Tab1Y = 38;
+        double Tab2X = 56;
+        double Tab2Y = 38;
+        double Tab3X = 60;
+        double Tab3Y = 57;
+        double Tab4X = 52;
+        double Tab4Y = 20;
+        double Tab5X = 52;
+        double Tab5Y = 57;
+
+
         TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
                 //Score Preloaded Specimen
-                .strafeToLinearHeading(new Vector2d(0, 38), Math.toRadians(270))
-                .waitSeconds(2)
+                .strafeToLinearHeading(new Vector2d(0, 38), Math.toRadians(270));
 
+        HighRung();
+
+        TrajectoryActionBuilder tab2 = drive.actionBuilder(new Pose2d(Tab1X, Tab1Y, Math.toRadians(270)))
                 //Move to first sample
-                .strafeToLinearHeading(new Vector2d(56, 38), Math.toRadians(270))
-                .waitSeconds(2)
+                .strafeToLinearHeading(new Vector2d(56, 38), Math.toRadians(270));
+        ClawOpen();
+        ClawClose();
+        TrajectoryActionBuilder tab3 = drive.actionBuilder(new Pose2d(Tab2X, Tab2Y, Math.toRadians(270)))
                 //Pick Up and move back
-                .strafeToLinearHeading(new Vector2d(60, 57), Math.toRadians(200))
-                .waitSeconds(2)
+                .strafeToLinearHeading(new Vector2d(60, 57), Math.toRadians(200));
+        HighBaskets();
+        TrajectoryActionBuilder tab4 = drive.actionBuilder(new Pose2d(Tab3X, Tab3Y, Math.toRadians(200)))
                 //Move to second Sample
                 .strafeToLinearHeading(new Vector2d(52, 20), Math.toRadians(180))
-                .waitSeconds(2)
+                .waitSeconds(0);
+        ClawOpen();
+        ClawClose();
+        TrajectoryActionBuilder tab5 = drive.actionBuilder(new Pose2d(Tab4X, Tab4Y, Math.toRadians(180)))
                 .strafeToLinearHeading(new Vector2d(52, 57), Math.toRadians(200))
-                .waitSeconds(2)
+                .waitSeconds(2);
+        TrajectoryActionBuilder tab6 = drive.actionBuilder(new Pose2d(Tab5X, Tab5Y, Math.toRadians(180)))
                 .strafeToLinearHeading(new Vector2d(56, 20), Math.toRadians(180))
                 .waitSeconds(0.5)
                 //arm
