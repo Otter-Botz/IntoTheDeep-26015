@@ -28,7 +28,7 @@ public class BackUpBlue extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        Pose2d initialPose = new Pose2d(0, -70, Math.toRadians(270));
+        Pose2d initialPose = new Pose2d(-16, 62, Math.toRadians(270));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
         claw.init(hardwareMap);
@@ -44,50 +44,50 @@ public class BackUpBlue extends LinearOpMode {
                 //Score Preloaded Specimen
                 .strafeToLinearHeading(new Vector2d(0, 38), Math.toRadians(270))
                 .waitSeconds(2)
-
-                .strafeToLinearHeading(new Vector2d(-25, 38), Math.toRadians(270))
+                //Sample One
+                .strafeToLinearHeading(new Vector2d(-48, 38), Math.toRadians(270))
                 .waitSeconds(2)
-                .strafeToLinearHeading(new Vector2d(-45, 10), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(-44, 5), Math.toRadians(270))
                 .waitSeconds(2)
-
-                .strafeToLinearHeading(new Vector2d(-47, 62), Math.toRadians(270))
-                .waitSeconds(2)
-                .strafeToLinearHeading(new Vector2d(-47, 10), Math.toRadians(270))
-                .waitSeconds(2)
-                .strafeToLinearHeading(new Vector2d(-55, 10), Math.toRadians(270))
-                .waitSeconds(2)
-                .strafeToLinearHeading(new Vector2d(-55, 62), Math.toRadians(270))
-                .waitSeconds(2)
-
-                //.strafeToLinearHeading(new Vector2d(-55, 10), Math.toRadians(270))
-                //.waitSeconds(2)
-//                .strafeToLinearHeading(new Vector2d(-62, 10), Math.toRadians(270))
-//                .waitSeconds(2)
-//                .strafeToLinearHeading(new Vector2d(-62, 62), Math.toRadians(270))
-//                .waitSeconds(2)
-                .strafeToLinearHeading(new Vector2d(0, 62), Math.toRadians(270))
-                .waitSeconds(2)
-                .strafeToLinearHeading(new Vector2d(0, 38), Math.toRadians(270))
-                .waitSeconds(2)
-                .strafeToLinearHeading(new Vector2d(0, 60), Math.toRadians(270))
-                .waitSeconds(2)
-                .strafeToLinearHeading(new Vector2d(-55, 60), Math.toRadians(270))
-                .waitSeconds(2)
-                .strafeToLinearHeading(new Vector2d(0, 60), Math.toRadians(270))
-                .waitSeconds(2)
-                .strafeToLinearHeading(new Vector2d(0, 38), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(-58, 5), Math.toRadians(270))
                 .waitSeconds(2);
-
-
-        Action trajectoryActionCloseOut = null;
-        Actions.runBlocking(
-                new SequentialAction(
-                         trajectoryActionCloseOut
-                )
-        );
-        trajectoryActionCloseOut = tab1.fresh()
-                .strafeTo(new Vector2d(48, 12))
+//                .strafeToLinearHeading(new Vector2d(-47, 10), Math.toRadians(270))
+//                .waitSeconds(2)
+//                .strafeToLinearHeading(new Vector2d(-55, 10), Math.toRadians(270))
+//                .waitSeconds(2)
+//                .strafeToLinearHeading(new Vector2d(-55, 62), Math.toRadians(270))
+//                .waitSeconds(2)
+//
+//                //.strafeToLinearHeading(new Vector2d(-55, 10), Math.toRadians(270))
+//                //.waitSeconds(2)
+////                .strafeToLinearHeading(new Vector2d(-62, 10), Math.toRadians(270))
+////                .waitSeconds(2)
+////                .strafeToLinearHeading(new Vector2d(-62, 62), Math.toRadians(270))
+////                .waitSeconds(2)
+//                .strafeToLinearHeading(new Vector2d(0, 62), Math.toRadians(270))
+//                .waitSeconds(2)
+//                .strafeToLinearHeading(new Vector2d(0, 38), Math.toRadians(270))
+//                .waitSeconds(2)
+//                .strafeToLinearHeading(new Vector2d(0, 60), Math.toRadians(270))
+//                .waitSeconds(2)
+//                .strafeToLinearHeading(new Vector2d(-55, 60), Math.toRadians(270))
+//                .waitSeconds(2)
+//                .strafeToLinearHeading(new Vector2d(0, 60), Math.toRadians(270))
+//                .waitSeconds(2)
+//                .strafeToLinearHeading(new Vector2d(0, 38), Math.toRadians(270))
+//                .waitSeconds(2);
+        Action trajectoryActionCloseOut = tab1.fresh()
+                .strafeTo(new Vector2d(-59, 60))
                 .build();
 
 
-    }}
+        Actions.runBlocking(
+                new SequentialAction(
+                        tab1.build(),
+                         trajectoryActionCloseOut
+                )
+        );
+
+
+    }
+}
