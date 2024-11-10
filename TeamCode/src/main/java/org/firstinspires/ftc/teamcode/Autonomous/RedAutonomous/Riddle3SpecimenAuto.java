@@ -54,6 +54,8 @@ public class Riddle3SpecimenAuto extends LinearOpMode {
                 //Score Preloaded Specimen
                 .strafeToLinearHeading(new Vector2d(0, -38), Math.toRadians(270))
                 .waitSeconds(2)
+
+
                 //Sample One
                 .strafeToLinearHeading(new Vector2d(48, -38), Math.toRadians(270))
                 .waitSeconds(2)
@@ -63,6 +65,7 @@ public class Riddle3SpecimenAuto extends LinearOpMode {
                 .waitSeconds(2)
                 .strafeToLinearHeading(new Vector2d(60, -55), Math.toRadians(270))
                 .waitSeconds(2)
+
                 //Second Sample
                 .strafeToLinearHeading(new Vector2d(60, -5), Math.toRadians(270))
                 .waitSeconds(2)
@@ -70,11 +73,13 @@ public class Riddle3SpecimenAuto extends LinearOpMode {
                 .waitSeconds(2)
                 .strafeToLinearHeading(new Vector2d(72, -55), Math.toRadians(270))
                 .waitSeconds(2)
+
 //              Score 1
                 .strafeToLinearHeading(new Vector2d(57, -55), Math.toRadians(270))
                 .waitSeconds(2)
                 .strafeToLinearHeading(new Vector2d(0, -38), Math.toRadians(270))
                 .waitSeconds(2)
+
                 //Score 2
                 .strafeToLinearHeading(new Vector2d(57, -55), Math.toRadians(270))
                 .waitSeconds(2)

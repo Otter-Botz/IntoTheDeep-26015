@@ -14,6 +14,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Roadrunnerlol.MecanumDrive;
 
@@ -26,6 +27,73 @@ public class Biddle4Specimen extends LinearOpMode {
     public double target = -750;
 
     private final double ticks_in_degrees = 700 / 180;
+
+    //auto claw stuff
+    public class autoClaw {
+        public Servo clawServo;
+
+        //init stuff
+        public autoClaw(HardwareMap hardwareMap) {
+            clawServo = hardwareMap.get(Servo.class, "clawServo");
+        }
+
+        //claw open
+        public class open implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                target = 0.4;
+                return false;
+            }
+        }
+
+        public Action clawOpen() {
+            return new open();
+        }
+
+        //claw close
+        public class close implements Action {
+
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                target = 0.7;
+                return false;
+            }
+        }
+
+        public Action clawClose() {
+            return new close();
+        }
+    }
+
+
+    //auto wrist stuff
+    public class autoWrist {
+        public Servo wristServo;
+
+
+        public autoWrist(HardwareMap hardwareMap) {
+            wristServo = hardwareMap.get(Servo.class, "wristServo");
+        }
+        //wrist up
+        public class wristup implements Action{
+
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                target = 0.4;
+                return false;
+            }
+        }
+
+        public class wristdown implements Action{
+
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                target = 0.1;
+                return false;
+            }
+        }
+    }
+
 
 // auto arm stuff
     public class autoArm {
@@ -64,7 +132,14 @@ public class Biddle4Specimen extends LinearOpMode {
         public Action armDown(){
             return new down();
         }
+    public class backUp implements Action{
 
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+            target = -100;
+            return false;
+        }
+    }
 
     public class backDown implements Action {
 
@@ -92,11 +167,6 @@ public class Biddle4Specimen extends LinearOpMode {
             armMotor.setPower(power);
         }
     }
-
-
-
-
-
 
     @Override
     public void runOpMode() {
@@ -185,25 +255,44 @@ public class Biddle4Specimen extends LinearOpMode {
                 new SequentialAction(
                        // armMotor.armUp(),
                         score1Transfer1.build(),
+                       // autoClaw.open(),
                       //  armMotor.armDown(),
-                       // armMotor.backDown(),
+                       // autoWrist.wristdown(),
+                      //  autoClaw.close(),
+                        // armMotor.backDown(),
+                        //autoClaw.open(),
                         sampleTransfer2.build(),
                        // armMotor.armDown(),
+                      // autoWrist.wristdown(),
+                       // autoClaw.close(),
                        // armMotor.backDown(),
+                       // autoClaw.open(),
                         sampleTransfer3.build(),
-                      //  armMotor.armDown(),
-                      //  armMotor.backDown(),
+                        // armMotor.armDown(),
+                        // autoWrist.wristdown()
+                        // autoClaw.close(),
+                        // armMotor.backDown(),
+                        // autoClaw.open(),
                         specimenPickup1.build(),
-                       // armMotor.backDown(),
-                       // armMotor.armUp(),
-                        score1Pickup2.build(),
-                       // armMotor.backDown(),
-                       // armMotor.armUp(),
-                        score2Pickup3.build(),
-                        //armMotor.backDown(),
                         //armMotor.armUp(),
+                       //autoClaw.open
+                       // armMotor.backUp(),
+                        // autoClaw.close(),
+                        score1Pickup2.build(),
+                        // armMotor.armUp(),
+                       //autoClaw.open(),
+                        // armMotor.backUp(),
+                        // autoClaw.close(),
+                       // armMotor.armUp(),
+                        // autoClaw.open(),
+                        score2Pickup3.build(),
+                        //autoClaw.open(),
+                        //armMotor.backUp(),
+                        //autoClaw.close
                         score3.build(),
-
+                        // armMotor.armUp(),
+                        // autoClaw.open(),
+                        // armMotor.armDown(),
                         parkCloseOut
 
 
