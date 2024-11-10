@@ -21,6 +21,21 @@ public class TeleOpFinal extends LinearOpMode {
     Slider Slider = new Slider();
     wrist wrist = new wrist();
     TouchSensor touchSensor;
+
+    public void highbasket() {
+        Slider.sliderMotor.setTargetPosition(900);
+        Slider.sliderMotorMotor.setTargetPosition(-900);
+        PID_Arm.armMotor.setTargetPosition(812);
+        wrist.wristServo.setPosition(0.1);
+    }
+
+    public void highrung() {
+        Slider.sliderMotor.setTargetPosition(700);
+        Slider.sliderMotorMotor.setTargetPosition(-700);
+        PID_Arm.armMotor.setTargetPosition(812);
+        wrist.wristServo.setPosition(0.1);
+    }
+
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -87,15 +102,15 @@ public class TeleOpFinal extends LinearOpMode {
 
             if (gamepad2.options) {
                 PID_Arm.target = -104;
+            }
 
+            else if (gamepad2.dpad_up){
+                highbasket();
             }
-            else if (gamepad2.dpad_up) {
-                Slider.highbasket();
-            } else if (gamepad2.dpad_down) {
-                Slider.lowbasket();
-            } else if (gamepad2.dpad_left) {
-                Slider.restpos();
+            else if (gamepad2.dpad_down){
+                highrung();
             }
+
             //PID Sliders
             Slider.sliderMotor.setPower(-gamepad2.right_stick_y);
             Slider.sliderMotorMotor.setPower(-gamepad2.right_stick_y);
