@@ -8,6 +8,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Roadrunnerlol.MecanumDrive;
@@ -23,8 +24,14 @@ public class Riddle3SpecimenAuto extends LinearOpMode {
     claw claw = new claw();
     ArmSlider ArmSlider = new ArmSlider();
     PID_Arm PID_Arm = new PID_Arm();
-    Slider PID_Slider = new Slider();
+    Slider Slider = new Slider();
     wrist wrist = new wrist();
+    // Slider
+    public DcMotor slideMotor ;
+    public DcMotor slideMotorMotor ;
+    public static final double SLIDER_UP_SPEED = 1.0;
+    public static final double SLIDER_DOWN_SPEED = 0.5;
+    public static final double SLIDER_HOLD_SPEED = 0.001;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -35,7 +42,7 @@ public class Riddle3SpecimenAuto extends LinearOpMode {
         claw.init(hardwareMap);
         ArmSlider.init(hardwareMap);
         PID_Arm.init(hardwareMap);
-        PID_Slider.init(hardwareMap);
+        Slider.init(hardwareMap);
         wrist.init(hardwareMap);
         Servo clawServo = hardwareMap.get(Servo.class, "clawServo");
 
