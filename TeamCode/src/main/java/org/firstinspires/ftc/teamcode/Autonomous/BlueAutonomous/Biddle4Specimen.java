@@ -139,26 +139,27 @@ public class Biddle4Specimen extends LinearOpMode {
         lastY = nextY;
         TrajectoryActionBuilder score1Pickup2 = drive.actionBuilder( new Pose2d(lastX, lastY, Math.toRadians(270)))
 
-                .strafeToLinearHeading(new Vector2d(0, 39), Math.toRadians(270))
-                .strafeToLinearHeading(new Vector2d(0, 32), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(0, 42), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(0, 30), Math.toRadians(270))
                 .strafeToLinearHeading(new Vector2d(-57, 55), Math.toRadians(270))
                 .waitSeconds(1);
 
-        /*
+
         TrajectoryActionBuilder score2Pickup3 = drive.actionBuilder(initialPose)
 
-                .strafeToLinearHeading(new Vector2d(0, 39), Math.toRadians(270))
-                .strafeToLinearHeading(new Vector2d(0, 34), Math.toRadians(270))
-                .strafeToLinearHeading(new Vector2d(-47, 50), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(0, 42), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(0, 30), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(-57, 55), Math.toRadians(270))
                 .waitSeconds(1);
-        TrajectoryActionBuilder score3Park = drive.actionBuilder(initialPose)
 
-                .strafeToLinearHeading(new Vector2d(0, 39), Math.toRadians(270))
-                .strafeToLinearHeading(new Vector2d(0, 34), Math.toRadians(270))
-                .strafeToLinearHeading(new Vector2d(-59, 42), Math.toRadians(270))
-                .strafeToLinearHeading(new Vector2d(-59, 60), Math.toRadians(270));
-*/
-        Action trajectoryActionCloseOut = score1Transfer1.fresh()
+        TrajectoryActionBuilder score3 = drive.actionBuilder(initialPose)
+
+                .strafeToLinearHeading(new Vector2d(0, 42), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(0, 30), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(-57, 55), Math.toRadians(270));
+
+
+        Action parkCloseOut = score1Transfer1.fresh()
                 .strafeToLinearHeading(new Vector2d(-59, 60), Math.toRadians(270))
                 .build();
 
@@ -194,12 +195,12 @@ public class Biddle4Specimen extends LinearOpMode {
                         score1Pickup2.build(),
                        // armMotor.backDown(),
                        // armMotor.armUp(),
-                       // score2Pickup3.build(),
+                        score2Pickup3.build(),
                         //armMotor.backDown(),
                         //armMotor.armUp(),
-                       // score3Park.build(),
+                        score3.build(),
 
-                        trajectoryActionCloseOut
+                        parkCloseOut
 
 
                 )
