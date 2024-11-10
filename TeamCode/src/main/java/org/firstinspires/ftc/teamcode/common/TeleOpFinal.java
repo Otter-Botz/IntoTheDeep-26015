@@ -111,9 +111,6 @@ public class TeleOpFinal extends LinearOpMode {
                 wrist.wristServo.setPosition(0);
             }
 
-
-
-
             /*
             if(gamepad2.right_trigger!= 0) {
                 PID_Arm.armMotor.setPower(gamepad2.right_trigger/2.5);
