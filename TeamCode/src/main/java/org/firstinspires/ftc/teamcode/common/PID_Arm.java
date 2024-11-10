@@ -1,7 +1,10 @@
 package org.firstinspires.ftc.teamcode.common;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.controller.PIDController;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 /*
 @Config
@@ -56,10 +59,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class PID_Arm {
     private PIDController controller;
 
-    public static double p = 0.005, i = 0.03, d = 0.0005;
-    public static double f = 0.12;
+    public static double p = 0.005, i = 0, d = 0.0001;
+    public static double f = 0.01;
 
-    public double target = -85;
+    public double target = 850;
 
     private final double ticks_in_degrees = 700 / 180;
 
@@ -71,7 +74,7 @@ public class PID_Arm {
 
 
     public void up()  {
-        target = 705;
+        target = 812;
     }
 
     public void armRespond(double value) {
@@ -84,17 +87,10 @@ public class PID_Arm {
 
 
     public void down() {
-        target = -82;
+        target = 23;
     }
 
-    public  void minusTarget(){
-        target = target - 10;
 
-    }
-    public  void addTarget(){
-        target = target + 10;
-
-    }
 
 
 
@@ -134,6 +130,5 @@ public class PID_Arm {
 
 
 
-    // telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
 

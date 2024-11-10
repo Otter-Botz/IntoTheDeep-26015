@@ -5,8 +5,12 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
+
+import org.firstinspires.ftc.robotcontroller.external.samples.SensorDigitalTouch;
 
 @TeleOp(name = "OTTERRRRR")
 public class TeleOpFinal extends LinearOpMode {
@@ -16,21 +20,11 @@ public class TeleOpFinal extends LinearOpMode {
     vroomVroom vroom = new vroomVroom();
     Slider Slider = new Slider();
     wrist wrist = new wrist();
-
-    public void highBasket() {
-        Slider.sliderMotor.setTargetPosition(900);
-        Slider.sliderMotorMotor.setTargetPosition(-900);
-        PID_Arm.armMotor.setTargetPosition(705);
-        wrist.wristServo.setPosition(0.1);
-    }
-    public void highRung() {
-        Slider.sliderMotor.setTargetPosition(700);
-        Slider.sliderMotorMotor.setTargetPosition(-700);
-        PID_Arm.armMotor.setTargetPosition(705);
-        wrist.wristServo.setPosition(0.4);
-    }
+    TouchSensor touchSensor;
     @Override
     public void runOpMode() throws InterruptedException {
+
+        touchSensor = hardwareMap.get(TouchSensor.class, "sensorTouch");
 
 
         claw.init(hardwareMap);
@@ -41,7 +35,6 @@ public class TeleOpFinal extends LinearOpMode {
         wrist.init(hardwareMap);
 
 
-
         waitForStart();
 
         while (opModeIsActive()) {
@@ -49,6 +42,14 @@ public class TeleOpFinal extends LinearOpMode {
             vroom.vrooooooom(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, gamepad1.right_trigger);
             PID_Arm.math();
 
+            if (PID_Arm.target < 100) {
+                PID_Arm.armRespond(gamepad2.left_stick_y);
+            }
+
+            if (touchSensor.isPressed()) {
+              PID_Arm.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+              PID_Arm.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            }
             //Rumble and Reset Yaw
             if (gamepad1.options) {
                 vroom.resetYaw();
@@ -73,7 +74,10 @@ public class TeleOpFinal extends LinearOpMode {
                 PID_Arm.up();
             } else if (gamepad2.y) {
             PID_Arm.down();
+            } else if (gamepad2.options) {
+
             }
+
             //Wrist
             if (gamepad2.b) {
                 wrist.set1();
@@ -82,25 +86,29 @@ public class TeleOpFinal extends LinearOpMode {
             }
 
             if (gamepad2.options) {
-                //PID_Arm.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                //PID_Arm.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                PID_Arm.target = -104;
+
+            }
+            else if (gamepad2.dpad_up) {
+                Slider.highbasket();
+            } else if (gamepad2.dpad_down) {
+                Slider.lowbasket();
+            } else if (gamepad2.dpad_left) {
+                Slider.restpos();
             }
             //PID Sliders
             Slider.sliderMotor.setPower(-gamepad2.right_stick_y);
             Slider.sliderMotorMotor.setPower(-gamepad2.right_stick_y);
             ArmSlider.armSliderServo.setPower(gamepad2.left_stick_y);
 
+           /* if (gamepad2.left_stick_y != 0){
+            PID_Arm.target = PID_Arm.target + PID_Arm.armticks * 10;
+            }*/
 
             if (gamepad2.left_bumper) {
                 claw.clawServo.setPosition(0);
             } else if (gamepad2.right_bumper) {
                 wrist.wristServo.setPosition(0);
-            }
-            else if (gamepad2.dpad_up){
-                highBasket();
-            }
-            else if (gamepad2.dpad_down) {
-                highRung();
             }
 
 

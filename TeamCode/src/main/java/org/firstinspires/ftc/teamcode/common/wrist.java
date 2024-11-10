@@ -11,7 +11,7 @@ public class wrist implements armSystem {
     @Override
     //b
     public void set1() {
-        wristServo.setPosition(0.4);
+        wristServo.setPosition(0.5);
     }
 
     @Override
