@@ -137,26 +137,30 @@ public class Biddle4Specimen extends LinearOpMode {
 
         lastX = nextX;
         lastY = nextY;
+
+        nextX = -57;
+        nextY = 55;
         TrajectoryActionBuilder score1Pickup2 = drive.actionBuilder( new Pose2d(lastX, lastY, Math.toRadians(270)))
 
                 .strafeToLinearHeading(new Vector2d(0, 42), Math.toRadians(270))
                 .strafeToLinearHeading(new Vector2d(0, 30), Math.toRadians(270))
-                .strafeToLinearHeading(new Vector2d(-57, 55), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(nextX, nextY), Math.toRadians(270))
                 .waitSeconds(1);
 
-
-        TrajectoryActionBuilder score2Pickup3 = drive.actionBuilder(initialPose)
+        lastX = nextX;
+        lastY = nextY;
+        TrajectoryActionBuilder score2Pickup3 = drive.actionBuilder( new Pose2d(lastX, lastY, Math.toRadians(270)))
 
                 .strafeToLinearHeading(new Vector2d(0, 42), Math.toRadians(270))
                 .strafeToLinearHeading(new Vector2d(0, 30), Math.toRadians(270))
-                .strafeToLinearHeading(new Vector2d(-57, 55), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(nextX, nextY), Math.toRadians(270))
                 .waitSeconds(1);
 
-        TrajectoryActionBuilder score3 = drive.actionBuilder(initialPose)
+        TrajectoryActionBuilder score3 = drive.actionBuilder( new Pose2d(lastX, lastY, Math.toRadians(270)))
 
                 .strafeToLinearHeading(new Vector2d(0, 42), Math.toRadians(270))
                 .strafeToLinearHeading(new Vector2d(0, 30), Math.toRadians(270))
-                .strafeToLinearHeading(new Vector2d(-57, 55), Math.toRadians(270));
+                .strafeToLinearHeading(new Vector2d(nextX, nextY), Math.toRadians(270));
 
 
         Action parkCloseOut = score1Transfer1.fresh()
