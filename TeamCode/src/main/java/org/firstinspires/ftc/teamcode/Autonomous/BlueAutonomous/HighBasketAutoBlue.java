@@ -166,6 +166,10 @@ public class HighBasketAutoBlue extends LinearOpMode {
         setSliderIdlePosition();
     }
 
+    public void SliderDown() {
+
+    }
+
     public void setPosition(double position) {
 
     }
@@ -179,6 +183,14 @@ public class HighBasketAutoBlue extends LinearOpMode {
     public void ClawClose() {
 
         claw.set2();
+    }
+
+    public void WristUp() {
+        wrist.set1();
+    }
+
+    public void WristDown() {
+        wrist.set2();
     }
     @Override
     public void runOpMode() throws InterruptedException {
@@ -205,7 +217,8 @@ public class HighBasketAutoBlue extends LinearOpMode {
         double Tab4Y = 20;
         double Tab5X = 52;
         double Tab5Y = 57;
-
+        double Tab6X = 56;
+        double Tab6Y = 20;
 
         TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
                 //Score Preloaded Specimen
@@ -222,6 +235,8 @@ public class HighBasketAutoBlue extends LinearOpMode {
                 //Pick Up and move back
                 .strafeToLinearHeading(new Vector2d(60, 57), Math.toRadians(200));
         HighBaskets();
+        WristDown();
+
         TrajectoryActionBuilder tab4 = drive.actionBuilder(new Pose2d(Tab3X, Tab3Y, Math.toRadians(200)))
                 //Move to second Sample
                 .strafeToLinearHeading(new Vector2d(52, 20), Math.toRadians(180))
@@ -230,15 +245,18 @@ public class HighBasketAutoBlue extends LinearOpMode {
         ClawClose();
         TrajectoryActionBuilder tab5 = drive.actionBuilder(new Pose2d(Tab4X, Tab4Y, Math.toRadians(180)))
                 .strafeToLinearHeading(new Vector2d(52, 57), Math.toRadians(200))
-                .waitSeconds(2);
-        TrajectoryActionBuilder tab6 = drive.actionBuilder(new Pose2d(Tab5X, Tab5Y, Math.toRadians(180)))
+                .waitSeconds(0);
+        HighBaskets();
+        TrajectoryActionBuilder tab6 = drive.actionBuilder(new Pose2d(Tab5X, Tab5Y, Math.toRadians(200)))
                 .strafeToLinearHeading(new Vector2d(56, 20), Math.toRadians(180))
-                .waitSeconds(0.5)
-                //arm
+                .waitSeconds(0.5);
+        ClawOpen();
+        ClawClose();
+        TrajectoryActionBuilder tab7 = drive.actionBuilder(new Pose2d(Tab6X, Tab6Y, Math.toRadians(180)))
                 .strafeToLinearHeading(new Vector2d(56, 57), Math.toRadians(200))
                 .waitSeconds(2);
-
-        Action trajectoryActionCloseOut = tab1.fresh()
+        HighBaskets();
+        Action trajectoryActionCloseOut = tab7.fresh()
                 .strafeToLinearHeading(new Vector2d(39, 10), Math.toRadians(270))
                 .build();
 
@@ -246,6 +264,12 @@ public class HighBasketAutoBlue extends LinearOpMode {
         Actions.runBlocking(
                 new SequentialAction(
                         tab1.build(),
+                        tab2.build(),
+                        tab3.build(),
+                        tab4.build(),
+                        tab5.build(),
+                        tab6.build(),
+                        tab7.build(),
                         trajectoryActionCloseOut
                 )
         );
