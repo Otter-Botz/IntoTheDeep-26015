@@ -38,6 +38,8 @@
 //            d = 0.0005;
 //    public static double f = 0.12;
 //    public double target = -750;
+//    public double open = 0;
+//    public double close = 0.3;
 //
 //    // Slider
 //    public static final double IDLE_SPEED = 0.0;
@@ -115,56 +117,6 @@
 //            armMotor.setPower(power);
 //        }
 //    }
-//    public void setSliderIdlePosition() {
-//        slideMotor.setPower(IDLE_SPEED);
-//        slideMotorMotor.setPower(IDLE_SPEED);
-//        slideMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        slideMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//    }
-//    public void  LowBaskets (){
-//        slideMotor.setTargetPosition(1350);
-//        slideMotorMotor.setTargetPosition(1350);
-//        slideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        slideMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        slideMotor.setPower(SLIDER_UP_SPEED);
-//        slideMotorMotor.setPower(SLIDER_UP_SPEED);
-//        slideMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        slideMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        setSliderIdlePosition();
-//    }
-//    public void  HighRung (){
-//        slideMotor.setTargetPosition(1750);
-//        slideMotorMotor.setTargetPosition(1750);
-//        slideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        slideMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        slideMotor.setPower(SLIDER_UP_SPEED);
-//        slideMotorMotor.setPower(SLIDER_UP_SPEED);
-//        slideMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        slideMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        setSliderIdlePosition();
-//    }
-//    public void  LowRung (){
-//        slideMotor.setTargetPosition(1350);
-//        slideMotorMotor.setTargetPosition(1350);
-//        slideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        slideMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        slideMotor.setPower(SLIDER_UP_SPEED);
-//        slideMotorMotor.setPower(SLIDER_UP_SPEED);
-//        slideMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        slideMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        setSliderIdlePosition();
-//    }
-//    public void  HighBaskets (){
-//        slideMotor.setTargetPosition(1750);
-//        slideMotorMotor.setTargetPosition(1750);
-//        slideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        slideMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        slideMotor.setPower(SLIDER_UP_SPEED);
-//        slideMotorMotor.setPower(SLIDER_UP_SPEED);
-//        slideMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        slideMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        setSliderIdlePosition();
-//    }
 //
 //    public void SliderDown() {
 //
@@ -176,13 +128,12 @@
 //
 //    public void ClawOpen() {
 //
-//        claw.set1();
 //
 //    }
 //
 //    public void ClawClose() {
 //
-//        claw.set2();
+//        double closeclaw.set2();
 //    }
 //
 //    public void WristUp() {

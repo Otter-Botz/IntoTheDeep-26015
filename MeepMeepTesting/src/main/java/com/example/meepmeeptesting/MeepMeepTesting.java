@@ -18,48 +18,32 @@ public class MeepMeepTesting {
                 .setConstraints(100, 100, Math.toRadians(180), Math.toRadians(180), 15)
                 .build();
 
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-16, 60, 90))
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(38, 62, 90))
 
-                //Score Preloaded Specimen
-                .strafeToLinearHeading(new Vector2d(0, 38), Math.toRadians(270))
-                .waitSeconds(2)
-                //Go to spike 1 and push sample to human player
-                .strafeToLinearHeading(new Vector2d(-30, 38), Math.toRadians(270))
-                .waitSeconds(2)
-                .strafeToLinearHeading(new Vector2d(-45, 10), Math.toRadians(270))
-                .waitSeconds(2)
-                .strafeToLinearHeading(new Vector2d(-47, 62), Math.toRadians(270))
-                .waitSeconds(0)
-                .strafeToLinearHeading(new Vector2d(-47, 10), Math.toRadians(270))
-                .waitSeconds(2)
-                .strafeToLinearHeading(new Vector2d(-55, 10), Math.toRadians(270))
-                .waitSeconds(2)
-                .strafeToLinearHeading(new Vector2d(-55, 62), Math.toRadians(270))
-//                .waitSeconds(0)
-                //rihgtrhgtugtr8ghtriuhgiugtriugtrwiugtrugtriugtriugtuiugtgyuhyhyuhytuhgyuhytugygughyuhyuhy
-//                .strafeToLinearHeading(new Vector2d(55, -10), Math.toRadians(90))
-//                .waitSeconds(0)
-//                .strafeToLinearHeading(new Vector2d(62, -10), Math.toRadians(90))
-//                .waitSeconds(0)
-//                .strafeToLinearHeading(new Vector2d(62, -72), Math.toRadians(90))
-//                .waitSeconds(2)
-//                .strafeToLinearHeading(new Vector2d(0, -72), Math.toRadians(90))
-//                .waitSeconds(0)
-//                .strafeToLinearHeading(new Vector2d(0, -38), Math.toRadians(90))
-//                .waitSeconds(2)
-//                .strafeToLinearHeading(new Vector2d(0, -60), Math.toRadians(90))
-//                .waitSeconds(0)
-//                .strafeToLinearHeading(new Vector2d(55, -60), Math.toRadians(90))
-//                .waitSeconds(2)
-//                .strafeToLinearHeading(new Vector2d(0, -60), Math.toRadians(90))
-//                .waitSeconds(0)
-//                .strafeToLinearHeading(new Vector2d(0, -38), Math.toRadians(90))
-//                .waitSeconds(2)
+                        //Score Preloaded Specimen
+                        .strafeToLinearHeading(new Vector2d(0, 38), Math.toRadians(270))
+                        .waitSeconds(2)
+                        //Move to first sample
+                        .strafeToLinearHeading(new Vector2d(47, 38), Math.toRadians(270))
+                        .waitSeconds(2)
+                        //Pick Up and move back
+                        .strafeToLinearHeading(new Vector2d(47, 54), Math.toRadians(240))
+                        .waitSeconds(2)
+                        //Move to second Sample
+                        .strafeToLinearHeading(new Vector2d(47, 20), Math.toRadians(180))
+                        .waitSeconds(2)
+                        .strafeToLinearHeading(new Vector2d(47, 54), Math.toRadians(230))
+                        .waitSeconds(2)
+                        .strafeToLinearHeading(new Vector2d(47, 20), Math.toRadians(270))
+                        .waitSeconds(0.5)
+                        .strafeToLinearHeading(new Vector2d(47, 38), Math.toRadians(180))
+                        .waitSeconds(2)
+                        //arm
+                        .strafeToLinearHeading(new Vector2d(47, 54), Math.toRadians(240))
+                        .waitSeconds(2)
 
-                //.strafeToLinearHeading(new Vector2d(0, 38), Math.toRadians(270))
-              //  .waitSeconds(2)
-             //   .strafeToLinearHeading(new Vector2d(-45, 38), Math.toRadians(270))
-             //   .waitSeconds(2)
+
+
                 .build());
                 //i
 
