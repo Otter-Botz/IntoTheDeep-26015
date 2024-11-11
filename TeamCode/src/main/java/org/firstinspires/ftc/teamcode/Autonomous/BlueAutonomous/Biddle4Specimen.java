@@ -29,7 +29,11 @@ public class Biddle4Specimen extends LinearOpMode {
 
     private final double ticks_in_degrees = 700 / 180;
 
-    // to do:
+   @Override
+    public void runOpMode() throws InterruptedException {}
+
+
+// to do:
     // arm slider auto
     // add arm slider stuff to auto bc attaching specimens differently
 
@@ -46,7 +50,7 @@ public class Biddle4Specimen extends LinearOpMode {
 
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                target = 90;
+                armSliderServo.setPower(0.5);
                 return false;
             }
         }
@@ -55,19 +59,23 @@ public class Biddle4Specimen extends LinearOpMode {
             return new armOut();
         }
 
-        public class armIn implements Action {
+        public  class armIn implements Action {
 
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                target = 0;
+                armSliderServo.setPower(-0.5);
+
                 return false;
-            }
-        }
+            }}
 
         public Action armSliderIN(){
             return new armIn();
         }
-    }
+    }}
+
+
+
+    /*
 
         public class mainSliders {
             public DcMotor sliderMotor;
@@ -396,4 +404,4 @@ public class Biddle4Specimen extends LinearOpMode {
                     )
             );
         }
-}
+}*/
