@@ -13,6 +13,8 @@ public class Slider {
     public void init(HardwareMap hwMap) {
         sliderMotor = hwMap.get(DcMotor.class, "slideMotor");
         sliderMotorMotor = hwMap.get(DcMotor.class, "slideMotorMotor");
+        sliderMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        sliderMotorMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         sliderMotorMotor.setDirection(DcMotor.Direction.REVERSE);
 
     }

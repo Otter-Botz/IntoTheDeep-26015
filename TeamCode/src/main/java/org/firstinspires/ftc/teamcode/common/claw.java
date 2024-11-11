@@ -20,10 +20,12 @@ public class claw implements armSystem {
         //open
         clawServo.setPosition(position);
     }
+
     @Override
     public double getPosition(){
         return clawServo.getPosition();
     }
+
 
     @Override
     public void init(HardwareMap hwMap) {
