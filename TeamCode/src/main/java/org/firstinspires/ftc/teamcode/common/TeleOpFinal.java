@@ -25,14 +25,14 @@ public class TeleOpFinal extends LinearOpMode {
     public void highbasket() {
         Slider.sliderMotor.setTargetPosition(900);
         Slider.sliderMotorMotor.setTargetPosition(-900);
-        //PID_Arm.armMotor.setTargetPosition(812);
+        PID_Arm.armMotor.setTargetPosition(812);
         wrist.wristServo.setPosition(0.1);
     }
 
     public void highrung() {
         Slider.sliderMotor.setTargetPosition(700);
         Slider.sliderMotorMotor.setTargetPosition(-700);
-        //PID_Arm.armMotor.setTargetPosition(812);
+        PID_Arm.armMotor.setTargetPosition(812);
         wrist.wristServo.setPosition(0.1);
     }
 
@@ -48,6 +48,8 @@ public class TeleOpFinal extends LinearOpMode {
         vroom.init(hardwareMap);
         Slider.init(hardwareMap);
         wrist.init(hardwareMap);
+        boolean clawPressed = false;
+        boolean wristPressed = false;
 
 
         waitForStart();
@@ -55,17 +57,16 @@ public class TeleOpFinal extends LinearOpMode {
         while (opModeIsActive()) {
 
             vroom.vrooooooom(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, gamepad1.right_trigger);
-           //
-            //PID_Arm.math();
+            PID_Arm.math();
 
-//            if (PID_Arm.target < 100) {
-//                PID_Arm.armRespond(gamepad2.left_stick_y);
-//            }
+            if (PID_Arm.target < 100) {
+                PID_Arm.armRespond(gamepad2.left_stick_y);
+            }
 
-//            if (touchSensor.isPressed()) {
-//              PID_Arm.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//              PID_Arm.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//            }
+            if (touchSensor.isPressed()) {
+              PID_Arm.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+              PID_Arm.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            }
             //Rumble and Reset Yaw
             if (gamepad1.options) {
                 vroom.resetYaw();
@@ -74,36 +75,31 @@ public class TeleOpFinal extends LinearOpMode {
             if (gamepad1.dpad_down) {
                 gamepad2.rumble(1000);
             }
+            wristPressed = wristPressed && gamepad2.y;
+            clawPressed = clawPressed && gamepad2.x;
+            if(gamepad2.y && !wristPressed){
+                toggleWrist();
+                wristPressed = true;
+            }
+            if(gamepad2.x && !clawPressed){
+                toggleClaw();
+                clawPressed = true;
+            }
             //claw code
-           if (gamepad1.a) {
-                //open
-                // 0.4
-                claw.set1();
-            }
-           else if (gamepad1.b) {
-                //close
-                //0.7
-                claw.set2();
-            }
+
            //Slider Arm
-//            if (gamepad2.x) {
-//                PID_Arm.up();
-//            } else if (gamepad2.y) {
-//            PID_Arm.down();
-//            } else if (gamepad2.options) {
-//
-//            }
+            if (gamepad2.x) {
+                PID_Arm.up();
+            } else if (gamepad2.y) {
+            PID_Arm.down();
+            } else if (gamepad2.options) {
+
+            }
 
             //Wrist
-            if (gamepad2.a) {
-                wrist.set1();
-            } else if (gamepad2.b) {
-                wrist.set2();
+            if (gamepad2.options) {
+                PID_Arm.target = -104;
             }
-
-//            if (gamepad2.options) {
-//                PID_Arm.target = -104;
-//            }
 
             else if (gamepad2.dpad_up){
                 highbasket();
@@ -115,7 +111,7 @@ public class TeleOpFinal extends LinearOpMode {
             //PID Sliders
             Slider.sliderMotor.setPower(-gamepad2.right_stick_y);
             Slider.sliderMotorMotor.setPower(-gamepad2.right_stick_y);
-           // ArmSlider.armSliderServo.setPower(gamepad2.left_stick_y);
+            ArmSlider.armSliderServo.setPower(gamepad2.left_stick_y);
 
            /* if (gamepad2.left_stick_y != 0){
             PID_Arm.target = PID_Arm.target + PID_Arm.armticks * 10;
@@ -143,6 +139,20 @@ public class TeleOpFinal extends LinearOpMode {
         }
 
 
+    }
+    private  void toggleClaw(){
+        if(claw.getPosition() == claw.close){
+            claw.set(claw.open);
+        } else if(claw.getPosition() != claw.close){
+            claw.set(claw.close);
+        }
+    }
+    private  void toggleWrist(){
+        if(wrist.getPosition() == wrist.up){
+            wrist.set(wrist.down);
+        } else if(claw.getPosition() != wrist.up){
+            wrist.set(wrist.up);
+        }
     }
 }
 

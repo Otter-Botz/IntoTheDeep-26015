@@ -7,20 +7,17 @@ import org.firstinspires.ftc.teamcode.common.interfaces.armSystem;
 
 public class wrist implements armSystem {
     Servo wristServo;
+    double up = 0.2;
+    double down = 0.4;
 
     @Override
-    //b
-    //Open
-    public void set1() {
-        wristServo.setPosition(0.6);
+    public void set(double position) {
+        wristServo.setPosition(position);
     }
 
     @Override
-
-    //a
-    //CLose
-    public void set2() {
-        wristServo.setPosition(0.3);
+    public double getPosition() {
+        return wristServo.getPosition();
     }
 
     @Override

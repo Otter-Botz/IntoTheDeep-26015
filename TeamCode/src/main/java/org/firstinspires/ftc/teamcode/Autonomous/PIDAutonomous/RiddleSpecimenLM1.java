@@ -34,9 +34,9 @@ public class RiddleSpecimenLM1 extends LinearOpMode {
 
         commonAuto.driveStraight(DRIVE_SPEED, 20);
         //Arm Code
-        claw.set1();
+    //    claw.set1();
         //Claw Open
-        claw.set2();
+    //    claw.set2();
         //Claw Close
         commonAuto.moveBack(DRIVE_SPEED,-20);
 
