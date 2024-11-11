@@ -12,9 +12,11 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.teamcode.Roadrunnerlol.MecanumDrive;
 
@@ -24,9 +26,11 @@ public class Biddle4Specimen extends LinearOpMode {
     public static double p = 0.005, i = 0.03, d = 0.0005;
     public static double f = 0.12;
 
-    public double target = -750;
+    public double target = 550;
 
-    private final double ticks_in_degrees = 700 / 180;
+    private final double ticks_in_degrees = 2786.2 / 360;
+
+
 
     //auto claw stuff
     public class autoClaw {
@@ -41,7 +45,7 @@ public class Biddle4Specimen extends LinearOpMode {
         public class open implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                target = 0.4;
+                clawServo.setPosition(0);
                 return false;
             }
         }
@@ -55,9 +59,13 @@ public class Biddle4Specimen extends LinearOpMode {
 
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                target = 0.7;
+                clawServo.setPosition(0.3);
                 return false;
             }
+            public Action clawClose() {
+                return new open();
+            }
+
         }
 
         public Action clawClose() {
@@ -79,18 +87,25 @@ public class Biddle4Specimen extends LinearOpMode {
 
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                target = 0.4;
+               wristServo.setPosition(0.8);
                 return false;
             }
+
+        }
+        public Action wristUp(){
+            return new wristup();
         }
 
         public class wristdown implements Action{
 
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                target = 0.1;
+                target = 0.4;
                 return false;
             }
+        }
+        public Action wristDown(){
+            return new wristdown();
         }
     }
 
@@ -110,7 +125,9 @@ public class Biddle4Specimen extends LinearOpMode {
         public class up implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                target = -65;
+                target = 504;
+                telemetry.addData("pos", armMotor.getCurrentPosition());
+                telemetry.update();
                 return false;
             }
 
@@ -156,24 +173,84 @@ public class Biddle4Specimen extends LinearOpMode {
 
 
         //math for PID
-        public void math() {
+            public class math implements Action {
+
+                @Override
+                public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                    controller.setPID(p, i , d);
+                    int slidePos = armMotor.getCurrentPosition();
+                    double pid = controller.calculate(slidePos, target);
+                    double ff = Math.cos(Math.toRadians(target/ ticks_in_degrees)) * f;
+                    double power = pid + ff;
+                    armMotor.setPower(power);
+                    return false;
+                }
+            }
+            public Action mathRun() {
+                return new math();
+            }
 
 
-            controller.setPID(p, i , d);
-            int slidePos = armMotor.getCurrentPosition();
-            double pid = controller.calculate(slidePos, target);
-            double ff = Math.cos(Math.toRadians(target/ ticks_in_degrees)) * f;
-            double power = pid + ff;
-            armMotor.setPower(power);
+
+    }
+
+    public class armSlide {
+        public CRServo armServo;
+        public armSlide(HardwareMap hardwareMap) {
+            armServo = hardwareMap.get(CRServo.class, "servoSlide");
+        }
+        public class slideOut implements Action {
+
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                armServo.setPower(0.5);
+
+
+
+
+                return false;
+            }
+        }
+        public Action slideout(){
+            return new slideOut();
+        }
+
+    }
+
+    public class touchReset {
+        public TouchSensor touchSensor;
+        public DcMotor armMotor;
+        public touchReset(HardwareMap hardwareMap) {
+            touchSensor = hardwareMap.get(TouchSensor.class, "sensorTouch");
+            armMotor = hardwareMap.get(DcMotor.class, "armMotor");
+
+        }
+
+        public class touch implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                if (touchSensor.isPressed()) {
+                    armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                   armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                }
+                return false;
+            }
+            public Action touchreset(){
+                return new touch();
+            }
         }
     }
 
     @Override
     public void runOpMode() {
         autoArm armMotor = new autoArm(hardwareMap);
+        autoWrist wristServo = new autoWrist(hardwareMap);
+        armSlide slideServo = new armSlide(hardwareMap);
+        autoClaw clawServo = new autoClaw(hardwareMap);
+        touchReset touchreset = new touchReset(hardwareMap);
         Pose2d initialPose = new Pose2d(-16, 62, Math.toRadians(270));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
-       // armMotor.math();
+
 
          double lastX = -57;
          double lastY = 40;
@@ -253,7 +330,11 @@ public class Biddle4Specimen extends LinearOpMode {
 
         Actions.runBlocking(
                 new SequentialAction(
-                       // armMotor.armUp(),
+
+                        clawServo.clawClose(),
+                        armMotor.mathRun(),
+                        armMotor.armUp(),
+                        wristServo.wristUp(),
                         score1Transfer1.build(),
                        // autoClaw.open(),
                       //  armMotor.armDown(),

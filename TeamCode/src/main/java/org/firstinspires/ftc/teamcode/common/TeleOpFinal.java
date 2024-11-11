@@ -50,7 +50,7 @@ public class TeleOpFinal extends LinearOpMode {
         wrist.init(hardwareMap);
         boolean clawPressed = false;
         boolean wristPressed = false;
-
+        boolean isPressed = touchSensor.isPressed();
 
         waitForStart();
 
@@ -59,14 +59,16 @@ public class TeleOpFinal extends LinearOpMode {
             vroom.vrooooooom(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, gamepad1.right_trigger);
             PID_Arm.math();
 
-            if (PID_Arm.target < 100) {
+            if (PID_Arm.target < 500) {
                 PID_Arm.armRespond(gamepad2.left_stick_y);
             }
 
-            if (touchSensor.isPressed()) {
+            if (touchSensor.isPressed() && gamepad2.dpad_right) {
               PID_Arm.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
               PID_Arm.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             }
+
+
             //Rumble and Reset Yaw
             if (gamepad1.options) {
                 vroom.resetYaw();
@@ -75,13 +77,13 @@ public class TeleOpFinal extends LinearOpMode {
             if (gamepad1.dpad_down) {
                 gamepad2.rumble(1000);
             }
-            wristPressed = wristPressed && gamepad2.y;
-            clawPressed = clawPressed && gamepad2.x;
-            if(gamepad2.y && !wristPressed){
+            wristPressed = wristPressed && gamepad2.a;
+            clawPressed = clawPressed && gamepad1.b;
+            if(gamepad2.a && !wristPressed){
                 toggleWrist();
                 wristPressed = true;
             }
-            if(gamepad2.x && !clawPressed){
+            if(gamepad1.b && !clawPressed){
                 toggleClaw();
                 clawPressed = true;
             }
@@ -91,15 +93,11 @@ public class TeleOpFinal extends LinearOpMode {
             if (gamepad2.x) {
                 PID_Arm.up();
             } else if (gamepad2.y) {
-            PID_Arm.down();
-            } else if (gamepad2.options) {
-
+                PID_Arm.down();
             }
+
 
             //Wrist
-            if (gamepad2.options) {
-                PID_Arm.target = -104;
-            }
 
             else if (gamepad2.dpad_up){
                 highbasket();
@@ -150,7 +148,7 @@ public class TeleOpFinal extends LinearOpMode {
     private  void toggleWrist(){
         if(wrist.getPosition() == wrist.up){
             wrist.set(wrist.down);
-        } else if(claw.getPosition() != wrist.up){
+        } else if(wrist.getPosition() != wrist.up){
             wrist.set(wrist.up);
         }
     }

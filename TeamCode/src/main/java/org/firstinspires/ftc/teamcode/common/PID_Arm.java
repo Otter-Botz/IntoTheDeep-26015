@@ -62,9 +62,9 @@ public class PID_Arm {
     public static double p = 0.005, i = 0, d = 0.0001;
     public static double f = 0.01;
 
-    public double target = 850;
+    public double target = 100;
 
-    private final double ticks_in_degrees = 700 / 180;
+    private final double ticks_in_degrees = 2786.2 / 360;
 
 
     public DcMotor armMotor;
@@ -74,12 +74,12 @@ public class PID_Arm {
 
 
     public void up()  {
-        target = 812;
+        target = 1115;
     }
 
     public void armRespond(double value) {
-        value = value * 20;
-        target = target + value;
+        value = value * 1.75;
+        target = target - value;
 
     }
 
@@ -87,7 +87,7 @@ public class PID_Arm {
 
 
     public void down() {
-        target = 23;
+        target = 70;
     }
 
 

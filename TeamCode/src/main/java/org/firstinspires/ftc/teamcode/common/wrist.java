@@ -7,8 +7,8 @@ import org.firstinspires.ftc.teamcode.common.interfaces.armSystem;
 
 public class wrist implements armSystem {
     Servo wristServo;
-    double up = 0.2;
-    double down = 0.4;
+    double up = 0.4;
+    double down = 0.6;
 
     @Override
     public void set(double position) {
