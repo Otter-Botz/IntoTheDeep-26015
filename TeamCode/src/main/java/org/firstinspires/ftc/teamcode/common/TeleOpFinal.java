@@ -48,6 +48,8 @@ public class TeleOpFinal extends LinearOpMode {
         vroom.init(hardwareMap);
         Slider.init(hardwareMap);
         wrist.init(hardwareMap);
+        boolean clawPressed = false;
+        boolean wristPressed = false;
 
 
         waitForStart();
@@ -73,17 +75,18 @@ public class TeleOpFinal extends LinearOpMode {
             if (gamepad1.dpad_down) {
                 gamepad2.rumble(1000);
             }
+            wristPressed = wristPressed && gamepad2.y;
+            clawPressed = clawPressed && gamepad2.x;
+            if(gamepad2.y && !wristPressed){
+                toggleWrist();
+                wristPressed = true;
+            }
+            if(gamepad2.x && !clawPressed){
+                toggleClaw();
+                clawPressed = true;
+            }
             //claw code
-           if (gamepad1.a) {
-                //open
-                // 0.4
-                claw.set1();
-            }
-           else if (gamepad1.b) {
-                //close
-                //0.7
-                claw.set2();
-            }
+
            //Slider Arm
             if (gamepad2.x) {
                 PID_Arm.up();
@@ -94,12 +97,6 @@ public class TeleOpFinal extends LinearOpMode {
             }
 
             //Wrist
-            if (gamepad2.b) {
-                wrist.set1();
-            } else if (gamepad2.a) {
-                wrist.set2();
-            }
-
             if (gamepad2.options) {
                 PID_Arm.target = -104;
             }
@@ -142,6 +139,20 @@ public class TeleOpFinal extends LinearOpMode {
         }
 
 
+    }
+    private  void toggleClaw(){
+        if(claw.getPosition() == claw.close){
+            claw.set(claw.open);
+        } else if(claw.getPosition() != claw.close){
+            claw.set(claw.close);
+        }
+    }
+    private  void toggleWrist(){
+        if(wrist.getPosition() == wrist.up){
+            wrist.set(wrist.down);
+        } else if(claw.getPosition() != wrist.up){
+            wrist.set(wrist.up);
+        }
     }
 }
 

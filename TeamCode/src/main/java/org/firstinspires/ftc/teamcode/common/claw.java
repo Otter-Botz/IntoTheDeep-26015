@@ -12,18 +12,17 @@ import org.firstinspires.ftc.teamcode.common.interfaces.armSystem;
 public class claw implements armSystem {
 
     public Servo clawServo;
+    public double open = 0;
+    public double close = 0.3;
 
     @Override
-    public void set1() {
+    public void set(double position) {
         //open
-        clawServo.setPosition(0.4);
-
+        clawServo.setPosition(position);
     }
-
     @Override
-    public void set2() {
-        //close
-        clawServo.setPosition(0.7);
+    public double getPosition(){
+        return clawServo.getPosition();
     }
 
     @Override
