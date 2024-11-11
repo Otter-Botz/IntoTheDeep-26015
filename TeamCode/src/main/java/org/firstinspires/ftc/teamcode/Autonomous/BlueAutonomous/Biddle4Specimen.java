@@ -12,6 +12,7 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -27,6 +28,73 @@ public class Biddle4Specimen extends LinearOpMode {
     public double target = -750;
 
     private final double ticks_in_degrees = 700 / 180;
+
+    // to do:
+    // arm slider auto
+    // add arm slider stuff to auto bc attaching specimens differently
+
+    /*public class armSlider {
+        public CRServo armSliderServo;
+
+       // init stuff
+    }
+
+    public class armOut implements Action{
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            return false;
+        }
+    }
+*/
+    public class mainSliders {
+        public DcMotor sliderMotor;
+        public DcMotor sliderMotorMotor;
+
+        //init stuff
+        public mainSliders(HardwareMap hardwareMap){
+            sliderMotor = hardwareMap.get(DcMotor.class, "sliderMotor");
+            sliderMotorMotor = hardwareMap.get(DcMotor.class, "sliderMotorMotor");
+        }
+
+        //slider at high rung
+        public class slideUp implements Action {
+
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                sliderMotor.setTargetPosition(700);
+                sliderMotorMotor.setTargetPosition(-700);
+                sliderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                sliderMotorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                return false;
+            }
+        }
+         public Action slideUp(){
+            return new slideUp();
+         }
+
+         //sliders all the way down
+         public class slideDown implements Action{
+
+             @Override
+             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                 sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                 sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                 sliderMotor.setTargetPosition(0);
+                 sliderMotorMotor.setTargetPosition(0);
+                 sliderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                 sliderMotorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                 return false;
+             }
+         }
+         public Action slideDown(){
+            return new slideDown();
+         }
+    }
+
 
     //auto claw stuff
     public class autoClaw {

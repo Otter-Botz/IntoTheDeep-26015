@@ -123,38 +123,38 @@ public class BackUpBlue extends LinearOpMode {
         TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
                 //Score Preloaded Specimen
                 .strafeToLinearHeading(new Vector2d(0, 38), Math.toRadians(270))
-                .waitSeconds(1)
+                .waitSeconds(2)
 
 
                 //Sample One
                 .strafeToLinearHeading(new Vector2d(-48, 38), Math.toRadians(270))
-                .waitSeconds(0)
+                .waitSeconds(2)
                 .strafeToLinearHeading(new Vector2d(-44, 5), Math.toRadians(270))
-                .waitSeconds(0)
+                .waitSeconds(2)
                 .strafeToLinearHeading(new Vector2d(-60, 5), Math.toRadians(270))
-                .waitSeconds(0)
+                .waitSeconds(2)
                 .strafeToLinearHeading(new Vector2d(-60, 55), Math.toRadians(270))
-                .waitSeconds(0)
+                .waitSeconds(2)
 
         //Second Sample
                 .strafeToLinearHeading(new Vector2d(-60, 5), Math.toRadians(270))
-                .waitSeconds(0)
+                .waitSeconds(2)
                 .strafeToLinearHeading(new Vector2d(-72, 5), Math.toRadians(270))
-                .waitSeconds(0)
+                .waitSeconds(2)
                 .strafeToLinearHeading(new Vector2d(-72, 55), Math.toRadians(270))
-                .waitSeconds(0)
+                .waitSeconds(2)
 
 //              Score 1
                 .strafeToLinearHeading(new Vector2d(-57, 55), Math.toRadians(270))
-                .waitSeconds(0)
+                .waitSeconds(2)
                 .strafeToLinearHeading(new Vector2d(0, 38), Math.toRadians(270))
-                .waitSeconds(1)
+                .waitSeconds(2)
 
         //Score 2
                 .strafeToLinearHeading(new Vector2d(-57, 55), Math.toRadians(270))
-                .waitSeconds(0)
+                .waitSeconds(2)
                 .strafeToLinearHeading(new Vector2d(0, 38), Math.toRadians(270))
-                .waitSeconds(1);
+                .waitSeconds(2);
 
 
 //                .strafeToLinearHeading(new Vector2d(-55, 10), Math.toRadians(270))
