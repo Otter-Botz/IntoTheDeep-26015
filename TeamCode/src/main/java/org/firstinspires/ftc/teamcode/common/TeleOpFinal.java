@@ -24,8 +24,8 @@ public class TeleOpFinal extends LinearOpMode {
     TouchSensor touchSensor;
 
     public void highbasket() {
-        Slider.sliderMotor.setTargetPosition(1350);
-        Slider.sliderMotorMotor.setTargetPosition(-1350);
+        Slider.sliderMotor.setTargetPosition(400);
+        Slider.sliderMotorMotor.setTargetPosition(400);
         Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         Slider.sliderMotor.setPower(0.5);
@@ -36,9 +36,9 @@ public class TeleOpFinal extends LinearOpMode {
     }
 
     public void highrung() {
-        Slider.sliderMotor.setTargetPosition(700);
-        Slider.sliderMotorMotor.setTargetPosition(-700);
-        //PID_Arm.armMotor.setTargetPosition(812);
+        Slider.sliderMotor.setTargetPosition(200);
+        Slider.sliderMotorMotor.setTargetPosition(200);
+        PID_Arm.armMotor.setTargetPosition(812);
         wrist.wristServo.setPosition(0.1);
     }
 
