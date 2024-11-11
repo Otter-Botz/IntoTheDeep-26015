@@ -95,9 +95,9 @@ public class TeleOpFinal extends LinearOpMode {
 //            }
 
             //Wrist
-            if (gamepad2.b) {
+            if (gamepad2.a) {
                 wrist.set1();
-            } else if (gamepad2.a) {
+            } else if (gamepad2.b) {
                 wrist.set2();
             }
 

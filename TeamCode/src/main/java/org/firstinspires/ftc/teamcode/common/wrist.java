@@ -12,7 +12,7 @@ public class wrist implements armSystem {
     //b
     //Open
     public void set1() {
-        wristServo.setPosition(0.4);
+        wristServo.setPosition(0.6);
     }
 
     @Override
@@ -20,7 +20,7 @@ public class wrist implements armSystem {
     //a
     //CLose
     public void set2() {
-        wristServo.setPosition(0.1);
+        wristServo.setPosition(0.3);
     }
 
     @Override
