@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Autonomous.BlueAutonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Autonomous.Common.armSlide;
 
 
 public class armSlideTestCall extends LinearOpMode  {
@@ -18,7 +17,7 @@ public class armSlideTestCall extends LinearOpMode  {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        armSlide.slideOut slideOut ;
+
        armWaitTime();
 
     }
