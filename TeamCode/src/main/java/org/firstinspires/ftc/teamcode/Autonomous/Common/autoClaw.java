@@ -10,6 +10,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 //auto claw stuff
 public class autoClaw {
+    public static Object open;
+    public static Object close;
     public Servo clawServo;
 
     //init stuff
@@ -26,6 +28,8 @@ public class autoClaw {
         }
     }
 
+
+
     public Action clawOpen() {
         return new open();
     }
@@ -38,10 +42,6 @@ public class autoClaw {
             clawServo.setPosition(0.3);
             return false;
         }
-        public Action clawClose() {
-            return new open();
-        }
-
     }
 
     public Action clawClose() {
