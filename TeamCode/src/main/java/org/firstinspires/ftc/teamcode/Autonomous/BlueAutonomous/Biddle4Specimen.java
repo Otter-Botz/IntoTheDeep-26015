@@ -95,21 +95,23 @@ public class Biddle4Specimen extends LinearOpMode {
                 .build();
 
 
+
+        waitForStart();
+
         while (opModeIsActive()) {
             armMotor.touchreset();
             //armMotor.mathRun();
             telemetry.addData("pos", armMotor.pos);
             telemetry.update();
         }
-        waitForStart();
 
         if (isStopRequested()) return;
 
 
         Actions.runBlocking(
                 new SequentialAction(
-                        /*
 
+                        /*
                         clawServo.clawClose(),
                         armMotor.armUp(),
                         wristServo.wristUp(),

@@ -10,8 +10,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 //auto claw stuff
 public class autoClaw {
-    public static Object open;
-    public static Object close;
+    double CLAW_OPEN = 0;
+    double CLAW_CLOSE = 0.3;
     public Servo clawServo;
 
     //init stuff
@@ -23,7 +23,7 @@ public class autoClaw {
     public class open implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            clawServo.setPosition(0);
+            clawServo.setPosition(CLAW_OPEN);
             return false;
         }
     }
@@ -39,7 +39,7 @@ public class autoClaw {
 
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            clawServo.setPosition(0.3);
+            clawServo.setPosition(CLAW_CLOSE);
             return false;
         }
     }

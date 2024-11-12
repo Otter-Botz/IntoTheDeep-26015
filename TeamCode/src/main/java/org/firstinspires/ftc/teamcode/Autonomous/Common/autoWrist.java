@@ -11,8 +11,9 @@ public class autoWrist {
     //auto wrist stuff
 
         public Servo wristServo;
+        double WRIST_UP = 0.6;
+        double WRIST_DOWN = 0.4;
 
-    double target = 504;
 
     public autoWrist(HardwareMap hardwareMap) {
             wristServo = hardwareMap.get(Servo.class, "wristServo");
@@ -22,7 +23,7 @@ public class autoWrist {
 
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                wristServo.setPosition(0.8);
+                wristServo.setPosition(WRIST_UP);
                 return false;
             }
 
@@ -35,7 +36,7 @@ public class autoWrist {
 
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                 target = 0.4;
+                wristServo.setPosition(WRIST_DOWN);
                 return false;
             }
         }
