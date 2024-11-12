@@ -40,7 +40,7 @@ public class Biddle4Specimen extends LinearOpMode {
         if (time.seconds() >= 3) {
             stop();
         }
-    }
+    }//hihihi
 
     public class armSlider {
 
