@@ -18,9 +18,6 @@ public class armSlide {
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
                 armServo.setPower(0.5);
 
-
-
-
                 return false;
             }
         }

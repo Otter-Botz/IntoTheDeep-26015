@@ -1,27 +1,17 @@
 package org.firstinspires.ftc.teamcode.Autonomous.BlueAutonomous;
 
-import androidx.annotation.NonNull;
-
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
-import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.TouchSensor;
-import org.firstinspires.ftc.teamcode.Autonomous.Common.autoTouch;
+
 import org.firstinspires.ftc.teamcode.Autonomous.Common.autoWrist;
-import org.firstinspires.ftc.teamcode.Autonomous.Common.autoArmSlider;
+import org.firstinspires.ftc.teamcode.Autonomous.Common.PID_Arm;
 import org.firstinspires.ftc.teamcode.Autonomous.Common.armSlide;
-import org.firstinspires.ftc.teamcode.Autonomous.Common.autoArmSlider;
 import org.firstinspires.ftc.teamcode.Autonomous.Common.autoClaw;
 import org.firstinspires.ftc.teamcode.Roadrunnerlol.MecanumDrive;
 
@@ -32,13 +22,14 @@ public class Biddle4Specimen extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        autoArmSlider armMotor = new autoArmSlider(hardwareMap);
+        PID_Arm armMotor = new PID_Arm(hardwareMap);
         autoWrist wristServo = new autoWrist(hardwareMap);
         armSlide slideServo = new armSlide(hardwareMap);
         autoClaw clawServo = new autoClaw(hardwareMap);
-        autoTouch touchreset = new autoTouch(hardwareMap);
+
         Pose2d initialPose = new Pose2d(-16, 62, Math.toRadians(270));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
+
 
 
          double lastX = -57;
@@ -103,15 +94,13 @@ public class Biddle4Specimen extends LinearOpMode {
                 .strafeToLinearHeading(new Vector2d(-59, 60), Math.toRadians(270))
                 .build();
 
-        // actions that need to happen on init; for instance, a claw tightening.
 
-
-        while (!isStopRequested() && !opModeIsActive()) {
-
-
+        while (opModeIsActive()) {
+            armMotor.touchreset();
+            //armMotor.mathRun();
+            telemetry.addData("pos", armMotor.pos);
+            telemetry.update();
         }
-
-
         waitForStart();
 
         if (isStopRequested()) return;
@@ -119,51 +108,45 @@ public class Biddle4Specimen extends LinearOpMode {
 
         Actions.runBlocking(
                 new SequentialAction(
+                        /*
 
                         clawServo.clawClose(),
-                        armMotor.mathRun(),
                         armMotor.armUp(),
                         wristServo.wristUp(),
                         score1Transfer1.build(),
-                       // autoClaw.open(),
-                      //  armMotor.armDown(),
-                       // autoWrist.wristdown(),
-                      //  autoClaw.close(),
-                        // armMotor.backDown(),
-                        //autoClaw.open(),
+                        clawServo.clawOpen(),
+                        armMotor.armDown(),
+                        clawServo.clawClose(),
+                         armMotor.backDown(),
+                        clawServo.clawOpen(),
                         sampleTransfer2.build(),
-                       // armMotor.armDown(),
-                      // autoWrist.wristdown(),
-                       // autoClaw.close(),
-                       // armMotor.backDown(),
-                       // autoClaw.open(),
+                        armMotor.armDown(),
+                        clawServo.clawClose(),
+                        armMotor.backDown(),
+                        clawServo.clawOpen(),
                         sampleTransfer3.build(),
-                        // armMotor.armDown(),
-                        // autoWrist.wristdown()
-                        // autoClaw.close(),
-                        // armMotor.backDown(),
-                        // autoClaw.open(),
+                         armMotor.armDown(),
+                        clawServo.clawClose(),
+                         armMotor.backDown(),
+                         clawServo.clawOpen(),
                         specimenPickup1.build(),
-                        //armMotor.armUp(),
-                       //autoClaw.open
-                       // armMotor.backUp(),
-                        // autoClaw.close(),
+                        armMotor.backDown(),
+                        clawServo.clawClose(),
+                        armMotor.armUp(),
                         score1Pickup2.build(),
-                        // armMotor.armUp(),
-                       //autoClaw.open(),
-                        // armMotor.backUp(),
-                        // autoClaw.close(),
-                       // armMotor.armUp(),
-                        // autoClaw.open(),
+                        clawServo.clawOpen(),
+                         armMotor.backDown(),
+                        clawServo.clawClose(),
+                         armMotor.armUp(),
                         score2Pickup3.build(),
-                        //autoClaw.open(),
-                        //armMotor.backUp(),
-                        //autoClaw.close
+                        clawServo.clawOpen(),
+                        armMotor.backDown(),
+                       clawServo.clawClose(),
+                       armMotor.armUp(),
                         score3.build(),
-                        // armMotor.armUp(),
-                        // autoClaw.open(),
-                        // armMotor.armDown(),
                         parkCloseOut
+
+                         */
 
 
                 )
