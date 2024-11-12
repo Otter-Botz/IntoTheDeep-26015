@@ -36,10 +36,10 @@ public class AutoMainSliders {
     public class HighRung implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            sliderMotor.setTargetPosition(250);
-            sliderMotorMotor.setTargetPosition(250);
             sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            sliderMotor.setTargetPosition(250);
+            sliderMotorMotor.setTargetPosition(250);
             sliderMotor.setPower(SLIDER_UP_SPEED);
             sliderMotorMotor.setPower(SLIDER_UP_SPEED);
             sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

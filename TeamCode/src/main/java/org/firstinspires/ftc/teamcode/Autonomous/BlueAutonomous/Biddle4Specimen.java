@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.Autonomous.BlueAutonomous;
 
+import androidx.annotation.NonNull;
+
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
@@ -8,15 +11,22 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
+//  ryan says "code at bad is aryan  ;) "
 import org.firstinspires.ftc.teamcode.Autonomous.Common.autoWrist;
 import org.firstinspires.ftc.teamcode.Autonomous.Common.PID_Arm;
 import org.firstinspires.ftc.teamcode.Autonomous.Common.armSlide;
 import org.firstinspires.ftc.teamcode.Autonomous.Common.autoClaw;
 import org.firstinspires.ftc.teamcode.Roadrunnerlol.MecanumDrive;
 
+
+
+
+
 @Autonomous
 public class Biddle4Specimen extends LinearOpMode {
+
 
 
 
@@ -36,6 +46,7 @@ public class Biddle4Specimen extends LinearOpMode {
          double lastY = 40;
          double nextX = -69;
          double nextY = 40;
+         boolean active;
         TrajectoryActionBuilder score1Transfer1 = drive.actionBuilder(initialPose)
 
                 .strafeToConstantHeading(new Vector2d(0, 33))
@@ -94,16 +105,12 @@ public class Biddle4Specimen extends LinearOpMode {
                 .strafeToLinearHeading(new Vector2d(-59, 60), Math.toRadians(270))
                 .build();
 
+        while (!isStopRequested() && !opModeIsActive()) {
+
+        }
 
 
         waitForStart();
-
-        while (opModeIsActive()) {
-            armMotor.touchreset();
-            //armMotor.mathRun();
-            telemetry.addData("pos", armMotor.pos);
-            telemetry.update();
-        }
 
         if (isStopRequested()) return;
 
@@ -111,11 +118,11 @@ public class Biddle4Specimen extends LinearOpMode {
         Actions.runBlocking(
                 new SequentialAction(
 
-                        /*
                         clawServo.clawClose(),
-                        armMotor.armUp(),
+                       // armMotor.armUp(),
                         wristServo.wristUp(),
                         score1Transfer1.build(),
+                        /*
                         clawServo.clawOpen(),
                         armMotor.armDown(),
                         clawServo.clawClose(),
@@ -146,9 +153,13 @@ public class Biddle4Specimen extends LinearOpMode {
                        clawServo.clawClose(),
                        armMotor.armUp(),
                         score3.build(),
-                        parkCloseOut
 
                          */
+
+
+                        parkCloseOut
+
+
 
 
                 )

@@ -20,12 +20,14 @@ public class PID_Arm {
         public TouchSensor touchSensor;
     public static double p = 0.005, i = 0.03, d = 0.0005;
     public static double f = 0.12;
-
-    public double target = 550;
+    double ARM_UP = 604;
+    double ARM_DOWN = 70;
+    double ARM_BACK = 2000;
+    double ARM_START = 550;
+    public double target = ARM_START;
 
     private final double ticks_in_degrees = 2786.2 / 360;
 
-    public double pos = armMotor.getCurrentPosition();
 
 
     public PID_Arm(HardwareMap hardwareMap) {
@@ -38,7 +40,7 @@ public class PID_Arm {
         public class up implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                target = 604;
+                target = ARM_UP;
                 return false;
             }
 
@@ -52,7 +54,7 @@ public class PID_Arm {
 
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                target = 70;
+                target = ARM_DOWN;
                 return false;
             }
 
@@ -66,7 +68,7 @@ public class PID_Arm {
 
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                target = 2000;
+                target = ARM_BACK;
                 return false;
             }
 

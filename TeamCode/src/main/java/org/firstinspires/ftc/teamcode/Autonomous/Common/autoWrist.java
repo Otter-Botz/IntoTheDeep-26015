@@ -11,7 +11,7 @@ public class autoWrist {
     //auto wrist stuff
 
         public Servo wristServo;
-        double WRIST_UP = 0.6;
+        double WRIST_UP = 0.65;
         double WRIST_DOWN = 0.4;
 
 

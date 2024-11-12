@@ -79,7 +79,7 @@ public class PID_Arm {
 
     public void armRespond(double value) {
         value = value * 1;
-        target = target + value;
+        target = target - value;
 
     }
 

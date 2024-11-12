@@ -24,7 +24,9 @@ public class autoClaw {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
             clawServo.setPosition(CLAW_OPEN);
-            return false;
+
+            return true;
+
         }
     }
 
