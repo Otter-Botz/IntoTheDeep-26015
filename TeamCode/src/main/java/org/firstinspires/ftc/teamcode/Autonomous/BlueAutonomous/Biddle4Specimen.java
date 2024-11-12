@@ -16,6 +16,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Roadrunnerlol.MecanumDrive;
 
@@ -24,7 +25,6 @@ public class Biddle4Specimen extends LinearOpMode {
 
     public static double p = 0.005, i = 0.03, d = 0.0005;
     public static double f = 0.12;
-
     public double target = -750;
 
     private final double ticks_in_degrees = 700 / 180;
@@ -33,7 +33,12 @@ public class Biddle4Specimen extends LinearOpMode {
     // arm slider auto
     // add arm slider stuff to auto bc attaching specimens differently
 
+
+
     public class armSlider {
+
+
+
         public CRServo armSliderServo;
 
         // init stuff
@@ -46,7 +51,7 @@ public class Biddle4Specimen extends LinearOpMode {
 
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                target = 90;
+                armSliderServo.setPower(0.5);
                 return false;
             }
         }
@@ -267,6 +272,7 @@ public class Biddle4Specimen extends LinearOpMode {
         @Override
         public void runOpMode() {
             autoArm armMotor = new autoArm(hardwareMap);
+
             Pose2d initialPose = new Pose2d(-16, 62, Math.toRadians(270));
             MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
             // armMotor.math();
@@ -344,11 +350,10 @@ public class Biddle4Specimen extends LinearOpMode {
 
             if (isStopRequested()) return;
 
-
             Actions.runBlocking(
                     new SequentialAction(
                             // armMotor.armUp(),
-                            //armSlider.armOut(),
+                            // armSlider.armOut(),
                             score1Transfer1.build(),
                             // autoClaw.open(),
                             // armMotor.armDown(),
@@ -369,23 +374,23 @@ public class Biddle4Specimen extends LinearOpMode {
                             // armMotor.backDown(),
                             // autoClaw.open(),
                             specimenPickup1.build(),
-                            //armMotor.armUp(),
-                            //i think its gonna wait for the hp to place the spec
-                            //autoClaw.open
+                            // armMotor.armUp(),
+                            // i think its gonna wait for the hp to place the spec
+                            // autoClaw.open
                             // armMotor.backUp(),
                             // autoClaw.close(),
-                           // armMotor.armUp(),
+                            // armMotor.armUp(),
                             score1Pickup2.build(),
                             // autoClaw.open
-                           // autoWrist.wristdown(),
+                            // autoWrist.wristdown(),
                             // armMotor.backUp
-                           // autoClaw.close(),
+                            // autoClaw.close(),
                             // armMotor.armUp(),
                             // autoClaw.open(),
                             score2Pickup3.build(),
-                            //autoClaw.open(),
-                            //armMotor.backUp(),
-                            //autoClaw.close
+                            // autoClaw.open(),
+                            // armMotor.backUp(),
+                            // autoClaw.close
                             score3.build(),
                             // armMotor.armUp(),
                             // autoClaw.open(),
@@ -393,7 +398,7 @@ public class Biddle4Specimen extends LinearOpMode {
                             parkCloseOut
 
 
-                    )//u8u88
+                    )
             );
         }
 }
