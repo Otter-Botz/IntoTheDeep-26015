@@ -10,10 +10,10 @@ import org.firstinspires.ftc.teamcode.common.interfaces.armSystem;
 
 
 public class ArmSlider  {
-     CRServo armSliderServo;
+     static CRServo armSliderServo;
 
 
-    public void init(HardwareMap hwMap) {
+    public static void init(HardwareMap hwMap) {
         armSliderServo = hwMap.get(CRServo.class, "servoSlide");
 
     }
