@@ -143,11 +143,9 @@ public class TeleOpFinal extends LinearOpMode {
         Slider.sliderMotorMotor.setTargetPosition(400);
         Slider.sliderMotor.setPower(0.5);
         Slider.sliderMotorMotor.setPower(0.5);
-        Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         PID_Arm.up();
-        claw.set(claw.open);
-
     }
 
     public void highrung() {

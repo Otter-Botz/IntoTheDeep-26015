@@ -20,6 +20,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Autonomous.Common.AutoMainSliders;
 import org.firstinspires.ftc.teamcode.Autonomous.Common.armSlide;
+import org.firstinspires.ftc.teamcode.Autonomous.Common.armSlide;
 import org.firstinspires.ftc.teamcode.Autonomous.Common.autoClaw;
 import org.firstinspires.ftc.teamcode.Autonomous.Common.autoWrist;
 import org.firstinspires.ftc.teamcode.Roadrunnerlol.MecanumDrive;
@@ -42,6 +43,7 @@ public class BackUpBlue extends LinearOpMode {
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
         org.firstinspires.ftc.teamcode.Autonomous.Common.autoClaw autoClaw = new autoClaw(hardwareMap);
+        armSlide armMotor = new armSlide(hardwareMap);
         autoWrist wristServo = new autoWrist(hardwareMap);
         armSlide slideServo = new armSlide(hardwareMap);
         autoClaw clawServo = new autoClaw(hardwareMap);
@@ -94,7 +96,7 @@ public class BackUpBlue extends LinearOpMode {
                 .strafeToLinearHeading(new Vector2d(0, 38), Math.toRadians(270))
                 .waitSeconds(0);
         TrajectoryActionBuilder ScoreSpecimen2 = drive.actionBuilder(new Pose2d(Tab4X, Tab4Y, Math.toRadians(270)))
-        //Score 2
+                //Score 2
                 .strafeToLinearHeading(new Vector2d(-57, 55), Math.toRadians(270))
                 .waitSeconds(0)
                 .strafeToLinearHeading(new Vector2d(0, 38), Math.toRadians(270))
