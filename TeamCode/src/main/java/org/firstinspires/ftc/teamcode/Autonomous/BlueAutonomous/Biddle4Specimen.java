@@ -33,14 +33,8 @@ public class Biddle4Specimen extends LinearOpMode {
     // arm slider auto
     // add arm slider stuff to auto bc attaching specimens differently
 
-    ElapsedTime time = new ElapsedTime();
-    double armtime = time.seconds();
 
-    public void armWaitTime() {
-        if (time.seconds() >= 1) {
-            stop();
-        }
-    }
+
     public class armSlider {
 
 
@@ -57,7 +51,7 @@ public class Biddle4Specimen extends LinearOpMode {
 
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                armSliderServo.setPower(1);
+                armSliderServo.setPower(0.5);
                 return false;
             }
         }
@@ -70,7 +64,7 @@ public class Biddle4Specimen extends LinearOpMode {
 
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                armSliderServo.setPower(1);
+                target = 0;
                 return false;
             }
         }
@@ -271,7 +265,6 @@ public class Biddle4Specimen extends LinearOpMode {
                 double pid = controller.calculate(slidePos, target);
                 double ff = Math.cos(Math.toRadians(target / ticks_in_degrees)) * f;
                 double power = pid + ff;
-
                 armMotor.setPower(power);
             }
         }
@@ -279,6 +272,7 @@ public class Biddle4Specimen extends LinearOpMode {
         @Override
         public void runOpMode() {
             autoArm armMotor = new autoArm(hardwareMap);
+
             Pose2d initialPose = new Pose2d(-16, 62, Math.toRadians(270));
             MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
             // armMotor.math();

@@ -1,4 +1,6 @@
-package org.firstinspires.ftc.teamcode.Autonomous.BlueAutonomous;
+package org.firstinspires.ftc.teamcode.Autonomous.RedAutonomous;
+
+
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.linearOpMode;
 
@@ -33,7 +35,7 @@ import org.firstinspires.ftc.teamcode.common.wrist;
 
 
 @Autonomous
-public class HighBasketAutoBlue extends LinearOpMode {
+public class HighBasketAutoRed extends LinearOpMode {
     org.firstinspires.ftc.teamcode.common.claw claw = new claw();
     org.firstinspires.ftc.teamcode.common.ArmSlider ArmSlider = new ArmSlider();
     org.firstinspires.ftc.teamcode.common.PID_Arm PID_Arm = new PID_Arm();
@@ -63,7 +65,7 @@ public class HighBasketAutoBlue extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        Pose2d initialPose = new Pose2d(38, 62, Math.toRadians(270));
+        Pose2d initialPose = new Pose2d(-38, -62, Math.toRadians(90));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
         autoClaw autoClaw = new autoClaw(hardwareMap);
@@ -77,53 +79,53 @@ public class HighBasketAutoBlue extends LinearOpMode {
         waitForStart();
 
         double Tab1X = 0;
-        double Tab1Y = 38;
-        double Tab2X = 56;
-        double Tab2Y = 38;
-        double Tab3X = 60;
-        double Tab3Y = 57;
-        double Tab4X = 52;
-        double Tab4Y = 20;
-        double Tab5X = 52;
-        double Tab5Y = 57;
-        double Tab6X = 56;
-        double Tab6Y = 20;
+        double Tab1Y = -38;
+        double Tab2X = -56;
+        double Tab2Y = -38;
+        double Tab3X = -60;
+        double Tab3Y = -57;
+        double Tab4X = -52;
+        double Tab4Y = -20;
+        double Tab5X = -52;
+        double Tab5Y = -57;
+        double Tab6X = -56;
+        double Tab6Y = -20;
         double Tab7X = 0;
-        double Tab7Y = 38;
+        double Tab7Y = -38;
 
         TrajectoryActionBuilder ScorePreload = drive.actionBuilder(initialPose)
                 //Score Preloaded Specimen
-                .strafeToLinearHeading(new Vector2d(0, 38), Math.toRadians(270));
+                .strafeToLinearHeading(new Vector2d(0, -38), Math.toRadians(90));
 
         TrajectoryActionBuilder MoveABitForwardToScore = drive.actionBuilder(new Pose2d(Tab7X, Tab7Y, Math.toRadians(270)))
-                .strafeToLinearHeading(new Vector2d(0, 42), Math.toRadians(270));
+                .strafeToLinearHeading(new Vector2d(0, -42), Math.toRadians(90));
 
         TrajectoryActionBuilder MoveToFirstSample = drive.actionBuilder(new Pose2d(Tab1X, Tab1Y, Math.toRadians(270)))
                 //Move to first sample
-                .strafeToLinearHeading(new Vector2d(56, 38), Math.toRadians(270));
+                .strafeToLinearHeading(new Vector2d(-56, -38), Math.toRadians(90));
 
         TrajectoryActionBuilder ScoreOnHighBasket1 = drive.actionBuilder(new Pose2d(Tab2X, Tab2Y, Math.toRadians(270)))
                 //Pick Up and move back
-                .strafeToLinearHeading(new Vector2d(60, 57), Math.toRadians(200));
+                .strafeToLinearHeading(new Vector2d(-60, -57), Math.toRadians(200));
 
         TrajectoryActionBuilder MoveToSecondSample = drive.actionBuilder(new Pose2d(Tab3X, Tab3Y, Math.toRadians(200)))
                 //Move to second Sample
-                .strafeToLinearHeading(new Vector2d(52, 20), Math.toRadians(180))
+                .strafeToLinearHeading(new Vector2d(-52, -20), Math.toRadians(180))
                 .waitSeconds(0);
 
         TrajectoryActionBuilder ScoreOnHighBasket2 = drive.actionBuilder(new Pose2d(Tab4X, Tab4Y, Math.toRadians(180)))
-                .strafeToLinearHeading(new Vector2d(52, 57), Math.toRadians(200))
+                .strafeToLinearHeading(new Vector2d(-52, -57), Math.toRadians(200))
                 .waitSeconds(0);
 
         TrajectoryActionBuilder MoveToSample3 = drive.actionBuilder(new Pose2d(Tab5X, Tab5Y, Math.toRadians(200)))
-                .strafeToLinearHeading(new Vector2d(56, 20), Math.toRadians(180))
+                .strafeToLinearHeading(new Vector2d(-56, -20), Math.toRadians(180))
                 .waitSeconds(0);
 
         TrajectoryActionBuilder ScoreOnHighBasket3 = drive.actionBuilder(new Pose2d(Tab6X, Tab6Y, Math.toRadians(180)))
-                .strafeToLinearHeading(new Vector2d(56, 57), Math.toRadians(200))
+                .strafeToLinearHeading(new Vector2d(-56, -57), Math.toRadians(200))
                 .waitSeconds(0);
         Action trajectoryActionCloseOut = ScoreOnHighBasket3.fresh()
-                .strafeToLinearHeading(new Vector2d(39, 10), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(-39, -10), Math.toRadians(270))
                 .build();
 
 
@@ -153,13 +155,5 @@ public class HighBasketAutoBlue extends LinearOpMode {
                         trajectoryActionCloseOut
                 )
         );
-
-
-
-
-
-
-
-
 
     }}

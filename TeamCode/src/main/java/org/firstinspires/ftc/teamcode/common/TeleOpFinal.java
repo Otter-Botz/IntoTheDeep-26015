@@ -11,7 +11,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.SensorDigitalTouch;
-import org.firstinspires.ftc.teamcode.Autonomous.BlueAutonomous.Biddle4Specimen;
 
 @TeleOp(name = "OTTERRRRR")
 public class TeleOpFinal extends LinearOpMode {
@@ -23,34 +22,14 @@ public class TeleOpFinal extends LinearOpMode {
     wrist wrist = new wrist();
     TouchSensor touchSensor;
 
-    public void highbasket() {
-        Slider.sliderMotor.setTargetPosition(400);
-        Slider.sliderMotorMotor.setTargetPosition(400);
-        Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Slider.sliderMotor.setPower(0.5);
-        Slider.sliderMotorMotor.setPower(-0.5);
-        Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-    }
-
-    public void highrung() {
-        Slider.sliderMotor.setTargetPosition(200);
-        Slider.sliderMotorMotor.setTargetPosition(200);
-        PID_Arm.armMotor.setTargetPosition(812);
-        wrist.wristServo.setPosition(0.1);
-    }
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         touchSensor = hardwareMap.get(TouchSensor.class, "sensorTouch");
-
-
         claw.init(hardwareMap);
-       // ArmSlider.init(hardwareMap);
-      //  PID_Arm.init(hardwareMap);
+        ArmSlider.init(hardwareMap);
+        PID_Arm.init(hardwareMap);
         vroom.init(hardwareMap);
         Slider.init(hardwareMap);
         wrist.init(hardwareMap);
@@ -63,19 +42,19 @@ public class TeleOpFinal extends LinearOpMode {
         while (opModeIsActive()) {
 
             vroom.vrooooooom(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, gamepad1.right_trigger);
-//            PID_Arm.math();
+            PID_Arm.math();
 
-//            if (PID_Arm.target < 500) {
-//                PID_Arm.armRespond(gamepad2.left_stick_y);
-//            }
-//
-//            if (touchSensor.isPressed() && gamepad2.dpad_right) {
-//              PID_Arm.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//              PID_Arm.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//            }
-//
-//
-//            //Rumble and Reset Yaw
+            if (PID_Arm.target < 500) {
+                PID_Arm.armRespond(gamepad2.left_stick_y);
+           }
+
+            if (touchSensor.isPressed() && gamepad2.dpad_right) {
+              PID_Arm.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+              PID_Arm.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            }
+
+
+            //Rumble and Reset Yaw
             if (gamepad1.options) {
                 vroom.resetYaw();
             }
@@ -94,32 +73,28 @@ public class TeleOpFinal extends LinearOpMode {
                 clawPressed = true;
             }
             //claw code
-//jijiji
+
            //Slider Arm
-//            if (gamepad2.x) {
-//                PID_Arm.up();
-//            } else if (gamepad2.y) {
-//                PID_Arm.down();
-//            }
+            if (gamepad2.x) {
+                PID_Arm.up();
+            } else if (gamepad2.y) {
+                PID_Arm.down();
+            }
 
 
-            //Wrist
 
             else if (gamepad2.dpad_up){
                 highbasket();
             }
             else if (gamepad2.dpad_down){
-                highrung();
+                submersible();
             }
 
-            //PID Sliders
+
             Slider.sliderMotor.setPower(-gamepad2.right_stick_y);
             Slider.sliderMotorMotor.setPower(-gamepad2.right_stick_y);
-//            ArmSlider.armSliderServo.setPower(gamepad2.left_stick_y);
+            ArmSlider.armSliderServo.setPower(gamepad2.left_stick_y);
 
-           /* if (gamepad2.left_stick_y != 0){
-            PID_Arm.target = PID_Arm.target + PID_Arm.armticks * 10;
-            }*/
 
             if (gamepad2.left_bumper) {
                 claw.clawServo.setPosition(0);
@@ -127,14 +102,17 @@ public class TeleOpFinal extends LinearOpMode {
                 wrist.wristServo.setPosition(0);
             }
 
+            // back up manual arm control
             /*
             if(gamepad2.right_trigger!= 0) {
                 PID_Arm.armMotor.setPower(gamepad2.right_trigger/2.5);
             } else if(gamepad2.left_trigger != 0){
                 PID_Arm.armMotor.setPower(-gamepad2.left_trigger/2.5);
-            }else{
+            }else {
                 PID_Arm.armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
                 PID_Arm.armMotor.setPower(0);
+            }
+
              */
             //telemetry.addData("pos", PID_Arm.armMotor.getCurrentPosition());
             //telemetry.update();
@@ -158,6 +136,43 @@ public class TeleOpFinal extends LinearOpMode {
             wrist.set(wrist.up);
         }
     }
+    public void highbasket() {
+        Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Slider.sliderMotor.setTargetPosition(400);
+        Slider.sliderMotorMotor.setTargetPosition(400);
+        Slider.sliderMotor.setPower(0.5);
+        Slider.sliderMotorMotor.setPower(0.5);
+        Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        PID_Arm.up();
+        claw.set(claw.open);
+
+    }
+
+    public void highrung() {
+        Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Slider.sliderMotor.setTargetPosition(300);
+        Slider.sliderMotorMotor.setTargetPosition(300);
+        PID_Arm.armMotor.setTargetPosition(812);
+        wrist.wristServo.setPosition(0.1);
+        Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    public void submersible() {
+        Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Slider.sliderMotor.setTargetPosition(100);
+        Slider.sliderMotorMotor.setTargetPosition(100);
+        Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        PID_Arm.down();
+        claw.set(claw.open);
+        wrist.set(wrist.up);
+    }
+
 }
 
 

@@ -57,7 +57,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 @Config
 
 public class PID_Arm {
-    private PIDController controller;
+    private static PIDController controller;
 
     public static double p = 0.005, i = 0, d = 0.0001;
     public static double f = 0.01;
@@ -67,7 +67,7 @@ public class PID_Arm {
     private final double ticks_in_degrees = 2786.2 / 360;
 
 
-    public DcMotor armMotor;
+    public static DcMotor armMotor;
 
 
 
@@ -118,7 +118,7 @@ public class PID_Arm {
 
 
 
-    public void init(HardwareMap hwMap) {
+    public static void init(HardwareMap hwMap) {
         armMotor = hwMap.get(DcMotor.class, "armMotor");
 
         controller = new PIDController(p, i, d);
