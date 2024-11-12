@@ -31,7 +31,6 @@ public class armSlide {
 
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            ElapsedTime timeIn = new ElapsedTime();
             armServo.setPower(-0.5);
             return false;
         }

@@ -33,11 +33,16 @@ public class Biddle4Specimen extends LinearOpMode {
     // arm slider auto
     // add arm slider stuff to auto bc attaching specimens differently
 
+    ElapsedTime time = new ElapsedTime();
+    double armtime = time.seconds();
 
+    public void armWaitTime() {
+        if (time.seconds() >= 3) {
+            stop();
+        }
+    }
 
     public class armSlider {
-
-
 
         public CRServo armSliderServo;
 
@@ -358,6 +363,8 @@ public class Biddle4Specimen extends LinearOpMode {
                             // autoClaw.open(),
                             // armMotor.armDown(),
                             // autoWrist.wristdown(),
+                            // armSlide.armOut()
+                            // armWaitTime(),
                             // autoClaw.close(),
                             // armMotor.backDown(),
                             //autoClaw.open(),
@@ -379,15 +386,15 @@ public class Biddle4Specimen extends LinearOpMode {
                             // autoClaw.open
                             // armMotor.backUp(),
                             // autoClaw.close(),
-                            // armMotor.armUp(),
                             score1Pickup2.build(),
+                            // armMotor.armUp(),
                             // autoClaw.open
                             // autoWrist.wristdown(),
                             // armMotor.backUp
                             // autoClaw.close(),
+                            score2Pickup3.build(),
                             // armMotor.armUp(),
                             // autoClaw.open(),
-                            score2Pickup3.build(),
                             // autoClaw.open(),
                             // armMotor.backUp(),
                             // autoClaw.close

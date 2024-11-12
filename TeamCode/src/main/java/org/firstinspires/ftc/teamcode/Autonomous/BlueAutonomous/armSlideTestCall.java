@@ -5,12 +5,20 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 
-public class armSlideTestCall extends LinearOpMode {
+public class armSlideTestCall extends LinearOpMode  {
+    ElapsedTime time = new ElapsedTime();
+    double armtime = time.seconds();
+
+    public void armWaitTime() {
+        if (time.seconds() >= 3) {
+            stop();
+        }
+    }
 
     @Override
     public void runOpMode() throws InterruptedException {
 
-        }
-
+       armWaitTime();
 
     }
+}
