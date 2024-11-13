@@ -29,6 +29,15 @@ import org.firstinspires.ftc.teamcode.Roadrunnerlol.MecanumDrive;
 public class Biddle4Specimen extends LinearOpMode {
 
 
+    ElapsedTime time = new ElapsedTime();
+    double armtime = time.seconds();
+
+    public void armWaitTime() {
+        if (time.seconds() >= 1) {
+            stop();
+        }
+    }
+    //chucky
 
 
     @Override
