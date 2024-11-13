@@ -13,6 +13,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 //  ryan says "code at bad is aryan  ;) "
 import org.firstinspires.ftc.teamcode.Autonomous.Common.autoWrist;
 import org.firstinspires.ftc.teamcode.Autonomous.Common.PID_Arm;
@@ -28,6 +29,14 @@ import org.firstinspires.ftc.teamcode.Roadrunnerlol.MecanumDrive;
 public class Biddle4Specimen extends LinearOpMode {
 
 
+    ElapsedTime time = new ElapsedTime();
+    double armtime = time.seconds();
+
+    public void armWaitTime() {
+        if (time.seconds() >= 1) {
+            stop();
+        }
+    }
 
 
     @Override
