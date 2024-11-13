@@ -1,10 +1,7 @@
 package org.firstinspires.ftc.teamcode.common;
 
-import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.controller.PIDController;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 /*
 @Config
@@ -77,7 +74,7 @@ public class PID_Arm {
         target = 1115;
     }
 
-    public void armRespond(double value) {
+    public void armRespond(boolean value) {
         value = value * 1;
         target = target - value;
 
