@@ -45,7 +45,7 @@ public class SingleTeleOp extends LinearOpMode {
             PID_Arm.math();
 
             if (PID_Arm.target < 500) {
-                PID_Arm.armRespond(gamepad1.dpad_left);
+                PID_Arm.armRespond(gamepad2.right_stick_y);
             }
 
             if (touchSensor.isPressed() && gamepad1.dpad_right) {
@@ -91,9 +91,9 @@ public class SingleTeleOp extends LinearOpMode {
             }
 
 
-            //Slider.sliderMotor.setPower(-gamepad2.right_stick_y);
-            //Slider.sliderMotorMotor.setPower(-gamepad2.right_stick_y);
-            //ArmSlider.armSliderServo.setPower(gamepad2.left_stick_y);
+            Slider.sliderMotor.setPower(-gamepad2.right_stick_y);
+            Slider.sliderMotorMotor.setPower(-gamepad2.right_stick_y);
+            ArmSlider.armSliderServo.setPower(gamepad2.left_stick_y);
 
 
             if (gamepad1.left_bumper) {

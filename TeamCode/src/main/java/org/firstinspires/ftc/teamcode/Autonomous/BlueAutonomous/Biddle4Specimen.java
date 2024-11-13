@@ -14,6 +14,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 //  ryan says "code at bad is aryan  ;) "
 import org.firstinspires.ftc.teamcode.Autonomous.Common.autoWrist;
 import org.firstinspires.ftc.teamcode.Autonomous.Common.PID_Arm;
@@ -46,6 +47,7 @@ public class Biddle4Specimen extends LinearOpMode {
         autoWrist wristServo = new autoWrist(hardwareMap);
         armSlide slideServo = new armSlide(hardwareMap);
         autoClaw clawServo = new autoClaw(hardwareMap);
+
 
         Pose2d initialPose = new Pose2d(-16, 62, Math.toRadians(270));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
@@ -133,29 +135,42 @@ public class Biddle4Specimen extends LinearOpMode {
                                 score1Transfer1.build(),
                                 new SequentialAction(
                                         armMotor.armUp(),
+                                        // slideServo.slideout(),
                                         clawServo.clawClose(),
                                         wristServo.wristUp()
-
                                 )
 
-                        )
+                        ),
+
+                        clawServo.clawOpen(),
+                        armMotor.armDown(),
+                        clawServo.clawClose(),
+                        armMotor.backDown(),
+                        clawServo.clawOpen(),
+                        parkCloseOut
 
 
-                ));
-
-        /*
-        Actions.runBlocking(
-            new SequentialAction(
-                    clawServo.clawOpen(),
-                    armMotor.armDown(),
-                    clawServo.clawClose(),
-                    armMotor.backDown(),
-                    clawServo.clawOpen()
+                )
 
 
-            ));
+        );
 
-         */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                        // armMotor.armUp(),
