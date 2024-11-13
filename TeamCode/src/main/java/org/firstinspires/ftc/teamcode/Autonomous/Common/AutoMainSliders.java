@@ -87,25 +87,62 @@ public class AutoMainSliders {
         return new HighBasket();
     }
 
+    public class SliderIdlePosition implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+            sliderMotor.setPower(IDLE_SPEED);
+            sliderMotorMotor.setPower(IDLE_SPEED);
+            sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            return false;
+        }
+    }
+    public Action SliderIdlePosition() {
+        return new SliderIdlePosition();
+    }
+    public class LowBasket implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+            sliderMotor.setTargetPosition(200);
+            sliderMotorMotor.setTargetPosition(200);
+            sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            sliderMotor.setPower(SLIDER_UP_SPEED);
+            sliderMotorMotor.setPower(SLIDER_UP_SPEED);
+            return false;
+        }
+    }
+    public Action Lowbasket() {
+        return new LowBasket();
+    }
 
-    public void setSliderIdlePosition() {
-        sliderMotor.setPower(IDLE_SPEED);
-        sliderMotorMotor.setPower(IDLE_SPEED);
-        sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    public class SliderDown implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+            sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            sliderMotor.setTargetPosition(0);
+            sliderMotorMotor.setTargetPosition(0);
+            sliderMotor.setPower(SLIDER_UP_SPEED);
+            sliderMotorMotor.setPower(SLIDER_UP_SPEED);
+            sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            return false;
+        }
     }
-    public void  LowBaskets (){
-        sliderMotor.setTargetPosition((int) LOW_BASKET_MAIN_SLIDER);
-        sliderMotorMotor.setTargetPosition((int) LOW_BASKET_MAIN_SLIDER);
-        sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        sliderMotor.setPower(SLIDER_UP_SPEED);
-        sliderMotorMotor.setPower(SLIDER_UP_SPEED);
-        sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        setSliderIdlePosition();
+    public Action SliderDown() {
+        return new SliderDown();
     }
-//    public void  HighRung (){
+
+
+
+//    public void setSliderIdlePosition() {
+//        sliderMotor.setPower(IDLE_SPEED);
+//        sliderMotorMotor.setPower(IDLE_SPEED);
+//        sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//        sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//    }
+//      public void  HighRung (){
 //        sliderMotor.setTargetPosition((int) SLIDER_HIGH_RUNG);
 //        sliderMotorMotor.setTargetPosition((int) SLIDER_HIGH_RUNG);
 //        sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);

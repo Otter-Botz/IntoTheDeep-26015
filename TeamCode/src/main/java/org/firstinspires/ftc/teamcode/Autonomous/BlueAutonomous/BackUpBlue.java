@@ -135,12 +135,18 @@ public class BackUpBlue extends LinearOpMode {
                 new SequentialAction(
                         ScorePreloadSpecimen.build(),
                         AutoMainSliders.HighRung(),
+                        AutoMainSliders.SliderIdlePosition(),
+                        AutoMainSliders.SliderDown(),
                         MoveandPushFirstSample.build(),
                         MoveandPushSecondSample.build(),
                         ScoreSpecimen1.build(),
                         AutoMainSliders.HighRung(),
+                        AutoMainSliders.SliderIdlePosition(),
+                        AutoMainSliders.SliderDown(),
                         ScoreSpecimen2.build(),
                         AutoMainSliders.HighRung(),
+                        AutoMainSliders.SliderIdlePosition(),
+                        AutoMainSliders.SliderDown(),
                         trajectoryActionCloseOut
                 )
         );
