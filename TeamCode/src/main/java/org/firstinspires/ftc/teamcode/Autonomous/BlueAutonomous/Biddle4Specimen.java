@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
@@ -117,11 +118,38 @@ public class Biddle4Specimen extends LinearOpMode {
 
         Actions.runBlocking(
                 new SequentialAction(
+                        armMotor.touchreset(),
+                        new ParallelAction(
+                                armMotor.mathRun(),
+                                score1Transfer1.build(),
+                                new SequentialAction(
+                                        armMotor.armUp(),
+                                        clawServo.clawClose(),
+                                        wristServo.wristUp()
 
-                        clawServo.clawClose(),
+                                )
+
+                        )
+
+
+                ));
+
+        /*
+        Actions.runBlocking(
+            new SequentialAction(
+                    clawServo.clawOpen(),
+                    armMotor.armDown(),
+                    clawServo.clawClose(),
+                    armMotor.backDown(),
+                    clawServo.clawOpen()
+
+
+            ));
+
+         */
+
+
                        // armMotor.armUp(),
-                        wristServo.wristUp(),
-                        score1Transfer1.build(),
                         /*
                         clawServo.clawOpen(),
                         armMotor.armDown(),
@@ -157,12 +185,5 @@ public class Biddle4Specimen extends LinearOpMode {
                          */
 
 
-                        parkCloseOut
-
-
-
-
-                )
-        );
     }
 }
