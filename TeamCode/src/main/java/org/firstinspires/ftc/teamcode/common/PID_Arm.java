@@ -75,7 +75,7 @@ public class PID_Arm {
     }
 
     public void armRespond(boolean value) {
-        value = value * 1;
+       value = value * 1;
         target = target - value;
 
     }

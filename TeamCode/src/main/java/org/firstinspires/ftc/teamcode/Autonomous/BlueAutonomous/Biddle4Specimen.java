@@ -30,7 +30,16 @@ import org.firstinspires.ftc.teamcode.Roadrunnerlol.MecanumDrive;
 @Autonomous
 public class Biddle4Specimen extends LinearOpMode {
 
+    @Override
+    public void runOpMode() throws InterruptedException {
+
+    }
+
     public class armSlide {
+
+        ElapsedTime time = new ElapsedTime();
+        double armtime = time.seconds();
+
         public CRServo armServo;
         public armSlide(HardwareMap hardwareMap) {
             armServo = hardwareMap.get(CRServo.class, "servoSlide");
@@ -39,10 +48,15 @@ public class Biddle4Specimen extends LinearOpMode {
 
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                time.reset();
                 armServo.setPower(0.5);
-                return false;
+                if (time.seconds() >= 1.5) {
+                    armServo.setPower(0);
+                }
+                    return false;
             }
-        }
+
+
         public Action slideout(){
             return new slideOut();
         }
@@ -51,7 +65,11 @@ public class Biddle4Specimen extends LinearOpMode {
 
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+               time.reset();
                 armServo.setPower(-0.5);
+                if (time.seconds() >= 1.5) {
+                    armServo.setPower(0);
+                }
                 return false;
             }
         }
@@ -63,7 +81,7 @@ public class Biddle4Specimen extends LinearOpMode {
 
     }
 
-    public class armWait implements Action {
+   /* public class armWait implements Action {
         ElapsedTime time = new ElapsedTime();
         double armtime = time.seconds();
 
@@ -78,13 +96,13 @@ public class Biddle4Specimen extends LinearOpMode {
             return new armWait();
         }
     }
-
+*/
 
 
     //chucky
 
 
-    @Override
+
     public void runOpMode() {
         PID_Arm armMotor = new PID_Arm(hardwareMap);
         autoWrist wristServo = new autoWrist(hardwareMap);
@@ -187,10 +205,12 @@ public class Biddle4Specimen extends LinearOpMode {
 
                 ));
 
-        /*
+
         Actions.runBlocking(
             new SequentialAction(
-                    clawServo.clawOpen(),
+                    armSlide.slideOut(),
+
+/*                    clawServo.clawOpen(),
                     armMotor.armDown(),
                     clawServo.clawClose(),
                     armMotor.backDown(),
@@ -239,4 +259,4 @@ public class Biddle4Specimen extends LinearOpMode {
 
 
     }
-}
+}}

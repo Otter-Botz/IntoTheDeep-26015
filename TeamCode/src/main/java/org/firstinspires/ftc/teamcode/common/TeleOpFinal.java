@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.SensorDigitalTouch;
+import org.firstinspires.ftc.teamcode.Autonomous.BlueAutonomous.Biddle4Specimen;
 
 @TeleOp(name = "OTTERRRRR")
 public class TeleOpFinal extends LinearOpMode {
@@ -45,8 +46,8 @@ public class TeleOpFinal extends LinearOpMode {
             PID_Arm.math();
 
             if (PID_Arm.target < 500) {
-                PID_Arm.armRespond(gamepad2.left_stick_y);
-           }
+               PID_Arm.armRespond(gamepad2.left_stick_y);
+          }
 
             if (touchSensor.isPressed() && gamepad2.dpad_right) {
               PID_Arm.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -101,6 +102,8 @@ public class TeleOpFinal extends LinearOpMode {
             } else if (gamepad2.right_bumper) {
                 wrist.wristServo.setPosition(0);
             }
+
+
 
             // back up manual arm control
             /*
