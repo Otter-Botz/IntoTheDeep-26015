@@ -18,12 +18,12 @@ public class PID_Arm {
         private PIDController controller;
         public DcMotor armMotor;
         public TouchSensor touchSensor;
-    public static double p = 0.005, i = 0.03, d = 0.0005;
-    public static double f = 0.12;
+    public static double p = 0.005, i = 0, d = 0.0001;
+    public static double f = 0.01;
     double ARM_UP = 604;
     double ARM_DOWN = 70;
     double ARM_BACK = 2000;
-    double ARM_START = 550;
+    double ARM_START = 180;
     public double target = ARM_START;
 
     private final double ticks_in_degrees = 2786.2 / 360;
@@ -41,6 +41,7 @@ public class PID_Arm {
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
                 target = ARM_UP;
+
                 return false;
             }
 
@@ -89,7 +90,7 @@ public class PID_Arm {
                 double ff = Math.cos(Math.toRadians(target/ ticks_in_degrees)) * f;
                 double power = pid + ff;
                 armMotor.setPower(power);
-                return false;
+                return true;
             }
         }
         public Action mathRun() {
@@ -99,11 +100,9 @@ public class PID_Arm {
       public class touch implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            if (touchSensor.isPressed()) {
+
                 armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-            }
 
             return false;
         }

@@ -4,15 +4,19 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
+import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 //  ryan says "code at bad is aryan  ;) "
 import org.firstinspires.ftc.teamcode.Autonomous.Common.autoWrist;
 import org.firstinspires.ftc.teamcode.Autonomous.Common.PID_Arm;
@@ -29,7 +33,6 @@ public class Biddle4Specimen extends LinearOpMode {
 
 
 
-
     @Override
     public void runOpMode() {
         PID_Arm armMotor = new PID_Arm(hardwareMap);
@@ -41,8 +44,7 @@ public class Biddle4Specimen extends LinearOpMode {
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
 
-
-         double lastX = -57;
+        double lastX = -57;
          double lastY = 40;
          double nextX = -69;
          double nextY = 40;
@@ -63,7 +65,7 @@ public class Biddle4Specimen extends LinearOpMode {
 
         TrajectoryActionBuilder sampleTransfer3 = drive.actionBuilder (
                 new Pose2d(lastX, lastY, Math.toRadians(270)))
-                .turnTo(268)
+                .strafeToConstantHeading(new Vector2d(nextX, nextY))
                 .waitSeconds(1);
 
         nextX=-57;
@@ -102,12 +104,9 @@ public class Biddle4Specimen extends LinearOpMode {
 
 
         Action parkCloseOut = score1Transfer1.fresh()
-                .strafeToLinearHeading(new Vector2d(-59, 60), Math.toRadians(270))
+                //.strafeToLinearHeading(new Vector2d(-59, 60), Math.toRadians(270))
                 .build();
 
-        while (!isStopRequested() && !opModeIsActive()) {
-
-        }
 
 
         waitForStart();
@@ -115,15 +114,30 @@ public class Biddle4Specimen extends LinearOpMode {
         if (isStopRequested()) return;
 
 
-        Actions.runBlocking(
-                new SequentialAction(
+            Actions.runBlocking(
+                    new SequentialAction(
 
-                        clawServo.clawClose(),
-                       // armMotor.armUp(),
-                        wristServo.wristUp(),
-                        score1Transfer1.build(),
+                            // clawServo.clawClose(),
+                            armMotor.touchreset(),
+                            new ParallelAction(
+                                    score1Transfer1.build(),
+                                    armMotor.mathRun(),
+                                    new SequentialAction(
+                                            armMotor.armUp(),
+                                            clawServo.clawClose(),
+                                            wristServo.wristUp(),
+                                            parkCloseOut
+                                    )
+                            )
+
+                    ));
+
+
+
+
+
                         /*
-                        clawServo.clawOpen(),
+
                         armMotor.armDown(),
                         clawServo.clawClose(),
                          armMotor.backDown(),
@@ -157,12 +171,10 @@ public class Biddle4Specimen extends LinearOpMode {
                          */
 
 
-                        parkCloseOut
 
 
 
 
-                )
-        );
+
     }
 }
