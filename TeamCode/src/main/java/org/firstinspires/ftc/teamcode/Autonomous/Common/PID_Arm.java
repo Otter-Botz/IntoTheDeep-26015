@@ -22,7 +22,7 @@ public class PID_Arm {
     public static double f = 0.01;
     double ARM_UP = 604;
     double ARM_DOWN = 70;
-    double ARM_BACK = 2000;
+    double ARM_BACK = 1700;
     double ARM_START = 180;
     public double target = ARM_START;
 
