@@ -63,7 +63,7 @@ public class Biddle4Specimen extends LinearOpMode {
 
     }
 
-    public class armWait {
+    public class armWait implements Action {
         ElapsedTime time = new ElapsedTime();
         double armtime = time.seconds();
 
@@ -72,6 +72,10 @@ public class Biddle4Specimen extends LinearOpMode {
                 stop();
             }
             return false;
+        }
+
+        public Action armWaitTime(){
+            return new armWait();
         }
     }
 
