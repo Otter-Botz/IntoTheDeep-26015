@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
@@ -14,7 +15,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
 //  ryan says "code at bad is aryan  ;) "
 import org.firstinspires.ftc.teamcode.Autonomous.Common.autoWrist;
 import org.firstinspires.ftc.teamcode.Autonomous.Common.PID_Arm;
@@ -76,14 +76,6 @@ public class Biddle4Specimen extends LinearOpMode {
 
 
 
-    //chucky
-    //chucky chucky
-    //chucky chucky chucky
-    //chucky chucky chucky chucky
-    //chucky chuclky chucky chucky chucky
-    //chucky chucky chucky chucky
-    //chucky chucky chucky
-    //chucky chucky
     //chucky
 
 
@@ -174,11 +166,38 @@ public class Biddle4Specimen extends LinearOpMode {
 
         Actions.runBlocking(
                 new SequentialAction(
+                        armMotor.touchreset(),
+                        new ParallelAction(
+                                armMotor.mathRun(),
+                                score1Transfer1.build(),
+                                new SequentialAction(
+                                        armMotor.armUp(),
+                                        clawServo.clawClose(),
+                                        wristServo.wristUp()
 
-                        clawServo.clawClose(),
+                                )
+
+                        )
+
+
+                ));
+
+        /*
+        Actions.runBlocking(
+            new SequentialAction(
+                    clawServo.clawOpen(),
+                    armMotor.armDown(),
+                    clawServo.clawClose(),
+                    armMotor.backDown(),
+                    clawServo.clawOpen()
+
+
+            ));
+
+         */
+
+
                        // armMotor.armUp(),
-                        wristServo.wristUp(),
-                        score1Transfer1.build(),
                         /*
                         clawServo.clawOpen(),
                         armMotor.armDown(),
@@ -214,12 +233,5 @@ public class Biddle4Specimen extends LinearOpMode {
                          */
 
 
-                        parkCloseOut
-
-
-
-
-                )
-        );
     }
 }

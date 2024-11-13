@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 //auto claw stuff
 public class autoClaw {
     double CLAW_OPEN = 0;
-    double CLAW_CLOSE = 0.3;
+    double CLAW_CLOSE = 0.4;
     public Servo clawServo;
 
     //init stuff
