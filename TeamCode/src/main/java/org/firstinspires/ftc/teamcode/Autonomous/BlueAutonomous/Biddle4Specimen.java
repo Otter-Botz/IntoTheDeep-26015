@@ -12,13 +12,14 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 //  ryan says "code at bad is aryan  ;) "
 import org.firstinspires.ftc.teamcode.Autonomous.Common.autoWrist;
 import org.firstinspires.ftc.teamcode.Autonomous.Common.PID_Arm;
-import org.firstinspires.ftc.teamcode.Autonomous.Common.armSlide;
+//import org.firstinspires.ftc.teamcode.Autonomous.Common.armSlide;
 import org.firstinspires.ftc.teamcode.Autonomous.Common.autoClaw;
 import org.firstinspires.ftc.teamcode.Roadrunnerlol.MecanumDrive;
 
@@ -29,15 +30,57 @@ import org.firstinspires.ftc.teamcode.Roadrunnerlol.MecanumDrive;
 @Autonomous
 public class Biddle4Specimen extends LinearOpMode {
 
+    public class armSlide {
+        public CRServo armServo;
+        public armSlide(HardwareMap hardwareMap) {
+            armServo = hardwareMap.get(CRServo.class, "servoSlide");
+        }
+        public class slideOut implements Action {
 
-    ElapsedTime time = new ElapsedTime();
-    double armtime = time.seconds();
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                armServo.setPower(0.5);
+                return false;
+            }
+        }
+        public Action slideout(){
+            return new slideOut();
+        }
 
-    public void armWaitTime() {
-        if (time.seconds() >= 1) {
-            stop();
+        public class armIn implements Action {
+
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                armServo.setPower(-0.5);
+                return false;
+            }
+        }
+
+        public Action armSliderIN(){
+            return new armIn();
+        }
+
+
+    }
+
+    public class armWait implements Action {
+        ElapsedTime time = new ElapsedTime();
+        double armtime = time.seconds();
+
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+            if (time.seconds() >= 1) {
+                stop();
+            }
+            return false;
+        }
+
+        public Action armWaitTime(){
+            return new armWait();
         }
     }
+
+
+
     //chucky
 
 
