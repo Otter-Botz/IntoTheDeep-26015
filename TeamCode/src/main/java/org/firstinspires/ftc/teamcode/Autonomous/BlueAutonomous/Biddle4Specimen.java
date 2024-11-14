@@ -32,9 +32,11 @@ public class Biddle4Specimen extends LinearOpMode {
 
     public class armSlide {
         public CRServo armServo;
+
         public armSlide(HardwareMap hardwareMap) {
             armServo = hardwareMap.get(CRServo.class, "servoSlide");
         }
+
         public class slideOut implements Action {
 
             @Override
@@ -43,7 +45,8 @@ public class Biddle4Specimen extends LinearOpMode {
                 return false;
             }
         }
-        public Action slideout(){
+
+        public Action slideout() {
             return new slideOut();
         }
 
@@ -56,29 +59,52 @@ public class Biddle4Specimen extends LinearOpMode {
             }
         }
 
-        public Action armSliderIN(){
+        public Action armSliderIN() {
             return new armIn();
         }
 
 
-    }
+        public class armWait implements Action {
+            ElapsedTime time = new ElapsedTime();
+            double armtime = time.seconds();
 
-    public class armWait implements Action {
-        ElapsedTime time = new ElapsedTime();
-        double armtime = time.seconds();
 
-        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            if (time.seconds() >= 1) {
-                stop();
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+                if (time.seconds() >= 1) {
+                    stop();
+                }
+                return false;
             }
-            return false;
+
+            public Action armWaitTime() {
+                return new armWait();
+            }
         }
 
-        public Action armWaitTime(){
-            return new armWait();
+        public class armWait2 implements Action {
+            ElapsedTime time = new ElapsedTime();
+            double armtime = time.seconds();
+            boolean armActive = false;
+
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                armServo.setPower(-1);
+                sleep(1500);
+                armActive = true;
+                if (armActive == true) {
+                    armServo.setPower(0);
+                }
+                return false;
+            }
+
         }
+        public Action armWaitTime2() {
+            return new armWait2();
+        }
+
+
+
     }
-
 
 
     //chucky
@@ -102,11 +128,37 @@ public class Biddle4Specimen extends LinearOpMode {
          double nextX = -69;
          double nextY = 40;
          boolean active;
-        TrajectoryActionBuilder score1Transfer1 = drive.actionBuilder(initialPose)
+        TrajectoryActionBuilder Biddle4Specimen = drive.actionBuilder(initialPose)
+                .endTrajectory()
+                .stopAndAdd( armMotor.armUp())
+                .stopAndAdd(wristServo.wristUp())
+                .waitSeconds(1)
+                .strafeToConstantHeading(new Vector2d(0, 24))
+                .endTrajectory()
+                .stopAndAdd(clawServo.clawOpen())
+                .strafeToConstantHeading(new Vector2d(0, 50));
 
-                .strafeToConstantHeading(new Vector2d(0, 33))
+
+                /*
                 .strafeToConstantHeading(new Vector2d(lastX, lastY))
-                .waitSeconds(1);
+                .endTrajectory()
+                .stopAndAdd(clawServo.clawOpen())
+                .stopAndAdd(armMotor.armDown())
+                .stopAndAdd(clawServo.clawClose())
+                .stopAndAdd(armMotor.backDown())
+                .stopAndAdd(clawServo.clawOpen())
+                .strafeToConstantHeading(new Vector2d(nextX, nextY))
+                .endTrajectory()
+                .stopAndAdd(armMotor.armDown())
+                .stopAndAdd(clawServo.clawClose())
+                .stopAndAdd(armMotor.backDown())
+                .stopAndAdd(clawServo.clawOpen());
+                */
+
+
+
+
+
 
         TrajectoryActionBuilder sampleTransfer2 = drive.actionBuilder(
                         new Pose2d(lastX, lastY, Math.toRadians(270)))
@@ -156,7 +208,7 @@ public class Biddle4Specimen extends LinearOpMode {
                 .strafeToLinearHeading(new Vector2d(nextX, nextY), Math.toRadians(270));
 
 
-        Action parkCloseOut = score1Transfer1.fresh()
+        Action parkCloseOut = Biddle4Specimen.fresh()
                 .strafeToLinearHeading(new Vector2d(-59, 60), Math.toRadians(270))
                 .build();
 
@@ -173,24 +225,24 @@ public class Biddle4Specimen extends LinearOpMode {
         Actions.runBlocking(
                 new SequentialAction(
                         armMotor.touchreset(),
+                        clawServo.clawClose(),
+                        slideServo.armWaitTime2(),
                         new ParallelAction(
                                 armMotor.mathRun(),
-                                score1Transfer1.build(),
                                 new SequentialAction(
-                                        armMotor.armUp(),
-                                        // slideServo.slideout(),
-                                        clawServo.clawClose(),
-                                        wristServo.wristUp()
+                                        Biddle4Specimen.build()
                                 )
+                        )
 
-                        ),
 
-                        clawServo.clawOpen(),
-                        armMotor.armDown(),
-                        clawServo.clawClose(),
-                        armMotor.backDown(),
-                        clawServo.clawOpen(),
-                        parkCloseOut
+
+
+
+
+
+
+
+
 
 
                 )
@@ -218,6 +270,13 @@ public class Biddle4Specimen extends LinearOpMode {
 
                        // armMotor.armUp(),
                         /*
+                         clawServo.clawOpen(),
+                        armMotor.armDown(),
+                        clawServo.clawClose(),
+                        armMotor.backDown(),
+                        clawServo.clawOpen()
+
+
                         clawServo.clawOpen(),
                         armMotor.armDown(),
                         clawServo.clawClose(),
