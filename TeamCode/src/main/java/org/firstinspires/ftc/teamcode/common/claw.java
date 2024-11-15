@@ -10,11 +10,16 @@ import org.firstinspires.ftc.teamcode.common.interfaces.armSystem;
 
 
 public class claw implements armSystem {
-
     public Servo clawServo;
     public double open = 0;
     public double close = 0.3;
 
+    double clawServoPos = clawServo.getPosition();
+    int ArmPos = PID_Arm.armMotor.getCurrentPosition() + 20;
+
+    if (clawServoPos == 0.3){
+    PID_Arm.armMotor.setTargetPosition(ArmPos);
+        }
     @Override
     public void set(double position) {
         //open
@@ -30,8 +35,13 @@ public class claw implements armSystem {
     @Override
     public void init(HardwareMap hwMap) {
         clawServo = hwMap.get(Servo.class,  "clawServo");
-
     }
+
+
+
+
+
+
 
 
 }

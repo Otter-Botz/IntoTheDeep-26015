@@ -19,6 +19,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Autonomous.Common.AutoMainSliders;
+//import org.firstinspires.ftc.teamcode.Autonomous.Common.armSlide;
+//import org.firstinspires.ftc.teamcode.Autonomous.Common.armSlide;
 import org.firstinspires.ftc.teamcode.Autonomous.Common.autoClaw;
 import org.firstinspires.ftc.teamcode.Autonomous.Common.autoWrist;
 import org.firstinspires.ftc.teamcode.Roadrunnerlol.MecanumDrive;
@@ -41,7 +43,9 @@ public class BackUpBlue extends LinearOpMode {
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
         org.firstinspires.ftc.teamcode.Autonomous.Common.autoClaw autoClaw = new autoClaw(hardwareMap);
+       // armSlide armMotor = new armSlide(hardwareMap);
         autoWrist wristServo = new autoWrist(hardwareMap);
+       // armSlide slideServo = new armSlide(hardwareMap);
         autoClaw clawServo = new autoClaw(hardwareMap);
         AutoMainSliders AutoMainSliders = new AutoMainSliders(hardwareMap);
 

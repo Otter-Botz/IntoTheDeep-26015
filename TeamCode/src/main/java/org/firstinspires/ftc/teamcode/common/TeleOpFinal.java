@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.SensorDigitalTouch;
+import org.firstinspires.ftc.teamcode.Autonomous.BlueAutonomous.Biddle4Specimen;
 
 @TeleOp(name = "OTTERRRRR")
 public class TeleOpFinal extends LinearOpMode {
@@ -49,8 +50,8 @@ public class TeleOpFinal extends LinearOpMode {
             PID_Arm.math();
 
             if (PID_Arm.target < 500) {
-                PID_Arm.armRespond(gamepad2.left_stick_y);
-           }
+               PID_Arm.armRespond(gamepad2.left_stick_y);
+          }
 
 
 
@@ -102,6 +103,8 @@ public class TeleOpFinal extends LinearOpMode {
                 wrist.wristServo.setPosition(0);
             }
 
+
+
             // back up manual arm control
 
             if (gamepad2.dpad_up) {
@@ -140,13 +143,14 @@ public class TeleOpFinal extends LinearOpMode {
     public void highbasket() {
         Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Slider.sliderMotor.setTargetPosition(400);
-        Slider.sliderMotorMotor.setTargetPosition(400);
+        Slider.sliderMotor.setTargetPosition(2000);
+        Slider.sliderMotorMotor.setTargetPosition(2000);
         Slider.sliderMotor.setPower(0.5);
         Slider.sliderMotorMotor.setPower(0.5);
-        //Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         PID_Arm.up();
+        wrist.wristServo.setPosition(0.4);
     }
 
     public void highrung() {

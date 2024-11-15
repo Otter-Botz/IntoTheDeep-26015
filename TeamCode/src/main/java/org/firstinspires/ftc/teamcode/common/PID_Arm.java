@@ -84,7 +84,7 @@ public class PID_Arm {
 
 
     public void down() {
-        target = 150;
+        target = 70;
     }
 
 
