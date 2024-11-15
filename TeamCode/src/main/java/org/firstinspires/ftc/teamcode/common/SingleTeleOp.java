@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.SensorDigitalTouch;
 
-@TeleOp(name = "OTTERRRRR")
+@TeleOp(name = "OTTERRRRR single")
 public class SingleTeleOp extends LinearOpMode {
     claw claw = new claw();
     ArmSlider ArmSlider = new ArmSlider();

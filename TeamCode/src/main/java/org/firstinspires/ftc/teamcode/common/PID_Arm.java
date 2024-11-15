@@ -88,6 +88,13 @@ public class PID_Arm {
 
     }
 
+
+    public double ArmPos = armMotor.getCurrentPosition();
+
+
+
+
+
     public void math() {
 
 

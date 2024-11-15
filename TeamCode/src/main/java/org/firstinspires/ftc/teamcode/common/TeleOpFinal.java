@@ -39,8 +39,12 @@ public class TeleOpFinal extends LinearOpMode {
         boolean isPressed = touchSensor.isPressed();
 
         waitForStart();
-
+        PID_Arm.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        PID_Arm.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         while (opModeIsActive()) {
+            telemetry.addData("pos", PID_Arm.armMotor.getCurrentPosition());
+            telemetry.update();
+
 
             vroom.vrooooooom(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, gamepad1.right_trigger);
             PID_Arm.math();
@@ -49,10 +53,6 @@ public class TeleOpFinal extends LinearOpMode {
                PID_Arm.armRespond(gamepad2.left_stick_y);
           }
 
-            if (touchSensor.isPressed() && gamepad2.dpad_right) {
-              PID_Arm.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-              PID_Arm.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            }
 
 
             //Rumble and Reset Yaw
@@ -106,17 +106,18 @@ public class TeleOpFinal extends LinearOpMode {
 
 
             // back up manual arm control
-            /*
-            if(gamepad2.right_trigger!= 0) {
-                PID_Arm.armMotor.setPower(gamepad2.right_trigger/2.5);
-            } else if(gamepad2.left_trigger != 0){
-                PID_Arm.armMotor.setPower(-gamepad2.left_trigger/2.5);
-            }else {
-                PID_Arm.armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                PID_Arm.armMotor.setPower(0);
+
+            if (gamepad2.dpad_up) {
+                double value;
+                value = PID_Arm.target + 5;
+                PID_Arm.target = value;
+            } else if (gamepad2.dpad_down){
+                double value1;
+                value1 = PID_Arm.target - 5;
+                PID_Arm.target = value1;
             }
 
-             */
+
             //telemetry.addData("pos", PID_Arm.armMotor.getCurrentPosition());
             //telemetry.update();
 
