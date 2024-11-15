@@ -14,12 +14,14 @@ public class claw implements armSystem {
     public double open = 0;
     public double close = 0.3;
 
-    double clawServoPos = clawServo.getPosition();
-    int ArmPos = PID_Arm.armMotor.getCurrentPosition() + 20;
-
+   // double clawServoPos = clawServo.getPosition();
+   // int ArmPos = PID_Arm.armMotor.getCurrentPosition() + 20;
+    /*
     if (clawServoPos == 0.3){
     PID_Arm.armMotor.setTargetPosition(ArmPos);
         }
+
+     */
     @Override
     public void set(double position) {
         //open

@@ -41,6 +41,10 @@ public class TeleOpFinal extends LinearOpMode {
         waitForStart();
         PID_Arm.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         PID_Arm.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Slider.sliderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Slider.sliderMotorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         while (opModeIsActive()) {
             telemetry.addData("pos", PID_Arm.armMotor.getCurrentPosition());
             telemetry.update();
@@ -84,7 +88,7 @@ public class TeleOpFinal extends LinearOpMode {
 
 
 
-            else if (gamepad2.dpad_up){
+             if (gamepad2.dpad_up){
                 highbasket();
             }
             else if (gamepad2.dpad_down){
@@ -141,14 +145,12 @@ public class TeleOpFinal extends LinearOpMode {
         }
     }
     public void highbasket() {
-        Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Slider.sliderMotor.setTargetPosition(2000);
+        Slider.sliderMotor.setTargetPosition(-2000);
         Slider.sliderMotorMotor.setTargetPosition(2000);
-        Slider.sliderMotor.setPower(0.5);
-        Slider.sliderMotorMotor.setPower(0.5);
+        Slider.sliderMotor.setPower(1);
+        Slider.sliderMotorMotor.setPower(1);
         PID_Arm.up();
         wrist.wristServo.setPosition(0.4);
     }
