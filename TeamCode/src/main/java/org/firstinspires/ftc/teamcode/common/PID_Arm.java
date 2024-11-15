@@ -67,9 +67,6 @@ public class PID_Arm {
     public static DcMotor armMotor;
 
 
-
-
-
     public void up()  {
         target = 1115;
     }
@@ -77,27 +74,13 @@ public class PID_Arm {
     public void armRespond(double value) {
         value = value * 1;
         target = target - value;
-
     }
-
-
-
 
     public void down() {
         target = 70;
-
     }
 
-
-
-
-
-
-
-
     public void math() {
-
-
         controller.setPID(p, i , d);
         int armPos = armMotor.getCurrentPosition();
         double pid = controller.calculate(armPos, target);
@@ -108,13 +91,7 @@ public class PID_Arm {
        // telemetry.addData("pos", slidePos);
        // telemetry.addData("target", target);
        // telemetry.update();
-
-
     }
-
-
-
-
 
     public static void init(HardwareMap hwMap) {
         armMotor = hwMap.get(DcMotor.class, "armMotor");
