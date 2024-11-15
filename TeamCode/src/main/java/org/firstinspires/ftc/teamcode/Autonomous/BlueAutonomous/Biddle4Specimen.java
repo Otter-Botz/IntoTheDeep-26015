@@ -128,17 +128,11 @@ public class Biddle4Specimen extends LinearOpMode {
          double nextX = -69;
          double nextY = 40;
          boolean active;
-        TrajectoryActionBuilder Biddle4Specimen = drive.actionBuilder(initialPose)
-                .endTrajectory()
-                .stopAndAdd( armMotor.armUp())
-                .stopAndAdd(wristServo.wristUp())
-                .waitSeconds(1)
+        TrajectoryActionBuilder score1transfer1 = drive.actionBuilder(initialPose)
                 .strafeToConstantHeading(new Vector2d(0, 24))
                 .endTrajectory()
                 .stopAndAdd(clawServo.clawOpen())
                 .strafeToConstantHeading(new Vector2d(0, 50));
-
-
 
                 /*
                 .strafeToConstantHeading(new Vector2d(lastX, lastY))
@@ -209,7 +203,7 @@ public class Biddle4Specimen extends LinearOpMode {
                 .strafeToLinearHeading(new Vector2d(nextX, nextY), Math.toRadians(270));
 
 
-        Action parkCloseOut = Biddle4Specimen.fresh()
+        Action parkCloseOut = score1transfer1.fresh()
                 .strafeToLinearHeading(new Vector2d(-59, 60), Math.toRadians(270))
                 .build();
 
@@ -231,9 +225,17 @@ public class Biddle4Specimen extends LinearOpMode {
                         new ParallelAction(
                                 armMotor.mathRun(),
                                 new SequentialAction(
-                                        Biddle4Specimen.build()
+                                       score1transfer1.build(),
+                                        armMotor.armDown(),
+                                        clawServo.clawClose(),
+                                        armMotor.backDown(),
+                                        clawServo.clawOpen(),
+                                        armMotor.armDown()
                                 )
                         )
+
+
+
 
 
 
