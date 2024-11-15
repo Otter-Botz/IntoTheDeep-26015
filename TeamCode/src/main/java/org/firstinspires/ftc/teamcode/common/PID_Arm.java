@@ -59,7 +59,7 @@ public class PID_Arm {
     public static double p = 0.005, i = 0, d = 0.0001;
     public static double f = 0.01;
 
-    public double target = 100;
+    public double   target = 100;
 
     private final double ticks_in_degrees = 2786.2 / 360;
 
@@ -98,8 +98,8 @@ public class PID_Arm {
 
 
         controller.setPID(p, i , d);
-        int slidePos = armMotor.getCurrentPosition();
-        double pid = controller.calculate(slidePos, target);
+        int armPos = armMotor.getCurrentPosition();
+        double pid = controller.calculate(armPos, target);
         double ff = Math.cos(Math.toRadians(target/ ticks_in_degrees)) * f;
         double power = pid + ff;
         armMotor.setPower(power);

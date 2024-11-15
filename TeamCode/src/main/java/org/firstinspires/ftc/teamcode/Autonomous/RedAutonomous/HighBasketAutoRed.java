@@ -21,7 +21,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Autonomous.Common.AutoMainSliders;
-
+import org.firstinspires.ftc.teamcode.Autonomous.Common.armSlide;
 import org.firstinspires.ftc.teamcode.Autonomous.Common.autoClaw;
 import org.firstinspires.ftc.teamcode.Autonomous.Common.autoWrist;
 import org.firstinspires.ftc.teamcode.Roadrunnerlol.MecanumDrive;
@@ -68,7 +68,7 @@ public class HighBasketAutoRed extends LinearOpMode {
 
         autoClaw autoClaw = new autoClaw(hardwareMap);
         autoWrist wristServo = new autoWrist(hardwareMap);
-
+        armSlide slideServo = new armSlide(hardwareMap);
         autoClaw clawServo = new autoClaw(hardwareMap);
         AutoMainSliders AutoMainSliders = new AutoMainSliders(hardwareMap);
 
