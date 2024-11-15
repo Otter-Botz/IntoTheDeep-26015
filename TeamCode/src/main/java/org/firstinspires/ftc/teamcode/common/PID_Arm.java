@@ -74,7 +74,7 @@ public class PID_Arm {
         target = 1115;
     }
 
-    public void armRespond(boolean value) {
+    public void armRespond(double value) {
         value = value * 1;
         target = target - value;
 
@@ -85,10 +85,11 @@ public class PID_Arm {
 
     public void down() {
         target = 70;
+
     }
 
 
-
+    public double ArmPos = armMotor.getCurrentPosition();
 
 
 

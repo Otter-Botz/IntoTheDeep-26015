@@ -142,13 +142,14 @@ public class TeleOpFinal extends LinearOpMode {
     public void highbasket() {
         Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Slider.sliderMotor.setTargetPosition(400);
-        Slider.sliderMotorMotor.setTargetPosition(400);
+        Slider.sliderMotor.setTargetPosition(2000);
+        Slider.sliderMotorMotor.setTargetPosition(2000);
         Slider.sliderMotor.setPower(0.5);
         Slider.sliderMotorMotor.setPower(0.5);
-        //Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         PID_Arm.up();
+        wrist.wristServo.setPosition(0.4);
     }
 
     public void highrung() {

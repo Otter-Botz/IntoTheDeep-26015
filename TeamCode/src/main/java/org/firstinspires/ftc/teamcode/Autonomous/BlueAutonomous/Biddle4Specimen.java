@@ -197,26 +197,7 @@ public class Biddle4Specimen extends LinearOpMode {
 
 
         );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                       // armMotor.armUp(),
+                        // armMotor.armUp(),
                         /*
                         clawServo.clawOpen(),
                         armMotor.armDown(),
