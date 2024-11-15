@@ -141,36 +141,37 @@ public class TeleOpFinal extends LinearOpMode {
         }
     }
     public void highbasket() {
+        Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         Slider.sliderMotor.setTargetPosition(2000);
         Slider.sliderMotorMotor.setTargetPosition(2000);
         Slider.sliderMotor.setPower(0.5);
         Slider.sliderMotorMotor.setPower(0.5);
-        Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         PID_Arm.up();
         wrist.wristServo.setPosition(0.4);
     }
 
     public void highrung() {
+        Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         Slider.sliderMotor.setTargetPosition(300);
         Slider.sliderMotorMotor.setTargetPosition(300);
         PID_Arm.armMotor.setTargetPosition(812);
         wrist.wristServo.setPosition(0.1);
-        Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
     }
 
     public void submersible() {
+        Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         Slider.sliderMotor.setTargetPosition(100);
         Slider.sliderMotorMotor.setTargetPosition(100);
-        Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         PID_Arm.down();
         claw.set(claw.open);
         wrist.set(wrist.up);
