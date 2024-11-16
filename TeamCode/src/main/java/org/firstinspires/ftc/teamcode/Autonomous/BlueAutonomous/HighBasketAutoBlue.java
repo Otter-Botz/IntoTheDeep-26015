@@ -3,6 +3,8 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.har
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.linearOpMode;
 
 import androidx.annotation.NonNull;
+
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
@@ -17,6 +19,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Autonomous.Common.AutoMainSliders;
 //import org.firstinspires.ftc.teamcode.Autonomous.Common.armSlide;
@@ -56,6 +59,83 @@ public class HighBasketAutoBlue extends LinearOpMode {
     public static final double SLIDER_HOLD_SPEED = 0.001;
 
     private final double ticks_in_degrees = 700 / 180;
+
+    public class armSlide {
+        public CRServo armServo;
+
+        public armSlide(HardwareMap hardwareMap) {
+            armServo = hardwareMap.get(CRServo.class, "servoSlide");
+        }
+
+        public class slideOut implements Action {
+
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                armServo.setPower(0.5);
+                return false;
+            }
+        }
+
+        public Action slideout() {
+            return new HighBasketAutoBlue.armSlide.slideOut();
+        }
+
+        public class armIn implements Action {
+
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                armServo.setPower(-0.5);
+                return false;
+            }
+        }
+
+        public Action armSliderIN() {
+            return new HighBasketAutoBlue.armSlide.armIn();
+        }
+
+
+        public class armWait implements Action {
+            ElapsedTime time = new ElapsedTime();
+            double armtime = time.seconds();
+
+
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+                if (time.seconds() >= 1) {
+                    stop();
+                }
+                return false;
+            }
+
+            public Action armWaitTime() {
+                return new HighBasketAutoBlue.armSlide.armWait();
+            }
+        }
+
+        public class armWait2 implements Action {
+            ElapsedTime time = new ElapsedTime();
+            double armtime = time.seconds();
+            boolean armActive = false;
+
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                armServo.setPower(-1);
+                sleep(1500);
+                armActive = true;
+                if (armActive == true) {
+                    armServo.setPower(0);
+                }
+                return false;
+            }
+
+        }
+        public Action armWaitTime2() {
+            return new HighBasketAutoBlue.armSlide.armWait2();
+        }
+
+
+
+    }
+
 
 
     @Override
