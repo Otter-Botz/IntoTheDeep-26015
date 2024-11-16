@@ -61,9 +61,9 @@ public class TeleOpFinal extends LinearOpMode {
 
             // preset
 
-            if (gamepad2.a) {
+            if (gamepad2.b) {
                 highbasket();
-            } else if (gamepad2.b) {
+            } else if (gamepad2.a) {
                 submersible();
             }
 
