@@ -69,6 +69,7 @@ public class ConceptRevLED extends OpMode {
         } else {
             frontLED_red.off();
         }
+
         if (gamepad1.b) {
             frontLED_green.on();
         } else {
