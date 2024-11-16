@@ -162,7 +162,7 @@ public class Riddle4Specimen extends LinearOpMode {
         double nextY = 40;
         boolean active;
         TrajectoryActionBuilder score1Transfer1 = drive.actionBuilder(initialPose)
-                //.waitSeconds(15)
+                .waitSeconds(15)
                 .endTrajectory()
                 .stopAndAdd(armMotor.armUp())
                 .strafeToConstantHeading(new Vector2d(0, -35.5))
