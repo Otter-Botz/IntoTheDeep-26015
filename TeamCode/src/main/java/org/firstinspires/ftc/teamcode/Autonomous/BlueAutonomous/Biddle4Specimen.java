@@ -13,6 +13,7 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -29,6 +30,30 @@ import org.firstinspires.ftc.teamcode.Roadrunnerlol.MecanumDrive;
 
 @Autonomous
 public class Biddle4Specimen extends LinearOpMode {
+
+    public class armSlideMotor {
+        public DcMotor armSlideMotor;
+        public CRServo armServo;
+        //int motorTicks = 125;
+        //int motorPos = 150;
+        int encoderPosition = armSlideMotor.getCurrentPosition();
+
+           public class SliderOut implements Action {
+
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                armServo.setPower(1);
+                return false;
+            }
+        }
+
+        public Action slideout() {
+            return new SliderOut();
+        }
+
+
+
+    }
 
     public class armSlide {
         public CRServo armServo;
@@ -90,6 +115,7 @@ public class Biddle4Specimen extends LinearOpMode {
         autoWrist wristServo = new autoWrist(hardwareMap);
         armSlide slideServo = new armSlide(hardwareMap);
         autoClaw clawServo = new autoClaw(hardwareMap);
+
 
 
         Pose2d initialPose = new Pose2d(-16, 62, Math.toRadians(270));
