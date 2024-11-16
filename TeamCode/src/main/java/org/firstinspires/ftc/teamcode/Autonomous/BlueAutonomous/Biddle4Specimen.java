@@ -38,7 +38,7 @@ public class Biddle4Specimen extends LinearOpMode {
         //int motorPos = 150;
         int encoderPosition = armSlideMotor.getCurrentPosition();
 
-           public class SliderOut implements Action {
+        public class SliderOut implements Action {
 
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
@@ -156,11 +156,11 @@ public class Biddle4Specimen extends LinearOpMode {
 
 
 
-         double lastX = -57;
-         double lastY = 45;
-         double nextX = -69;
-         double nextY = 40;
-         boolean active;
+        double lastX = -57;
+        double lastY = 45;
+        double nextX = -69;
+        double nextY = 40;
+        boolean active;
         TrajectoryActionBuilder score1Transfer1 = drive.actionBuilder(initialPose)
                 .endTrajectory()
                 .stopAndAdd(armMotor.armUp())
@@ -176,7 +176,7 @@ public class Biddle4Specimen extends LinearOpMode {
 
 
 
-               // .strafeToConstantHeading(new Vector2d(lastX, lastY));
+        // .strafeToConstantHeading(new Vector2d(lastX, lastY));
 
 
         TrajectoryActionBuilder sampleTransfer2 = drive.actionBuilder(
@@ -188,14 +188,14 @@ public class Biddle4Specimen extends LinearOpMode {
         lastY = nextY;
 
         TrajectoryActionBuilder sampleTransfer3 = drive.actionBuilder (
-                new Pose2d(lastX, lastY, Math.toRadians(270)))
+                        new Pose2d(lastX, lastY, Math.toRadians(270)))
                 .turnTo(268)
                 .waitSeconds(1);
 
         nextX=-57;
         nextY=55;
         TrajectoryActionBuilder specimenPickup1 = drive.actionBuilder(
-                new Pose2d(lastX, lastY, Math.toRadians(270)))
+                        new Pose2d(lastX, lastY, Math.toRadians(270)))
                 .strafeToLinearHeading(new Vector2d(nextX,nextY), Math.toRadians(270))
                 .waitSeconds(1);
 
@@ -278,7 +278,7 @@ public class Biddle4Specimen extends LinearOpMode {
 
 
         );
-                        // armMotor.armUp(),
+        // armMotor.armUp(),
                         /*
                         clawServo.clawOpen(),
                         armMotor.armDown(),

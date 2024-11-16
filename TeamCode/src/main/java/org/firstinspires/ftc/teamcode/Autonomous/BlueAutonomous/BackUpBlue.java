@@ -62,9 +62,9 @@ public class BackUpBlue extends LinearOpMode {
             return true;
         }
     }
-    public Action mathRun() {
-        return new PID_Arm.math();
-    }
+//    public Action mathRun() {
+//        return new PID_Arm.math();
+//    }
 
 
     @Override
@@ -103,10 +103,10 @@ public class BackUpBlue extends LinearOpMode {
 
         TrajectoryActionBuilder StartingPosition = drive.actionBuilder(initialPose)
                 .strafeToLinearHeading(new Vector2d(-17, 60), Math.toRadians(270));
-        TrajectoryActionBuilder ScorePreloadSpecimen = drive.actionBuilder(initialPose)
-                //Score Preloaded Specimen
-                .strafeToLinearHeading(new Vector2d(0, 38), Math.toRadians(270));
-        TrajectoryActionBuilder MoveMore = drive.actionBuilder(new Pose2d(Tab4X, Tab4Y, Math.toRadians(270)));
+//        TrajectoryActionBuilder ScorePreloadSpecimen = drive.actionBuilder(initialPose)
+//                //Score Preloaded Specimen
+//                .strafeToLinearHeading(new Vector2d(0, 38), Math.toRadians(270));
+//        TrajectoryActionBuilder MoveMore = drive.actionBuilder(new Pose2d(Tab4X, Tab4Y, Math.toRadians(270)));
         TrajectoryActionBuilder MoveandPushFirstSample = drive.actionBuilder(new Pose2d(originalTabX
                         , originalTabY, Math.toRadians(270)))
                 //Sample One
@@ -170,14 +170,15 @@ public class BackUpBlue extends LinearOpMode {
 
         Actions.runBlocking(
                 new SequentialAction(
-                        ScorePreloadSpecimen.build(),
-                        MoveMore.build(),
-                        AutoMainSliders.HighRung(),
-                        AutoMainSliders.SliderIdlePosition(),
-                        AutoMainSliders.SliderDown(),
+                  StartingPosition.build(),
+                        //ScorePreloadSpecimen.build(),
+                        //MoveMore.build(),
+//                        AutoMainSliders.HighRung(),
+//                        AutoMainSliders.SliderIdlePosition(),
+//                        AutoMainSliders.SliderDown(),
                         MoveandPushFirstSample.build(),
                         MoveandPushSecondSample.build(),
-                        //ScoreSpecimen1.build(),
+//                        //ScoreSpecimen1.build(),
                         //AutoMainSliders.HighRung(),
                         //AutoMainSliders.SliderIdlePosition(),
                         //AutoMainSliders.SliderDown(),
