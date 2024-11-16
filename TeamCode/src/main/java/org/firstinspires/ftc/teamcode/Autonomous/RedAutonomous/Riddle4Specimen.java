@@ -151,7 +151,7 @@ public class Riddle4Specimen extends LinearOpMode {
 
 
 
-        Pose2d initialPose = new Pose2d(16, -62, Math.toRadians(270));
+        Pose2d initialPose = new Pose2d(16, -62, Math.toRadians(90));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
 
@@ -229,7 +229,7 @@ public class Riddle4Specimen extends LinearOpMode {
 
 
         Action parkCloseOut = score1Transfer1.fresh()
-                .strafeToLinearHeading(new Vector2d(59, -60), Math.toRadians(270))
+                .strafeToLinearHeading(new Vector2d(59, -60), Math.toRadians(90))
                 .build();
 
         while (!isStopRequested() && !opModeIsActive()) {
