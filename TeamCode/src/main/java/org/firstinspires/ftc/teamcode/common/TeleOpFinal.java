@@ -78,6 +78,7 @@ public class TeleOpFinal extends LinearOpMode {
                 clawPressed = true;
             }
             //claw code
+            //chucky wewe
 
            //Slider Arm
             if (gamepad2.x) {
