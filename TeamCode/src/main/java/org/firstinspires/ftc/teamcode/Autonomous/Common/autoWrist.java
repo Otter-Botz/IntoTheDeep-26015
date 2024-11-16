@@ -11,8 +11,8 @@ public class autoWrist {
     //auto wrist stuff
 
         public Servo wristServo;
-        double WRIST_UP = 0.65;
-        double WRIST_DOWN = 0.4;
+        double WRIST_UP = 0.2;
+        double WRIST_DOWN = 0;
 
 
     public autoWrist(HardwareMap hardwareMap) {

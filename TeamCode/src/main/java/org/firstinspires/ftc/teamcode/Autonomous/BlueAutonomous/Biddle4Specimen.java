@@ -32,9 +32,11 @@ public class Biddle4Specimen extends LinearOpMode {
 
     public class armSlide {
         public CRServo armServo;
+
         public armSlide(HardwareMap hardwareMap) {
             armServo = hardwareMap.get(CRServo.class, "servoSlide");
         }
+
         public class slideOut implements Action {
 
             @Override
@@ -43,7 +45,8 @@ public class Biddle4Specimen extends LinearOpMode {
                 return false;
             }
         }
-        public Action slideout(){
+
+        public Action slideout() {
             return new slideOut();
         }
 
@@ -56,26 +59,56 @@ public class Biddle4Specimen extends LinearOpMode {
             }
         }
 
-        public Action armSliderIN(){
+        public Action armSliderIN() {
             return new armIn();
         }
 
 
-    }
+        public class armWait implements Action {
+            ElapsedTime time = new ElapsedTime();
+            double armtime = time.seconds();
+            boolean armActive = false;
 
-    public class armWait implements Action {
-        ElapsedTime time = new ElapsedTime();
-        double armtime = time.seconds();
 
-        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            if (time.seconds() >= 1) {
-                stop();
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                armServo.setPower(-1);
+                sleep(1500);
+                armActive = true;
+                if (armActive == true) {
+                    armServo.setPower(0);
+                }
+                return false;
             }
-            return false;
+
+
         }
 
-        public Action armWaitTime(){
+        public Action armWaitTime() {
             return new armWait();
+        }
+
+
+        public class armWaitTimeBack implements Action {
+            ElapsedTime time = new ElapsedTime();
+            double armtime = time.seconds();
+            boolean armActive = false;
+
+
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                armServo.setPower(1);
+                sleep(1000);
+                armActive = true;
+                if (armActive == true) {
+                    armServo.setPower(0);
+                }
+                return false;
+            }
+
+
+        }
+
+        public Action armWaitTimeBack() {
+            return new armWaitTimeBack();
         }
     }
 
@@ -98,15 +131,27 @@ public class Biddle4Specimen extends LinearOpMode {
 
 
          double lastX = -57;
-         double lastY = 40;
+         double lastY = 45;
          double nextX = -69;
          double nextY = 40;
          boolean active;
         TrajectoryActionBuilder score1Transfer1 = drive.actionBuilder(initialPose)
+                .endTrajectory()
+                .stopAndAdd(armMotor.armUp())
+                .strafeToConstantHeading(new Vector2d(0, 35.5))
+                .endTrajectory()
+                .stopAndAdd(armMotor.middle())
+                .waitSeconds(2)
+                .stopAndAdd(clawServo.clawOpen())
+                .strafeToConstantHeading(new Vector2d(0, 50))
+                .endTrajectory()
+                .stopAndAdd(slideServo.armWaitTimeBack())
+                .stopAndAdd(armMotor.autoEnd());
 
-                .strafeToConstantHeading(new Vector2d(0, 33))
-                .strafeToConstantHeading(new Vector2d(lastX, lastY))
-                .waitSeconds(1);
+
+
+               // .strafeToConstantHeading(new Vector2d(lastX, lastY));
+
 
         TrajectoryActionBuilder sampleTransfer2 = drive.actionBuilder(
                         new Pose2d(lastX, lastY, Math.toRadians(270)))
@@ -172,24 +217,35 @@ public class Biddle4Specimen extends LinearOpMode {
 
         Actions.runBlocking(
                 new SequentialAction(
+
                         armMotor.touchreset(),
+                        clawServo.clawClose(),
+                        slideServo.armWaitTime(),
+
                         new ParallelAction(
                                 armMotor.mathRun(),
-                                score1Transfer1.build(),
                                 new SequentialAction(
-                                        armMotor.armUp(),
-                                        // slideServo.slideout(),
-                                        clawServo.clawClose(),
-                                        wristServo.wristUp()
+                                        wristServo.wristUp(),
+                                        score1Transfer1.build(),
+                                        parkCloseOut
+
                                 )
 
-                        ),
+                        )
 
-                        clawServo.clawOpen(),
+
+
+
+
+                        /*
                         armMotor.armDown(),
                         clawServo.clawClose(),
                         armMotor.backDown(),
                         clawServo.clawOpen()
+                        */
+
+
+
 
 
                 )

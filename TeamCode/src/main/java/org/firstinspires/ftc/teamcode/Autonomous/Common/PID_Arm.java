@@ -20,10 +20,11 @@ public class PID_Arm {
         public TouchSensor touchSensor;
     public static double p = 0.005, i = 0, d = 0.0001;
     public static double f = 0.01;
-    double ARM_UP = 600;
+    double ARM_UP = 790;
     double ARM_DOWN = 150;
     double ARM_BACK = 1700;
     double ARM_START = 180;
+    double ARM_MIDDLE = 540;
     public double target = ARM_START;
 
     private final double ticks_in_degrees = 2786.2 / 360;
@@ -35,6 +36,19 @@ public class PID_Arm {
             touchSensor = hardwareMap.get(TouchSensor.class, "sensorTouch");
             controller = new PIDController(p, i, d);
     }
+    public class autoEnd implements Action {
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+            target = 0;
+            return false;
+        }
+
+    }
+    public Action autoEnd(){
+        return new autoEnd();
+    }
+
 
         //arm  up stuff
         public class up implements Action {
@@ -67,8 +81,21 @@ public class PID_Arm {
             return new down();
         }
 
+        public class middle implements Action {
 
-        public class backDown implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+            target = ARM_MIDDLE;
+            return false;
+        }
+
+        }
+        public Action middle(){
+        return new middle();
+    }
+
+
+    public class backDown implements Action {
 
             @Override
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
@@ -82,7 +109,11 @@ public class PID_Arm {
         }
 
 
-        //math for PID
+
+
+
+
+    //math for PID
         public class math implements Action {
 
             @Override
@@ -116,6 +147,7 @@ public class PID_Arm {
 
 
     }
+
 
 
 

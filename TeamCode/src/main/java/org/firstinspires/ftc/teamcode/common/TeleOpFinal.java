@@ -33,6 +33,7 @@ public class TeleOpFinal extends LinearOpMode {
 
         while (opModeIsActive()) {
             telemetry.addData("pos", PID_Arm.armMotor.getCurrentPosition());
+            telemetry.addData("servopos", wrist.wristServo.getPosition());
             telemetry.update();
 
 
