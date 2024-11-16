@@ -36,6 +36,7 @@ public class TeleOpFinal extends LinearOpMode {
         wrist.init(hardwareMap);
         boolean clawPressed = false;
         boolean wristPressed = false;
+        boolean armPressed = false;
         boolean isPressed = touchSensor.isPressed();
 
         waitForStart();
@@ -62,10 +63,7 @@ public class TeleOpFinal extends LinearOpMode {
             }
             wristPressed = wristPressed && gamepad2.a;
             clawPressed = clawPressed && gamepad1.b;
-            if(gamepad2.a && !wristPressed){
-                toggleWrist();
-                wristPressed = true;
-            }
+            armPressed = armPressed && gamepad2.y;
             if(gamepad1.b && !clawPressed){
                 toggleClaw();
                 clawPressed = true;
@@ -73,11 +71,15 @@ public class TeleOpFinal extends LinearOpMode {
             //claw code
 
             // preset
-            if (gamepad2.y) {
-                highbasket();
-            } else if (gamepad2.x) {
-                submersible();
+            if(gamepad2.y && !armPressed){
+                toggleArm();
+                toggleWrist();
+                wristPressed = true;
+                armPressed = true;
             }
+
+
+
 
 
 
@@ -92,6 +94,7 @@ public class TeleOpFinal extends LinearOpMode {
             } else if (gamepad2.right_bumper) {
                 wrist.wristServo.setPosition(0);
             }
+
 
 
 
@@ -117,6 +120,15 @@ public class TeleOpFinal extends LinearOpMode {
 
     }
 
+    private  void toggleArm() {
+        if(PID_Arm.getPosition() == PID_Arm.Up){
+            PID_Arm.set(PID_Arm.Down);
+        }
+        else if(PID_Arm.getPosition() != PID_Arm.Up){
+            PID_Arm.set(PID_Arm.Up);
+        }
+    }
+
     private  void toggleClaw(){
         if(claw.getPosition() == claw.close){
             claw.set(claw.open);
@@ -131,6 +143,7 @@ public class TeleOpFinal extends LinearOpMode {
             wrist.set(wrist.up);
         }
     }
+
     public void highbasket() {
         PID_Arm.up();
         wrist.wristServo.setPosition(0.4);

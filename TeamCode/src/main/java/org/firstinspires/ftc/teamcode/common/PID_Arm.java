@@ -53,7 +53,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 @Config
 
-public class PID_Arm {
+public class PID_Arm implements PIDArm {
     private static PIDController controller;
 
     public static double p = 0.005, i = 0, d = 0.0001;
@@ -63,8 +63,15 @@ public class PID_Arm {
 
     private final double ticks_in_degrees = 2786.2 / 360;
 
+    public final double Up = 1115;
+    public final double Down = 0;
+
 
     public static DcMotor armMotor;
+
+    public PID_Arm() {
+
+    }
 
 
     public void up()  {
@@ -92,8 +99,20 @@ public class PID_Arm {
        // telemetry.addData("target", target);
        // telemetry.update();
     }
+    @Override
+    public void set(double position) {
+        //open
+        target = position;
+    }
 
-    public static void init(HardwareMap hwMap) {
+    @Override
+    public double getPosition(){
+        return armMotor.getCurrentPosition();
+    }
+
+
+    @Override
+    public void init(HardwareMap hwMap) {
         armMotor = hwMap.get(DcMotor.class, "armMotor");
 
         controller = new PIDController(p, i, d);
