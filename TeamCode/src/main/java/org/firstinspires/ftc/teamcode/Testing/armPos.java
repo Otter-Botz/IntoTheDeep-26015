@@ -17,11 +17,11 @@ public class armPos extends LinearOpMode {
         touchSensor = hardwareMap.get(TouchSensor.class, "sensorTouch");
 
         waitForStart();
+        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         while (opModeIsActive()) {
-            if (touchSensor.isPressed()) {
-                armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            }
+
+
             telemetry.addData("pos", armMotor.getCurrentPosition());
             telemetry.update();
         }

@@ -1,17 +1,8 @@
 package org.firstinspires.ftc.teamcode.common;
-
-
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DigitalChannel;
-import com.qualcomm.robotcore.hardware.IMU;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.TouchSensor;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.SensorDigitalTouch;
-import org.firstinspires.ftc.teamcode.Autonomous.BlueAutonomous.Biddle4Specimen;
 
 @TeleOp(name = "OTTERRRRR")
 public class TeleOpFinal extends LinearOpMode {
@@ -21,13 +12,12 @@ public class TeleOpFinal extends LinearOpMode {
     vroomVroom vroom = new vroomVroom();
     Slider Slider = new Slider();
     wrist wrist = new wrist();
-    TouchSensor touchSensor;
+
 
 
     @Override
     public void runOpMode() throws InterruptedException {
 
-        touchSensor = hardwareMap.get(TouchSensor.class, "sensorTouch");
         claw.init(hardwareMap);
         ArmSlider.init(hardwareMap);
         PID_Arm.init(hardwareMap);
@@ -35,11 +25,9 @@ public class TeleOpFinal extends LinearOpMode {
         Slider.init(hardwareMap);
         wrist.init(hardwareMap);
         boolean clawPressed = false;
-        boolean wristPressed = false;
-        boolean armPressed = false;
-        boolean isPressed = touchSensor.isPressed();
 
         waitForStart();
+
         PID_Arm.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         PID_Arm.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
@@ -61,9 +49,9 @@ public class TeleOpFinal extends LinearOpMode {
             if (gamepad1.right_bumper) {
                 gamepad2.rumble(1000);
             }
-            wristPressed = wristPressed && gamepad2.a;
+
             clawPressed = clawPressed && gamepad1.b;
-            armPressed = armPressed && gamepad2.y;
+
             if(gamepad1.b && !clawPressed){
                 toggleClaw();
                 clawPressed = true;
@@ -71,16 +59,16 @@ public class TeleOpFinal extends LinearOpMode {
             //claw code
 
             // preset
-            if(gamepad2.y && !armPressed){
-                toggleArm();
-                toggleWrist();
-                wristPressed = true;
-                armPressed = true;
+
+            if (gamepad2.a) {
+                highbasket();
+            } else if (gamepad2.b) {
+                submersible();
             }
 
-
-
-
+            if (gamepad2.x) {
+                wrist.set(0);
+            }
 
 
 
@@ -97,16 +85,15 @@ public class TeleOpFinal extends LinearOpMode {
 
 
 
-
-            // back up manual arm control
+            // fine control (ryan was here)
 
             if (gamepad2.dpad_up) {
                 double value;
-                value = PID_Arm.target + 2.5;
+                value = PID_Arm.target + 3;
                 PID_Arm.target = value;
             } else if (gamepad2.dpad_down){
                 double value1;
-                value1 = PID_Arm.target - 2.5;
+                value1 = PID_Arm.target - 3;
                 PID_Arm.target = value1;
             }
 
@@ -146,20 +133,9 @@ public class TeleOpFinal extends LinearOpMode {
 
     public void highbasket() {
         PID_Arm.up();
-        wrist.wristServo.setPosition(0.4);
+        wrist.set(wrist.down);
     }
 
-    public void highrung() {
-        Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Slider.sliderMotor.setTargetPosition(300);
-        Slider.sliderMotorMotor.setTargetPosition(300);
-        PID_Arm.armMotor.setTargetPosition(812);
-        wrist.wristServo.setPosition(0.1);
-
-    }
 
     public void submersible() {
         PID_Arm.down();

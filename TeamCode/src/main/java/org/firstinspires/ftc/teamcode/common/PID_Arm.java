@@ -84,8 +84,9 @@ public class PID_Arm implements PIDArm {
     }
 
     public void down() {
-        target = 70;
+        target = 160;
     }
+
 
     public void math() {
         controller.setPID(p, i , d);
