@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.LED;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
@@ -22,7 +23,7 @@ public class TeleOpFinal extends LinearOpMode {
     Slider Slider = new Slider();
     wrist wrist = new wrist();
     TouchSensor touchSensor;
-
+    LEDLIGHTS LEDLIGHTS = new LEDLIGHTS();
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -53,11 +54,13 @@ public class TeleOpFinal extends LinearOpMode {
             vroom.vrooooooom(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, gamepad1.right_trigger);
             PID_Arm.math();
 
+            //LEDS
+            LEDLIGHTS.OnLights();
+
+
             if (PID_Arm.target < 500) {
                PID_Arm.armRespond(gamepad2.left_stick_y);
           }
-
-
 
             //Rumble and Reset Yaw
             if (gamepad1.options) {
