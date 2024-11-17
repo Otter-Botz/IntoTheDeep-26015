@@ -150,8 +150,8 @@ public class Biddle4Specimen extends LinearOpMode {
         autoClaw clawServo = new autoClaw(hardwareMap);
 
 
-      //  Pose2d initialPose = new Pose2d(-16, 62, Math.toRadians(270));
-        Pose2d initialPose = new Pose2d(16, 62, Math.toRadians(270));
+
+        Pose2d initialPose = new Pose2d(-16, 62, Math.toRadians(270));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
 
@@ -165,16 +165,23 @@ public class Biddle4Specimen extends LinearOpMode {
                // .waitSeconds(15)
                 .endTrajectory()
                 .stopAndAdd(armMotor.armUp())
-                .strafeToConstantHeading(new Vector2d(0, 37.25))
+                .strafeToConstantHeading(new Vector2d(0, 35.5))
                 .endTrajectory()
                 .stopAndAdd(armMotor.middle())
                 .waitSeconds(2)
                 .stopAndAdd(clawServo.clawOpen())
-
-                .strafeToConstantHeading(new Vector2d(0, 50))
+                .strafeToConstantHeading(new Vector2d(lastX, lastY))
                 .endTrajectory()
+                .stopAndAdd(armMotor.armDown())
+                .stopAndAdd(clawServo.clawClose())
+                .stopAndAdd(armMotor.backDown())
+                .stopAndAdd(clawServo.clawOpen());
+
+               /* .strafeToConstantHeading(new Vector2d(nextX, nextY))
+                .endTrajectory()
+                .stopAndAdd(armMotor.armDown())
                 .stopAndAdd(slideServo.armWaitTimeBack())
-                .stopAndAdd(armMotor.autoEnd());
+                .stopAndAdd(armMotor.autoEnd());*/
 
 
 
