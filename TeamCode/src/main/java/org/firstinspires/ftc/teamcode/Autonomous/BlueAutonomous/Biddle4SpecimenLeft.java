@@ -15,21 +15,16 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-//  ryan says "code at bad is aryan  ;) "
-import org.firstinspires.ftc.teamcode.Autonomous.Common.autoWrist;
+
 import org.firstinspires.ftc.teamcode.Autonomous.Common.PID_Arm;
-//import org.firstinspires.ftc.teamcode.Autonomous.Common.armSlide;
 import org.firstinspires.ftc.teamcode.Autonomous.Common.autoClaw;
+import org.firstinspires.ftc.teamcode.Autonomous.Common.autoWrist;
 import org.firstinspires.ftc.teamcode.Roadrunnerlol.MecanumDrive;
 
 
-
-
-
 @Autonomous
-public class Biddle4Specimen extends LinearOpMode {
+public class Biddle4SpecimenLeft extends LinearOpMode {
 
     public class armSlideMotor {
         public DcMotor armSlideMotor;
@@ -150,7 +145,6 @@ public class Biddle4Specimen extends LinearOpMode {
         autoClaw clawServo = new autoClaw(hardwareMap);
 
 
-      //  Pose2d initialPose = new Pose2d(-16, 62, Math.toRadians(270));
         Pose2d initialPose = new Pose2d(16, 62, Math.toRadians(270));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
@@ -165,7 +159,7 @@ public class Biddle4Specimen extends LinearOpMode {
                // .waitSeconds(15)
                 .endTrajectory()
                 .stopAndAdd(armMotor.armUp())
-                .strafeToConstantHeading(new Vector2d(0, 37.25))
+                .strafeToConstantHeading(new Vector2d(0, 36.5))
                 .endTrajectory()
                 .stopAndAdd(armMotor.middle())
                 .waitSeconds(2)
