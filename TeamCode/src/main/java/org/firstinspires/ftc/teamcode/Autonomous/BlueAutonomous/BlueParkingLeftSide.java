@@ -20,7 +20,6 @@ import org.firstinspires.ftc.teamcode.common.Slider;
 import org.firstinspires.ftc.teamcode.common.claw;
 import org.firstinspires.ftc.teamcode.common.wrist;
 
-
 @Autonomous
 public class BlueParkingLeftSide extends LinearOpMode {
     org.firstinspires.ftc.teamcode.common.claw claw = new claw();
@@ -41,8 +40,6 @@ public class BlueParkingLeftSide extends LinearOpMode {
         // armSlide slideServo = new armSlide(hardwareMap);
         autoClaw clawServo = new autoClaw(hardwareMap);
         AutoMainSliders AutoMainSliders = new AutoMainSliders(hardwareMap);
-
-
 
         double Tab1X = 0;
         double Tab1Y = 38;
