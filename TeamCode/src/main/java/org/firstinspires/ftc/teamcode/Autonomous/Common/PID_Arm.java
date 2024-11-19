@@ -20,10 +20,10 @@ public class PID_Arm {
         public TouchSensor touchSensor;
     public static double p = 0.005, i = 0, d = 0.0001;
     public static double f = 0.01;
-    double ARM_UP = 790;
-    double ARM_DOWN = 150;
+    double ARM_UP = 820;
+    double ARM_DOWN = 110;
     double ARM_BACK = 1700;
-    double ARM_START = 180;
+    double ARM_START = 150;
     double ARM_MIDDLE = 540;
     public double target = ARM_START;
 

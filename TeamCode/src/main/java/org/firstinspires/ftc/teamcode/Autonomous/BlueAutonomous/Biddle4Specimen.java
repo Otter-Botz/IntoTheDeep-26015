@@ -97,7 +97,7 @@ public class Biddle4Specimen extends LinearOpMode {
 
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
                 armServo.setPower(-1);
-                sleep(1500);
+                sleep(1000);
                 armActive = true;
                 if (armActive == true) {
                     armServo.setPower(0);
@@ -151,13 +151,13 @@ public class Biddle4Specimen extends LinearOpMode {
 
 
 
-        Pose2d initialPose = new Pose2d(-16, 62, Math.toRadians(270));
+        Pose2d initialPose = new Pose2d(-8.5, 64, Math.toRadians(270));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
 
 
-        double lastX = -57;
-        double lastY = 45;
+        double lastX = -52;
+        double lastY = 43;
         double nextX = -69;
         double nextY = 40;
         boolean active;
@@ -165,17 +165,24 @@ public class Biddle4Specimen extends LinearOpMode {
                // .waitSeconds(15)
                 .endTrajectory()
                 .stopAndAdd(armMotor.armUp())
-                .strafeToConstantHeading(new Vector2d(0, 35.5))
+                .strafeToConstantHeading(new Vector2d(0, 31.3))
                 .endTrajectory()
+                .waitSeconds(3)
                 .stopAndAdd(armMotor.middle())
                 .waitSeconds(2)
                 .stopAndAdd(clawServo.clawOpen())
+                .strafeToConstantHeading(new Vector2d(0, 44))
                 .strafeToConstantHeading(new Vector2d(lastX, lastY))
                 .endTrajectory()
+                .stopAndAdd(slideServo.armWaitTime())
                 .stopAndAdd(armMotor.armDown())
-                .stopAndAdd(clawServo.clawClose())
+                .waitSeconds(2)
+                .stopAndAdd(clawServo.clawClose());
+                /*
                 .stopAndAdd(armMotor.backDown())
                 .stopAndAdd(clawServo.clawOpen());
+
+                 */
 
                /* .strafeToConstantHeading(new Vector2d(nextX, nextY))
                 .endTrajectory()
@@ -255,14 +262,14 @@ public class Biddle4Specimen extends LinearOpMode {
 
                         armMotor.touchreset(),
                         clawServo.clawClose(),
-                        slideServo.armWaitTime(),
+
 
                         new ParallelAction(
                                 armMotor.mathRun(),
                                 new SequentialAction(
                                         wristServo.wristUp(),
-                                        score1Transfer1.build(),
-                                        parkCloseOut
+                                        score1Transfer1.build()
+                                       // parkCloseOut
 
                                 )
 
