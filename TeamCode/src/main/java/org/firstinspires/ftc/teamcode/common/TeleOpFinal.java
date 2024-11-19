@@ -26,6 +26,8 @@ public class TeleOpFinal extends LinearOpMode {
         wrist.init(hardwareMap);
         boolean clawPressed = false;
 
+
+
         waitForStart();
 
         PID_Arm.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

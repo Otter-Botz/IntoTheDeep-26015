@@ -12,9 +12,14 @@ import org.firstinspires.ftc.teamcode.common.interfaces.armSystem;
 public class ArmSlider  {
      static CRServo armSliderServo;
 
-
     public static void init(HardwareMap hwMap) {
         armSliderServo = hwMap.get(CRServo.class, "servoSlide");
+
+    }
+
+    public void armslideGoToPos(){
+        armSliderServo.setPower(0.5);
+
 
     }
 
