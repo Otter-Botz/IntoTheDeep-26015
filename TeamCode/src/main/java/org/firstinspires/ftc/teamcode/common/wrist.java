@@ -12,6 +12,8 @@ public class wrist implements armSystem {
     // high basket
     double down = 0;
 
+
+
     @Override
     public void set(double position) {
         wristServo.setPosition(position);

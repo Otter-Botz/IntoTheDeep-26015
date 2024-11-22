@@ -86,7 +86,7 @@ public class PID_Arm implements PIDArm {
     }
 
     public void down() {
-        target = 160;
+        target = 221;
     }
 
 

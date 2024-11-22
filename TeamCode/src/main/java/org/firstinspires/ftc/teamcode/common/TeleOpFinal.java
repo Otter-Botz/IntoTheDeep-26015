@@ -64,13 +64,13 @@ public class TeleOpFinal extends LinearOpMode {
             // preset
 
             if (gamepad2.b) {
-                highbasketslider();
+                highbasket();
             } else if (gamepad2.a) {
                 submersible();
             }
 
             if (gamepad2.x) {
-                wrist.set(0);
+                wrist.set(0.2);
             }
 
 
@@ -92,11 +92,11 @@ public class TeleOpFinal extends LinearOpMode {
 
             if (gamepad2.right_trigger == 1) {
                 double value;
-                value = PID_Arm.target + 3;
+                value = PID_Arm.target + 4;
                 PID_Arm.target = value;
             } else if (gamepad2.left_trigger == 1){
                 double value1;
-                value1 = PID_Arm.target - 3;
+                value1 = PID_Arm.target - 4;
                 PID_Arm.target = value1;
             }
 
