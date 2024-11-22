@@ -75,8 +75,8 @@ public class TeleOpFinal extends LinearOpMode {
 
 
 
-            Slider.sliderMotor.setPower(-gamepad2.right_stick_y);
-            Slider.sliderMotorMotor.setPower(-gamepad2.right_stick_y);
+            Slider.sliderMotor.setPower(gamepad2.right_stick_y);
+            Slider.sliderMotorMotor.setPower(gamepad2.right_stick_y);
             ArmSlider.armSliderServo.setPower(gamepad2.left_stick_y);
 
 
@@ -90,11 +90,11 @@ public class TeleOpFinal extends LinearOpMode {
 
             // fine control (ryan was here)
 
-            if (gamepad2.dpad_up) {
+            if (gamepad2.right_trigger == 1) {
                 double value;
                 value = PID_Arm.target + 3;
                 PID_Arm.target = value;
-            } else if (gamepad2.dpad_down){
+            } else if (gamepad2.left_trigger == 1){
                 double value1;
                 value1 = PID_Arm.target - 3;
                 PID_Arm.target = value1;

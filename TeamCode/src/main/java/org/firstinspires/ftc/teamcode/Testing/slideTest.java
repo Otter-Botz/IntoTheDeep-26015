@@ -10,7 +10,7 @@ public class slideTest extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
 
-        DcMotor slideMotor = hardwareMap.dcMotor.get("slideMotor");
+        DcMotor slideMotor = hardwareMap.dcMotor.get("right");
         DcMotor slideMotorMotor = hardwareMap.dcMotor.get("slideMotorMotor");
 
 

@@ -72,16 +72,16 @@ public final class MecanumDrive {
                 RevHubOrientationOnRobot.UsbFacingDirection.LEFT;
 
         // drive model parameters
-        public double inPerTick = 0.0033198614318707;
+        public double inPerTick = 0.0029691211401425;
 
         public double lateralInPerTick = 0.002755678829688487;
 
-        public double trackWidthTicks = 4576.4383215577245;
+        public double trackWidthTicks = 4492.163729434265;
 
 
         // feedforward parameters (in tick units)
-        public double kS = 1.0790535524291625;
-        public double kV = 0.000519589044498674;
+        public double kS = 1.2726785118695845;
+        public double kV = 0.00040518640486931134;
 
         public double kA = 0.0001;
 
@@ -95,9 +95,9 @@ public final class MecanumDrive {
         public double maxAngAccel = Math.PI;
 
         // path controller gains
-        public double axialGain = 4;
-        public double lateralGain = 7;
-        public double headingGain = 8.2; // shared with turn
+        public double axialGain = 4.5;
+        public double lateralGain = 2.5;
+        public double headingGain = 3; // shared with turn
 
         public double axialVelGain = 0.0;
         public double lateralVelGain = 0.0;
@@ -153,6 +153,7 @@ public final class MecanumDrive {
 
             // TODO: reverse encoders if needed
             //leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+            //leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
         }
 
         @Override
@@ -241,7 +242,8 @@ public final class MecanumDrive {
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // TODO: reverse motor directions if needed
-       // leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // TODO: make sure your config has an IMU with this name (can be BNO or BHI)
         //   see https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/index.html

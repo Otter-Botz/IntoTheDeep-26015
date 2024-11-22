@@ -31,29 +31,7 @@ import org.firstinspires.ftc.teamcode.Roadrunnerlol.MecanumDrive;
 @Autonomous
 public class Biddle4Specimen extends LinearOpMode {
 
-    public class armSlideMotor {
-        public DcMotor armSlideMotor;
-        public CRServo armServo;
-        //int motorTicks = 125;
-        //int motorPos = 150;
-        int encoderPosition = armSlideMotor.getCurrentPosition();
 
-        public class SliderOut implements Action {
-
-            @Override
-            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                armServo.setPower(1);
-                return false;
-            }
-        }
-
-        public Action slideout() {
-            return new SliderOut();
-        }
-
-
-
-    }
 
     public class armSlide {
         public CRServo armServo;
@@ -62,31 +40,6 @@ public class Biddle4Specimen extends LinearOpMode {
             armServo = hardwareMap.get(CRServo.class, "servoSlide");
         }
 
-        public class slideOut implements Action {
-
-            @Override
-            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                armServo.setPower(0.5);
-                return false;
-            }
-        }
-
-        public Action slideout() {
-            return new slideOut();
-        }
-
-        public class armIn implements Action {
-
-            @Override
-            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-                armServo.setPower(-0.5);
-                return false;
-            }
-        }
-
-        public Action armSliderIN() {
-            return new armIn();
-        }
 
 
         public class armWait implements Action {
@@ -98,10 +51,8 @@ public class Biddle4Specimen extends LinearOpMode {
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
                 armServo.setPower(-1);
                 sleep(1000);
-                armActive = true;
-                if (armActive == true) {
-                    armServo.setPower(0);
-                }
+                armServo.setPower(0);
+
                 return false;
             }
 
@@ -122,10 +73,8 @@ public class Biddle4Specimen extends LinearOpMode {
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
                 armServo.setPower(1);
                 sleep(1000);
-                armActive = true;
-                if (armActive == true) {
-                    armServo.setPower(0);
-                }
+                armServo.setPower(0);
+
                 return false;
             }
 

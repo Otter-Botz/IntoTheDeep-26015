@@ -26,8 +26,8 @@ public class vroomVroom  {
             frontRightMotor = hwMap.get(DcMotor.class, "rightFront");
             backRightMotor = hwMap.get(DcMotor.class, "rightBack");
 
-            //frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-           // backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+            frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+           backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
              imu = hwMap.get(IMU.class, "imu");

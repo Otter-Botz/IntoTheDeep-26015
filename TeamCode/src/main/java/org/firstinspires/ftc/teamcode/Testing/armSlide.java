@@ -17,7 +17,7 @@ public class armSlide extends LinearOpMode {
         armSliderServo = hardwareMap.get(Servo.class,"servoSlide");
         waitForStart();
         while (opModeIsActive()){
-            armSliderServo.setPosition();
+          //  armSliderServo.setPosition();
         }
 
 
