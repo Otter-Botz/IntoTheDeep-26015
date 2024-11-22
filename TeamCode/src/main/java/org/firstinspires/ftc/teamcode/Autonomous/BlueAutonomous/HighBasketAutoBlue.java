@@ -208,7 +208,7 @@ public class HighBasketAutoBlue extends LinearOpMode {
 
         TrajectoryActionBuilder ScoreOnHighBasket1 = drive.actionBuilder(new Pose2d(Tab2X, Tab2Y, Math.toRadians(270)))
                 //Pick Up and move back
-                .strafeToLinearHeading(new Vector2d(60, 57), Math.toRadians(200));
+                .strafeToLinearHeading(new Vector2d(60, 57), Math.toRadians(60));
 
         TrajectoryActionBuilder MoveToSecondSample = drive.actionBuilder(new Pose2d(Tab3X, Tab3Y, Math.toRadians(200)))
                 //Move to second Sample
@@ -239,7 +239,7 @@ public class HighBasketAutoBlue extends LinearOpMode {
                         //Arm
                         //Main Sliders
                         //Claw Open
-                       // MoveToFirstSample.build()
+                        // MoveToFirstSample.build()
                         //Change Claw and Wrist Back to intake position
 
 
