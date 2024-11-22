@@ -4,6 +4,7 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.lin
 
 import androidx.annotation.NonNull;
 
+import com.acmerobotics.roadrunner.ParallelAction;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
@@ -60,6 +61,30 @@ public class HighBasketAutoBlue extends LinearOpMode {
 
     private final double ticks_in_degrees = 700 / 180;
 
+    public class armSlideMotor {
+        public DcMotor armSlideMotor;
+        public CRServo armServo;
+        //int motorTicks = 125;
+        //int motorPos = 150;
+        int encoderPosition = armSlideMotor.getCurrentPosition();
+
+        public class SliderOut implements Action {
+
+            @Override
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                armServo.setPower(1);
+                return false;
+            }
+        }
+
+        public Action slideout() {
+            return new HighBasketAutoBlue.armSlideMotor.SliderOut();
+        }
+
+
+
+    }
+
     public class armSlide {
         public CRServo armServo;
 
@@ -97,29 +122,12 @@ public class HighBasketAutoBlue extends LinearOpMode {
         public class armWait implements Action {
             ElapsedTime time = new ElapsedTime();
             double armtime = time.seconds();
-
-
-            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-
-                if (time.seconds() >= 1) {
-                    stop();
-                }
-                return false;
-            }
-
-            public Action armWaitTime() {
-                return new HighBasketAutoBlue.armSlide.armWait();
-            }
-        }
-
-        public class armWait2 implements Action {
-            ElapsedTime time = new ElapsedTime();
-            double armtime = time.seconds();
             boolean armActive = false;
+
 
             public boolean run(@NonNull TelemetryPacket telemetryPacket) {
                 armServo.setPower(-1);
-                sleep(1500);
+                sleep(1000);
                 armActive = true;
                 if (armActive == true) {
                     armServo.setPower(0);
@@ -127,16 +135,37 @@ public class HighBasketAutoBlue extends LinearOpMode {
                 return false;
             }
 
-        }
-        public Action armWaitTime2() {
-            return new HighBasketAutoBlue.armSlide.armWait2();
+
         }
 
+        public Action armWaitTime() {
+            return new HighBasketAutoBlue.armSlide.armWait();
+        }
 
 
+        public class armWaitTimeBack implements Action {
+            ElapsedTime time = new ElapsedTime();
+            double armtime = time.seconds();
+            boolean armActive = false;
+
+
+            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                armServo.setPower(1);
+                sleep(1000);
+                armActive = true;
+                if (armActive == true) {
+                    armServo.setPower(0);
+                }
+                return false;
+            }
+
+
+        }
+
+        public Action armWaitTimeBack() {
+            return new HighBasketAutoBlue.armSlide.armWaitTimeBack();
+        }
     }
-
-
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -144,12 +173,10 @@ public class HighBasketAutoBlue extends LinearOpMode {
         Pose2d initialPose = new Pose2d(38, 62, Math.toRadians(270));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
-        autoClaw autoClaw = new autoClaw(hardwareMap);
-       // armSlide armMotor = new armSlide(hardwareMap);
+        org.firstinspires.ftc.teamcode.Autonomous.Common.PID_Arm armMotor = new org.firstinspires.ftc.teamcode.Autonomous.Common.PID_Arm(hardwareMap);
         autoWrist wristServo = new autoWrist(hardwareMap);
-       // armSlide slideServo = new armSlide(hardwareMap);
+        HighBasketAutoBlue.armSlide slideServo = new HighBasketAutoBlue.armSlide(hardwareMap);
         autoClaw clawServo = new autoClaw(hardwareMap);
-        AutoMainSliders AutoMainSliders = new AutoMainSliders(hardwareMap);
 
         waitForStart();
 
@@ -168,16 +195,16 @@ public class HighBasketAutoBlue extends LinearOpMode {
         double Tab7X = 0;
         double Tab7Y = 38;
 
-        TrajectoryActionBuilder ScorePreload = drive.actionBuilder(initialPose)
-                //Score Preloaded Specimen
-                .strafeToLinearHeading(new Vector2d(0, 38), Math.toRadians(270));
+        TrajectoryActionBuilder ScoreHighBasket = drive.actionBuilder(initialPose)
+                //Score Preloaded Sample
+                .strafeToLinearHeading(new Vector2d(56, 55), Math.toRadians(60));
 
-        TrajectoryActionBuilder MoveABitForwardToScore = drive.actionBuilder(new Pose2d(Tab7X, Tab7Y, Math.toRadians(270)))
-                .strafeToLinearHeading(new Vector2d(0, 42), Math.toRadians(270));
+//        TrajectoryActionBuilder MoveABitForwardToScore = drive.actionBuilder(new Pose2d(Tab7X, Tab7Y, Math.toRadians(270)))
+//                .strafeToLinearHeading(new Vector2d(0, 42), Math.toRadians(270));
 
         TrajectoryActionBuilder MoveToFirstSample = drive.actionBuilder(new Pose2d(Tab1X, Tab1Y, Math.toRadians(270)))
                 //Move to first sample
-                .strafeToLinearHeading(new Vector2d(56, 38), Math.toRadians(270));
+                .strafeToLinearHeading(new Vector2d(53, 50), Math.toRadians(270));
 
         TrajectoryActionBuilder ScoreOnHighBasket1 = drive.actionBuilder(new Pose2d(Tab2X, Tab2Y, Math.toRadians(270)))
                 //Pick Up and move back
@@ -206,36 +233,75 @@ public class HighBasketAutoBlue extends LinearOpMode {
 
         Actions.runBlocking(
                 new SequentialAction(
-                        ScorePreload.build(),
-                        AutoMainSliders.HighRung(),
-                        MoveABitForwardToScore.build(),
-                        AutoMainSliders.HighBasket(),
-                        MoveToFirstSample.build(),
-                        autoClaw.clawOpen(),
-                        autoClaw.clawClose(),
-                        ScoreOnHighBasket1.build(),
-                        AutoMainSliders.HighBasket(),
-                        MoveToSecondSample.build(),
-                        autoClaw.clawOpen(),
-                        autoClaw.clawClose(),
-                        //Add Arm
-                        ScoreOnHighBasket2.build(),
-                        AutoMainSliders.HighBasket(),
-                        MoveToSample3.build(),
-                        autoClaw.clawOpen(),
-                        autoClaw.clawClose(),
-                        //Add Arm
-                        AutoMainSliders.HighBasket(),
-                        ScoreOnHighBasket3.build(),
-                        trajectoryActionCloseOut
+
+                        ScoreHighBasket.build()
+                        //Wrist
+                        //Arm
+                        //Main Sliders
+                        //Claw Open
+                       // MoveToFirstSample.build()
+                        //Change Claw and Wrist Back to intake position
+
+
+//                        new ParallelAction(
+//                                armMotor.mathRun(),
+//                                new SequentialAction(
+////                                        wristServo.wristUp(),
+////                                        .build()
+//                                        // parkCloseOut
+//
+//                                )
+//                        )
+
+                        /*
+                        armMotor.armDown(),
+                        clawServo.clawClose(),
+                        armMotor.backDown(),
+                        clawServo.clawOpen()
+                        */
+
+
+
+
+
                 )
+
+
         );
+        // armMotor.armUp(),
+                        /*
+                        clawServo.clawOpen(),
+                        armMotor.armDown(),
+                        clawServo.clawClose(),
+                         armMotor.backDown(),
+                        clawServo.clawOpen(),
+                        sampleTransfer2.build(),
+                        armMotor.armDown(),
+                        clawServo.clawClose(),
+                        armMotor.backDown(),
+                        clawServo.clawOpen(),
+                        sampleTransfer3.build(),
+                         armMotor.armDown(),
+                        clawServo.clawClose(),
+                         armMotor.backDown(),
+                         clawServo.clawOpen(),
+                        specimenPickup1.build(),
+                        armMotor.backDown(),
+                        clawServo.clawClose(),
+                        armMotor.armUp(),
+                        score1Pickup2.build(),
+                        clawServo.clawOpen(),
+                         armMotor.backDown(),
+                        clawServo.clawClose(),
+                         armMotor.armUp(),
+                        score2Pickup3.build(),
+                        clawServo.clawOpen(),
+                        armMotor.backDown(),
+                       clawServo.clawClose(),
+                       armMotor.armUp(),
+                        score3.build(),
 
-
-
-
-
-
+                         */
 
 
 

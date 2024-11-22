@@ -64,7 +64,7 @@ public class TeleOpFinal extends LinearOpMode {
             // preset
 
             if (gamepad2.b) {
-                highbasket();
+                highbasketslider();
             } else if (gamepad2.a) {
                 submersible();
             }
@@ -135,6 +135,18 @@ public class TeleOpFinal extends LinearOpMode {
     }
 
     public void highbasket() {
+
+        PID_Arm.up();
+        wrist.set(wrist.down);
+    }
+
+    public void highbasketslider() {
+        Slider.sliderMotor.setTargetPosition(900);
+        Slider.sliderMotorMotor.setTargetPosition(900);
+        Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Slider.sliderMotor.setPower(0.5);
+        Slider.sliderMotorMotor.setPower(0.5);
         PID_Arm.up();
         wrist.set(wrist.down);
     }

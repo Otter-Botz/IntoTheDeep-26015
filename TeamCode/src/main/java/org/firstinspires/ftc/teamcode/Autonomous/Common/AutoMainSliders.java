@@ -72,14 +72,15 @@ public class AutoMainSliders {
     public class HighBasket implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-            sliderMotor.setTargetPosition(400);
-            sliderMotorMotor.setTargetPosition(400);
+            sliderMotor.setTargetPosition(2000);
+            sliderMotorMotor.setTargetPosition(2000);
             sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             sliderMotor.setPower(SLIDER_UP_SPEED);
             sliderMotorMotor.setPower(SLIDER_UP_SPEED);
             sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
             return false;
         }
     }
