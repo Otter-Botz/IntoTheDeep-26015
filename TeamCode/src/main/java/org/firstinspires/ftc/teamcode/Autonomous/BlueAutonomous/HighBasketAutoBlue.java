@@ -234,8 +234,41 @@ public class HighBasketAutoBlue extends LinearOpMode {
         Actions.runBlocking(
                 new SequentialAction(
 
-                        ScoreHighBasket.build()
-                        //Wrist
+                        armMotor.touchreset(),
+                        clawServo.clawClose(),
+
+
+                        new ParallelAction(
+                                armMotor.mathRun(),
+                                new SequentialAction(
+                                        wristServo.wristUp(),
+                                        ScoreHighBasket.build(),
+                                        MoveToFirstSample.build(),
+                                        ScoreOnHighBasket1.build(),
+                                        MoveToSecondSample.build(),
+                                        ScoreOnHighBasket2.build(),
+                                        MoveToSample3.build(),
+                                        ScoreOnHighBasket3.build(),
+                                        trajectoryActionCloseOut
+
+                                )
+                        )
+
+                        /*
+                        armMotor.armDown(),
+                        clawServo.clawClose(),
+                        armMotor.backDown(),
+                        clawServo.clawOpen()
+                        */
+
+
+
+
+
+                )
+
+
+        );        //Wrist
                         //Arm
                         //Main Sliders
                         //Claw Open
@@ -260,14 +293,6 @@ public class HighBasketAutoBlue extends LinearOpMode {
                         clawServo.clawOpen()
                         */
 
-
-
-
-
-                )
-
-
-        );
         // armMotor.armUp(),
                         /*
                         clawServo.clawOpen(),
