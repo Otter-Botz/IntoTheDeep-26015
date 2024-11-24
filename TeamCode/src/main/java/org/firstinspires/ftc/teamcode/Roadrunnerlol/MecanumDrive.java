@@ -100,11 +100,11 @@ public final class MecanumDrive {
 
         //0.4 Tuned Value
         //3 Still being Goofy
-        public double lateralGain = -0.1; // last update by aryan yi
+        public double lateralGain = 0.4; // last update by aryan yi
         //1.37 Less
         //2.5 Over Correcting
         //2 Good
-        public double headingGain = 1.9; // shared with turn
+        public double headingGain = 2; // shared with turn
 
         public double axialVelGain = 0.0;
         public double lateralVelGain = 0.0;
