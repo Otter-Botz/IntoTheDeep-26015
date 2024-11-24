@@ -1,4 +1,6 @@
 package org.firstinspires.ftc.teamcode.common;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.linearOpMode;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -12,7 +14,7 @@ public class TeleOpFinal extends LinearOpMode {
     vroomVroom vroom = new vroomVroom();
     Slider Slider = new Slider();
     wrist wrist = new wrist();
-
+    private LinearOpMode linearOpMode;
 
 
     @Override
@@ -64,7 +66,7 @@ public class TeleOpFinal extends LinearOpMode {
             // preset
 
             if (gamepad2.b) {
-                highbasket();
+                highBaskets();
             } else if (gamepad2.a) {
                 submersible();
             }
@@ -149,6 +151,21 @@ public class TeleOpFinal extends LinearOpMode {
         Slider.sliderMotorMotor.setPower(0.5);
         PID_Arm.up();
         wrist.set(wrist.down);
+    }
+
+    public void highBaskets(){
+        Slider.sliderMotor.setTargetPosition(900);
+        Slider.sliderMotorMotor.setTargetPosition(900);
+        Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Slider.sliderMotor.setPower(0.5);
+        Slider.sliderMotorMotor.setPower(0.5);
+        Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        // Preset Please Work
+        PID_Arm.up();
+        wrist.set(wrist.down);
+
     }
 
 

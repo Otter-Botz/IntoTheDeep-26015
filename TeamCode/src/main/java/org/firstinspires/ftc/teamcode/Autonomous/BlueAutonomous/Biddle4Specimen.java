@@ -114,7 +114,7 @@ public class Biddle4Specimen extends LinearOpMode {
                // .waitSeconds(15)
                 .endTrajectory()
                 .stopAndAdd(armMotor.armUp())
-                .strafeToConstantHeading(new Vector2d(0, 31.3))
+                .strafeToConstantHeading(new Vector2d(-5, 30))
                 .endTrajectory()
                 .waitSeconds(3)
                 .stopAndAdd(armMotor.middle())
