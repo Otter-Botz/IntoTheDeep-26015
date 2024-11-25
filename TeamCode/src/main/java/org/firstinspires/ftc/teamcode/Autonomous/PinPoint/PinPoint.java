@@ -39,7 +39,7 @@ public class PinPoint extends LinearOpMode {
         // Initialize for Auto
         initAuto();
 
-        // Wait for the game to start (driver presses START)
+        // Wait
         waitForStart();
         resetRuntime();
 
@@ -54,6 +54,15 @@ public class PinPoint extends LinearOpMode {
     public void driveToPos(double targetX, double targetY) {
         odo.update();
         boolean telemAdded = false;
+
+        if (!telemAdded) {
+            telemetry.addData("PosX()", odo.getPosX());
+            telemetry.addData("PosY()", odo.getPosY());
+            telemetry.addData("TargetX", targetX);
+            telemetry.addData("TargetY", targetY);
+            telemetry.update();
+            telemAdded = true;
+        }
 
         while (opModeIsActive() && ((Math.abs(targetX - odo.getPosX()) > 50)
                 || (Math.abs(targetY - odo.getPosY())) > 50)) {
