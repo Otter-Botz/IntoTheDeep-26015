@@ -113,20 +113,32 @@ public class Biddle4Specimen extends LinearOpMode {
         TrajectoryActionBuilder score1Transfer1 = drive.actionBuilder(initialPose)
                // .waitSeconds(15)
                 .endTrajectory()
-                .stopAndAdd(armMotor.armUp())
-                .strafeToConstantHeading(new Vector2d(-5, 30))
+                //.stopAndAdd(armMotor.armUp())
+                .strafeToConstantHeading(new Vector2d(10, 64))
+                //Test 1
+                // 3 inches off
+                //Test 2
+                // few MM
+                //Test 3
+                //Much more MM
+                //Test 4
+                //Much less change
+
+               // .strafeToConstantHeading(new Vector2d(0, 64))
+               // .waitSeconds(2)
+               // .strafeToConstantHeading(new Vector2d(0, 31.3))
                 .endTrajectory()
-                .waitSeconds(3)
-                .stopAndAdd(armMotor.middle())
-                .waitSeconds(2)
-                .stopAndAdd(clawServo.clawOpen())
-                .strafeToConstantHeading(new Vector2d(0, 44))
-                .strafeToConstantHeading(new Vector2d(lastX, lastY))
-                .endTrajectory()
-                .stopAndAdd(slideServo.armWaitTime())
-                .stopAndAdd(armMotor.armDown())
-                .waitSeconds(2)
-                .stopAndAdd(clawServo.clawClose());
+                .waitSeconds(3);
+//                .stopAndAdd(armMotor.middle())
+//                .waitSeconds(2)
+//                .stopAndAdd(clawServo.clawOpen())
+//                .strafeToConstantHeading(new Vector2d(0, 44))
+//                .strafeToConstantHeading(new Vector2d(lastX, lastY))
+//                .endTrajectory()
+//                .stopAndAdd(slideServo.armWaitTime())
+//                .stopAndAdd(armMotor.armDown())
+//                .waitSeconds(2)
+//                .stopAndAdd(clawServo.clawClose());
                 /*
                 .stopAndAdd(armMotor.backDown())
                 .stopAndAdd(clawServo.clawOpen());
@@ -209,16 +221,16 @@ public class Biddle4Specimen extends LinearOpMode {
         Actions.runBlocking(
                 new SequentialAction(
 
-                        armMotor.touchreset(),
-                        clawServo.clawClose(),
+                        //armMotor.touchreset(),
+                        //clawServo.clawClose(),
 
 
                         new ParallelAction(
                                 armMotor.mathRun(),
                                 new SequentialAction(
-                                        wristServo.wristUp(),
+                                        //wristServo.wristUp(),
                                         score1Transfer1.build()
-                                       // parkCloseOut
+                //                        parkCloseOut
 
                                 )
                         )

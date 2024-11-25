@@ -28,7 +28,7 @@ import org.firstinspires.ftc.teamcode.Autonomous.Common.autoClaw;
 import org.firstinspires.ftc.teamcode.Autonomous.Common.autoWrist;
 import org.firstinspires.ftc.teamcode.Roadrunnerlol.MecanumDrive;
 import org.firstinspires.ftc.teamcode.common.ArmSlider;
-import org.firstinspires.ftc.teamcode.common.PID_Arm;
+import org.firstinspires.ftc.teamcode.Autonomous.Common.PID_Arm;
 import org.firstinspires.ftc.teamcode.common.Slider;
 import org.firstinspires.ftc.teamcode.common.claw;
 import org.firstinspires.ftc.teamcode.common.wrist;
@@ -38,7 +38,7 @@ import org.firstinspires.ftc.teamcode.common.wrist;
 public class HighBasketAutoBlue extends LinearOpMode {
     org.firstinspires.ftc.teamcode.common.claw claw = new claw();
     org.firstinspires.ftc.teamcode.common.ArmSlider ArmSlider = new ArmSlider();
-    org.firstinspires.ftc.teamcode.common.PID_Arm PID_Arm = new PID_Arm();
+    //PID_Arm PID_Arm = new PID_Arm();
     Slider PID_Slider = new Slider();
     org.firstinspires.ftc.teamcode.common.wrist wrist = new wrist();
     public static double
@@ -173,7 +173,7 @@ public class HighBasketAutoBlue extends LinearOpMode {
         Pose2d initialPose = new Pose2d(38, 62, Math.toRadians(270));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
-        org.firstinspires.ftc.teamcode.Autonomous.Common.PID_Arm armMotor = new org.firstinspires.ftc.teamcode.Autonomous.Common.PID_Arm(hardwareMap);
+        PID_Arm armMotor = new PID_Arm(hardwareMap);
         autoWrist wristServo = new autoWrist(hardwareMap);
         HighBasketAutoBlue.armSlide slideServo = new HighBasketAutoBlue.armSlide(hardwareMap);
         autoClaw clawServo = new autoClaw(hardwareMap);

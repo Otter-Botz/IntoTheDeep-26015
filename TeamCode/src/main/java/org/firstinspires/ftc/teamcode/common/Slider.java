@@ -20,11 +20,4 @@ public class Slider {
 
     }
 
-
-
-
-
-
-
-
 }
