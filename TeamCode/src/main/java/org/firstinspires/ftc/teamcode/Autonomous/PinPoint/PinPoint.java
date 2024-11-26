@@ -46,7 +46,7 @@ public class PinPoint extends LinearOpMode {
         resetRuntime();
 
         // Drive to basket
-        driveToPos(100, 0);
+        driveToPos(300, 300);
 
 
         // Turn towards basket
@@ -67,8 +67,8 @@ public class PinPoint extends LinearOpMode {
             telemAdded = true;
         }
 
-        while (opModeIsActive() && ((Math.abs(targetX - odo.getPosX()) > 30)
-                || (Math.abs(targetY - odo.getPosY())) > 30)) {
+        while (opModeIsActive() && ((Math.abs(targetX - odo.getPosX()) > 50)
+                || (Math.abs(targetY - odo.getPosY())) > 50)) {
             odo.update();
 
             double x = 0.001 * (targetX - odo.getPosX());
@@ -167,7 +167,7 @@ public class PinPoint extends LinearOpMode {
         odo.setOffsets(150, -370); //these are tuned for 3110-0002-0001 Product Insight #1
         odo.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_SWINGARM_POD);
         odo.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD,
-                GoBildaPinpointDriver.EncoderDirection.FORWARD);
+                GoBildaPinpointDriver.EncoderDirection.REVERSED);
         odo.resetPosAndIMU();
 
         //Drive Motors
