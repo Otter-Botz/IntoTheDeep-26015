@@ -1,21 +1,13 @@
-package  org.firstinspires.ftc.teamcode.Autonomous.RedAutonomous;
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-
-import androidx.annotation.NonNull;
-
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+package org.firstinspires.ftc.teamcode.Autonomous.roadrunnerOld.RedAutonomous;
+/*
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
-import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Autonomous.Common.AutoMainSliders;
 //import org.firstinspires.ftc.teamcode.Autonomous.Common.armSlide;
@@ -23,11 +15,6 @@ import org.firstinspires.ftc.teamcode.Autonomous.Common.AutoMainSliders;
 import org.firstinspires.ftc.teamcode.Autonomous.Common.autoClaw;
 import org.firstinspires.ftc.teamcode.Autonomous.Common.autoWrist;
 import org.firstinspires.ftc.teamcode.Roadrunnerlol.MecanumDrive;
-import org.firstinspires.ftc.teamcode.common.ArmSlider;
-import org.firstinspires.ftc.teamcode.common.PID_Arm;
-import org.firstinspires.ftc.teamcode.common.Slider;
-import org.firstinspires.ftc.teamcode.common.claw;
-import org.firstinspires.ftc.teamcode.common.wrist;
 
 @Autonomous
 public class BackUpRed extends LinearOpMode {
@@ -147,3 +134,4 @@ public class BackUpRed extends LinearOpMode {
 
     }
 }
+*/

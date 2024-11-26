@@ -33,9 +33,11 @@ public class PinPoint extends LinearOpMode {
 
     IMU imu;
 
+
+
     @Override
     public void runOpMode() {
-
+        // 30 ticks per inch for bot
         // Initialize for Auto
         initAuto();
 
@@ -44,10 +46,11 @@ public class PinPoint extends LinearOpMode {
         resetRuntime();
 
         // Drive to basket
-        driveToPos(300, 550);
+        driveToPos(100, 0);
+
 
         // Turn towards basket
-        gyroTurnToAngle(-45);
+      //  gyroTurnToAngle(-45);
 
     }
 
@@ -64,8 +67,8 @@ public class PinPoint extends LinearOpMode {
             telemAdded = true;
         }
 
-        while (opModeIsActive() && ((Math.abs(targetX - odo.getPosX()) > 50)
-                || (Math.abs(targetY - odo.getPosY())) > 50)) {
+        while (opModeIsActive() && ((Math.abs(targetX - odo.getPosX()) > 30)
+                || (Math.abs(targetY - odo.getPosY())) > 30)) {
             odo.update();
 
             double x = 0.001 * (targetX - odo.getPosX());
@@ -99,16 +102,21 @@ public class PinPoint extends LinearOpMode {
             double frontRightPower = (rotX - rotY) / denominator;
             double backRightPower = (rotX + rotY) / denominator;
 
+
             frontLeftMotor.setPower(frontLeftPower);
             backLeftMotor.setPower(backLeftPower);
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
+
+
 
             telemetry.addData("X: ", odo.getPosX());
             telemetry.addData("Y: ", odo.getPosY());
             telemetry.addData("Heading Odo: ", Math.toDegrees(odo.getHeading()));
             telemetry.addData("Heading IMU: ", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
             telemetry.update();
+
+
         }
 
         frontLeftMotor.setPower(0);
@@ -156,10 +164,10 @@ public class PinPoint extends LinearOpMode {
 
     public void initAuto() {
         odo = hardwareMap.get(GoBildaPinpointDriver.class, "odo");
-        odo.setOffsets(132, 88); //these are tuned for 3110-0002-0001 Product Insight #1
-        odo.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
+        odo.setOffsets(150, -370); //these are tuned for 3110-0002-0001 Product Insight #1
+        odo.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_SWINGARM_POD);
         odo.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD,
-                GoBildaPinpointDriver.EncoderDirection.REVERSED);
+                GoBildaPinpointDriver.EncoderDirection.FORWARD);
         odo.resetPosAndIMU();
 
         //Drive Motors
@@ -184,7 +192,7 @@ public class PinPoint extends LinearOpMode {
         wristServo = hardwareMap.get(Servo.class,  "wristServo");
 
         // Retrieve the IMU from the hardware map
-        imu = hardwareMap.get(IMU.class, "im    u");
+        imu = hardwareMap.get(IMU.class, "imu");
         // Adjust the orientation parameters to match your robot
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                 RevHubOrientationOnRobot.LogoFacingDirection.UP,

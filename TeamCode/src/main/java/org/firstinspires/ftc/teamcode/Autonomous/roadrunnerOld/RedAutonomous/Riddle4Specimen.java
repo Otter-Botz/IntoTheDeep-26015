@@ -1,5 +1,5 @@
-package org.firstinspires.ftc.teamcode.Autonomous.RedAutonomous;
-
+package org.firstinspires.ftc.teamcode.Autonomous.roadrunnerOld.RedAutonomous;
+/*
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
@@ -15,7 +15,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 //  ryan says "code at bad is aryan  ;) "
 import org.firstinspires.ftc.teamcode.Autonomous.Common.autoWrist;
@@ -277,10 +276,10 @@ public class Riddle4Specimen extends LinearOpMode {
 
 
 
-                )
 
 
-        );
+
+
         // armMotor.armUp(),
                         /*
                         clawServo.clawOpen(),
@@ -314,8 +313,10 @@ public class Riddle4Specimen extends LinearOpMode {
                        armMotor.armUp(),
                         score3.build(),
 
-                         */
+
 
 
     }
 }
+
+*/

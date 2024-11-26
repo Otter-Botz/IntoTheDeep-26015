@@ -1,10 +1,9 @@
-package org.firstinspires.ftc.teamcode.Autonomous.BlueAutonomous;
-
+package org.firstinspires.ftc.teamcode.Autonomous.roadrunnerOld.BlueAutonomous;
+/*
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
-import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
@@ -145,7 +144,7 @@ public class Biddle4SpecimenLeft extends LinearOpMode {
         autoClaw clawServo = new autoClaw(hardwareMap);
 
 
-        Pose2d initialPose = new Pose2d(16, 62, Math.toRadians(270));
+        Pose2d initialPose = new Pose2d(-8.5, 64, Math.toRadians(270));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
 
@@ -156,19 +155,9 @@ public class Biddle4SpecimenLeft extends LinearOpMode {
         double nextY = 40;
         boolean active;
         TrajectoryActionBuilder score1Transfer1 = drive.actionBuilder(initialPose)
-               // .waitSeconds(15)
-                .endTrajectory()
-                .stopAndAdd(armMotor.armUp())
-                .strafeToConstantHeading(new Vector2d(0, 36.5))
-                .endTrajectory()
-                .stopAndAdd(armMotor.middle())
-                .waitSeconds(2)
-                .stopAndAdd(clawServo.clawOpen())
 
-                .strafeToConstantHeading(new Vector2d(0, 50))
-                .endTrajectory()
-                .stopAndAdd(slideServo.armWaitTimeBack())
-                .stopAndAdd(armMotor.autoEnd());
+                .strafeToConstantHeading(new Vector2d(0, 64));
+
 
 
 
@@ -240,20 +229,11 @@ public class Biddle4SpecimenLeft extends LinearOpMode {
         Actions.runBlocking(
                 new SequentialAction(
 
-                        armMotor.touchreset(),
-                        clawServo.clawClose(),
-                        slideServo.armWaitTime(),
 
-                        new ParallelAction(
-                                armMotor.mathRun(),
-                                new SequentialAction(
-                                        wristServo.wristUp(),
-                                        score1Transfer1.build(),
-                                        parkCloseOut
+                        score1Transfer1.build()
 
-                                )
 
-                        )
+
 
 
 
@@ -270,10 +250,10 @@ public class Biddle4SpecimenLeft extends LinearOpMode {
 
 
 
-                )
 
 
-        );
+
+
         // armMotor.armUp(),
                         /*
                         clawServo.clawOpen(),
@@ -307,8 +287,9 @@ public class Biddle4SpecimenLeft extends LinearOpMode {
                        armMotor.armUp(),
                         score3.build(),
 
-                         */
+
 
 
     }
 }
+*/
