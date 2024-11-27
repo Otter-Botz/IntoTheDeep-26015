@@ -37,7 +37,8 @@ public class PinPoint extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        // 30 ticks per inch for bot
+        // 22.8 ticks per inch for bot
+        //21.18
         // Initialize for Auto
         initAuto();
 
@@ -46,7 +47,8 @@ public class PinPoint extends LinearOpMode {
         resetRuntime();
 
         // Drive to basket
-        driveToPos(300, 300);
+        driveToPos(0, 300);
+
 
 
         // Turn towards basket
@@ -67,8 +69,8 @@ public class PinPoint extends LinearOpMode {
             telemAdded = true;
         }
 
-        while (opModeIsActive() && ((Math.abs(targetX - odo.getPosX()) > 50)
-                || (Math.abs(targetY - odo.getPosY())) > 50)) {
+        while (opModeIsActive() && ((Math.abs(targetX - odo.getPosX()) > 30)
+                || (Math.abs(targetY - odo.getPosY())) > 30)) {
             odo.update();
 
             double x = 0.001 * (targetX - odo.getPosX());
