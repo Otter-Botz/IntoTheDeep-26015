@@ -30,7 +30,7 @@ public class rbiddleSpecimen extends LinearOpMode {
     //PID_Arm
     private DcMotor armMotor;
     PID_Arm movements = new PID_Arm();
-    public void grab() {
+    public void backGrab() {
         armMotor.setTargetPosition(200);
     }
     public void belowRung(){
@@ -39,6 +39,10 @@ public class rbiddleSpecimen extends LinearOpMode {
     public void aboveRung(){
         armMotor.setTargetPosition(1200);
     }
+    public void downGrab(){
+        armMotor.setTargetPosition(221);
+    }
+
 
     // Claw/Wrist
     private Servo clawServo;
@@ -75,10 +79,17 @@ public class rbiddleSpecimen extends LinearOpMode {
         waitForStart();
         resetRuntime();
 
-
+        belowRung();
+        wristUp();
         driveToPos(600, 100);
+        aboveRung();
+        clawOpen();
         driveToPos(450, -(tickPerInch * 42));
+        downGrab();
         sleep(1000);
+        clawClose();
+        backGrab();
+        clawOpen();
         driveToPos(450,-(tickPerInch * 53));
 
     }
