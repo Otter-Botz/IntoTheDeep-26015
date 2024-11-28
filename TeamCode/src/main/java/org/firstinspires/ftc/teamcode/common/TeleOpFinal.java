@@ -72,7 +72,7 @@ public class TeleOpFinal extends LinearOpMode {
             }
 
             if (gamepad2.x) {
-                wrist.set(0.2);
+                wrist.set(0.45);
             }
 
 
@@ -112,14 +112,7 @@ public class TeleOpFinal extends LinearOpMode {
 
     }
 
-    private  void toggleArm() {
-        if(PID_Arm.getPosition() == PID_Arm.Up){
-            PID_Arm.set(PID_Arm.Down);
-        }
-        else if(PID_Arm.getPosition() != PID_Arm.Up){
-            PID_Arm.set(PID_Arm.Up);
-        }
-    }
+
 
     private  void toggleClaw(){
         if(claw.getPosition() == claw.close){
@@ -178,6 +171,8 @@ public class TeleOpFinal extends LinearOpMode {
     }
 
 }
+
+
 
 
 

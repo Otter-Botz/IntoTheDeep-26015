@@ -164,6 +164,7 @@ public class PinPoint extends LinearOpMode {
         backRightMotor.setPower(0);
     }
 
+
     public void initAuto() {
         odo = hardwareMap.get(GoBildaPinpointDriver.class, "odo");
         odo.setOffsets(150, -370); //these are tuned for 3110-0002-0001 Product Insight #1

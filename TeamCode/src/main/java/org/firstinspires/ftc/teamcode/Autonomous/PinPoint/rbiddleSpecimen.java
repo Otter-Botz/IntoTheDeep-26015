@@ -9,9 +9,8 @@ import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-
-@Autonomous(name = "0+4Blue")
-public class BlueLeftPinPoint extends LinearOpMode {
+@Autonomous
+public class rbiddleSpecimen extends LinearOpMode {
 
     // Odo Pods and IMU
     GoBildaPinpointDriver odo;
@@ -30,6 +29,8 @@ public class BlueLeftPinPoint extends LinearOpMode {
     private Servo clawServo;
     private Servo wristServo;
 
+    double tickPerInch = 23;
+
 
     IMU imu;
 
@@ -37,7 +38,9 @@ public class BlueLeftPinPoint extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        // 22.8 Ticks per inch
+        // 22.8 ticks per inch for bot
+        //21.18
+
         // Initialize for Auto
         initAuto();
 
@@ -45,21 +48,10 @@ public class BlueLeftPinPoint extends LinearOpMode {
         waitForStart();
         resetRuntime();
 
-        //Positive X Forward
-        //Negative X Backward
-        //L
-
-        // Drive to basket
-        driveToPos(400, -200);
-        gyroTurnToAngle(45);
-        //Score
-        //driveToPos(200,400);
-        //gyroTurnToAngle(90);
-        //Pick Up
-
-
-        // Turn towards basket
-        //gyroTurnToAngle(-90);
+        driveToPos(600, 100);
+        driveToPos(450, -(tickPerInch * 42));
+        sleep(1000);
+        driveToPos(450,-(tickPerInch * 53));
 
     }
 
@@ -76,8 +68,8 @@ public class BlueLeftPinPoint extends LinearOpMode {
             telemAdded = true;
         }
 
-        while (opModeIsActive() && ((Math.abs(targetX - odo.getPosX()) > 50)
-                || (Math.abs(targetY - odo.getPosY())) > 50)) {
+        while (opModeIsActive() && ((Math.abs(targetX - odo.getPosX()) > 30)
+                || (Math.abs(targetY - odo.getPosY())) > 30)) {
             odo.update();
 
             double x = 0.001 * (targetX - odo.getPosX());
@@ -150,10 +142,10 @@ public class BlueLeftPinPoint extends LinearOpMode {
 
             driveMotorsPower = error / 200;
 
-            if ((driveMotorsPower < 0.3) && (driveMotorsPower > 0)) {
-                driveMotorsPower = 0.3;
-            } else if ((driveMotorsPower > -0.3) && (driveMotorsPower < 0)) {
-                driveMotorsPower = -0.3;
+            if ((driveMotorsPower < 0.2) && (driveMotorsPower > 0)) {
+                driveMotorsPower = 0.2;
+            } else if ((driveMotorsPower > -0.2) && (driveMotorsPower < 0)) {
+                driveMotorsPower = -0.2;
             }
 
             // Positive power causes left turn
@@ -212,6 +204,9 @@ public class BlueLeftPinPoint extends LinearOpMode {
     }
 
 
+
+
+
+
+
 }
-
-

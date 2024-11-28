@@ -1,13 +1,18 @@
 package org.firstinspires.ftc.teamcode.common;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.controller.PIDController;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 
 
 
-
+/// DONT DELETE COMMENT
 /*
 @Config
 @TeleOp
@@ -20,7 +25,7 @@ public class PID_Arm extends OpMode {
 
     public static int target = 0;
 
-    private final double ticks_in_degrees = 1425.1/360;
+    private final double ticks_in_degrees = 2786.2/360;
     public DcMotor armMotor;
 
     @Override
@@ -49,26 +54,28 @@ public class PID_Arm extends OpMode {
 
 
 }
-*/
 
 
 
 
-import com.qualcomm.robotcore.hardware.HardwareMap;
+ */
+
 
 //import org.firstinspires.ftc.teamcode.common.interfaces.PIDArm;
+
 
 @Config
 
 public class PID_Arm {
     private static PIDController controller;
-
+    //p = 0.005 i = 0 d = 0.0001 f=0.01
     public static double p = 0.005, i = 0, d = 0.0001;
     public static double f = 0.01;
 
-    public double   target = 100;
+    public double target = 100;
 
-    private final double ticks_in_degrees = 2786.2 / 360;
+    private final double ticks_in_degrees = 2786.2/ 360;
+    //2786.2
 
     public final double Up = 1115;
     public final double Down = 0;
@@ -81,7 +88,7 @@ public class PID_Arm {
     }
 
 
-    public void up()  {
+    public void up() {
         target = 1115;
     }
 
@@ -96,27 +103,23 @@ public class PID_Arm {
 
 
     public void math() {
-        controller.setPID(p, i , d);
+        controller.setPID(p, i, d);
         int armPos = armMotor.getCurrentPosition();
         double pid = controller.calculate(armPos, target);
-        double ff = Math.cos(Math.toRadians(target/ ticks_in_degrees)) * f;
+        double ff = Math.cos(Math.toRadians(target / ticks_in_degrees)) * f;
         double power = pid + ff;
         armMotor.setPower(power);
         // add tele back into main class
-       // telemetry.addData("pos", slidePos);
-       // telemetry.addData("target", target);
-       // telemetry.update();
+        // telemetry.addData("pos", slidePos);
+        // telemetry.addData("target", target);
+        // telemetry.update();
     }
 
-    public void set(double position) {
-        //open
-        target = position;
-    }
 
-    public double getPosition(){
+
+    public double getPosition() {
         return armMotor.getCurrentPosition();
     }
-
 
 
     public void init(HardwareMap hwMap) {
@@ -125,6 +128,9 @@ public class PID_Arm {
         controller = new PIDController(p, i, d);
     }
 }
+
+
+
 
 
 

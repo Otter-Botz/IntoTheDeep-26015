@@ -9,8 +9,9 @@ import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-@Autonomous
-public class Biddle4Specimen extends LinearOpMode {
+
+@Autonomous(name = "0+4Blue")
+public class rbiddleBasket extends LinearOpMode {
 
     // Odo Pods and IMU
     GoBildaPinpointDriver odo;
@@ -36,8 +37,7 @@ public class Biddle4Specimen extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        // 22.8 ticks per inch for bot
-        //21.18
+        // 22.8 Ticks per inch
         // Initialize for Auto
         initAuto();
 
@@ -45,10 +45,21 @@ public class Biddle4Specimen extends LinearOpMode {
         waitForStart();
         resetRuntime();
 
-        driveToPos(600, 100);
-        driveToPos(450, -967);
-        sleep(1000);
-        driveToPos(450,-(23 * 53));
+        //Positive X Forward
+        //Negative X Backward
+        //L
+
+        // Drive to basket
+        driveToPos(400, -200);
+        gyroTurnToAngle(45);
+        //Score
+        //driveToPos(200,400);
+        //gyroTurnToAngle(90);
+        //Pick Up
+
+
+        // Turn towards basket
+        //gyroTurnToAngle(-90);
 
     }
 
@@ -65,8 +76,8 @@ public class Biddle4Specimen extends LinearOpMode {
             telemAdded = true;
         }
 
-        while (opModeIsActive() && ((Math.abs(targetX - odo.getPosX()) > 30)
-                || (Math.abs(targetY - odo.getPosY())) > 30)) {
+        while (opModeIsActive() && ((Math.abs(targetX - odo.getPosX()) > 50)
+                || (Math.abs(targetY - odo.getPosY())) > 50)) {
             odo.update();
 
             double x = 0.001 * (targetX - odo.getPosX());
@@ -139,10 +150,10 @@ public class Biddle4Specimen extends LinearOpMode {
 
             driveMotorsPower = error / 200;
 
-            if ((driveMotorsPower < 0.2) && (driveMotorsPower > 0)) {
-                driveMotorsPower = 0.2;
-            } else if ((driveMotorsPower > -0.2) && (driveMotorsPower < 0)) {
-                driveMotorsPower = -0.2;
+            if ((driveMotorsPower < 0.3) && (driveMotorsPower > 0)) {
+                driveMotorsPower = 0.3;
+            } else if ((driveMotorsPower > -0.3) && (driveMotorsPower < 0)) {
+                driveMotorsPower = -0.3;
             }
 
             // Positive power causes left turn
@@ -201,9 +212,6 @@ public class Biddle4Specimen extends LinearOpMode {
     }
 
 
-
-
-
-
-
 }
+
+
