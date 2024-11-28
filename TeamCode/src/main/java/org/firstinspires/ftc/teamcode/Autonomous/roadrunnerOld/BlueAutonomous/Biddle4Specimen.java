@@ -1,5 +1,5 @@
-package org.firstinspires.ftc.teamcode.Autonomous.BlueAutonomous;
-
+package org.firstinspires.ftc.teamcode.Autonomous.roadrunnerOld.BlueAutonomous;
+/*
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
@@ -13,9 +13,7 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 //  ryan says "code at bad is aryan  ;) "
 import org.firstinspires.ftc.teamcode.Autonomous.Common.autoWrist;
@@ -138,18 +136,18 @@ public class Biddle4Specimen extends LinearOpMode {
 //                .stopAndAdd(slideServo.armWaitTime())
 //                .stopAndAdd(armMotor.armDown())
 //                .waitSeconds(2)
-//                .stopAndAdd(clawServo.clawClose());
-                /*
+                .stopAndAdd(clawServo.clawClose());
+
                 .stopAndAdd(armMotor.backDown())
                 .stopAndAdd(clawServo.clawOpen());
 
-                 */
 
-               /* .strafeToConstantHeading(new Vector2d(nextX, nextY))
+
+                .strafeToConstantHeading(new Vector2d(nextX, nextY))
                 .endTrajectory()
                 .stopAndAdd(armMotor.armDown())
                 .stopAndAdd(slideServo.armWaitTimeBack())
-                .stopAndAdd(armMotor.autoEnd());*/
+                .stopAndAdd(armMotor.autoEnd());
 
 
 
@@ -235,12 +233,12 @@ public class Biddle4Specimen extends LinearOpMode {
                                 )
                         )
 
-                        /*
+
                         armMotor.armDown(),
                         clawServo.clawClose(),
                         armMotor.backDown(),
                         clawServo.clawOpen()
-                        */
+
 
 
 
@@ -251,7 +249,7 @@ public class Biddle4Specimen extends LinearOpMode {
 
         );
         // armMotor.armUp(),
-                        /*
+
                         clawServo.clawOpen(),
                         armMotor.armDown(),
                         clawServo.clawClose(),
@@ -283,8 +281,9 @@ public class Biddle4Specimen extends LinearOpMode {
                        armMotor.armUp(),
                         score3.build(),
 
-                         */
+
 
 
     }
 }
+*/

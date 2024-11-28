@@ -1,23 +1,14 @@
-package org.firstinspires.ftc.teamcode.Autonomous.RedAutonomous;
+package org.firstinspires.ftc.teamcode.Autonomous.roadrunnerOld.RedAutonomous;
 
-
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.linearOpMode;
-
-import androidx.annotation.NonNull;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+/*
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
-import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Autonomous.Common.AutoMainSliders;
@@ -153,3 +144,6 @@ public class HighBasketAutoRed extends LinearOpMode {
         );
 
     }}
+
+
+ */

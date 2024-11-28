@@ -9,9 +9,8 @@ import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-
-@Autonomous(name = "PinPoint")
-public class PinPoint extends LinearOpMode {
+@Autonomous
+public class Biddle4Specimen extends LinearOpMode {
 
     // Odo Pods and IMU
     GoBildaPinpointDriver odo;
@@ -46,13 +45,10 @@ public class PinPoint extends LinearOpMode {
         waitForStart();
         resetRuntime();
 
-        // Drive to basket
-        driveToPos(0, 300);
-
-
-
-        // Turn towards basket
-      //  gyroTurnToAngle(-45);
+        driveToPos(600, 100);
+        driveToPos(450, -967);
+        sleep(1000);
+        driveToPos(450,-(23 * 53));
 
     }
 
@@ -205,6 +201,9 @@ public class PinPoint extends LinearOpMode {
     }
 
 
+
+
+
+
+
 }
-
-

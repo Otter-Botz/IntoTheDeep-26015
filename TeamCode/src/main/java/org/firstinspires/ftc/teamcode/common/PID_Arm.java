@@ -3,6 +3,11 @@ package org.firstinspires.ftc.teamcode.common;
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
+
+
+
+
+
 /*
 @Config
 @TeleOp
@@ -51,11 +56,11 @@ public class PID_Arm extends OpMode {
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.common.interfaces.PIDArm;
+//import org.firstinspires.ftc.teamcode.common.interfaces.PIDArm;
 
 @Config
 
-public class PID_Arm implements PIDArm {
+public class PID_Arm {
     private static PIDController controller;
 
     public static double p = 0.005, i = 0, d = 0.0001;
@@ -115,19 +120,18 @@ public class PID_Arm implements PIDArm {
        // telemetry.addData("target", target);
        // telemetry.update();
     }
-    @Override
+
     public void set(double position) {
         //open
         target = position;
     }
 
-    @Override
     public double getPosition(){
         return armMotor.getCurrentPosition();
     }
 
 
-    @Override
+
     public void init(HardwareMap hwMap) {
         armMotor = hwMap.get(DcMotor.class, "armMotor");
 

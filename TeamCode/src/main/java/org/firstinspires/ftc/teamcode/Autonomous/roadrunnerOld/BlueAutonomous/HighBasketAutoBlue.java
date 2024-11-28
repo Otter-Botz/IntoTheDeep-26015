@@ -1,12 +1,9 @@
-package org.firstinspires.ftc.teamcode.Autonomous.BlueAutonomous;
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.linearOpMode;
-
+package org.firstinspires.ftc.teamcode.Autonomous.roadrunnerOld.BlueAutonomous;
+/*
 import androidx.annotation.NonNull;
 
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
@@ -14,15 +11,12 @@ import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
-import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Autonomous.Common.AutoMainSliders;
 //import org.firstinspires.ftc.teamcode.Autonomous.Common.armSlide;
 import org.firstinspires.ftc.teamcode.Autonomous.Common.autoClaw;
 import org.firstinspires.ftc.teamcode.Autonomous.Common.autoWrist;
@@ -265,10 +259,10 @@ public class HighBasketAutoBlue extends LinearOpMode {
 
 
 
-                )
 
 
-        );        //Wrist
+
+        ;        //Wrist
                         //Arm
                         //Main Sliders
                         //Claw Open
@@ -326,8 +320,10 @@ public class HighBasketAutoBlue extends LinearOpMode {
                        armMotor.armUp(),
                         score3.build(),
 
-                         */
+
 
 
 
     }}
+
+                         */
