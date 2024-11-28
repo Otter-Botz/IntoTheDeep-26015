@@ -86,6 +86,7 @@ public class rbiddleSpecimen extends LinearOpMode {
         clawOpen();
         driveToPos(450, -(tickPerInch * 42));
         downGrab();
+        wristDown();
         sleep(1000);
         clawClose();
         backGrab();

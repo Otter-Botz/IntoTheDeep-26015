@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.teamcode.common.PID_Arm;
 
 @Autonomous(name = "0+4Blue")
 public class rbiddleBasket extends LinearOpMode {
@@ -25,10 +26,35 @@ public class rbiddleBasket extends LinearOpMode {
     // Sliders
     private DcMotor sliderMotor;
     private DcMotor sliderMotorMotor;
+    public void highBasket(){
+        sliderMotor.setTargetPosition(900);
+        sliderMotorMotor.setTargetPosition(900);
+    }
+
+    //PID_Arm
+    private DcMotor armMotor;
+    PID_Arm movements = new PID_Arm();
+    public void downGrab(){
+        armMotor.setTargetPosition(221);
+    }
+
 
     // Claw/Wrist
     private Servo clawServo;
     private Servo wristServo;
+    public void clawOpen(){
+        clawServo.setPosition(0);
+    }
+    public void clawClose(){
+        clawServo.setPosition(0.3);
+    }
+    public void wristUp(){
+        wristServo.setPosition(0.6);
+    }
+    public void wristDown(){
+        wristServo.setPosition(0.1);
+    }
+
 
 
     IMU imu;
