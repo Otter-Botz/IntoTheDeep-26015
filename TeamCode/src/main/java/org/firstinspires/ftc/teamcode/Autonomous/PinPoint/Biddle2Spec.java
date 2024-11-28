@@ -1,5 +1,4 @@
 package org.firstinspires.ftc.teamcode.Autonomous.PinPoint;
-
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -9,9 +8,9 @@ import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.teamcode.common.PID_Arm;
 
-@Autonomous(name = "PinPoint")
-public class PinPoint extends LinearOpMode {
+public class Biddle2Spec extends LinearOpMode {
 
     // Odo Pods and IMU
     GoBildaPinpointDriver odo;
@@ -33,21 +32,27 @@ public class PinPoint extends LinearOpMode {
 
     IMU imu;
 
+
     @Override
-    public void runOpMode() {
-
-        // Initialize for Auto
+    public void runOpMode() throws InterruptedException {
         initAuto();
-
-        // Wait
         waitForStart();
         resetRuntime();
 
-        // Drive to basket
-        driveToPos(300, 550);
+        //drive to rung
+        driveToPos(50,200);
+        //arm attatches specimen to rung
 
-        // Turn towards basket
-        gyroTurnToAngle(-45);
+        //drive to hp area
+        driveToPos(500,-50);
+        //take give 2 samples to human player
+        //pick up specimen
+
+        //drive back to rung to place first spec
+        driveToPos(-500,50);
+        //place spec on rung
+
+        driveToPos(500,-50);
 
     }
 

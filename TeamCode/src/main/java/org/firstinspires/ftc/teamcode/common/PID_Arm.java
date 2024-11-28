@@ -67,6 +67,11 @@ public class PID_Arm implements PIDArm {
 
     public final double Up = 1115;
     public final double Down = 0;
+    //to be tested
+    public final double Auto_grab = 200;
+    public final double Auto_belowRung = 1500;
+    public final double Auto_aboveRung = 1200;
+
 
 
     public static DcMotor armMotor;
@@ -88,7 +93,15 @@ public class PID_Arm implements PIDArm {
     public void down() {
         target = 221;
     }
-
+    public void auto_grab(){
+        target = 200;
+    }
+    public void auto_belowRung(){
+        target = 1500;
+    }
+    public void auto_aboveRung(){
+        target = 1200;
+    }
 
     public void math() {
         controller.setPID(p, i , d);
