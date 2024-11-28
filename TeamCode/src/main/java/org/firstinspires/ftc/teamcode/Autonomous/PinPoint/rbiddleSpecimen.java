@@ -111,8 +111,9 @@ public class rbiddleSpecimen extends LinearOpMode {
                 || (Math.abs(targetY - odo.getPosY())) > 30)) {
             odo.update();
 
-            double x = 0.001 * (targetX - odo.getPosX());
-            double y = -0.001 * (targetY - odo.getPosY());
+            //Working
+            double x = 0.0017 * (targetX - odo.getPosX());
+            double y = -0.0017 * (targetY - odo.getPosY());
 
             double botHeading = odo.getHeading();
 
