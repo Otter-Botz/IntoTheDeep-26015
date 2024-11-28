@@ -9,6 +9,8 @@ import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.teamcode.common.PID_Arm;
+
 @Autonomous
 public class rbiddleSpecimen extends LinearOpMode {
 
@@ -25,9 +27,34 @@ public class rbiddleSpecimen extends LinearOpMode {
     private DcMotor sliderMotor;
     private DcMotor sliderMotorMotor;
 
+    //PID_Arm
+    private DcMotor armMotor;
+    PID_Arm movements = new PID_Arm();
+    public void grab() {
+        armMotor.setTargetPosition(200);
+    }
+    public void belowRung(){
+        armMotor.setTargetPosition(1500);
+    }
+    public void aboveRung(){
+        armMotor.setTargetPosition(1200);
+    }
+
     // Claw/Wrist
     private Servo clawServo;
     private Servo wristServo;
+    public void clawOpen(){
+        clawServo.setPosition(0);
+    }
+    public void clawClose(){
+        clawServo.setPosition(0.3);
+    }
+    public void wristUp(){
+        wristServo.setPosition(0.6);
+    }
+    public void wristDown(){
+        wristServo.setPosition(0.1);
+    }
 
     double tickPerInch = 23;
 
@@ -47,6 +74,7 @@ public class rbiddleSpecimen extends LinearOpMode {
         // Wait
         waitForStart();
         resetRuntime();
+
 
         driveToPos(600, 100);
         driveToPos(450, -(tickPerInch * 42));
