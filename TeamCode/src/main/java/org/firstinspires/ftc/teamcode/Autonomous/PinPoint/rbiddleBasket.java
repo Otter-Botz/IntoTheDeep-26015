@@ -47,7 +47,6 @@ public class rbiddleBasket extends LinearOpMode {
 
         //Positive X Forward
         //Negative X Backward
-        //L
 
         // Drive to basket
         driveToPos(400, -200);
