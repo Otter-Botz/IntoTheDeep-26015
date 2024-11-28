@@ -29,43 +29,16 @@ public class rbiddleSpecimen extends LinearOpMode {
 
     //PID_Arm
     private DcMotor armMotor;
-    PID_Arm movements = new PID_Arm();
-    public void backGrab() {
-        armMotor.setTargetPosition(200);
-    }
-    public void belowRung(){
-        armMotor.setTargetPosition(1500);
-    }
-    public void aboveRung(){
-        armMotor.setTargetPosition(1200);
-    }
-    public void downGrab(){
-        armMotor.setTargetPosition(221);
-    }
-
 
     // Claw/Wrist
     private Servo clawServo;
     private Servo wristServo;
-    public void clawOpen(){
-        clawServo.setPosition(0);
-    }
-    public void clawClose(){
-        clawServo.setPosition(0.3);
-    }
-    public void wristUp(){
-        wristServo.setPosition(0.6);
-    }
-    public void wristDown(){
-        wristServo.setPosition(0.1);
-    }
+
+    AutoMechanisms mechanisms = new AutoMechanisms();
 
     double tickPerInch = 23;
 
-
     IMU imu;
-
-
 
     @Override
     public void runOpMode() {
@@ -79,24 +52,36 @@ public class rbiddleSpecimen extends LinearOpMode {
         waitForStart();
         resetRuntime();
 
-        belowRung();
-        wristUp();
+        mechanisms.belowRung();
+        mechanisms.wristUp();
         driveToPos(600, 100);
-        aboveRung();
-        clawOpen();
+        mechanisms.aboveRung();
+        mechanisms.clawOpen();
         driveToPos(450, -(tickPerInch * 42));
-        downGrab();
-        wristDown();
+        mechanisms.downGrab();
+        mechanisms.wristDown();
         sleep(1000);
-        clawClose();
-        backGrab();
-        clawOpen();
+        mechanisms.clawClose();
+        mechanisms.wristUp();
+        mechanisms.backGrab();
+        mechanisms.clawOpen();
         driveToPos(450,-(tickPerInch * 53));
-        downGrab();
+        mechanisms.downGrab();
+        mechanisms.wristDown();
         sleep(1000);
-        clawClose();
-        backGrab();
-        clawOpen();
+        mechanisms.clawClose();
+        mechanisms.wristUp();
+        mechanisms.backGrab();
+        mechanisms.clawOpen();
+        gyroTurnToAngle(30);
+        mechanisms.downGrab();
+        mechanisms.wristDown();
+        sleep(1000);
+        mechanisms.clawClose();
+        mechanisms.wristUp();
+        gyroTurnToAngle(-30);
+        mechanisms.backGrab();
+        mechanisms.clawOpen();
 
     }
 
