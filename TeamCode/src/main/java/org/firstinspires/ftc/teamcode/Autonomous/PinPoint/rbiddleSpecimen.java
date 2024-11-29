@@ -9,6 +9,8 @@ import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.teamcode.common.PID_Arm;
+
 @Autonomous
 public class rbiddleSpecimen extends LinearOpMode {
 
@@ -25,16 +27,18 @@ public class rbiddleSpecimen extends LinearOpMode {
     private DcMotor sliderMotor;
     private DcMotor sliderMotorMotor;
 
+    //PID_Arm
+    private DcMotor armMotor;
+
     // Claw/Wrist
     private Servo clawServo;
     private Servo wristServo;
 
+    AutoMechanisms mechanisms = new AutoMechanisms();
+
     double tickPerInch = 23;
 
-
     IMU imu;
-
-
 
     @Override
     public void runOpMode() {
@@ -48,10 +52,36 @@ public class rbiddleSpecimen extends LinearOpMode {
         waitForStart();
         resetRuntime();
 
+        mechanisms.belowRung();
+        mechanisms.wristUp();
         driveToPos(600, 100);
+        mechanisms.aboveRung();
+        mechanisms.clawOpen();
         driveToPos(450, -(tickPerInch * 42));
+        mechanisms.downGrab();
+        mechanisms.wristDown();
         sleep(1000);
+        mechanisms.clawClose();
+        mechanisms.wristUp();
+        mechanisms.backGrab();
+        mechanisms.clawOpen();
         driveToPos(450,-(tickPerInch * 53));
+        mechanisms.downGrab();
+        mechanisms.wristDown();
+        sleep(1000);
+        mechanisms.clawClose();
+        mechanisms.wristUp();
+        mechanisms.backGrab();
+        mechanisms.clawOpen();
+        gyroTurnToAngle(30);
+        mechanisms.downGrab();
+        mechanisms.wristDown();
+        sleep(1000);
+        mechanisms.clawClose();
+        mechanisms.wristUp();
+        gyroTurnToAngle(-30);
+        mechanisms.backGrab();
+        mechanisms.clawOpen();
 
     }
 
@@ -72,8 +102,9 @@ public class rbiddleSpecimen extends LinearOpMode {
                 || (Math.abs(targetY - odo.getPosY())) > 30)) {
             odo.update();
 
-            double x = 0.001 * (targetX - odo.getPosX());
-            double y = -0.001 * (targetY - odo.getPosY());
+            //Working
+            double x = 0.0017 * (targetX - odo.getPosX());
+            double y = -0.0017 * (targetY - odo.getPosY());
 
             double botHeading = odo.getHeading();
 

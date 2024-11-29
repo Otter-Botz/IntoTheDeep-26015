@@ -105,15 +105,7 @@ public class PID_Arm {
     public void down() {
         target = 221;
     }
-    public void auto_grab(){
-        target = 200;
-    }
-    public void auto_belowRung(){
-        target = 1500;
-    }
-    public void auto_aboveRung(){
-        target = 1200;
-    }
+
 
     public void math() {
         controller.setPID(p, i, d);
@@ -138,7 +130,7 @@ public class PID_Arm {
     public void init(HardwareMap hwMap) {
         armMotor = hwMap.get(DcMotor.class, "armMotor");
 
-        controller = new PIDController(p, i, d);
+        controller  = new PIDController(p,i,d);
     }
 }
 
