@@ -1,5 +1,9 @@
 package org.firstinspires.ftc.teamcode.Autonomous.PinPoint;
 
+
+
+import static android.os.SystemClock.sleep;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -24,6 +28,10 @@ public class AutoMechanisms {
     private Servo clawServo;
     private Servo wristServo;
 
+    //PID_Arm
+    public final double PID_ArmUp = 1115;
+    public final double PID_ArmDown = 0;
+    public final double PID_ArmMiddle = 557.5;
 
     //claw positions
     public void clawOpen(){
@@ -38,9 +46,11 @@ public class AutoMechanisms {
     public void wristUp(){
         wristServo.setPosition(0.6);
     }
-    public void wristDown(){
-        wristServo.setPosition(0.1);
-    }
+//    public void wristDown(){
+//        wristDown();
+//    }
+
+
 
 
     //only spec auto arm movements
@@ -57,7 +67,35 @@ public class AutoMechanisms {
     public void downGrab(){
         armMotor.setTargetPosition(221);
     }
+    public void armUp(){
+        armMotor.setTargetPosition(1115);
+    }
 
+
+//    public void pickupsample() {
+//
+//        wristDown();
+//        clawOpen();
+//        sleep(500);
+//        clawClose();
+//    }
+
+    public void scoreSample() {
+
+        //Main Sliders
+
+        //Arm
+        armUp();
+        //Wrist
+        wristUp();
+        sleep(1000);
+        clawOpen();
+
+    }
+
+    public void scoreSpecimen() {
+
+    }
 
     //slider movement used for high basket auto
     public void highBasket(){

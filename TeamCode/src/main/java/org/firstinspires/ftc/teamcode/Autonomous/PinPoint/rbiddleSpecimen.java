@@ -59,7 +59,7 @@ public class rbiddleSpecimen extends LinearOpMode {
         mechanisms.clawOpen();
         driveToPos(450, -(tickPerInch * 42));
         mechanisms.downGrab();
-        mechanisms.wristDown();
+      //  mechanisms.wristDown();
         sleep(1000);
         mechanisms.clawClose();
         mechanisms.wristUp();
@@ -67,7 +67,7 @@ public class rbiddleSpecimen extends LinearOpMode {
         mechanisms.clawOpen();
         driveToPos(450,-(tickPerInch * 53));
         mechanisms.downGrab();
-        mechanisms.wristDown();
+       // mechanisms.wristDown();
         sleep(1000);
         mechanisms.clawClose();
         mechanisms.wristUp();
@@ -75,7 +75,7 @@ public class rbiddleSpecimen extends LinearOpMode {
         mechanisms.clawOpen();
         gyroTurnToAngle(30);
         mechanisms.downGrab();
-        mechanisms.wristDown();
+      //  mechanisms.wristDown();
         sleep(1000);
         mechanisms.clawClose();
         mechanisms.wristUp();
