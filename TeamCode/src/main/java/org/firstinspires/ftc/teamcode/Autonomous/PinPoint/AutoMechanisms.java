@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode.Autonomous.PinPoint;
 
 import static android.os.SystemClock.sleep;
 
+import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -33,22 +34,28 @@ public class AutoMechanisms {
     public final double PID_ArmDown = 0;
     public final double PID_ArmMiddle = 557.5;
 
-    //claw positions
-    public void clawOpen(){
-        clawServo.setPosition(0);
-    }
-    public void clawClose(){
-        clawServo.setPosition(0.3);
-    }
 
 
-    //wrist positions
-    public void wristUp(){
-        wristServo.setPosition(0.6);
-    }
-//    public void wristDown(){
-//        wristDown();
-//    }
+        //claw positions
+        public void clawOpen() {
+            clawServo.setPosition(0);
+        }
+
+        public void clawClose() {
+            clawServo.setPosition(0.3);
+        }
+
+
+
+
+        //wrist positions
+        public void wristUp() {
+            wristServo.setPosition(0.6);
+        }
+
+        public void wristDown() {
+            wristDown();
+        }
 
 
 
@@ -57,18 +64,45 @@ public class AutoMechanisms {
     public void backGrab() {
         armMotor.setTargetPosition(200);
     }
-    public void belowRung(){
+
+    public void belowRung() {
         armMotor.setTargetPosition(1500);
     }
-    public void aboveRung(){
+
+    public void aboveRung() {
         armMotor.setTargetPosition(1200);
     }
+
     //arm movement used for both autos
-    public void downGrab(){
+    public void downGrab() {
         armMotor.setTargetPosition(221);
     }
-    public void armUp(){
+
+    public void armUp() {
         armMotor.setTargetPosition(1115);
+    }
+
+    private static PIDController controller;
+    //p = 0.005 i = 0 d = 0.0001 f=0.01
+    public static double p = 0.005, i = 0, d = 0.0001;
+    public static double f = 0.01;
+
+    public double target = 100;
+
+    private final double ticks_in_degrees = 2786.2/ 360;
+    //2786.2
+
+    public void  math() {
+        controller.setPID(p, i, d);
+        int armPos = armMotor.getCurrentPosition();
+        double pid = controller.calculate(armPos, target);
+        double ff = Math.cos(Math.toRadians(target / ticks_in_degrees)) * f;
+        double power = pid + ff;
+        armMotor.setPower(power);
+        // add tele back into main class
+        // telemetry.addData("pos", slidePos);
+        // telemetry.addData("target", target);
+        // telemetry.update();
     }
 
 
@@ -85,11 +119,11 @@ public class AutoMechanisms {
         //Main Sliders
 
         //Arm
-        armUp();
+       // armUp();
         //Wrist
-        wristUp();
+       // wristUp();
         sleep(1000);
-        clawOpen();
+        //clawOpen();
 
     }
 
@@ -97,10 +131,11 @@ public class AutoMechanisms {
 
     }
 
-    //slider movement used for high basket auto
-    public void highBasket(){
-        sliderMotor.setTargetPosition(900);
-        sliderMotorMotor.setTargetPosition(900);
+
+        //slider movement used for high basket auto
+        public void highBasket() {
+            sliderMotor.setTargetPosition(900);
+            sliderMotorMotor.setTargetPosition(900);
+        }
     }
 
-}

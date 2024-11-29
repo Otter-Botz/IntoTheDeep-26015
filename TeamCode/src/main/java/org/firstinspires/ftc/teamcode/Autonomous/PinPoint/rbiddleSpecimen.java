@@ -50,6 +50,9 @@ public class rbiddleSpecimen extends LinearOpMode {
 
         // Wait
         waitForStart();
+        while (opModeIsActive()){
+            mechanisms.math();
+        }
         resetRuntime();
 
         mechanisms.belowRung();
@@ -73,15 +76,7 @@ public class rbiddleSpecimen extends LinearOpMode {
         mechanisms.wristUp();
         mechanisms.backGrab();
         mechanisms.clawOpen();
-        gyroTurnToAngle(30);
-        mechanisms.downGrab();
-        mechanisms.wristDown();
-        sleep(1000);
-        mechanisms.clawClose();
-        mechanisms.wristUp();
-        gyroTurnToAngle(-30);
-        mechanisms.backGrab();
-        mechanisms.clawOpen();
+
 
     }
 
