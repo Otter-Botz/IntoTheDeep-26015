@@ -9,7 +9,6 @@ import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.teamcode.common.PID_Arm;
 
 @Autonomous(name = "0+4Blue")
 public class rbiddleBasket extends LinearOpMode {
@@ -27,17 +26,18 @@ public class rbiddleBasket extends LinearOpMode {
     private DcMotor sliderMotor;
     private DcMotor sliderMotorMotor;
 
-    //PID_Arm
-    private DcMotor armMotor;
-
     // Claw/Wrist
     private Servo clawServo;
     private Servo wristServo;
 
+    // Common Class
     AutoMechanisms mechanisms = new AutoMechanisms();
 
     IMU imu;
 
+
+    int ticksPerInchForward = 23;
+    int ticksPerInchSideways = 22;
 
     @Override
     public void runOpMode() {
@@ -49,14 +49,17 @@ public class rbiddleBasket extends LinearOpMode {
         waitForStart();
         resetRuntime();
 
-        //Positive X Forward
-        //Negative X Backward
-
+        //X = Y and Y = x
         // Drive to basket
-        driveToPos(400, -200);
+        driveToPos(ticksPerInchForward*15, -ticksPerInchSideways*8);
         gyroTurnToAngle(45);
-        //Score
-        //driveToPos(200,400);
+        //Score 1
+        sleep(1000);
+        gyroTurnToAngle(-135);
+        driveToPos(ticksPerInchForward*25,-ticksPerInchSideways*8);
+//        mechanisms.pickupsample();
+
+
         //gyroTurnToAngle(90);
         //Pick Up
 
@@ -83,8 +86,8 @@ public class rbiddleBasket extends LinearOpMode {
                 || (Math.abs(targetY - odo.getPosY())) > 50)) {
             odo.update();
 
-            double x = 0.001 * (targetX - odo.getPosX());
-            double y = -0.001 * (targetY - odo.getPosY());
+            double x = 0.0017 * (targetX - odo.getPosX());
+            double y = -0.0017 * (targetY - odo.getPosY());
 
             double botHeading = odo.getHeading();
 
@@ -213,6 +216,8 @@ public class rbiddleBasket extends LinearOpMode {
         imu.initialize(parameters);
         imu.resetYaw();
     }
+
+
 
 
 }

@@ -86,15 +86,19 @@ public class PID_Arm {
 
 
 
+
     public static DcMotor armMotor;
 
     public PID_Arm() {
 
     }
 
+    public void AutoUp() {
+        up();
+    }
 
     public void up() {
-        target = 1115;
+        target = 1350;
     }
 
     public void armRespond(double value) {
@@ -107,7 +111,7 @@ public class PID_Arm {
     }
 
 
-    public void math() {
+    public void  math() {
         controller.setPID(p, i, d);
         int armPos = armMotor.getCurrentPosition();
         double pid = controller.calculate(armPos, target);

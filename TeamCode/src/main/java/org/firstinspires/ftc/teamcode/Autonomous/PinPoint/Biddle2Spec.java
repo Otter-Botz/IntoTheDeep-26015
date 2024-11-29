@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.common.PID_Arm;
 
+@Autonomous
 public class Biddle2Spec extends LinearOpMode {
 
     // Odo Pods and IMU
