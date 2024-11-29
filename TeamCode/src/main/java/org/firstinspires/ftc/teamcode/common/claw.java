@@ -14,6 +14,7 @@ public class claw implements armSystem {
     public double open = 0;
     public double close = 0.3;
 
+
    // double clawServoPos = clawServo.getPosition();
    // int ArmPos = PID_Arm.armMotor.getCurrentPosition() + 20;
     /*

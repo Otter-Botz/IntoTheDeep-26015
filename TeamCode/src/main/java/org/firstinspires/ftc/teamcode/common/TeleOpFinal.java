@@ -146,6 +146,17 @@ public class TeleOpFinal extends LinearOpMode {
         wrist.set(wrist.down);
     }
 
+    public void sliderwork() {
+        Slider.sliderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Slider.sliderMotorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Slider.sliderMotor.setTargetPosition(400);
+        Slider.sliderMotorMotor.setTargetPosition(400);
+        Slider.sliderMotor.setPower(0.5);
+        Slider.sliderMotorMotor.setPower(0.5);
+    }
+
     public void highBaskets(){
         /*
         Slider.sliderMotor.setTargetPosition(900);

@@ -1,7 +1,9 @@
 package com.example.meepmeeptesting;
 
 
+import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.noahbres.meepmeep.MeepMeep;
 import com.noahbres.meepmeep.roadrunner.DefaultBotBuilder;
@@ -15,35 +17,27 @@ public class MeepMeepTesting {
 
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
-                .setConstraints(100, 100, Math.toRadians(180), Math.toRadians(180), 15)
+                .setConstraints(60, 60, Math.toRadians(270), Math.toRadians(270), 15)
                 .build();
 
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(38, 62, 90))
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(38, 62, 270))
 
-                        //Score Preloaded Specimen
-                        .strafeToLinearHeading(new Vector2d(0, 38), Math.toRadians(270))
-                        .waitSeconds(2)
-                        //Move to first sample
-                        .strafeToLinearHeading(new Vector2d(47, 38), Math.toRadians(270))
-                        .waitSeconds(2)
-                        //Pick Up and move back
-                        .strafeToLinearHeading(new Vector2d(47, 54), Math.toRadians(240))
-                        .waitSeconds(2)
-                        //Move to second Sample
-                        .strafeToLinearHeading(new Vector2d(47, 20), Math.toRadians(180))
-                        .waitSeconds(2)
-                        .strafeToLinearHeading(new Vector2d(47, 54), Math.toRadians(230))
-                        .waitSeconds(2)
-                        .strafeToLinearHeading(new Vector2d(47, 20), Math.toRadians(270))
-                        .waitSeconds(0.5)
-                        .strafeToLinearHeading(new Vector2d(47, 38), Math.toRadians(180))
-                        .waitSeconds(2)
-                        //arm
-                        .strafeToLinearHeading(new Vector2d(47, 54), Math.toRadians(240))
-                        .waitSeconds(2)
-
-
-
+                //Sample One
+                .strafeToLinearHeading(new Vector2d(-48, 38), Math.toRadians(270))
+                .waitSeconds(0)
+                .strafeToLinearHeading(new Vector2d(-44, 5), Math.toRadians(270))
+                .waitSeconds(0)
+                .strafeToLinearHeading(new Vector2d(-60, 5), Math.toRadians(270))
+                .waitSeconds(0)
+                .strafeToLinearHeading(new Vector2d(-60, 55), Math.toRadians(270))
+                .waitSeconds(0)
+                //Second Sample
+                .strafeToLinearHeading(new Vector2d(-60, 5), Math.toRadians(270))
+                .waitSeconds(0)
+                .strafeToLinearHeading(new Vector2d(-72, 5), Math.toRadians(270))
+                .waitSeconds(0)
+                .strafeToLinearHeading(new Vector2d(-72, 55), Math.toRadians(270))
+                .waitSeconds(0)
                 .build());
                 //i
 
