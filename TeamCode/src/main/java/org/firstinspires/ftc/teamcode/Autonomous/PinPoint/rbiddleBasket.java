@@ -4,7 +4,6 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -12,12 +11,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.common.ArmSlider;
 import org.firstinspires.ftc.teamcode.common.PID_Arm;
-import org.firstinspires.ftc.teamcode.common.PID_Slider;
-import org.firstinspires.ftc.teamcode.common.Slider;
 import org.firstinspires.ftc.teamcode.common.claw;
 import org.firstinspires.ftc.teamcode.common.vroomVroom;
 import org.firstinspires.ftc.teamcode.common.wrist;
-import org.firstinspires.ftc.teamcode.common.PID_Slider;
 
 @Autonomous(name = "0+4Blue")
 public class rbiddleBasket extends LinearOpMode {
@@ -50,12 +46,8 @@ public class rbiddleBasket extends LinearOpMode {
     ArmSlider ArmSlider = new ArmSlider();
     PID_Arm PID_Arm = new PID_Arm();
     vroomVroom vroom = new vroomVroom();
-    //Slider Slider = new Slider();
     wrist wrist = new wrist();
-
     private LinearOpMode linearOpMode;
-
-
     IMU imu;
 
     int ticksPerInchForward = 23;
@@ -63,25 +55,19 @@ public class rbiddleBasket extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-
-        // 22.8 Ticks per inch
-        // Initialize for Auto
         initAuto();
-
-        pathRunning = true;
 
         while (opModeInInit()) {
             telemetry.addData("pos motor1", sliderMotor.getCurrentPosition());
             telemetry.addData("pos motor2", sliderMotorMotor.getCurrentPosition());
-
             telemetry.addData("pos motor1 target", sliderMotor.getTargetPosition());
             telemetry.addData("pos motor2 target", sliderMotorMotor.getTargetPosition());
-            telemetry.addData("path running", pathRunning);
-
             telemetry.addData("claw position", claw.getPosition());
+            telemetry.addData("wrist position", wrist.wristServo.getPosition());
 
             telemetry.addData("PosX()", odo.getPosX());
             telemetry.addData("PosY()", odo.getPosY());
+            imu.resetYaw();
             telemetry.update();
         }
 
@@ -96,11 +82,30 @@ public class rbiddleBasket extends LinearOpMode {
         waitForStart();
         resetRuntime();
 
+        //Make sure claw is able to hold sample
         claw.AutoClose();
-        driveToPos(ticksPerInchForward*20, -ticksPerInchSideways*8);
-        gyroTurnToAngle(45);
-        sleep(1000);
+        wrist.set(wrist.up);
 
+        //X = Y and Y = x
+        // drive to basket
+        driveToPos(ticksPerInchForward * 25, -ticksPerInchSideways * 8);
+        gyroTurnToAngle(40);
+
+
+        // score 1
+        //scoreHighBasket();
+        //sliderDown();
+        sleep(500);
+
+        //Move to first sample
+        gyroTurnToAngle(-130);
+        driveToPos(ticksPerInchForward * 25, 0);
+        //sleep(500);
+
+
+    }
+
+    public void scoreHighBasket() {
         sliderMotor.setTargetPosition(1500);
         sliderMotorMotor.setTargetPosition(1500);
         sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -110,65 +115,31 @@ public class rbiddleBasket extends LinearOpMode {
         sleep(1000);
 
         runtime.reset();
-
         // Run tasks for the entire autonomous period
-        while (runtime.seconds() < 3 ) { // Assume 30 seconds for autonomous
-
+        while (runtime.seconds() < 1) {
             PID_Arm.math(-1360);
         }
+        wrist.set(wrist.down);
+        sleep(400);
         claw.AutoOpen();
-        while (runtime.seconds() < 5 ) { // Assume 30 seconds for autonomous
+    }
 
-            PID_Arm.math(-91);
+    public void armDown() {
+        runtime.reset();
+        while (runtime.seconds() < 3) {
+            PID_Arm.math(-200);
         }
+    }
 
-        while (opModeIsActive()) {
-
-//            scoreHighBasket();
-
-//            telemetry.addData("pathrunning", pathRunning);
-//            telemetry.update();
-//
-//            if (pathRunning) {
-//
-//                ;
-//
-//                pathRunning = false;
-//            }
-        }
-
-        if(wrist.getPosition() == wrist.down){
-            claw.AutoOpen();
-        }
-
-        //X = Y and Y = x
-        // Drive to basket
-//        driveToPos(ticksPerInchForward*20, -ticksPerInchSideways*8);
-//        gyroTurnToAngle(45);
-//        sleep(1000);
-//        //Score 1
-//        //scoreHighBasket();
-//        gyroTurnToAngle(-135);
-//        driveToPos(-ticksPerInchForward*17, ticksPerInchSideways*8);
-//        sleep(500);
-        //driveToPos(ticksPerInchForward*20,ticksPerInchSideways*4);
-        //pick up 1
-//        PID_Arm.math();
-//        scoreHighBasket();
-//        sleep(500);
-//        claw.AutoOpen();
-//        gyroTurnToAngle(-135);
-//        driveToPos(ticksPerInchForward*25,-ticksPerInchSideways*8);
-        //mechanisms.pickupsample();
-
-
-        //gyroTurnToAngle(90);
-        //Pick Up
-
-
-        // Turn towards basket
-        //gyroTurnToAngle(-90);
-      //  pathRunning = false;
+    public void sliderDown() {
+        sliderMotor.setTargetPosition(-10);
+        sliderMotorMotor.setTargetPosition(-10);
+        sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        sliderMotor.setPower(0.5);
+        sliderMotorMotor.setPower(0.5);
+        sleep(1000);
+        armDown();
     }
 
     public void driveToPos(double targetX, double targetY) {
@@ -180,6 +151,8 @@ public class rbiddleBasket extends LinearOpMode {
             telemetry.addData("PosY()", odo.getPosY());
             telemetry.addData("TargetX", targetX);
             telemetry.addData("TargetY", targetY);
+            // telemetry.addData("pos", slidePos);
+            // telemetry.addData("target", target);
             telemetry.update();
             telemAdded = true;
         }
@@ -219,21 +192,16 @@ public class rbiddleBasket extends LinearOpMode {
             double frontRightPower = (rotX - rotY) / denominator;
             double backRightPower = (rotX + rotY) / denominator;
 
-
             frontLeftMotor.setPower(frontLeftPower);
             backLeftMotor.setPower(backLeftPower);
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
-
-
 
             telemetry.addData("X: ", odo.getPosX());
             telemetry.addData("Y: ", odo.getPosY());
             telemetry.addData("Heading Odo: ", Math.toDegrees(odo.getHeading()));
             telemetry.addData("Heading IMU: ", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
             telemetry.update();
-
-
         }
 
         frontLeftMotor.setPower(0);
@@ -306,10 +274,10 @@ public class rbiddleBasket extends LinearOpMode {
 
 
         // Claw/Wrist
-        clawServo = hardwareMap.get(Servo.class,  "clawServo");
-        wristServo = hardwareMap.get(Servo.class,  "wristServo");
+        clawServo = hardwareMap.get(Servo.class, "clawServo");
+        wristServo = hardwareMap.get(Servo.class, "wristServo");
 
-        ArmSlider.init(hardwareMap);
+        org.firstinspires.ftc.teamcode.common.ArmSlider.init(hardwareMap);
         PID_Arm.init(hardwareMap);
         claw.init(hardwareMap);
         vroom.init(hardwareMap);
@@ -327,29 +295,6 @@ public class rbiddleBasket extends LinearOpMode {
         imu.initialize(parameters);
         imu.resetYaw();
     }
-
-    public void scoreHighBasket() {
-        sliderMotor.setTargetPosition(1700);
-        sliderMotorMotor.setTargetPosition(1700);
-        sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        sliderMotor.setPower(0.3);
-        sliderMotorMotor.setPower(0.3);
-        sleep(3000);
-
-
-
-        wrist.set(wrist.down);
-        sleep(3000);
-
-        if(wrist.getPosition() == wrist.down){
-            claw.AutoOpen();
-        }
-
-    }
-
-
-
 
 }
 
