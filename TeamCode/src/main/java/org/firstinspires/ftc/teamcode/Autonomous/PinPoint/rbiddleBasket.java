@@ -67,8 +67,11 @@ public class rbiddleBasket extends LinearOpMode {
 
             telemetry.addData("PosX()", odo.getPosX());
             telemetry.addData("PosY()", odo.getPosY());
-            imu.resetYaw();
+
             telemetry.update();
+
+            imu.resetYaw();
+            claw.AutoClose();
         }
 
         sliderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -88,18 +91,26 @@ public class rbiddleBasket extends LinearOpMode {
 
         //X = Y and Y = x
         // drive to basket
-        driveToPos(ticksPerInchForward * 25, -ticksPerInchSideways * 8);
+        driveToPos(-ticksPerInchForward * 23, ticksPerInchSideways * 8);
         gyroTurnToAngle(40);
-
-
-        // score 1
+        //Score 1
         //scoreHighBasket();
         //sliderDown();
+        driveToPos(-ticksPerInchForward * 20, ticksPerInchSideways * 30);
+        gyroTurnToAngle(45);
+        wrist.set(wrist.up);
+        sleep(500);
+        claw.AutoOpen();
+        sleep(600);
+        claw.AutoClose();
+
+
+
         sleep(500);
 
         //Move to first sample
-        gyroTurnToAngle(-130);
-        driveToPos(ticksPerInchForward * 25, 0);
+
+
         //sleep(500);
 
 
@@ -117,7 +128,7 @@ public class rbiddleBasket extends LinearOpMode {
         runtime.reset();
         // Run tasks for the entire autonomous period
         while (runtime.seconds() < 1) {
-            PID_Arm.math(-1360);
+            PID_Arm.math(1360);
         }
         wrist.set(wrist.down);
         sleep(400);
