@@ -6,11 +6,11 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.common.interfaces.armSystem;
 
 public class wrist implements armSystem {
-    Servo wristServo;
+    public Servo wristServo;
     //submersible
-    double up = 0.6;
+    public double up = 0.6;
     // high basket
-    double down = 0.1;
+    public double down = 0.1;
 
 
 

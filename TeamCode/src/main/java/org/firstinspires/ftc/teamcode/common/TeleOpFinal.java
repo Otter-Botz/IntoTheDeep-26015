@@ -64,6 +64,9 @@ public class TeleOpFinal extends LinearOpMode {
             //claw code
 
             // preset
+            if (gamepad2.x) {
+                specimen();
+            }
 
             if (gamepad2.b) {
                 highbasket();
@@ -71,9 +74,7 @@ public class TeleOpFinal extends LinearOpMode {
                 submersible();
             }
 
-            if (gamepad2.x) {
-                wrist.set(0.45);
-            }
+
 
 
 
@@ -132,6 +133,11 @@ public class TeleOpFinal extends LinearOpMode {
     public void highbasket() {
 
         PID_Arm.up();
+        wrist.set(wrist.down);
+    }
+
+    public void specimen() {
+        PID_Arm.specimen();
         wrist.set(wrist.down);
     }
 

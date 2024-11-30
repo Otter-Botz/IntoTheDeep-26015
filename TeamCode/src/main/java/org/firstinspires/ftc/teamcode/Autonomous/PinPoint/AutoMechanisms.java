@@ -7,7 +7,12 @@ import static android.os.SystemClock.sleep;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.common.ArmSlider;
 import org.firstinspires.ftc.teamcode.common.PID_Arm;
+import org.firstinspires.ftc.teamcode.common.Slider;
+import org.firstinspires.ftc.teamcode.common.claw;
+import org.firstinspires.ftc.teamcode.common.vroomVroom;
+import org.firstinspires.ftc.teamcode.common.wrist;
 
 public class AutoMechanisms {
 
@@ -32,6 +37,7 @@ public class AutoMechanisms {
     public final double PID_ArmUp = 1115;
     public final double PID_ArmDown = 0;
     public final double PID_ArmMiddle = 557.5;
+
 
     //claw positions
     public void clawOpen(){

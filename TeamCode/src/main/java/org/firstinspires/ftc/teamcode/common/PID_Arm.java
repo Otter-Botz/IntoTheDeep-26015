@@ -94,11 +94,22 @@ public class PID_Arm {
     }
 
     public void AutoUp() {
-        up();
+        target = -1195;
+    }
+
+
+
+
+    public void specimen() {
+        target = 1350;
     }
 
     public void up() {
-        target = 1350;
+        target = 1115;
+    }
+
+    public void idle() {
+         target = 300;
     }
 
     public void armRespond(double value) {
@@ -124,11 +135,23 @@ public class PID_Arm {
         // telemetry.update();
     }
 
-
-
-    public double getPosition() {
-        return armMotor.getCurrentPosition();
+    public void  math(double target) {
+        controller.setPID(p, i, d);
+        int armPos = armMotor.getCurrentPosition();
+        double pid = controller.calculate(armPos, target);
+        double ff = Math.cos(Math.toRadians(target / ticks_in_degrees)) * f;
+        double power = pid + ff;
+        armMotor.setPower(power);
+        // add tele back into main class
+        // telemetry.addData("pos", slidePos);
+        // telemetry.addData("target", target);
+        // telemetry.update();
     }
+
+
+//    public double getPosition() {
+//        return armMotor.getCurrentPosition();
+//    }
 
 
     public void init(HardwareMap hwMap) {
