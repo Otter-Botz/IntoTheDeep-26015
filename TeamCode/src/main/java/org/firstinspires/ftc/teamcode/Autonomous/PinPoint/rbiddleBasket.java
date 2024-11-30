@@ -99,7 +99,7 @@ public class rbiddleBasket extends LinearOpMode {
 
         //Move to first sample
         gyroTurnToAngle(-130);
-        driveToPos(ticksPerInchForward * 25, 0);
+        driveToPos(ticksPerInchForward * 25, -ticksPerInchSideways * 8);
         //sleep(500);
 
 
