@@ -70,29 +70,21 @@ public class slideTest extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            claw.AutoClose();
-            PID_Arm.math();
+            //claw.AutoClose();
+            //PID_Arm.math();
 
             telemetry.addData("pos motor1", slideMotor.getCurrentPosition());
             telemetry.addData("pos motor2", slideMotorMotor.getCurrentPosition());
             telemetry.update();
 
             if (gamepad1.x) {
-                slideMotor.setTargetPosition(1700);
-                slideMotorMotor.setTargetPosition(1700);
-                slideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                slideMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                slideMotor.setPower(0.3);
-                slideMotorMotor.setPower(0.3);
-                sleep(1000);
-
-                PID_Arm.AutoUp();
-
-                wrist.set(wrist.down);
-
-                if(wrist.getPosition() == wrist.down){
                 claw.AutoOpen();
-                  }
+
+            }
+
+            if (gamepad1.a){
+                claw.AutoClose();
+            }
 
 //
 //        claw.AutoClose();
@@ -178,4 +170,4 @@ public class slideTest extends LinearOpMode {
 //        }
             }
         }
-    }}
+    }
