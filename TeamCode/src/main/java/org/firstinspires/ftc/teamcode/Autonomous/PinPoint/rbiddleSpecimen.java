@@ -51,7 +51,7 @@ public class rbiddleSpecimen extends LinearOpMode {
         // Wait
         waitForStart();
         while (opModeIsActive()){
-            mechanisms.math();
+           // mechanisms.math();
         }
         resetRuntime();
 

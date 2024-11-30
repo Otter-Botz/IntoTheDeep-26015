@@ -52,9 +52,9 @@ public class AutoMechanisms {
     public void wristUp(){
         wristServo.setPosition(0.6);
     }
-//    public void wristDown(){
-//        wristDown();
-//    }
+  public void wristDown(){
+       wristDown();
+   }
 
 
 
