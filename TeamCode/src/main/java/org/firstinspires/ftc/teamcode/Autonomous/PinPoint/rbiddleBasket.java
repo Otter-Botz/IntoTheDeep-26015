@@ -87,22 +87,22 @@ public class rbiddleBasket extends LinearOpMode {
 
         //Make sure claw is able to hold sample
         claw.AutoClose();
-        wrist.set(wrist.up);
+        wrist.set(wrist.down);
 
         //X = Y and Y = x
         // drive to basket
-        driveToPos(-ticksPerInchForward * 23, ticksPerInchSideways * 8);
+        driveToPos(-ticksPerInchForward * 23.5, ticksPerInchSideways * 8);
         gyroTurnToAngle(40);
         //Score 1
-        //scoreHighBasket();
+        scoreHighBasket();
         //sliderDown();
-        driveToPos(-ticksPerInchForward * 20, ticksPerInchSideways * 30);
-        gyroTurnToAngle(45);
-        wrist.set(wrist.up);
-        sleep(500);
-        claw.AutoOpen();
-        sleep(600);
-        claw.AutoClose();
+//        driveToPos(-ticksPerInchForward * 20, ticksPerInchSideways * 30);
+//        gyroTurnToAngle(45);
+//        wrist.set(wrist.up);
+//        sleep(500);
+//        claw.AutoOpen();
+//        sleep(600);
+//        claw.AutoClose();
 
 
 
@@ -117,8 +117,8 @@ public class rbiddleBasket extends LinearOpMode {
     }
 
     public void scoreHighBasket() {
-        sliderMotor.setTargetPosition(1500);
-        sliderMotorMotor.setTargetPosition(1500);
+        sliderMotor.setTargetPosition(1400);
+        sliderMotorMotor.setTargetPosition(1400);
         sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         sliderMotor.setPower(0.3);
@@ -128,9 +128,9 @@ public class rbiddleBasket extends LinearOpMode {
         runtime.reset();
         // Run tasks for the entire autonomous period
         while (runtime.seconds() < 1) {
-            PID_Arm.math(1360);
+            PID_Arm.math(1115);
         }
-        wrist.set(wrist.down);
+        wrist.set(wrist.up);
         sleep(400);
         claw.AutoOpen();
     }
