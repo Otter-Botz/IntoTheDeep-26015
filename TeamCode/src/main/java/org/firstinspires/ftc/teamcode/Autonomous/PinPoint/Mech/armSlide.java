@@ -1,14 +1,18 @@
 package org.firstinspires.ftc.teamcode.Autonomous.PinPoint.Mech;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.arcrobotics.ftclib.controller.PIDController;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.ServoControllerEx;
 
 public class armSlide {
 
-    boolean rotation;
-    Servo armServo;
+
+    ServoControllerEx armServo;
     public double angleWrap(double radians) {
-        radians = Math.toRadians(armServo.getPosition());
 
         while (radians > Math.PI) {
             radians -= 2 * Math.PI;
@@ -16,28 +20,10 @@ public class armSlide {
         while (radians < -Math.PI) {
             radians += 2 * Math.PI;
         }
-
+        Math.toDegrees(angleWrap(Math.toRadians(radians)));
         return radians;
-    }
-
-    public double runToPos(double angle) {
-        Math.toDegrees(angleWrap(Math.toRadians(angle)));
-
-        if (angle > 355) {
-            rotation = true;
-        }
-
-
-        armServo.setPosition(angle);
-
-
-        return angle;
 
     }
-
-
-
-
 
 
 
