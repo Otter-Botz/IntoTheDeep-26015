@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Testing;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.common.PID_Arm;
 import org.firstinspires.ftc.teamcode.common.claw;
@@ -36,8 +37,8 @@ public class slideTest extends LinearOpMode {
 //        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 //        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        slideMotor.setDirection(DcMotor.Direction.REVERSE);
-        slideMotorMotor.setDirection(DcMotor.Direction.FORWARD);
+        slideMotorMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
         slideMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slideMotorMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -52,10 +53,10 @@ public class slideTest extends LinearOpMode {
 
         while (opModeInInit()) {
             telemetry.addData("pos motor1", slideMotor.getCurrentPosition());
-            telemetry.addData("pos motor2", slideMotorMotor.getCurrentPosition());
+            //telemetry.addData("pos motor2", slideMotorMotor.getCurrentPosition());
 
             telemetry.addData("pos motor1 target", slideMotor.getTargetPosition());
-            telemetry.addData("pos motor2 target", slideMotorMotor.getTargetPosition());
+            // telemetry.addData("pos motor2 target", slideMotorMotor.getTargetPosition());
 
             //telemetry.addData("PID_Arm", PID_Arm.getPosition());
             telemetry.addData("PID_ArmCurrent", org.firstinspires.ftc.teamcode.common.PID_Arm.armMotor.getCurrentPosition());
@@ -73,13 +74,33 @@ public class slideTest extends LinearOpMode {
             //claw.AutoClose();
             //PID_Arm.math();
 
+            int minRange = -100;    // Minimum position
+            int maxRange = -1100; // Maximum position
+            int currentPosition = slideMotor.getCurrentPosition();
+            double power = 0.3;
+
             telemetry.addData("pos motor1", slideMotor.getCurrentPosition());
-            telemetry.addData("pos motor2", slideMotorMotor.getCurrentPosition());
+            //telemetry.addData("pos motor2", slideMotorMotor.getCurrentPosition());
             telemetry.update();
 
             if (gamepad1.x) {
-                claw.AutoOpen();
 
+                slideMotor.setTargetPosition(-1100);
+                slideMotorMotor.setTargetPosition(-1100);
+                slideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                slideMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                slideMotor.setPower(0.1);
+                slideMotorMotor.setPower(0.1);
+            }
+
+            if (gamepad1.b) {
+                while (currentPosition < minRange)
+                {
+                    slideMotor.setPower(power);
+                    slideMotorMotor.setPower(power);
+
+                }
+                }
             }
 
             if (gamepad1.a){
@@ -170,4 +191,3 @@ public class slideTest extends LinearOpMode {
 //        }
             }
         }
-    }
