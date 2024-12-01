@@ -7,9 +7,12 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.common.PID_Arm;
+import org.firstinspires.ftc.teamcode.common.claw;
+import org.firstinspires.ftc.teamcode.common.wrist;
 
 @Autonomous
 public class rbiddleSpecimen extends LinearOpMode {
@@ -35,6 +38,10 @@ public class rbiddleSpecimen extends LinearOpMode {
     private Servo wristServo;
 
     AutoMechanisms mechanisms = new AutoMechanisms();
+    ElapsedTime time = new ElapsedTime();
+    PID_Arm arm = new PID_Arm();
+    claw claw = new claw();
+    wrist wrist = new wrist();
 
     double tickPerInch = 23;
 
@@ -51,26 +58,62 @@ public class rbiddleSpecimen extends LinearOpMode {
         // Wait
         waitForStart();
         resetRuntime();
+        arm.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        arm.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        mechanisms.belowRung();
-        mechanisms.wristUp();
-        driveToPos(600, 100);
+        claw.set(claw.close);
+        wrist.set(wrist.down);
 
+        driveToPos(-tickPerInch * 32, -270);
+
+        while (time.seconds() < 2) {
+            arm.math(221);
+        }
+
+        wrist.set(wrist.up);
+        boolean runOnce = true;
+        while (time.seconds() > 1.5 && time.seconds() < 4 ) {
+            if(runOnce) {
+                arm.math(1350);
+                sleep(1000);
+                claw.set(claw.open);
+                arm.math(1115);
+                sleep(500);
+                runOnce=false;
+            }
+            driveToPos(-tickPerInch * 22, tickPerInch * 30);
+        }
+        //Move Forward to push first sample
+        driveToPos(-tickPerInch * 55, tickPerInch * 30);
+        //move right to be infront of first sample
+        driveToPos(-tickPerInch * 55, tickPerInch * 40);
+        //push first sample to observation zone
+        driveToPos(-tickPerInch * 15, tickPerInch * 40);
+        //move forward to push second sample
+        driveToPos(-tickPerInch * 50, tickPerInch * 40);
+        //move right to be infront of second sample
+        driveToPos(-tickPerInch * 50, tickPerInch * 47);
+        //push second sample to observation zone
+        driveToPos(-tickPerInch * 16, tickPerInch * 47);
+        driveToPos(-tickPerInch * 50, tickPerInch * 47);
+
+        //gyroTurnToAngle(0);
+
+        //claw.set(claw.open);
+
+        //sleep(500);
+
+
+        //39
 
         /*
-        mechanisms.aboveRung();
-        mechanisms.clawOpen();
-        driveToPos(450, -(tickPerInch * 42));
-        mechanisms.downGrab();
-        mechanisms.wristUp();
+
+
         sleep(1000);
-        mechanisms.clawClose();
-        mechanisms.wristUp();
-        mechanisms.backGrab();
-        mechanisms.clawOpen();
+
         driveToPos(450,-(tickPerInch * 53));
-        mechanisms.downGrab();
-        mechanisms.wristDown();
+
+
         sleep(1000);
         mechanisms.clawClose();
         mechanisms.wristUp();
@@ -82,14 +125,14 @@ public class rbiddleSpecimen extends LinearOpMode {
         mechanisms.clawClose();
         driveToPos(-1334,(tickPerInch * 13));
         mechanisms.belowRung();
-        mechanisms.aboveRung();
+
         mechanisms.clawOpen();
         driveToPos(1334,-(tickPerInch * 13));
         mechanisms.backGrab();
         mechanisms.clawClose();
         driveToPos(-1334,(tickPerInch * 13));
         mechanisms.belowRung();
-        mechanisms.aboveRung();
+
         mechanisms.clawOpen();
         mechanisms.backGrab();
         driveToPos(1403,(tickPerInch * 26));
@@ -114,13 +157,13 @@ public class rbiddleSpecimen extends LinearOpMode {
             telemAdded = true;
         }
 
-        while (opModeIsActive() && ((Math.abs(targetX - odo.getPosX()) > 30)
-                || (Math.abs(targetY - odo.getPosY())) > 30)) {
+        while (opModeIsActive() && ((Math.abs(targetX - odo.getPosX()) > 70)
+                || (Math.abs(targetY - odo.getPosY())) > 70)) {
             odo.update();
 
             //Working
-            double x = 0.0017 * (targetX - odo.getPosX());
-            double y = -0.0017 * (targetY - odo.getPosY());
+            double x = 0.0015 * (targetX - odo.getPosX());
+            double y = -0.0015 * (targetY - odo.getPosY());
 
             double botHeading = odo.getHeading();
 
@@ -210,6 +253,7 @@ public class rbiddleSpecimen extends LinearOpMode {
         backRightMotor.setPower(0);
     }
 
+
     public void initAuto() {
         odo = hardwareMap.get(GoBildaPinpointDriver.class, "odo");
         odo.setOffsets(150, -370); //these are tuned for 3110-0002-0001 Product Insight #1
@@ -238,7 +282,9 @@ public class rbiddleSpecimen extends LinearOpMode {
         // Claw/Wrist
         clawServo = hardwareMap.get(Servo.class,  "clawServo");
         wristServo = hardwareMap.get(Servo.class,  "wristServo");
-
+        wrist.init(hardwareMap);
+        claw.init(hardwareMap);
+        arm.init(hardwareMap);
         // Retrieve the IMU from the hardware map
         imu = hardwareMap.get(IMU.class, "imu");
         // Adjust the orientation parameters to match your robot
