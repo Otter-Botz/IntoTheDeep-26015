@@ -80,6 +80,8 @@ public class rbiddleBasket extends LinearOpMode {
             sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            sliderMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            sliderMotorMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         }
 
@@ -103,7 +105,7 @@ public class rbiddleBasket extends LinearOpMode {
         gyroTurnToAngle(40);
 
         //Score 1
-        highbasketslider();
+
 //        sliderDown();
 //        driveToPos(-ticksPerInchForward * 20, ticksPerInchSideways * 30);
 //        gyroTurnToAngle(45);
@@ -135,20 +137,17 @@ public class rbiddleBasket extends LinearOpMode {
 
     }
 
-    public void highbasketslider() {
+    public void highbasketslider(double maxRange) {
 
-        int minRange = -100;    // Minimum position
-        int maxRange = -1100; // Maximum position
+        int minPosition = -100;    // Minimum position
+        int maxPosition = -1100; // Maximum position
         int currentPosition = sliderMotor.getCurrentPosition();
         double power = 0.3;
-
-        boolean isPathRunning = true;
-        while (isPathRunning) {
-
-            sliderMotor.setPower(power);
-            sliderMotorMotor.setPower(power);
-
+        while (!(currentPosition == maxRange  )) {
+           sliderMotor.setPower(power);
+           sliderMotorMotor.setPower(power);
         }
+
     }
 
     public void scoreHighBasket() {
