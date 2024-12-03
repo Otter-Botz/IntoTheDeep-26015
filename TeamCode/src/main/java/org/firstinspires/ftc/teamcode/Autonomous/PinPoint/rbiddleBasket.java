@@ -57,6 +57,7 @@ public class rbiddleBasket extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         initAuto();
 
+
         while (opModeInInit()) {
             telemetry.addData("pos motor1", sliderMotor.getCurrentPosition());
             telemetry.addData("pos motor2", sliderMotorMotor.getCurrentPosition());
@@ -72,14 +73,18 @@ public class rbiddleBasket extends LinearOpMode {
 
             imu.resetYaw();
             claw.AutoClose();
+
+            sliderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            sliderMotorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            sliderMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            sliderMotorMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         }
 
-        sliderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        sliderMotorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Wait
         waitForStart();
@@ -89,13 +94,19 @@ public class rbiddleBasket extends LinearOpMode {
         claw.AutoClose();
         wrist.set(wrist.down);
 
+        int minRange = -100;    // Minimum position
+        int maxRange = -1100; // Maximum position
+        int currentPosition = sliderMotor.getCurrentPosition();
+        double power = 0.3;
+
         //X = Y and Y = x
         // drive to basket
-        driveToPos(-ticksPerInchForward * 23.5, ticksPerInchSideways * 8);
+        driveToPos(-ticksPerInchForward * 24.5, ticksPerInchSideways * 8);
         gyroTurnToAngle(40);
+
         //Score 1
-        scoreHighBasket();
-        //sliderDown();
+
+//        sliderDown();
 //        driveToPos(-ticksPerInchForward * 20, ticksPerInchSideways * 30);
 //        gyroTurnToAngle(45);
 //        wrist.set(wrist.up);
@@ -103,6 +114,16 @@ public class rbiddleBasket extends LinearOpMode {
 //        claw.AutoOpen();
 //        sleep(600);
 //        claw.AutoClose();
+//
+//        //Score 2
+//        driveToPos(-ticksPerInchForward * 23.5, ticksPerInchSideways * 8);
+//        gyroTurnToAngle(40);
+//
+//        //Move to second sample
+//        driveToPos(-ticksPerInchForward * 20, ticksPerInchSideways * 20);
+//        gyroTurnToAngle(45);
+
+
 
 
 
@@ -116,9 +137,22 @@ public class rbiddleBasket extends LinearOpMode {
 
     }
 
+    public void highbasketslider(double maxRange) {
+
+        int minPosition = -100;    // Minimum position
+        int maxPosition = -1100; // Maximum position
+        int currentPosition = sliderMotor.getCurrentPosition();
+        double power = 0.3;
+        while (!(currentPosition == maxRange  )) {
+           sliderMotor.setPower(power);
+           sliderMotorMotor.setPower(power);
+        }
+
+    }
+
     public void scoreHighBasket() {
-        sliderMotor.setTargetPosition(1400);
-        sliderMotorMotor.setTargetPosition(1400);
+        sliderMotor.setTargetPosition(1100);
+        sliderMotorMotor.setTargetPosition(1100);
         sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         sliderMotor.setPower(0.3);
