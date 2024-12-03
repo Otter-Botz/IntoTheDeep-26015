@@ -11,8 +11,8 @@ import org.firstinspires.ftc.teamcode.common.interfaces.armSystem;
 
 public class claw implements armSystem {
     public Servo clawServo;
-    public double open = 0.55;
-    public double close = 0.37 ;
+    public double open = 0.25;
+    public double close = 0.01;
 
 
    // double clawServoPos = clawServo.getPosition();
