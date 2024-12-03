@@ -14,6 +14,11 @@ public class ServoTest  extends LinearOpMode {
         Servo clawServo = hardwareMap.servo.get("clawServo");
         Servo wristServo = hardwareMap.servo.get("wristServo");
 
+        while (opModeInInit()) {
+            telemetry.addData("clawCurrentPosition", clawServo.getPosition());
+            telemetry.addData("wristCurrentPosition", wristServo.getPosition());
+            telemetry.update();
+        }
         waitForStart();
         while (opModeIsActive()) {
                 //Zero claw position
