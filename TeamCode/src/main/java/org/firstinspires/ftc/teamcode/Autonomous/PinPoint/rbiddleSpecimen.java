@@ -71,7 +71,7 @@ public class rbiddleSpecimen extends LinearOpMode {
         wrist.set(wrist.down);
 
 
-        driveToPos(-tickPerInch * 33, -270);
+        driveToPos(-tickPerInch * 32.3, -270);
 
         while (time.seconds() < 2) {
             arm.math(221);
@@ -88,18 +88,18 @@ public class rbiddleSpecimen extends LinearOpMode {
                 sleep(500);
                 runOnce=false;
             }
+            headingCorrect();
             driveToPos(-tickPerInch * 22, tickPerInch * 30);
         }
-        headingCorrect();
         telemetry.addData("yaw", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
         telemetry.update();
 
 
         //Move Forward to push first sample
-        driveToPos(-tickPerInch * 55, tickPerInch * 30);
+        driveToPos(-tickPerInch * 53, tickPerInch * 30);
 
         //move right to be infront of first sample
-        driveToPos(-tickPerInch * 55, tickPerInch * 40);
+        driveToPos(-tickPerInch * 53, tickPerInch * 40);
         //push first sample to observation zone
         driveToPos(-tickPerInch * 15, tickPerInch * 40);
         //move forward to push second sample
@@ -114,6 +114,11 @@ public class rbiddleSpecimen extends LinearOpMode {
         driveToPos(-tickPerInch * 50, tickPerInch * 59);
         // push into observation zone
         driveToPos(-tickPerInch * 15, tickPerInch * 59);
+        // back up for hp
+        driveToPos(-tickPerInch * 21, tickPerInch * 59);
+        headingCorrect();
+        sleep(500);
+        driveToPos(-tickPerInch * 2, tickPerInch * 59);
 
 
         /*
