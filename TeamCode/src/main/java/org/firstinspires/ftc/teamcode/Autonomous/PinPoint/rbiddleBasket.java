@@ -143,7 +143,7 @@ public class rbiddleBasket extends LinearOpMode {
         int maxPosition = -1100; // Maximum position
         int currentPosition = sliderMotor.getCurrentPosition();
         double power = 0.3;
-        while (!(currentPosition == maxRange  )) {
+        while (!(currentPosition == maxRange)) {
            sliderMotor.setPower(power);
            sliderMotorMotor.setPower(power);
         }

@@ -60,20 +60,18 @@ public class rbiddleSpecimen extends LinearOpMode {
         waitForStart();
         resetRuntime();
 
-        while (opModeInInit()) {
-            telemetry.addData("yaw", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
 
-        }
 
 
         arm.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        imu.resetYaw();
 
         claw.set(claw.close);
         wrist.set(wrist.down);
 
 
-        driveToPos(-tickPerInch * 32, -270);
+        driveToPos(-tickPerInch * 33, -270);
 
         while (time.seconds() < 2) {
             arm.math(221);
@@ -81,7 +79,7 @@ public class rbiddleSpecimen extends LinearOpMode {
 
         wrist.set(wrist.up);
         boolean runOnce = true;
-        while (time.seconds() > 1.5 && time.seconds() < 4 ) {
+        while (time.seconds() > 2 && time.seconds() < 4.5 ) {
             if(runOnce) {
                 arm.math(1250);
                 sleep(1000);
@@ -96,9 +94,10 @@ public class rbiddleSpecimen extends LinearOpMode {
         telemetry.addData("yaw", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
         telemetry.update();
 
-        /*
+
         //Move Forward to push first sample
         driveToPos(-tickPerInch * 55, tickPerInch * 30);
+
         //move right to be infront of first sample
         driveToPos(-tickPerInch * 55, tickPerInch * 40);
         //push first sample to observation zone
@@ -109,8 +108,15 @@ public class rbiddleSpecimen extends LinearOpMode {
         driveToPos(-tickPerInch * 50, tickPerInch * 49);
         //push second sample to observation zone
         driveToPos(-tickPerInch * 15, tickPerInch * 49);
+        // move forward for third sample
         driveToPos(-tickPerInch * 50, tickPerInch * 49);
+        // move right for third sample
+        driveToPos(-tickPerInch * 50, tickPerInch * 59);
+        // push into observation zone
+        driveToPos(-tickPerInch * 15, tickPerInch * 59);
 
+
+        /*
         //gyroTurnToAngle(0);
 
         //claw.set(claw.open);
