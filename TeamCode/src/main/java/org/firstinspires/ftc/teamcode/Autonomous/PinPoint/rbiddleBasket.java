@@ -101,12 +101,24 @@ public class rbiddleBasket extends LinearOpMode {
 
         //X = Y and Y = x
         // drive to basket
-        driveToPos(-ticksPerInchForward * 24.5, ticksPerInchSideways * 8);
+        driveToPos(-ticksPerInchForward * 25.5, ticksPerInchSideways * 8);
         gyroTurnToAngle(40);
 
         //Score 1
+        lowbasketslider();
+        //Slider Down
+        armDown();
+        //Move to first sample
+        driveToPos(-ticksPerInchForward * 20, ticksPerInchSideways * 30);
+        gyroTurnToAngle(45);
+        wrist.set(wrist.AutoUp);
+        sleep(500);
+        claw.AutoOpen();
+        sleep(600);
+        claw.AutoClose();
 
-//        sliderDown();
+
+//       sliderDown();
 //        driveToPos(-ticksPerInchForward * 20, ticksPerInchSideways * 30);
 //        gyroTurnToAngle(45);
 //        wrist.set(wrist.up);
@@ -123,12 +135,6 @@ public class rbiddleBasket extends LinearOpMode {
 //        driveToPos(-ticksPerInchForward * 20, ticksPerInchSideways * 20);
 //        gyroTurnToAngle(45);
 
-
-
-
-
-        sleep(500);
-
         //Move to first sample
 
 
@@ -137,6 +143,25 @@ public class rbiddleBasket extends LinearOpMode {
 
     }
 
+    public void lowbasketslider() {
+        runtime.reset();
+        // Run tasks for the entire autonomous period
+        while (runtime.seconds() < 1) {
+            PID_Arm.math(1115);
+        }
+        wrist.set(wrist.up);
+        sleep(400);
+        claw.AutoOpen();
+    }
+
+    public void armDown() {
+        runtime.reset();
+        // Run tasks for the entire autonomous period
+        while (runtime.seconds() < 5) {
+            PID_Arm.math(100);
+        }
+
+    }
     public void highbasketslider(double maxRange) {
 
         int minPosition = -100;    // Minimum position
@@ -169,12 +194,12 @@ public class rbiddleBasket extends LinearOpMode {
         claw.AutoOpen();
     }
 
-    public void armDown() {
-        runtime.reset();
-        while (runtime.seconds() < 3) {
-            PID_Arm.math(-200);
-        }
-    }
+//    public void armDown() {
+//        runtime.reset();
+//        while (runtime.seconds() < 3) {
+//            PID_Arm.math(-200);
+//        }
+//    }
 
     public void sliderDown() {
         sliderMotor.setTargetPosition(-10);
@@ -184,7 +209,7 @@ public class rbiddleBasket extends LinearOpMode {
         sliderMotor.setPower(0.5);
         sliderMotorMotor.setPower(0.5);
         sleep(1000);
-        armDown();
+        //armDown();
     }
 
     public void driveToPos(double targetX, double targetY) {

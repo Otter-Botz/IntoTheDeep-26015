@@ -9,8 +9,12 @@ public class wrist implements armSystem {
     public Servo wristServo;
     //submersible
     public double up = 0.5;
+
+    public double AutoUp = 0.2;
     // high basket
     public double down = 0;
+
+
 
 
 

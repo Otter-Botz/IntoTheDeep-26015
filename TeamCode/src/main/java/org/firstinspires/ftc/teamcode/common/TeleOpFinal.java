@@ -55,6 +55,9 @@ public class TeleOpFinal extends LinearOpMode {
                 gamepad2.rumble(1000);
             }
 
+//            public double open = 0.55;
+//            public double close = 0.37 ;
+
             if (gamepad1.a) {
                 claw.set(claw.open);
             }
