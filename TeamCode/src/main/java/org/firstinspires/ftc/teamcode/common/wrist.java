@@ -10,7 +10,7 @@ public class wrist implements armSystem {
     //submersible
     public double up = 0.5;
 
-    public double AutoUp = 0.2;
+    public double AutoUp = 0.25;
     // high basket
     public double down = 0;
 
