@@ -45,7 +45,7 @@ public class rbiddleSpecimen extends LinearOpMode {
     wrist wrist = new wrist();
 
     double tickPerInch = 23;
-
+    double currentTime = time.seconds();
     IMU imu;
 
     @Override
@@ -65,62 +65,68 @@ public class rbiddleSpecimen extends LinearOpMode {
 
         arm.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        imu.resetYaw();
+        odo.resetPosAndIMU();
+        sleep(300);
+
+        //Comment from here to test specimen pickup from observation zone
 
         claw.set(claw.close);
         wrist.set(wrist.down);
 
 
-        driveToPos(-tickPerInch * 32.3, -270);
+        driveToPos(-tickPerInch * 32.4, -270);
 
-        while (time.seconds() < 2) {
+        while (time.seconds() <= 2) {
             arm.math(221);
         }
 
         wrist.set(wrist.up);
-        boolean runOnce = true;
-        while (time.seconds() > 2 && time.seconds() < 4.5 ) {
-            if(runOnce) {
-                arm.math(1250);
-                sleep(1000);
-                claw.set(claw.open);
-                arm.math(1115);
-                sleep(500);
-                runOnce=false;
-            }
-            headingCorrect();
-            driveToPos(-tickPerInch * 22, tickPerInch * 30);
-        }
-        telemetry.addData("yaw", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
-        telemetry.update();
+        headingCorrect();
+        //telemetry.addData("time", time.seconds());
+        //telemetry.update();
 
+        arm.math(1250);
+        sleep(1000);
+        claw.set(claw.open);
+        arm.math(1115);
+        sleep(500);
+        headingCorrect();
+        driveToPos(-tickPerInch * 22, tickPerInch * 30);
 
         //Move Forward to push first sample
-        driveToPos(-tickPerInch * 53, tickPerInch * 30);
+        driveToPos(-tickPerInch * 50, tickPerInch * 30);
 
         //move right to be infront of first sample
-        driveToPos(-tickPerInch * 53, tickPerInch * 40);
+        driveToPos(-tickPerInch * 50, tickPerInch * 40);
         //push first sample to observation zone
-        driveToPos(-tickPerInch * 15, tickPerInch * 40);
+        driveToPos(-tickPerInch * 14, tickPerInch * 40);
         //move forward to push second sample
         driveToPos(-tickPerInch * 50, tickPerInch * 40);
         //move right to be infront of second sample
         driveToPos(-tickPerInch * 50, tickPerInch * 49);
         //push second sample to observation zone
-        driveToPos(-tickPerInch * 15, tickPerInch * 49);
+        driveToPos(-tickPerInch * 14, tickPerInch * 49);
         // move forward for third sample
         driveToPos(-tickPerInch * 50, tickPerInch * 49);
         // move right for third sample
         driveToPos(-tickPerInch * 50, tickPerInch * 59);
         // push into observation zone
-        driveToPos(-tickPerInch * 15, tickPerInch * 59);
+        driveToPos(-tickPerInch * 14, tickPerInch * 59);
         // back up for hp
+
+        //Comment till here to test specimen pickup from observation zone
         driveToPos(-tickPerInch * 21, tickPerInch * 59);
         headingCorrect();
         sleep(500);
-        driveToPos(-tickPerInch * 2, tickPerInch * 59);
 
+        driveToPos(-tickPerInch * 10, tickPerInch * 59);
 
+        currentTime=time.seconds();
+        wrist.set(0.2);
+        while (time.seconds() < currentTime+2 ){
+            arm.math(116);
+        }
+        claw.set(claw.close);
         /*
         //gyroTurnToAngle(0);
 
