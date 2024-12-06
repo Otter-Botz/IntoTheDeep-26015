@@ -75,6 +75,7 @@ public class rbiddleSpecimen extends LinearOpMode {
 
 
         driveToPos(-tickPerInch * 32.4, -270);
+        // x 32.4 y -270
 
         while (time.seconds() <= 2) {
             arm.math(221);
@@ -92,7 +93,6 @@ public class rbiddleSpecimen extends LinearOpMode {
         sleep(500);
         headingCorrect();
         driveToPos(-tickPerInch * 22, tickPerInch * 30);
-
         //Move Forward to push first sample
         driveToPos(-tickPerInch * 50, tickPerInch * 30);
 
@@ -114,19 +114,62 @@ public class rbiddleSpecimen extends LinearOpMode {
         driveToPos(-tickPerInch * 14, tickPerInch * 59);
         // back up for hp
 
-        //Comment till here to test specimen pickup from observation zone
-        driveToPos(-tickPerInch * 21, tickPerInch * 59);
-        headingCorrect();
-        sleep(500);
 
-        driveToPos(-tickPerInch * 10, tickPerInch * 59);
+
+        //Comment till here to test specimen pickup from observation zone
+        driveToPos(-tickPerInch * 25, tickPerInch * 59);
+        headingCorrect();
+        sleep(1000);
+
+        driveToPos(-tickPerInch * 8.85, tickPerInch * 59);
 
         currentTime=time.seconds();
-        wrist.set(0.2);
-        while (time.seconds() < currentTime+2 ){
+        wrist.set(0.1);
+        while (time.seconds() < currentTime+4 ){
             arm.math(116);
+            if (time.seconds() > currentTime + 2) {
+                claw.set(claw.close);
+            }
         }
-        claw.set(claw.close);
+        wrist.set(wrist.up);
+        driveToPos(-tickPerInch * 18, -250);
+        driveToPos(-tickPerInch * 32.4, -250);
+        headingCorrect();
+
+        arm.math(1250);
+        sleep(1000);
+        claw.set(claw.open);
+        arm.math(1115);
+        sleep(500);
+        headingCorrect();
+
+        driveToPos(-tickPerInch * 25, tickPerInch * 58);
+
+        headingCorrect();
+        sleep(1000);
+
+        driveToPos(-tickPerInch * 8.85, tickPerInch * 58);
+
+        currentTime=time.seconds();
+        wrist.set(0.1);
+        while (time.seconds() < currentTime+4 ){
+            arm.math(116);
+            if (time.seconds() > currentTime + 2) {
+                claw.set(claw.close);
+            }
+        }
+        wrist.set(wrist.up);
+
+        driveToPos(-tickPerInch * 18, -250);
+        driveToPos(-tickPerInch * 32.4, -250);
+        headingCorrect();
+        arm.math(1250);
+        sleep(1000);
+        claw.set(claw.open);
+        arm.math(1115);
+        sleep(500);
+        headingCorrect();
+
         /*
         //gyroTurnToAngle(0);
 
@@ -191,8 +234,8 @@ public class rbiddleSpecimen extends LinearOpMode {
             telemAdded = true;
         }
 
-        while (opModeIsActive() && ((Math.abs(targetX - odo.getPosX()) > 70)
-                || (Math.abs(targetY - odo.getPosY())) > 70)) {
+        while (opModeIsActive() && ((Math.abs(targetX - odo.getPosX()) > 60)
+                || (Math.abs(targetY - odo.getPosY())) > 60)) {
             odo.update();
 
             //Working
