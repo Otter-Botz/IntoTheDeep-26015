@@ -28,7 +28,7 @@ public class claw implements armSystem {
     }
 
     public void AutoClose() {
-        clawServo.setPosition(0.01);
+        clawServo.setPosition(0);
     }
     @Override
     public void set(double position) {
