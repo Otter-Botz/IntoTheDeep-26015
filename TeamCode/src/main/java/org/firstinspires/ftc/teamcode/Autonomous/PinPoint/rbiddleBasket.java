@@ -63,8 +63,6 @@ public class rbiddleBasket extends LinearOpMode {
             telemetry.addData("pos motor2", sliderMotorMotor.getCurrentPosition());
             telemetry.addData("pos motor1 target", sliderMotor.getTargetPosition());
             telemetry.addData("pos motor2 target", sliderMotorMotor.getTargetPosition());
-            telemetry.addData("claw position", claw.getPosition());
-            telemetry.addData("wrist position", wrist.wristServo.getPosition());
 
             telemetry.addData("PosX()", odo.getPosX());
             telemetry.addData("PosY()", odo.getPosY());
@@ -84,7 +82,8 @@ public class rbiddleBasket extends LinearOpMode {
             armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             sliderMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             sliderMotorMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            imu.resetYaw();
+            odo.resetPosAndIMU();
+            sleep(300);
 
 
         }
@@ -101,43 +100,68 @@ public class rbiddleBasket extends LinearOpMode {
 
         //X = Y and Y = x
         //Make sure claw is able to hold sample
-        // temp comment claw.AutoClose();
-        // temp comment wrist.set(wrist.down);
+        claw.AutoClose();
+        wrist.set(wrist.down);
         // drive to basket
-        driveToPos(-ticksPerInchForward * 20, ticksPerInchSideways * 11);
+        driveToPos(-ticksPerInchForward * 10, ticksPerInchSideways * 10);
+        sleep(1000);
+        driveToPos(-ticksPerInchForward * 20, ticksPerInchSideways * 10);
         gyroTurnToAngle(40);
         // 24.5 Barely Making It In Basket
-        driveToPos(-ticksPerInchForward * 24,ticksPerInchSideways * 11);
+        driveToPos(-ticksPerInchForward * 24.5,ticksPerInchSideways * 10);
 
         //Score 1
-        // temp comment lowbasketslider();
-        // temp comment sleep(1000);
+        lowbasketslider();
+        sleep(1000);
         //Slider Down
-        // temp comment armDown();
+        armDown();
         headingCorrectBasket();
         //Move to first sample
-        // temp comment armDown();
-        driveToPos(-ticksPerInchForward * 24, ticksPerInchSideways * 11);
-        // Y is y and X is X
-        driveToPos(-ticksPerInchForward * 24, ticksPerInchSideways * 28);
-        headingCorrectSample();
-        //Pick Up Sample
+        armDown();
+        driveToPos(-ticksPerInchForward * 20.15, ticksPerInchSideways * 26.5);
+        claw.AutoOpen();
+        sleep(600);
+        driveToPos(-ticksPerInchForward * 20.25, ticksPerInchSideways * 37.3);
+        armDown();
+        sleep(500);
+        claw.AutoClose();
+        sleep(500);
+        wrist.set(wrist.down);
+        sleep(300);
+        driveToPos(-ticksPerInchForward * 21, ticksPerInchSideways * 26.5);
+        sleep(500);
+        driveToPos(-ticksPerInchForward * 29,ticksPerInchSideways * 13);
+        gyroTurnToAngle(-40);
+        //Score 2
+        lowbasketslider();
         sleep(1000);
+        //Slider Down
+        armDown();
+
+
+        // Y is y and X is X
+        //driveToPos(-ticksPerInchForward * 20, ticksPerInchSideways * 31);
+
+        //headingCorrectSample();
+        //Pick Up Sample
+//        wrist.set(wrist.AutoDown);
+//        sleep(500);
+
         //Move to Basket
-        driveToPos(-ticksPerInchForward * 24, ticksPerInchSideways * 20);
-        driveToPos(-ticksPerInchForward * 35, ticksPerInchSideways * 20  );
+//        driveToPos(-ticksPerInchForward * 24, ticksPerInchSideways * 20);
+//        driveToPos(-ticksPerInchForward * 37, ticksPerInchSideways * 20);
+//
+//        gyroTurnToAngle(40);
+//        lowbasketslider();
+//        sleep(1000);
+//        armDown();
 
         //gyroTurnToAngle(45);
         //driveToPos(-ticksPerInchForward * 5, ticksPerInchSideways * 20);
 
         //driveToPos(-ticksPerInchForward * 10, ticksPerInchSideways * 30);
 
-//        wrist.set(wrist.AutoUp);
-//        sleep(500);
-//        claw.AutoOpen();
-//        sleep(600);
-//        claw.AutoClose();
-
+//
 
 //       sliderDown();
 //        driveToPos(-ticksPerInchForward * 20, ticksPerInchSideways * 30);
@@ -198,13 +222,13 @@ public class rbiddleBasket extends LinearOpMode {
 
     public void  headingCorrectBasket() {
         double heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
-        double error = 78 - heading;
+        double error = 90 - heading;
         gyroTurnToAngle(error);
     }
 
     public void  headingCorrectSample() {
         double heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
-        double error = 35 - heading;
+        double error = 80 - heading;
         gyroTurnToAngle(error);
     }
     public void scoreHighBasket() {
