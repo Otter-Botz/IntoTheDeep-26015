@@ -74,7 +74,7 @@ public class rbiddleSpecimen extends LinearOpMode {
         wrist.set(wrist.down);
 
 
-        driveToPos(-tickPerInch * 32.4, -270);
+        driveToPos(-tickPerInch * 32.15, -270);
         // x 32.4 y -270
 
         while (time.seconds() <= 2) {
@@ -107,11 +107,11 @@ public class rbiddleSpecimen extends LinearOpMode {
         //push second sample to observation zone
         driveToPos(-tickPerInch * 14, tickPerInch * 49);
         // move forward for third sample
-        driveToPos(-tickPerInch * 50, tickPerInch * 49);
+       // driveToPos(-tickPerInch * 50, tickPerInch * 49);
         // move right for third sample
-        driveToPos(-tickPerInch * 50, tickPerInch * 59);
+       // driveToPos(-tickPerInch * 50, tickPerInch * 59);
         // push into observation zone
-        driveToPos(-tickPerInch * 14, tickPerInch * 59);
+        //driveToPos(-tickPerInch * 14, tickPerInch * 59);
         // back up for hp
 
 
@@ -119,15 +119,16 @@ public class rbiddleSpecimen extends LinearOpMode {
         //Comment till here to test specimen pickup from observation zone
         driveToPos(-tickPerInch * 25, tickPerInch * 59);
         headingCorrect();
-        sleep(1000);
+        sleep(300);
 
-        driveToPos(-tickPerInch * 8.85, tickPerInch * 59);
+        driveToPos(-tickPerInch * 8, tickPerInch * 59);
 
-        currentTime=time.seconds();
+        sleep(300);
         wrist.set(0.1);
-        while (time.seconds() < currentTime+4 ){
+        currentTime=time.seconds();
+        while (time.seconds() < currentTime+2 ){
             arm.math(116);
-            if (time.seconds() > currentTime + 2) {
+            if (time.seconds() > currentTime + 1) {
                 claw.set(claw.close);
             }
         }
@@ -146,15 +147,16 @@ public class rbiddleSpecimen extends LinearOpMode {
         driveToPos(-tickPerInch * 25, tickPerInch * 58);
 
         headingCorrect();
-        sleep(1000);
+        sleep(300);
 
-        driveToPos(-tickPerInch * 8.85, tickPerInch * 58);
+        driveToPos(-tickPerInch * 6.8, tickPerInch * 58);
 
-        currentTime=time.seconds();
+        sleep(300);
         wrist.set(0.1);
-        while (time.seconds() < currentTime+4 ){
+        currentTime=time.seconds();
+        while (time.seconds() < currentTime+2 ){
             arm.math(116);
-            if (time.seconds() > currentTime + 2) {
+            if (time.seconds() > currentTime + 1) {
                 claw.set(claw.close);
             }
         }
@@ -167,7 +169,7 @@ public class rbiddleSpecimen extends LinearOpMode {
         sleep(1000);
         claw.set(claw.open);
         arm.math(1115);
-        sleep(500);
+        sleep(300);
         headingCorrect();
 
         /*
