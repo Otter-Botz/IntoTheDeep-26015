@@ -15,8 +15,8 @@ import org.firstinspires.ftc.teamcode.common.claw;
 import org.firstinspires.ftc.teamcode.common.vroomVroom;
 import org.firstinspires.ftc.teamcode.common.wrist;
 
-@Autonomous(name = "BasketWithoutPark")
-public class rbiddleBasket extends LinearOpMode {
+@Autonomous(name = "BasketWithPark")
+public class rbiddleBasketWithPark extends LinearOpMode {
 
     // Odo Pods and IMU
     GoBildaPinpointDriver odo;
@@ -121,133 +121,14 @@ public class rbiddleBasket extends LinearOpMode {
         headingCorrectBasket();
         wrist.set(wrist.up);
 
-//        //Park
-//        armDown();
-//        driveToPos(-ticksPerInchForward * 7, ticksPerInchSideways * 40);
-//        sleep(300);
-//        driveToPos(-ticksPerInchForward * 3, ticksPerInchSideways * 50);
-//        sleep(300);
-//        driveToPos(-ticksPerInchForward * 3, ticksPerInchSideways * 60);
-//        sleep(1000);
-
-
-        //Move to first sample
+        //Park
         armDown();
-        driveToPos(-ticksPerInchForward * 19.5, ticksPerInchSideways * 26.5);
-        claw.AutoOpen();
-        sleep(100);
-        driveToPos(-ticksPerInchForward * 24, ticksPerInchSideways * 34);
-
-
-        //Pick Up first Sample
-//        wrist.set(wrist.AutoUp);
-//        sleep(200);
-        armDown();
-        sleep(200);
-        wrist.set(wrist.AutoMiddle);
-        sleep(200);
-        claw.AutoClose();
+        driveToPos(-ticksPerInchForward * 7, ticksPerInchSideways * 40);
         sleep(300);
-        wrist.set(0.5);
-        sleep(200);
-
-        // move to basket
-        driveToPos(-ticksPerInchForward * 28, ticksPerInchSideways * 26.5);
-        sleep(200);
-        driveToPos(-ticksPerInchForward * 31,ticksPerInchSideways * 14);
-        gyroTurnToAngle(-39);
-
-
-        //Score 2
-        lowbasketsliderwithoutwrist();
-        sleep(100);
-        //Slider Down
-        armDown();
-        //wrist.set(wrist.down);
-
-
-        //Move to second sample
-        //26.5 Sometimes Work
-        gyroTurnToAngle(45);
-        driveToPos(-ticksPerInchForward * 32, ticksPerInchSideways * 26.5);
-        sleep(500);
-        claw.set(claw.open);
-        driveToPos(-ticksPerInchForward * 34.5, ticksPerInchSideways * 39.5);
-
-
-        //Pick Up Second Sample
-//        wrist.set(wrist.AutoUp);
-//        sleep(200);
-        armDown();
-        sleep(200);
-        wrist.set(wrist.AutoMiddle);
-        sleep(200);
-        claw.AutoClose();
+        driveToPos(-ticksPerInchForward * 3, ticksPerInchSideways * 50);
         sleep(300);
-        wrist.set(0.5);
-        sleep(200);
-
-
-        //Move to basket
-        driveToPos(-ticksPerInchForward * 31, ticksPerInchSideways * 26.5);
-        sleep(500);
-        driveToPos(-ticksPerInchForward * 31,ticksPerInchSideways * 14);
-        gyroTurnToAngle(-39);
-
-        //Score 3
-        lowbasketsliderwithoutwrist();
-        sleep(100);
-        //Slider Down
-        armDown();
-
-// Commented till here
-
-        // Y is y and X is X
-        //driveToPos(-ticksPerInchForward * 20, ticksPerInchSideways * 31);
-
-        //headingCorrectSample();
-        //Pick Up Sample
-//        wrist.set(wrist.AutoDown);
-//        sleep(500);
-
-        //Move to Basket
-//        driveToPos(-ticksPerInchForward * 24, ticksPerInchSideways * 20);
-//        driveToPos(-ticksPerInchForward * 37, ticksPerInchSideways * 20);
-//
-//        gyroTurnToAngle(40);
-//        lowbasketslider();
-//        sleep(1000);
-//        armDown();
-
-        //gyroTurnToAngle(45);
-        //driveToPos(-ticksPerInchForward * 5, ticksPerInchSideways * 20);
-
-        //driveToPos(-ticksPerInchForward * 10, ticksPerInchSideways * 30);
-
-//
-
-//       sliderDown();
-//        driveToPos(-ticksPerInchForward * 20, ticksPerInchSideways * 30);
-//        gyroTurnToAngle(45);
-//        wrist.set(wrist.up);
-//        sleep(500);
-//        claw.AutoOpen();
-//        sleep(600);
-//        claw.AutoClose();
-//
-//        //Score 2
-//        driveToPos(-ticksPerInchForward * 23.5, ticksPerInchSideways * 8);
-//        gyroTurnToAngle(40);
-//
-//        //Move to second sample
-//        driveToPos(-ticksPerInchForward * 20, ticksPerInchSideways * 20);
-//        gyroTurnToAngle(45);
-
-        //Move to first sample
-
-
-        //sleep(500);
-
+        driveToPos(-ticksPerInchForward * 3, ticksPerInchSideways * 60);
+        sleep(1000);
 
     }
 
