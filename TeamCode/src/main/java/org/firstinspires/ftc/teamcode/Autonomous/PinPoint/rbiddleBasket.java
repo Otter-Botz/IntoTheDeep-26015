@@ -102,7 +102,7 @@ public class rbiddleBasket extends LinearOpMode {
         odo.resetPosAndIMU();
         sleep(300);
         claw.AutoClose();
-        wrist.set(wrist.down);
+        wrist.set(wrist.up);
 
 
         // drive to basket
@@ -111,10 +111,10 @@ public class rbiddleBasket extends LinearOpMode {
         driveToPos(-ticksPerInchForward * 20, ticksPerInchSideways * 10);
         gyroTurnToAngle(40);
         // 24.5 Barely Making It In Basket
-        driveToPos(-ticksPerInchForward * 23,ticksPerInchSideways * 10);
+        driveToPos(-ticksPerInchForward * 24,ticksPerInchSideways * 10);
 
         //Score 1
-        lowbasketslider();
+        lowbasketsliderwithoutwrist();
         sleep(500);
         //Slider Down
         armDown();
@@ -130,7 +130,11 @@ public class rbiddleBasket extends LinearOpMode {
 
 
         //Pick Up first Sample
+//        wrist.set(wrist.AutoUp);
+//        sleep(200);
         armDown();
+        sleep(200);
+        wrist.set(wrist.AutoMiddle);
         sleep(200);
         claw.AutoClose();
         sleep(300);
@@ -140,7 +144,7 @@ public class rbiddleBasket extends LinearOpMode {
         // move to basket
         driveToPos(-ticksPerInchForward * 28, ticksPerInchSideways * 26.5);
         sleep(200);
-        driveToPos(-ticksPerInchForward * 32,ticksPerInchSideways * 15);
+        driveToPos(-ticksPerInchForward * 31,ticksPerInchSideways * 14);
         gyroTurnToAngle(-39);
 
 
@@ -162,6 +166,8 @@ public class rbiddleBasket extends LinearOpMode {
 
 
         //Pick Up Second Sample
+//        wrist.set(wrist.AutoUp);
+//        sleep(200);
         armDown();
         sleep(200);
         wrist.set(wrist.AutoMiddle);
@@ -237,7 +243,6 @@ public class rbiddleBasket extends LinearOpMode {
 
     public void lowbasketslider() {
         runtime.reset();
-        // Run tasks for the entire autonomous period
         while (runtime.seconds() < 1.75) {
             PID_Arm.math(1180);
         }
@@ -250,7 +255,7 @@ public class rbiddleBasket extends LinearOpMode {
         runtime.reset();
         // Run tasks for the entire autonomous period
         while (runtime.seconds() < 1.75) {
-            PID_Arm.math(1115);
+            PID_Arm.math(1207);
         }
         sleep(200);
         claw.AutoOpen();
