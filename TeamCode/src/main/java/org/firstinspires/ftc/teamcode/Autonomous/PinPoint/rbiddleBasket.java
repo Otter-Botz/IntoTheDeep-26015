@@ -105,7 +105,7 @@ public class rbiddleBasket extends LinearOpMode {
         wrist.set(wrist.down);
         // drive to basket
         driveToPos(-ticksPerInchForward * 10, ticksPerInchSideways * 10);
-        sleep(200);
+        sleep(300);
         driveToPos(-ticksPerInchForward * 20, ticksPerInchSideways * 10);
         gyroTurnToAngle(40);
         // 24.5 Barely Making It In Basket
@@ -113,7 +113,6 @@ public class rbiddleBasket extends LinearOpMode {
 
         //Score 1
         lowbasketslider();
-        sleep(500);
         //Slider Down
         armDown();
         headingCorrectBasket();
@@ -122,7 +121,7 @@ public class rbiddleBasket extends LinearOpMode {
         driveToPos(-ticksPerInchForward * 19.5, ticksPerInchSideways * 26.5);
         claw.AutoOpen();
         sleep(100);
-        driveToPos(-ticksPerInchForward * 25, ticksPerInchSideways * 39);
+        driveToPos(-ticksPerInchForward * 25, ticksPerInchSideways * 36);
         //Pick Up Sample
         armDown();
         sleep(200);
@@ -136,16 +135,13 @@ public class rbiddleBasket extends LinearOpMode {
         gyroTurnToAngle(-40);
         //Score 2
         lowbasketsliderwithoutwrist();
-        sleep(500);
+        sleep(100);
         //Slider Down
         armDown();
         //Move to second sample
-        armDown();
-        driveToPos(-ticksPerInchForward * 16, ticksPerInchSideways * 26.5);
-        gyroTurnToAngle(90);
-        claw.AutoOpen();
-        sleep(100);
-        driveToPos(-ticksPerInchForward * 32, ticksPerInchSideways * 41);
+        //26.5 Sometimes Work
+        gyroTurnToAngle(45);
+        driveToPos(-ticksPerInchForward * 30, ticksPerInchSideways * 37);
         //Pick Up Sample
         armDown();
         sleep(200);
