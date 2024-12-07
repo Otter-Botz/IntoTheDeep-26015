@@ -12,6 +12,7 @@ public class wrist implements armSystem {
 
     public double AutoUp = 0.25;
     public double AutoDown = 0;
+    public double AutoMiddle = 0.25;
     // high basket
     public double down = 0;
 

@@ -94,7 +94,7 @@ public class PID_Arm {
     }
 
     public void AutoUp() {
-        target = -1195;
+        target = 1115;
     }
 
 

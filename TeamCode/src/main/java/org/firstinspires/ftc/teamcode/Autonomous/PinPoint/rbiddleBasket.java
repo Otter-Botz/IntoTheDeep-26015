@@ -82,8 +82,7 @@ public class rbiddleBasket extends LinearOpMode {
             armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             sliderMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             sliderMotorMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            odo.resetPosAndIMU();
-            sleep(300);
+
 
 
         }
@@ -100,43 +99,57 @@ public class rbiddleBasket extends LinearOpMode {
 
         //X = Y and Y = x
         //Make sure claw is able to hold sample
+        odo.resetPosAndIMU();
+        sleep(300);
         claw.AutoClose();
         wrist.set(wrist.down);
         // drive to basket
         driveToPos(-ticksPerInchForward * 10, ticksPerInchSideways * 10);
-        sleep(1000);
+        sleep(300);
         driveToPos(-ticksPerInchForward * 20, ticksPerInchSideways * 10);
         gyroTurnToAngle(40);
         // 24.5 Barely Making It In Basket
-        driveToPos(-ticksPerInchForward * 24.5,ticksPerInchSideways * 10);
+        driveToPos(-ticksPerInchForward * 23,ticksPerInchSideways * 10);
 
         //Score 1
         lowbasketslider();
-        sleep(1000);
         //Slider Down
         armDown();
         headingCorrectBasket();
         //Move to first sample
         armDown();
-        driveToPos(-ticksPerInchForward * 20.15, ticksPerInchSideways * 26.5);
+        driveToPos(-ticksPerInchForward * 19.5, ticksPerInchSideways * 26.5);
         claw.AutoOpen();
-        sleep(600);
-        driveToPos(-ticksPerInchForward * 20.25, ticksPerInchSideways * 37.3);
+        sleep(100);
+        driveToPos(-ticksPerInchForward * 25, ticksPerInchSideways * 36);
+        //Pick Up Sample
         armDown();
-        sleep(500);
+        sleep(200);
         claw.AutoClose();
-        sleep(500);
-        wrist.set(wrist.down);
         sleep(300);
+        wrist.set(0.5);
+        sleep(200);
         driveToPos(-ticksPerInchForward * 21, ticksPerInchSideways * 26.5);
         sleep(500);
-        driveToPos(-ticksPerInchForward * 29,ticksPerInchSideways * 13);
+        driveToPos(-ticksPerInchForward * 32,ticksPerInchSideways * 14);
         gyroTurnToAngle(-40);
         //Score 2
-        lowbasketslider();
-        sleep(1000);
+        lowbasketsliderwithoutwrist();
+        sleep(100);
         //Slider Down
         armDown();
+        //Move to second sample
+        //26.5 Sometimes Work
+        gyroTurnToAngle(45);
+        driveToPos(-ticksPerInchForward * 30, ticksPerInchSideways * 37);
+        //Pick Up Sample
+        armDown();
+        sleep(200);
+        claw.AutoClose();
+        sleep(300);
+        wrist.set(0.5);
+        sleep(200);
+
 
 
         // Y is y and X is X
@@ -192,10 +205,20 @@ public class rbiddleBasket extends LinearOpMode {
         runtime.reset();
         // Run tasks for the entire autonomous period
         while (runtime.seconds() < 1.75) {
-            PID_Arm.math(1163);
+            PID_Arm.math(1180);
         }
         wrist.set(wrist.AutoUp);
-        sleep(700);
+        sleep(200);
+        claw.AutoOpen();
+    }
+
+    public void lowbasketsliderwithoutwrist() {
+        runtime.reset();
+        // Run tasks for the entire autonomous period
+        while (runtime.seconds() < 1.75) {
+            PID_Arm.math(1115);
+        }
+        sleep(200);
         claw.AutoOpen();
     }
 
@@ -222,7 +245,7 @@ public class rbiddleBasket extends LinearOpMode {
 
     public void  headingCorrectBasket() {
         double heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
-        double error = 90 - heading;
+        double error = 84 - heading;
         gyroTurnToAngle(error);
     }
 
