@@ -68,7 +68,7 @@ public class rbiddleSpecimen extends LinearOpMode {
         odo.resetPosAndIMU();
         sleep(300);
 
-        //Comment from here to test specimen pickup from observation zone
+        //Comment from here to test specimen pickup f  vcccccccccccccccccccccccccccccccccccccccccc  rom observation zone
 
         claw.set(claw.close);
         wrist.set(wrist.down);
@@ -85,17 +85,25 @@ public class rbiddleSpecimen extends LinearOpMode {
         headingCorrect();
         //telemetry.addData("time", time.seconds());
         //telemetry.update();
-
         arm.math(1100);
         sleep(1000);
         claw.set(claw.open);
         arm.math(1115);
+        /*
+        currentTime = time.seconds();
+        while (time.seconds() < currentTime + 1 ) {
+            arm.math(800);
+            driveToPos(-tickPerInch * 22, tickPerInch * 30);
+        }
+        arm.math(0);
+
+         */
         sleep(500);
         headingCorrect();
         driveToPos(-tickPerInch * 22, tickPerInch * 30);
+
         //Move Forward to push first sample
         driveToPos(-tickPerInch * 50, tickPerInch * 30);
-
 
         //move right to be infront of first sample
         driveToPos(-tickPerInch * 50, tickPerInch * 40);
@@ -122,20 +130,20 @@ public class rbiddleSpecimen extends LinearOpMode {
         headingCorrect();
         sleep(300);
 
-        driveToPos(-tickPerInch * 8, tickPerInch * 59);
+        driveToPos(-tickPerInch * 7.5, tickPerInch * 59);
 
         sleep(300);
-        wrist.set(0.1);
+        wrist.set(0.2);
         currentTime=time.seconds();
         while (time.seconds() < currentTime+2 ){
-            arm.math(116);
+            arm.math(140);
             if (time.seconds() > currentTime + 1) {
                 claw.set(claw.close);
             }
         }
         wrist.set(wrist.up);
         driveToPos(-tickPerInch * 18, -250);
-        driveToPos(-tickPerInch * 32.4, -250);
+        driveToPos(-tickPerInch * 31.9, -250);
         headingCorrect();
 
         arm.math(1100);
@@ -150,21 +158,21 @@ public class rbiddleSpecimen extends LinearOpMode {
         headingCorrect();
         sleep(300);
 
-        driveToPos(-tickPerInch * 6.8, tickPerInch * 58);
+        driveToPos(-tickPerInch * 6.3, tickPerInch * 58);
 
         sleep(300);
-        wrist.set(0.1);
+        wrist.set(0.2);
         currentTime=time.seconds();
         while (time.seconds() < currentTime+2 ){
-            arm.math(116);
+            arm.math(140);
             if (time.seconds() > currentTime + 1) {
                 claw.set(claw.close);
             }
         }
         wrist.set(wrist.up);
 
-        driveToPos(-tickPerInch * 18, -260);
-        driveToPos(-tickPerInch * 32.4, -260);
+        driveToPos(-tickPerInch * 18, -230);
+        driveToPos(-tickPerInch * 31.9, -230);
         arm.math(1100);
         sleep(1000);
         claw.set(claw.open);
