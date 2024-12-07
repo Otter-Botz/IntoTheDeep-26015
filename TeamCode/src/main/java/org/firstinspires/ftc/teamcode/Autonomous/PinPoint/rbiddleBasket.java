@@ -111,7 +111,7 @@ public class rbiddleBasket extends LinearOpMode {
         driveToPos(-ticksPerInchForward * 20, ticksPerInchSideways * 10);
         gyroTurnToAngle(40);
         // 24.5 Barely Making It In Basket
-        driveToPos(-ticksPerInchForward * 24,ticksPerInchSideways * 11.5);
+        driveToPos(-ticksPerInchForward * 24,ticksPerInchSideways * 13);
 
         //Score 1
         lowbasketsliderwithoutwrist();
