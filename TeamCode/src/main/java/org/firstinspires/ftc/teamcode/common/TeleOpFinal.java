@@ -93,6 +93,12 @@ public class TeleOpFinal extends LinearOpMode {
                 wrist.wristServo.setPosition(0);
             }
 
+            // Arm reset button
+            if (gamepad2.options) {
+                PID_Arm.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                PID_Arm.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            }
+
 
 
             // fine control (ryan was here)

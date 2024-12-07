@@ -130,7 +130,7 @@ public class rbiddleSpecimen extends LinearOpMode {
         headingCorrect();
         sleep(300);
 
-        driveToPos(-tickPerInch * 7.5, tickPerInch * 59);
+        driveToPos(-tickPerInch * 8 , tickPerInch * 59);
 
         sleep(300);
         wrist.set(0.2);

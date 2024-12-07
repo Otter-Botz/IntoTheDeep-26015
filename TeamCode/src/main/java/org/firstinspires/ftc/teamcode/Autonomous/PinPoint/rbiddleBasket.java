@@ -111,7 +111,7 @@ public class rbiddleBasket extends LinearOpMode {
         driveToPos(-ticksPerInchForward * 20, ticksPerInchSideways * 10);
         gyroTurnToAngle(40);
         // 24.5 Barely Making It In Basket
-        driveToPos(-ticksPerInchForward * 24,ticksPerInchSideways * 13);
+        driveToPos(-ticksPerInchForward * 24.5,ticksPerInchSideways * 8);
 
         //Score 1
         lowbasketsliderwithoutwrist();
@@ -121,77 +121,86 @@ public class rbiddleBasket extends LinearOpMode {
         headingCorrectBasket();
         wrist.set(wrist.up);
 
-
-        //Move to first sample
+        //Park
         armDown();
-        driveToPos(-ticksPerInchForward * 19.5, ticksPerInchSideways * 26.5);
-        claw.AutoOpen();
-        sleep(100);
-        driveToPos(-ticksPerInchForward * 24, ticksPerInchSideways * 37.5);
-
-
-        //Pick Up first Sample
-//        wrist.set(wrist.AutoUp);
-//        sleep(200);
-        armDown();
-        sleep(200);
-        wrist.set(wrist.AutoMiddle);
-        sleep(200);
-        claw.AutoClose();
+        driveToPos(-ticksPerInchForward * 7, ticksPerInchSideways * 40);
         sleep(300);
-        wrist.set(0.5);
-        sleep(200);
-
-        // move to basket
-        driveToPos(-ticksPerInchForward * 28, ticksPerInchSideways * 26.5);
-        sleep(200);
-        driveToPos(-ticksPerInchForward * 31,ticksPerInchSideways * 14);
-        gyroTurnToAngle(-39);
-
-
-        //Score 2
-        lowbasketsliderwithoutwrist();
-        sleep(100);
-        //Slider Down
-        armDown();
-        //wrist.set(wrist.down);
-
-
-        //Move to second sample
-        //26.5 Sometimes Work
-        gyroTurnToAngle(45);
-        driveToPos(-ticksPerInchForward * 32, ticksPerInchSideways * 26.5);
-        sleep(500);
-        claw.set(claw.open);
-        driveToPos(-ticksPerInchForward * 34.5, ticksPerInchSideways * 39.5);
-
-
-        //Pick Up Second Sample
-//        wrist.set(wrist.AutoUp);
-//        sleep(200);
-        armDown();
-        sleep(200);
-        wrist.set(wrist.AutoMiddle);
-        sleep(200);
-        claw.AutoClose();
+        driveToPos(-ticksPerInchForward * 3, ticksPerInchSideways * 50);
         sleep(300);
-        wrist.set(0.5);
-        sleep(200);
+        driveToPos(-ticksPerInchForward * 3, ticksPerInchSideways * 60);
+        sleep(1000);
 
 
-        //Move to basket
-        driveToPos(-ticksPerInchForward * 31, ticksPerInchSideways * 26.5);
-        sleep(500);
-        driveToPos(-ticksPerInchForward * 31,ticksPerInchSideways * 14);
-        gyroTurnToAngle(-39);
+//        //Move to first sample
+//        armDown();
+//        driveToPos(-ticksPerInchForward * 19.5, ticksPerInchSideways * 26.5);
+//        claw.AutoOpen();
+//        sleep(100);
+//        driveToPos(-ticksPerInchForward * 24, ticksPerInchSideways * 34);
+//
+//
+//        //Pick Up first Sample
+////        wrist.set(wrist.AutoUp);
+////        sleep(200);
+//        armDown();
+//        sleep(200);
+//        wrist.set(wrist.AutoMiddle);
+//        sleep(200);
+//        claw.AutoClose();
+//        sleep(300);
+//        wrist.set(0.5);
+//        sleep(200);
+//
+//        // move to basket
+//        driveToPos(-ticksPerInchForward * 28, ticksPerInchSideways * 26.5);
+//        sleep(200);
+//        driveToPos(-ticksPerInchForward * 31,ticksPerInchSideways * 14);
+//        gyroTurnToAngle(-39);
+//
+//
+//        //Score 2
+//        lowbasketsliderwithoutwrist();
+//        sleep(100);
+//        //Slider Down
+//        armDown();
+//        //wrist.set(wrist.down);
+//
+//
+//        //Move to second sample
+//        //26.5 Sometimes Work
+//        gyroTurnToAngle(45);
+//        driveToPos(-ticksPerInchForward * 32, ticksPerInchSideways * 26.5);
+//        sleep(500);
+//        claw.set(claw.open);
+//        driveToPos(-ticksPerInchForward * 34.5, ticksPerInchSideways * 39.5);
+//
+//
+//        //Pick Up Second Sample
+////        wrist.set(wrist.AutoUp);
+////        sleep(200);
+//        armDown();
+//        sleep(200);
+//        wrist.set(wrist.AutoMiddle);
+//        sleep(200);
+//        claw.AutoClose();
+//        sleep(300);
+//        wrist.set(0.5);
+//        sleep(200);
+//
+//
+//        //Move to basket
+//        driveToPos(-ticksPerInchForward * 31, ticksPerInchSideways * 26.5);
+//        sleep(500);
+//        driveToPos(-ticksPerInchForward * 31,ticksPerInchSideways * 14);
+//        gyroTurnToAngle(-39);
+//
+//        //Score 3
+//        lowbasketsliderwithoutwrist();
+//        sleep(100);
+//        //Slider Down
+//        armDown();
 
-        //Score 3
-        lowbasketsliderwithoutwrist();
-        sleep(100);
-        //Slider Down
-        armDown();
-
-
+// Commented till here
 
         // Y is y and X is X
         //driveToPos(-ticksPerInchForward * 20, ticksPerInchSideways * 31);
@@ -256,7 +265,7 @@ public class rbiddleBasket extends LinearOpMode {
         runtime.reset();
         // Run tasks for the entire autonomous period
         while (runtime.seconds() < 1.75) {
-            PID_Arm.math(1207);
+            PID_Arm.math(1221);
         }
         sleep(200);
         claw.AutoOpen();
