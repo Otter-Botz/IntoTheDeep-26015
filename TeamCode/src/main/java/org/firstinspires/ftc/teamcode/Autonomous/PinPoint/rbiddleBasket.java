@@ -130,7 +130,11 @@ public class rbiddleBasket extends LinearOpMode {
 
 
         //Pick Up first Sample
+        wrist.set(wrist.AutoUp);
+        sleep(200);
         armDown();
+        sleep(200);
+        wrist.set(wrist.AutoMiddle);
         sleep(200);
         claw.AutoClose();
         sleep(300);
@@ -162,6 +166,8 @@ public class rbiddleBasket extends LinearOpMode {
 
 
         //Pick Up Second Sample
+        wrist.set(wrist.AutoUp);
+        sleep(200);
         armDown();
         sleep(200);
         wrist.set(wrist.AutoMiddle);
@@ -237,7 +243,6 @@ public class rbiddleBasket extends LinearOpMode {
 
     public void lowbasketslider() {
         runtime.reset();
-        // Run tasks for the entire autonomous period
         while (runtime.seconds() < 1.75) {
             PID_Arm.math(1180);
         }
