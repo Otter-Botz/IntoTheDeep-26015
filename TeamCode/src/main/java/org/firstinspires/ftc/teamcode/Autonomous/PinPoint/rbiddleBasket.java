@@ -103,6 +103,8 @@ public class rbiddleBasket extends LinearOpMode {
         sleep(300);
         claw.AutoClose();
         wrist.set(wrist.down);
+
+
         // drive to basket
         driveToPos(-ticksPerInchForward * 10, ticksPerInchSideways * 10);
         sleep(300);
@@ -113,42 +115,74 @@ public class rbiddleBasket extends LinearOpMode {
 
         //Score 1
         lowbasketslider();
+        sleep(500);
         //Slider Down
         armDown();
         headingCorrectBasket();
+
+
         //Move to first sample
         armDown();
         driveToPos(-ticksPerInchForward * 19.5, ticksPerInchSideways * 26.5);
         claw.AutoOpen();
         sleep(100);
-        driveToPos(-ticksPerInchForward * 25, ticksPerInchSideways * 36);
-        //Pick Up Sample
+        driveToPos(-ticksPerInchForward * 24, ticksPerInchSideways * 37.5);
+
+
+        //Pick Up first Sample
         armDown();
         sleep(200);
         claw.AutoClose();
         sleep(300);
         wrist.set(0.5);
         sleep(200);
-        driveToPos(-ticksPerInchForward * 21, ticksPerInchSideways * 26.5);
-        sleep(500);
-        driveToPos(-ticksPerInchForward * 32,ticksPerInchSideways * 14);
-        gyroTurnToAngle(-40);
+
+        // move to basket
+        driveToPos(-ticksPerInchForward * 28, ticksPerInchSideways * 26.5);
+        sleep(200);
+        driveToPos(-ticksPerInchForward * 32,ticksPerInchSideways * 15);
+        gyroTurnToAngle(-39);
+
+
         //Score 2
         lowbasketsliderwithoutwrist();
         sleep(100);
         //Slider Down
         armDown();
+        //wrist.set(wrist.down);
+
+
         //Move to second sample
         //26.5 Sometimes Work
         gyroTurnToAngle(45);
-        driveToPos(-ticksPerInchForward * 30, ticksPerInchSideways * 37);
-        //Pick Up Sample
+        driveToPos(-ticksPerInchForward * 32, ticksPerInchSideways * 26.5);
+        sleep(500);
+        claw.set(claw.open);
+        driveToPos(-ticksPerInchForward * 34.5, ticksPerInchSideways * 39.5);
+
+
+        //Pick Up Second Sample
         armDown();
+        sleep(200);
+        wrist.set(wrist.AutoMiddle);
         sleep(200);
         claw.AutoClose();
         sleep(300);
         wrist.set(0.5);
         sleep(200);
+
+
+        //Move to basket
+        driveToPos(-ticksPerInchForward * 31, ticksPerInchSideways * 26.5);
+        sleep(500);
+        driveToPos(-ticksPerInchForward * 31,ticksPerInchSideways * 14);
+        gyroTurnToAngle(-39);
+
+        //Score 3
+        lowbasketsliderwithoutwrist();
+        sleep(100);
+        //Slider Down
+        armDown();
 
 
 
