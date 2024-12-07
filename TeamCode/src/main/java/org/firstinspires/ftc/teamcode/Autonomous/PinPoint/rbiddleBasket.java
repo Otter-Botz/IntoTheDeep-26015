@@ -61,7 +61,7 @@ public class rbiddleBasket extends LinearOpMode {
         while (opModeInInit()) {
             telemetry.addData("pos motor1", sliderMotor.getCurrentPosition());
             telemetry.addData("pos motor2", sliderMotorMotor.getCurrentPosition());
-            telemetry.addData("pos motor1 target", sliderMotor.getTargetPosition());
+                telemetry.addData("pos motor1 target", sliderMotor.getTargetPosition());
             telemetry.addData("pos motor2 target", sliderMotorMotor.getTargetPosition());
 
             telemetry.addData("PosX()", odo.getPosX());
@@ -199,6 +199,14 @@ public class rbiddleBasket extends LinearOpMode {
         sleep(100);
         //Slider Down
         armDown();
+
+        //Park
+        driveToPos(-ticksPerInchForward * 7, ticksPerInchSideways * 40);
+        gyroTurnToAngle(30);
+        driveToPos(-ticksPerInchForward * 3, ticksPerInchSideways * 50);
+        driveToPos(-ticksPerInchForward * 3, ticksPerInchSideways * 60);
+
+
 
 // Commented till here
 
