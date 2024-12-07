@@ -143,7 +143,7 @@ public class rbiddleSpecimen extends LinearOpMode {
         }
         wrist.set(wrist.up);
         driveToPos(-tickPerInch * 18, -250);
-        driveToPos(-tickPerInch * 31.9, -250);
+        driveToPos(-tickPerInch * 31.4, -250);
         headingCorrect();
 
         arm.math(1100);
@@ -172,7 +172,7 @@ public class rbiddleSpecimen extends LinearOpMode {
         wrist.set(wrist.up);
 
         driveToPos(-tickPerInch * 18, -230);
-        driveToPos(-tickPerInch * 31.9, -230);
+        driveToPos(-tickPerInch * 31.4, -230);
         arm.math(1100);
         sleep(1000);
         claw.set(claw.open);
