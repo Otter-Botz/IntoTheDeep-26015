@@ -136,7 +136,7 @@ public class rbiddleBasket extends LinearOpMode {
         driveToPos(-ticksPerInchForward * 19.5, ticksPerInchSideways * 26.5);
         claw.AutoOpen();
         sleep(100);
-        driveToPos(-ticksPerInchForward * 24, ticksPerInchSideways * 34);
+        driveToPos(-ticksPerInchForward * 24, ticksPerInchSideways * 37);
 
 
         //Pick Up first Sample
