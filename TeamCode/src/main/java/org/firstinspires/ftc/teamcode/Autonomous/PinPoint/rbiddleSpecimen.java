@@ -73,8 +73,8 @@ public class rbiddleSpecimen extends LinearOpMode {
         claw.set(claw.close);
         wrist.set(wrist.down);
 
-
-        driveToPos(-tickPerInch * 32.15, -270);
+       // driveToPos(-tickPerInch * 26.4, -270);
+        driveToPos(-tickPerInch * 32.4, -270);
         // x 32.4 y -270
 
         while (time.seconds() <= 2) {
@@ -86,7 +86,7 @@ public class rbiddleSpecimen extends LinearOpMode {
         //telemetry.addData("time", time.seconds());
         //telemetry.update();
 
-        arm.math(1250);
+        arm.math(1100);
         sleep(1000);
         claw.set(claw.open);
         arm.math(1115);
@@ -95,6 +95,7 @@ public class rbiddleSpecimen extends LinearOpMode {
         driveToPos(-tickPerInch * 22, tickPerInch * 30);
         //Move Forward to push first sample
         driveToPos(-tickPerInch * 50, tickPerInch * 30);
+
 
         //move right to be infront of first sample
         driveToPos(-tickPerInch * 50, tickPerInch * 40);
@@ -137,7 +138,7 @@ public class rbiddleSpecimen extends LinearOpMode {
         driveToPos(-tickPerInch * 32.4, -250);
         headingCorrect();
 
-        arm.math(1250);
+        arm.math(1100);
         sleep(1000);
         claw.set(claw.open);
         arm.math(1115);
@@ -162,10 +163,9 @@ public class rbiddleSpecimen extends LinearOpMode {
         }
         wrist.set(wrist.up);
 
-        driveToPos(-tickPerInch * 18, -250);
-        driveToPos(-tickPerInch * 32.4, -250);
-        headingCorrect();
-        arm.math(1250);
+        driveToPos(-tickPerInch * 18, -260);
+        driveToPos(-tickPerInch * 32.4, -260);
+        arm.math(1100);
         sleep(1000);
         claw.set(claw.open);
         arm.math(1115);
@@ -236,8 +236,8 @@ public class rbiddleSpecimen extends LinearOpMode {
             telemAdded = true;
         }
 
-        while (opModeIsActive() && ((Math.abs(targetX - odo.getPosX()) > 60)
-                || (Math.abs(targetY - odo.getPosY())) > 60)) {
+        while (opModeIsActive() && ((Math.abs(targetX - odo.getPosX()) > 61)
+                || (Math.abs(targetY - odo.getPosY())) > 61)) {
             odo.update();
 
             //Working

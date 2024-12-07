@@ -101,11 +101,11 @@ public class PID_Arm {
 
 
     public void specimen() {
-        target = 1350;
+        target = 1390;
     }
 
     public void up() {
-        target = 1115;
+        target = 1180;
     }
 
     public void idle() {
