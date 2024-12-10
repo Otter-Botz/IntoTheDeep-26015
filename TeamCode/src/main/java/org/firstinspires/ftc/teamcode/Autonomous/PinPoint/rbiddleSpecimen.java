@@ -153,7 +153,7 @@ public class rbiddleSpecimen extends LinearOpMode {
         sleep(500);
         headingCorrect();
 
-        driveToPos(-tickPerInch * 25, tickPerInch * 58);
+        driveToPos(-tickPerInch * 25, tickPerInch * 59);
 
         headingCorrect();
         sleep(300);
