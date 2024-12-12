@@ -8,9 +8,15 @@ import org.firstinspires.ftc.teamcode.common.interfaces.armSystem;
 public class wrist implements armSystem {
     public Servo wristServo;
     //submersible
-    public double up = 0;
+    public double up = 0.5;
+
+    public double AutoUp = 0.25;
+    public double AutoDown = 0;
+    public double AutoMiddle = 0.25;
     // high basket
-    public double down = 0.2;
+    public double down = 0;
+
+
 
 
 

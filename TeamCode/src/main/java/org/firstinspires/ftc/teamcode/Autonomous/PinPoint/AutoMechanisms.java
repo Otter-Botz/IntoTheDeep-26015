@@ -66,16 +66,7 @@ public class AutoMechanisms {
     public void belowRung(){
         armMotor.setTargetPosition(1500);
     }
-    public void aboveRung(){
-        armMotor.setTargetPosition(1200);
-    }
-    //arm movement used for both autos
-    public void downGrab(){
-        armMotor.setTargetPosition(221);
-    }
-    public void armUp(){
-        armMotor.setTargetPosition(1115);
-    }
+
 
 
 //    public void pickupsample() {
@@ -91,7 +82,7 @@ public class AutoMechanisms {
         //Main Sliders
 
         //Arm
-        armUp();
+
         //Wrist
         wristUp();
         sleep(1000);

@@ -55,11 +55,15 @@ public class TeleOpFinal extends LinearOpMode {
                 gamepad2.rumble(1000);
             }
 
-            clawPressed = clawPressed && gamepad1.b;
+//            public double open = 0.55;
+//            public double close = 0.37 ;
 
-            if(gamepad1.b && !clawPressed){
-                toggleClaw();
-                clawPressed = true;
+            if (gamepad1.a) {
+                claw.set(claw.open);
+            }
+
+            if(gamepad1.b){
+                claw.set(claw.close);
             }
             //claw code
 
@@ -87,6 +91,12 @@ public class TeleOpFinal extends LinearOpMode {
                 claw.clawServo.setPosition(0);
             } else if (gamepad2.right_bumper) {
                 wrist.wristServo.setPosition(0);
+            }
+
+            // Arm reset button
+            if (gamepad2.options) {
+                PID_Arm.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                PID_Arm.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             }
 
 
@@ -133,11 +143,16 @@ public class TeleOpFinal extends LinearOpMode {
     public void highbasket() {
 
         PID_Arm.up();
-        wrist.set(wrist.down);
+        wrist.set(wrist.up);
     }
 
     public void specimen() {
         PID_Arm.specimen();
+        wrist.set(wrist.up);
+    }
+
+    public void submersible() {
+        PID_Arm.down();
         wrist.set(wrist.down);
     }
 
@@ -182,10 +197,7 @@ public class TeleOpFinal extends LinearOpMode {
     }
 
 
-    public void submersible() {
-        PID_Arm.down();
-        wrist.set(wrist.up);
-    }
+
 
 }
 
