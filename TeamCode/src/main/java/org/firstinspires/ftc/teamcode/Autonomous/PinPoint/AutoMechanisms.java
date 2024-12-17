@@ -56,7 +56,10 @@ public class AutoMechanisms {
        wristDown();
    }
 
-
+//pid math
+    public void pidMath(){
+        
+    }
 
 
     //only spec auto arm movements
