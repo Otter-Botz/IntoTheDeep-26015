@@ -52,7 +52,7 @@ public class TeleOpFinal extends LinearOpMode {
             }
 
             if (gamepad1.right_bumper) {
-                gamepad2.rumble(1000);
+                PID_Arm.specimen();
             }
 
 //            public double open = 0.55;
@@ -61,10 +61,25 @@ public class TeleOpFinal extends LinearOpMode {
             if (gamepad1.a) {
                 claw.set(claw.open);
             }
-
             if(gamepad1.b){
                 claw.set(claw.close);
             }
+
+            if (gamepad1.dpad_up) {
+                ArmSlider.set(ArmSlider.out);
+                PID_Arm.target = 375;
+            }
+            else if (gamepad1.dpad_down) {
+                ArmSlider.set(ArmSlider.in);
+            }
+            else if (gamepad1.dpad_right) {
+                ArmSlider.set(ArmSlider.middle);
+            }
+            else if (gamepad1.left_bumper) {
+                PID_Arm.target = 330;
+            }
+
+
             //claw code
 
             // preset
@@ -84,7 +99,6 @@ public class TeleOpFinal extends LinearOpMode {
 
             Slider.sliderMotor.setPower(gamepad2.right_stick_y);
             Slider.sliderMotorMotor.setPower(gamepad2.right_stick_y);
-            ArmSlider.armSliderServo.setPower(gamepad2.left_stick_y);
 
 
             if (gamepad2.left_bumper) {
