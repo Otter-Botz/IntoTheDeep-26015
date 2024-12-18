@@ -7,13 +7,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.common.PID_Arm;
-import org.firstinspires.ftc.teamcode.common.claw;
-import org.firstinspires.ftc.teamcode.common.wrist;
 
 @Autonomous
 public class rbiddleSpecimen extends LinearOpMode {
@@ -39,13 +35,9 @@ public class rbiddleSpecimen extends LinearOpMode {
     private Servo wristServo;
 
     AutoMechanisms mechanisms = new AutoMechanisms();
-    ElapsedTime time = new ElapsedTime();
-    PID_Arm arm = new PID_Arm();
-    claw claw = new claw();
-    wrist wrist = new wrist();
 
     double tickPerInch = 23;
-    double currentTime = time.seconds();
+
     IMU imu;
 
     @Override
@@ -58,148 +50,27 @@ public class rbiddleSpecimen extends LinearOpMode {
 
         // Wait
         waitForStart();
+        while (opModeIsActive()){
+            //mechanisms.math();
+        }
         resetRuntime();
 
-
-
-
-        arm.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        arm.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        odo.resetPosAndIMU();
-        sleep(300);
-
-        //Comment from here to test specimen pickup f  vcccccccccccccccccccccccccccccccccccccccccc  rom observation zone
-
-        claw.set(claw.close);
-        wrist.set(wrist.down);
-
-       // driveToPos(-tickPerInch * 26.4, -270);
-        driveToPos(-tickPerInch * 32.4, -270);
-        // x 32.4 y -270
-
-        while (time.seconds() <= 2) {
-            arm.math(221);
-        }
-
-        wrist.set(wrist.up);
-        headingCorrect();
-        //telemetry.addData("time", time.seconds());
-        //telemetry.update();
-        arm.math(1100);
+        mechanisms.belowRung();
+        mechanisms.wristUp();
+        driveToPos(600, 100);
+        //mechanisms.aboveRung();
+        mechanisms.clawOpen();
+        driveToPos(450, -(tickPerInch * 42));
+       /// mechanisms.downGrab();
+        mechanisms.wristDown();
         sleep(1000);
-        claw.set(claw.open);
-        arm.math(1115);
-        /*
-        currentTime = time.seconds();
-        while (time.seconds() < currentTime + 1 ) {
-            arm.math(800);
-            driveToPos(-tickPerInch * 22, tickPerInch * 30);
-        }
-        arm.math(0);
-
-         */
-        sleep(500);
-        headingCorrect();
-        driveToPos(-tickPerInch * 22, tickPerInch * 30);
-
-        //Move Forward to push first sample
-        driveToPos(-tickPerInch * 50, tickPerInch * 30);
-
-        //move right to be infront of first sample
-        driveToPos(-tickPerInch * 50, tickPerInch * 40);
-        //push first sample to observation zone
-        driveToPos(-tickPerInch * 14, tickPerInch * 40);
-        //move forward to push second sample
-        driveToPos(-tickPerInch * 50, tickPerInch * 40);
-        //move right to be infront of second sample
-        driveToPos(-tickPerInch * 50, tickPerInch * 49);
-        //push second sample to observation zone
-        driveToPos(-tickPerInch * 14, tickPerInch * 49);
-        // move forward for third sample
-       // driveToPos(-tickPerInch * 50, tickPerInch * 49);
-        // move right for third sample
-       // driveToPos(-tickPerInch * 50, tickPerInch * 59);
-        // push into observation zone
-        //driveToPos(-tickPerInch * 14, tickPerInch * 59);
-        // back up for hp
-
-
-
-        //Comment till here to test specimen pickup from observation zone
-        driveToPos(-tickPerInch * 25, tickPerInch * 59);
-        headingCorrect();
-        sleep(300);
-
-        driveToPos(-tickPerInch * 8 , tickPerInch * 59);
-
-        sleep(300);
-        wrist.set(0.2);
-        currentTime=time.seconds();
-        while (time.seconds() < currentTime+2 ){
-            arm.math(140);
-            if (time.seconds() > currentTime + 1) {
-                claw.set(claw.close);
-            }
-        }
-        wrist.set(wrist.up);
-        driveToPos(-tickPerInch * 18, -250);
-        driveToPos(-tickPerInch * 31.4, -250);
-        headingCorrect();
-
-        arm.math(1100);
-        sleep(1000);
-        claw.set(claw.open);
-        arm.math(1115);
-        sleep(500);
-        headingCorrect();
-
-        driveToPos(-tickPerInch * 25, tickPerInch * 59);
-
-        headingCorrect();
-        sleep(300);
-
-        driveToPos(-tickPerInch * 6.3, tickPerInch * 58);
-
-        sleep(300);
-        wrist.set(0.2);
-        currentTime=time.seconds();
-        while (time.seconds() < currentTime+2 ){
-            arm.math(140);
-            if (time.seconds() > currentTime + 1) {
-                claw.set(claw.close);
-            }
-        }
-        wrist.set(wrist.up);
-
-        driveToPos(-tickPerInch * 18, -230);
-        driveToPos(-tickPerInch * 31.4, -230);
-        arm.math(1100);
-        sleep(1000);
-        claw.set(claw.open);
-        arm.math(1115);
-        sleep(300);
-        headingCorrect();
-
-        /*
-        //gyroTurnToAngle(0);
-
-        //claw.set(claw.open);
-
-        //sleep(500);
-
-
-        //39
-
-        /*
-
-
-
-
-        sleep(1000);
-
+        mechanisms.clawClose();
+        mechanisms.wristUp();
+        mechanisms.backGrab();
+        mechanisms.clawOpen();
         driveToPos(450,-(tickPerInch * 53));
-
-
+       // mechanisms.downGrab();
+        mechanisms.wristDown();
         sleep(1000);
         mechanisms.clawClose();
         mechanisms.wristUp();
@@ -211,20 +82,18 @@ public class rbiddleSpecimen extends LinearOpMode {
         mechanisms.clawClose();
         driveToPos(-1334,(tickPerInch * 13));
         mechanisms.belowRung();
-
+        //mechanisms.aboveRung();
         mechanisms.clawOpen();
         driveToPos(1334,-(tickPerInch * 13));
         mechanisms.backGrab();
         mechanisms.clawClose();
         driveToPos(-1334,(tickPerInch * 13));
         mechanisms.belowRung();
-
+        //mechanisms.aboveRung();
         mechanisms.clawOpen();
         mechanisms.backGrab();
         driveToPos(1403,(tickPerInch * 26));
         driveToPos(1403,-(tickPerInch * 44));
-        */
-
 
 
 
@@ -239,18 +108,17 @@ public class rbiddleSpecimen extends LinearOpMode {
             telemetry.addData("PosY()", odo.getPosY());
             telemetry.addData("TargetX", targetX);
             telemetry.addData("TargetY", targetY);
-
             telemetry.update();
             telemAdded = true;
         }
 
-        while (opModeIsActive() && ((Math.abs(targetX - odo.getPosX()) > 61)
-                || (Math.abs(targetY - odo.getPosY())) > 61)) {
+        while (opModeIsActive() && ((Math.abs(targetX - odo.getPosX()) > 30)
+                || (Math.abs(targetY - odo.getPosY())) > 30)) {
             odo.update();
 
             //Working
-            double x = 0.0015 * (targetX - odo.getPosX());
-            double y = -0.0015 * (targetY - odo.getPosY());
+            double x = 0.0017 * (targetX - odo.getPosX());
+            double y = -0.0017 * (targetY - odo.getPosY());
 
             double botHeading = odo.getHeading();
 
@@ -262,7 +130,6 @@ public class rbiddleSpecimen extends LinearOpMode {
                 telemetry.addData("y: ", y);
                 telemetry.addData("rotX: ", rotX);
                 telemetry.addData("rotY: ", rotY);
-
                 telemetry.update();
                 telemAdded = true;
             }
@@ -340,12 +207,6 @@ public class rbiddleSpecimen extends LinearOpMode {
         frontRightMotor.setPower(0);
         backRightMotor.setPower(0);
     }
-    public void headingCorrect() {
-        double heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
-        double error = 0 - heading;
-        gyroTurnToAngle(error);
-    }
-
 
     public void initAuto() {
         odo = hardwareMap.get(GoBildaPinpointDriver.class, "odo");
@@ -375,9 +236,7 @@ public class rbiddleSpecimen extends LinearOpMode {
         // Claw/Wrist
         clawServo = hardwareMap.get(Servo.class,  "clawServo");
         wristServo = hardwareMap.get(Servo.class,  "wristServo");
-        wrist.init(hardwareMap);
-        claw.init(hardwareMap);
-        arm.init(hardwareMap);
+
         // Retrieve the IMU from the hardware map
         imu = hardwareMap.get(IMU.class, "imu");
         // Adjust the orientation parameters to match your robot
