@@ -53,6 +53,17 @@ public class HighBasketAuto extends LinearOpMode {
     int ticksPerInchForward = 23;
     int ticksPerInchSideways = 22;
 
+
+    //Sliders
+    private int minRange = 1000;
+    private int maxRange = 1200;
+
+
+    // logic: Set target positions for motors
+    int targetPosition = (minRange + maxRange) / 2; // Midpoint of range
+
+
+
     @Override
     public void runOpMode() throws InterruptedException {
         initAuto();
@@ -69,6 +80,10 @@ public class HighBasketAuto extends LinearOpMode {
 
             telemetry.addData("yaw", imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
 
+            // Display telemetry for driver adjustment
+            telemetry.addLine("Adjust using gamepad:");
+            telemetry.addData("Min Range", minRange + " ticks (D-Pad Up/Down)");
+            telemetry.addData("Max Range", maxRange + " ticks (D-Pad Left/Right)");
 
 
             telemetry.update();
@@ -83,7 +98,23 @@ public class HighBasketAuto extends LinearOpMode {
             sliderMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             sliderMotorMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+            // Adjust minRange using D-Pad
+            if (gamepad1.dpad_down) {
+                minRange -= 10; // Decrease minRange
+            } else if (gamepad1.dpad_up) {
+                minRange += 10; // Increase minRange
+            }
 
+            // Adjust maxRange using D-Pad
+            if (gamepad1.dpad_left) {
+                maxRange -= 10; // Decrease maxRange
+            } else if (gamepad1.dpad_right) {
+                maxRange += 10; // Increase maxRange
+            }
+
+            // Clamp ranges to valid encoder values
+            minRange = Math.max(minRange, 0);
+            maxRange = Math.max(maxRange, minRange);
 
         }
 
@@ -92,10 +123,7 @@ public class HighBasketAuto extends LinearOpMode {
         waitForStart();
         resetRuntime();
 
-        int minRange = -100;    // Minimum position
-        int maxRange = -1100; // Maximum position
-        int currentPosition = sliderMotor.getCurrentPosition();
-        double power = 0.3;
+
 
         //X = Y and Y = x
         //Make sure claw is able to hold sample
@@ -114,7 +142,7 @@ public class HighBasketAuto extends LinearOpMode {
         driveToPos(-ticksPerInchForward * 24.5,ticksPerInchSideways * 8);
 
         //Score 1
-        lowbasketsliderwithoutwrist();
+        sliderUp();
         sleep(500);
         //Slider Down
         armDown();
@@ -160,18 +188,6 @@ public class HighBasketAuto extends LinearOpMode {
         }
 
     }
-    public void highbasketslider(double maxRange) {
-
-        int minPosition = -100;    // Minimum position
-        int maxPosition = -1100; // Maximum position
-        int currentPosition = sliderMotor.getCurrentPosition();
-        double power = 0.3;
-        while (!(currentPosition == maxRange)) {
-            sliderMotor.setPower(power);
-            sliderMotorMotor.setPower(power);
-        }
-
-    }
 
     public void  headingCorrectBasket() {
         double heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
@@ -184,6 +200,7 @@ public class HighBasketAuto extends LinearOpMode {
         double error = 80 - heading;
         gyroTurnToAngle(error);
     }
+
     public void scoreHighBasket() {
         sliderMotor.setTargetPosition(1100);
         sliderMotorMotor.setTargetPosition(1100);
@@ -210,16 +227,29 @@ public class HighBasketAuto extends LinearOpMode {
 //        }
 //    }
 
-    public void sliderDown() {
-        sliderMotor.setTargetPosition(-10);
-        sliderMotorMotor.setTargetPosition(-10);
-        sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+    public void sliderUp() {
+        sliderMotor.setTargetPosition(targetPosition);
+        sliderMotorMotor.setTargetPosition(targetPosition);
+
+        // Set motor power and let them move to the target
+        sliderMotorMotor.setPower(0.5);  // Adjust power as needed
         sliderMotor.setPower(0.5);
-        sliderMotorMotor.setPower(0.5);
-        sleep(1000);
-        //armDown();
+
+        // Wait until motors reach their target
+        while (opModeIsActive() && (sliderMotor.isBusy() || sliderMotorMotor.isBusy())) {
+            telemetry.addData("Target Position", targetPosition + " ticks");
+            telemetry.addData("Motor Left Current", sliderMotor.getCurrentPosition());
+            telemetry.addData("Motor Right Current", sliderMotorMotor.getCurrentPosition());
+            telemetry.update();
+        }
+
+        // Stop the motors once target is reached
+        sliderMotor.setPower(0);
+        sliderMotorMotor.setPower(0);
+
     }
+
 
     public void driveToPos(double targetX, double targetY) {
         odo.update();
