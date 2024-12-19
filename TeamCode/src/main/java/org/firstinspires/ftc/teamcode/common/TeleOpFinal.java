@@ -67,7 +67,7 @@ public class TeleOpFinal extends LinearOpMode {
 
             if (gamepad1.dpad_up) {
                 ArmSlider.set(ArmSlider.out);
-                PID_Arm.target = 375;
+                PID_Arm.target = 240;
             }
             else if (gamepad1.dpad_down) {
                 ArmSlider.set(ArmSlider.in);
@@ -76,7 +76,7 @@ public class TeleOpFinal extends LinearOpMode {
                 ArmSlider.set(ArmSlider.middle);
             }
             else if (gamepad1.left_bumper) {
-                PID_Arm.target = 330;
+                PID_Arm.target = 200;
             }
 
 
