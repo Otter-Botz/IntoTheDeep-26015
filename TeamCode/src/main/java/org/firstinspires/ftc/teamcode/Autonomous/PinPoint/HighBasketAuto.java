@@ -386,7 +386,7 @@ public class HighBasketAuto extends LinearOpMode {
         clawServo = hardwareMap.get(Servo.class, "clawServo");
         wristServo = hardwareMap.get(Servo.class, "wristServo");
 
-        org.firstinspires.ftc.teamcode.common.ArmSlider.init(hardwareMap);
+        //org.firstinspires.ftc.teamcode.common.ArmSlider.init(hardwareMap);
         PID_Arm.init(hardwareMap);
         claw.init(hardwareMap);
         vroom.init(hardwareMap);

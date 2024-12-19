@@ -51,7 +51,7 @@ public class TeleOpFinal extends LinearOpMode {
                 vroom.resetYaw();
             }
 
-            if (gamepad1.right_bumper) {
+            if (gamepad1.right_stick_button) {
                 PID_Arm.specimen();
             }
 
@@ -65,17 +65,18 @@ public class TeleOpFinal extends LinearOpMode {
                 claw.set(claw.close);
             }
 
-            if (gamepad1.dpad_up) {
+            if (gamepad1.left_bumper) {
                 ArmSlider.set(ArmSlider.out);
-                PID_Arm.target = 240;
+                PID_Arm.target = 250;
             }
-            else if (gamepad1.dpad_down) {
+            else if (gamepad1.right_bumper) {
                 ArmSlider.set(ArmSlider.in);
+                PID_Arm.target = 275;
             }
             else if (gamepad1.dpad_right) {
                 ArmSlider.set(ArmSlider.middle);
             }
-            else if (gamepad1.left_bumper) {
+            else if (gamepad1.left_stick_button) {
                 PID_Arm.target = 200;
             }
 
