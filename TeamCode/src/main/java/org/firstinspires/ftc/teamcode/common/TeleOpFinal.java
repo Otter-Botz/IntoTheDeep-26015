@@ -67,11 +67,11 @@ public class TeleOpFinal extends LinearOpMode {
 
             if (gamepad1.left_bumper) {
                 ArmSlider.set(ArmSlider.out);
-                PID_Arm.target = 250;
+                PID_Arm.target = 290;
             }
             else if (gamepad1.right_bumper) {
                 ArmSlider.set(ArmSlider.in);
-                PID_Arm.target = 275;
+                PID_Arm.target = 290;
             }
             else if (gamepad1.dpad_right) {
                 ArmSlider.set(ArmSlider.middle);
@@ -129,8 +129,14 @@ public class TeleOpFinal extends LinearOpMode {
             }
 
 
-            //telemetry.addData("pos", PID_Arm.armMotor.getCurrentPosition());
-            //telemetry.update();
+            if (gamepad1.left_trigger > 0){
+                double value2;
+                value2 = PID_Arm.target - 4*gamepad1.left_trigger;
+                PID_Arm.target = value2;
+            }
+
+
+
 
 
         }
