@@ -11,10 +11,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class vroomVroom  {
-   private DcMotor frontLeftMotor;
-   private DcMotor backLeftMotor;
-   private DcMotor frontRightMotor;
-   private DcMotor backRightMotor;
+   DcMotor frontLeftMotor;
+   DcMotor backLeftMotor;
+   DcMotor frontRightMotor;
+   DcMotor backRightMotor;
 
     private IMU imu;
 

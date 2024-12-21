@@ -15,7 +15,7 @@ public class TeleOpFinal extends LinearOpMode {
     Slider Slider = new Slider();
     wrist wrist = new wrist();
     private LinearOpMode linearOpMode;
-
+    double subArmPos = 300;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -52,8 +52,11 @@ public class TeleOpFinal extends LinearOpMode {
             }
 
             if (gamepad1.right_stick_button) {
-                PID_Arm.specimen();
+                specimen();
             }
+
+
+
 
 //            public double open = 0.55;
 //            public double close = 0.37 ;
@@ -64,17 +67,22 @@ public class TeleOpFinal extends LinearOpMode {
             if(gamepad1.b){
                 claw.set(claw.close);
             }
+            if (gamepad2.right_bumper) {
+                claw.set(claw.open);
+            }
 
             if (gamepad1.left_bumper) {
                 ArmSlider.set(ArmSlider.out);
-                PID_Arm.target = 290;
+                PID_Arm.target = subArmPos;
             }
             else if (gamepad1.right_bumper) {
                 ArmSlider.set(ArmSlider.in);
-                PID_Arm.target = 290;
+                PID_Arm.target = subArmPos;
             }
             else if (gamepad1.dpad_right) {
+                PID_Arm.target = subArmPos;
                 ArmSlider.set(ArmSlider.middle);
+
             }
             else if (gamepad1.left_stick_button) {
                 PID_Arm.target = 200;
@@ -96,15 +104,13 @@ public class TeleOpFinal extends LinearOpMode {
 
 
 
-
-
             Slider.sliderMotor.setPower(gamepad2.right_stick_y);
             Slider.sliderMotorMotor.setPower(gamepad2.right_stick_y);
 
 
             if (gamepad2.left_bumper) {
                 claw.clawServo.setPosition(0);
-            } else if (gamepad2.right_bumper) {
+            } else if (gamepad2.left_bumper) {
                 wrist.wristServo.setPosition(0);
             }
 
@@ -200,7 +206,7 @@ public class TeleOpFinal extends LinearOpMode {
     }
 
     public void highBaskets(){
-        /*
+
         Slider.sliderMotor.setTargetPosition(900);
         Slider.sliderMotorMotor.setTargetPosition(900);
         Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -209,7 +215,7 @@ public class TeleOpFinal extends LinearOpMode {
         Slider.sliderMotorMotor.setPower(0.5);
         Slider.sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Slider.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        */
+
 
         // Preset Please Work
         PID_Arm.up();
@@ -220,7 +226,11 @@ public class TeleOpFinal extends LinearOpMode {
 
 
 
+
 }
+
+
+
 
 
 
