@@ -2,7 +2,8 @@ package org.firstinspires.ftc.teamcode.Autonomous.PinPoint;
 
 import static android.os.SystemClock.sleep;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
+import android.net.wifi.p2p.nsd.WifiP2pDnsSdServiceRequest;
 
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
@@ -12,24 +13,15 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.IMU;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.teamcode.common.ArmSlider;
-import org.firstinspires.ftc.teamcode.common.PID_Arm;
-import org.firstinspires.ftc.teamcode.common.claw;
-import org.firstinspires.ftc.teamcode.common.vroomVroom;
-import org.firstinspires.ftc.teamcode.common.wrist;
 
 public class AutoCommonClass implements autoCommonInterface {
-    private LinearOpMode linearOpMode;
-    private HardwareMap hardwareMap;
+    private final LinearOpMode linearOpMode;
+    private final HardwareMap hardwareMap;
+    private final Telemetry telemetry;
 
     //Drive Motors
     DcMotor frontLeftMotor;
@@ -43,27 +35,25 @@ public class AutoCommonClass implements autoCommonInterface {
     private Servo wristServo;
 
     //Slide Motors
-    private DcMotor sliderMotorMotor;
-    private DcMotor sliderMotor;
+    DcMotor sliderMotorMotor;
+    DcMotor sliderMotor;
 
     //PID_Arm Motor
-    private DcMotor armMotor;
+    DcMotor armMotor;
 
     // Odo Pods and IMU
-    private GoBildaPinpointDriver odo;
-    private IMU imu;
+    GoBildaPinpointDriver odo;
+    IMU imu;
 
     //Elapsed Time
     ElapsedTime runtime = new ElapsedTime();
-
 
     //Calling Class
     public AutoCommonClass(LinearOpMode callingLinearOpMode) {
         this.linearOpMode = callingLinearOpMode;
         this.hardwareMap = callingLinearOpMode.hardwareMap;
+        this.telemetry = callingLinearOpMode.telemetry;
     }
-
-
 
     //Init
     private void initSlider() {
@@ -78,6 +68,12 @@ public class AutoCommonClass implements autoCommonInterface {
         sliderMotorMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
     }
+
+    private void initArmMotor() {
+        armMotor = hardwareMap.get(DcMotor.class, "armMotor");
+        controller = new PIDController(p, i, d);
+    }
+
 
     private void initDriveMotors() {
         frontLeftMotor = hardwareMap.get(DcMotor.class, "leftFront");
@@ -120,12 +116,15 @@ public class AutoCommonClass implements autoCommonInterface {
     }
 
     //Init Full Auto
-    @Override
+
     public void initAuto() {
+
         initImu();
         initDriveMotors();
         initServo();
         initSlider();
+        initArmMotor();
+        initPinPoint();
     }
 
     //Servo Positions
@@ -157,7 +156,7 @@ public class AutoCommonClass implements autoCommonInterface {
     private int maxRange = -10;
 
     //Adjust Positions
-    @Override
+
     public void MainSliderPositionChange() {
         // Adjust minRange using D-Pad
         if (gamepad1.dpad_down) {
@@ -178,16 +177,16 @@ public class AutoCommonClass implements autoCommonInterface {
         maxRange = Math.max(maxRange, minRange);
     }
 
-    @Override
+
     public void SliderMath() {
         // logic: Set target positions for motors
-        int targetPosition = (minRange + maxRange) /2; // Midpoint of range
+        int targetPosition = (minRange + maxRange) / 2; // Midpoint of range
     }
 
-    @Override
+
     public void sliderUp() {
-        sliderMotor.setTargetPosition(-7);
-        sliderMotorMotor.setTargetPosition(-7);
+        sliderMotor.setTargetPosition(12);
+        sliderMotorMotor.setTargetPosition(12);
 
         sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -211,15 +210,49 @@ public class AutoCommonClass implements autoCommonInterface {
         sliderMotorMotor.setPower(0.01);
     }
 
-    @Override
+
     public void scoreHighBasket() {
-        sliderMotor.setTargetPosition(-10);
-        sliderMotorMotor.setTargetPosition(-10);
+        sliderUp();
+        lowbasketslider();
+    }
+
+    public void mainSliderDown() {
+        sliderMotor.setTargetPosition(0);
+        sliderMotorMotor.setTargetPosition(0);
+
         sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        sliderMotor.setPower(0.3);
-        sliderMotorMotor.setPower(0.3);
-        sleep(1000);
+
+        // Set motor power and let them move to the target
+        sliderMotorMotor.setPower(0.2);  // Adjust power as needed
+        sliderMotor.setPower(0.2);
+
+        // Wait until motors reach their target
+        runtime.reset();
+        while (opModeIsActive() && (sliderMotor.isBusy() || sliderMotorMotor.isBusy()) && runtime.seconds() < 3) {
+            telemetry.addData("Motor Left Current", sliderMotor.getCurrentPosition());
+            telemetry.addData("Motor Right Current", sliderMotorMotor.getCurrentPosition());
+            telemetry.update();
+        }
+
+        // Stop the motors once target is reached
+        sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        sliderMotor.setPower(0.01);
+        sliderMotorMotor.setPower(0.01);
+    }
+
+    public void armRestPosition() {
+        runtime.reset();
+        // Run tasks for the entire autonomous period
+        while (runtime.seconds() < 1) {
+            AutoPIDArmmath(950);
+        }
+    }
+
+    public void slidersDown() {
+        mainSliderDown();
+        armRestPosition();
     }
 
 
@@ -229,13 +262,15 @@ public class AutoCommonClass implements autoCommonInterface {
     //Positions
     private static PIDController controller;
     //p = 0.005 i = 0 d = 0.0001 f=0.01
-    private static double p = 0.005, i = 0, d = 0.0001;
-    private static double f = 0.01;
-    private double target = 100;
-    private final double ticks_in_degrees = 2786.2/ 360;
+    private static final double p = 0.005;
+    private static final double i = 0;
+    private static final double d = 0.0001;
+    private static final double f = 0.01;
+    private final double target = 100;
+    private final double ticks_in_degrees = 2786.2 / 360;
 
     //Math
-    @Override
+
     public void AutoPIDArmmath(double target) {
         controller.setPID(p, i, d);
         int armPos = armMotor.getCurrentPosition();
@@ -248,27 +283,51 @@ public class AutoCommonClass implements autoCommonInterface {
         // telemetry.update();
     }
 
-    @Override
+
     public void armDown() {
         runtime.reset();
         // Run tasks for the entire autonomous period
-        while (runtime.seconds() < 1 ) {
+        while (runtime.seconds() < 1) {
             AutoPIDArmmath(0);
         }
     }
 
-    @Override
+    public void armDownSliderOut() {
+        runtime.reset();
+        // Run tasks for the entire autonomous period
+        while (runtime.seconds() < 1) {
+            AutoPIDArmmath(200);
+        }
+        armSliderServo.setPosition(ArmSliderOut);
+        sleep(300);
+        clawServo.setPosition(ClawOpen);
+        sleep(600);
+        clawServo.setPosition(ClawClose);
+        sleep(200);
+        wristServo.setPosition(WristUp);
+    }
+
+    public void armUpSliderIn() {
+        runtime.reset();
+        // Run tasks for the entire autonomous period
+        while (runtime.seconds() < 1) {
+            AutoPIDArmmath(950);
+        }
+        armSliderServo.setPosition(ArmSliderIn);
+    }
+
+
     public void lowbasketslider() {
         runtime.reset();
         while (runtime.seconds() < 1.75) {
-            AutoPIDArmmath(1180);
+            AutoPIDArmmath(1221  );
         }
         wristServo.setPosition(WristUp);
         sleep(200);
         clawServo.setPosition(ClawOpen);
     }
 
-    @Override
+
     public void lowbasketsliderwithoutwrist() {
         runtime.reset();
         // Run tasks for the entire autonomous period
@@ -282,7 +341,7 @@ public class AutoCommonClass implements autoCommonInterface {
 
     //PinPoint Movement
 
-    @Override
+
     public void driveToPos(double targetX, double targetY) {
         odo.update();
         boolean telemAdded = false;
@@ -352,7 +411,7 @@ public class AutoCommonClass implements autoCommonInterface {
     }
 
     //Turn
-    @Override
+
     public void gyroTurnToAngle(double turnAngle) {
         double error, currentHeadingAngle, driveMotorsPower;
         imu.resetYaw();
@@ -395,13 +454,13 @@ public class AutoCommonClass implements autoCommonInterface {
     }
 
     //Heading Correct
-    public void  headingCorrectBasket() {
+    public void headingCorrectBasket() {
         double heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
         double error = 84 - heading;
         gyroTurnToAngle(error);
     }
 
-    public void  headingCorrectSample() {
+    public void headingCorrectSample() {
         double heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES);
         double error = 80 - heading;
         gyroTurnToAngle(error);
