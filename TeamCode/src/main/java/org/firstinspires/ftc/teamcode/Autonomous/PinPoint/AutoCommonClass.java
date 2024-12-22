@@ -126,6 +126,7 @@ public class AutoCommonClass implements autoCommonInterface {
         initDriveMotors();
         initServo();
         initSlider();
+        initPinPoint();
     }
 
     //Servo Positions
