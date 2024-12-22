@@ -15,7 +15,7 @@ public class ArmSlider  {
      public double out = 1;
      public double in = 0;
      public double middle = 0.5;
-    public static void init(HardwareMap hwMap) {
+    public void init(HardwareMap hwMap) {
         armSliderServo = hwMap.get(Servo.class, "servoSlide");
 
     }

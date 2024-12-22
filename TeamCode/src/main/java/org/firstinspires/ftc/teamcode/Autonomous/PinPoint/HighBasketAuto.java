@@ -37,13 +37,14 @@ public class HighBasketAuto extends LinearOpMode {
     boolean pathRunning;
     //Arm
     public DcMotor armMotor;
+
     // Common Class
-    AutoMechanisms mechanisms = new AutoMechanisms();
+
 
     ElapsedTime runtime = new ElapsedTime();
 
     claw claw = new claw();
-    ArmSlider ArmSlider = new ArmSlider();
+    ArmSlider armSlider = new ArmSlider();
     PID_Arm PID_Arm = new PID_Arm();
     vroomVroom vroom = new vroomVroom();
     wrist wrist = new wrist();
@@ -55,12 +56,12 @@ public class HighBasketAuto extends LinearOpMode {
 
 
     //Sliders
-    private int minRange = 1000;
-    private int maxRange = 1200;
+    private int minRange = 5;
+    private int maxRange = -10;
 
 
     // logic: Set target positions for motors
-    int targetPosition = (minRange + maxRange) / 2; // Midpoint of range
+    int targetPosition = (minRange + maxRange) /2; // Midpoint of range
 
 
 
@@ -100,16 +101,16 @@ public class HighBasketAuto extends LinearOpMode {
 
             // Adjust minRange using D-Pad
             if (gamepad1.dpad_down) {
-                minRange -= 10; // Decrease minRange
+                minRange -= 2; // Decrease minRange
             } else if (gamepad1.dpad_up) {
-                minRange += 10; // Increase minRange
+                minRange += 2; // Increase minRange
             }
 
             // Adjust maxRange using D-Pad
             if (gamepad1.dpad_left) {
-                maxRange -= 10; // Decrease maxRange
+                maxRange -= 2; // Decrease maxRange
             } else if (gamepad1.dpad_right) {
-                maxRange += 10; // Increase maxRange
+                maxRange += 2; // Increase maxRange
             }
 
             // Clamp ranges to valid encoder values
@@ -131,32 +132,34 @@ public class HighBasketAuto extends LinearOpMode {
         sleep(300);
         claw.AutoClose();
         wrist.set(wrist.up);
+        sleep(100);
+        armSlider.set(armSlider.in);
 
 
         // drive to basket
-        driveToPos(-ticksPerInchForward * 10, ticksPerInchSideways * 10);
-        sleep(300);
-        driveToPos(-ticksPerInchForward * 20, ticksPerInchSideways * 10);
-        gyroTurnToAngle(40);
-        // 24.5 Barely Making It In Basket
-        driveToPos(-ticksPerInchForward * 24.5,ticksPerInchSideways * 8);
+//        driveToPos(-ticksPerInchForward * 10, ticksPerInchSideways * 10);
+//        sleep(300);
+//        driveToPos(-ticksPerInchForward * 20, ticksPerInchSideways * 10);
+//        gyroTurnToAngle(40);
+//        // 24.5 Barely Making It In Basket
+//        driveToPos(-ticksPerInchForward * 24.5,ticksPerInchSideways * 8);
 
         //Score 1
         sliderUp();
-        sleep(500);
-        //Slider Down
-        armDown();
-        headingCorrectBasket();
-        wrist.set(wrist.up);
+//        sleep(500);
+//        //Slider Down
+//        armDown();
+//        headingCorrectBasket();
+//        wrist.set(wrist.up);
 
         //Park
-        armDown();
-        driveToPos(-ticksPerInchForward * 7, ticksPerInchSideways * 40);
-        sleep(300);
-        driveToPos(-ticksPerInchForward * 3, ticksPerInchSideways * 50);
-        sleep(300);
-        driveToPos(-ticksPerInchForward * 3, ticksPerInchSideways * 60);
-        sleep(1000);
+//        armDown();
+//        driveToPos(-ticksPerInchForward * 7, ticksPerInchSideways * 40);
+//        sleep(300);
+//        driveToPos(-ticksPerInchForward * 3, ticksPerInchSideways * 50);
+//        sleep(300);
+//        driveToPos(-ticksPerInchForward * 3, ticksPerInchSideways * 60);
+//        sleep(1000);
 
     }
 
@@ -202,22 +205,13 @@ public class HighBasketAuto extends LinearOpMode {
     }
 
     public void scoreHighBasket() {
-        sliderMotor.setTargetPosition(1100);
-        sliderMotorMotor.setTargetPosition(1100);
+        sliderMotor.setTargetPosition(-10);
+        sliderMotorMotor.setTargetPosition(-10);
         sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         sliderMotor.setPower(0.3);
         sliderMotorMotor.setPower(0.3);
         sleep(1000);
-
-        runtime.reset();
-        // Run tasks for the entire autonomous period
-        while (runtime.seconds() < 1) {
-            PID_Arm.math(1115);
-        }
-        wrist.set(wrist.up);
-        sleep(400);
-        claw.AutoOpen();
     }
 
 //    public void armDown() {
@@ -229,15 +223,19 @@ public class HighBasketAuto extends LinearOpMode {
 
 
     public void sliderUp() {
-        sliderMotor.setTargetPosition(targetPosition);
-        sliderMotorMotor.setTargetPosition(targetPosition);
+        sliderMotor.setTargetPosition(-7);
+        sliderMotorMotor.setTargetPosition(-7);
+
+        sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         // Set motor power and let them move to the target
-        sliderMotorMotor.setPower(0.5);  // Adjust power as needed
-        sliderMotor.setPower(0.5);
+        sliderMotorMotor.setPower(0.2);  // Adjust power as needed
+        sliderMotor.setPower(0.2);
 
         // Wait until motors reach their target
-        while (opModeIsActive() && (sliderMotor.isBusy() || sliderMotorMotor.isBusy())) {
+        runtime.reset();
+        while (opModeIsActive() && (sliderMotor.isBusy() || sliderMotorMotor.isBusy()) && runtime.seconds() < 3) {
             telemetry.addData("Target Position", targetPosition + " ticks");
             telemetry.addData("Motor Left Current", sliderMotor.getCurrentPosition());
             telemetry.addData("Motor Right Current", sliderMotorMotor.getCurrentPosition());
@@ -245,9 +243,10 @@ public class HighBasketAuto extends LinearOpMode {
         }
 
         // Stop the motors once target is reached
-        sliderMotor.setPower(0);
-        sliderMotorMotor.setPower(0);
-
+        sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        sliderMotor.setPower(0.01);
+        sliderMotorMotor.setPower(0.01);
     }
 
 
@@ -390,6 +389,7 @@ public class HighBasketAuto extends LinearOpMode {
         PID_Arm.init(hardwareMap);
         claw.init(hardwareMap);
         vroom.init(hardwareMap);
+        armSlider.init(hardwareMap);
         //Slider.init(hardwareMap);
         wrist.init(hardwareMap);
         armMotor = hardwareMap.get(DcMotor.class, "armMotor");
