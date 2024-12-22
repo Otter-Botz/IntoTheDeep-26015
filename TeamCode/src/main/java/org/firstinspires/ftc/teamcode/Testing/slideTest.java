@@ -44,7 +44,10 @@ public class slideTest extends LinearOpMode {
 
 
         armMotor = hardwareMap.get(DcMotor.class, "armMotor");
+
         PID_Arm.init(hardwareMap);
+
+
         wrist.init(hardwareMap);
         claw.init(hardwareMap);
 
@@ -59,7 +62,6 @@ public class slideTest extends LinearOpMode {
             // telemetry.addData("pos motor2 target", slideMotorMotor.getTargetPosition());
 
             //telemetry.addData("PID_Arm", PID_Arm.getPosition());
-            telemetry.addData("PID_ArmCurrent", org.firstinspires.ftc.teamcode.common.PID_Arm.armMotor.getCurrentPosition());
             telemetry.addData("servoPos", wrist.wristServo.getPosition());
             telemetry.addData("clawPos", claw.clawServo.getPosition());
 
