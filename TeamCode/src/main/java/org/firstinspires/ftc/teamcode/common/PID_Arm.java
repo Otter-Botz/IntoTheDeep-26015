@@ -122,7 +122,7 @@ public class PID_Arm {
         // telemetry.update();
     }
 
-    public void  math(double target) {
+    public void math(double target) {
         controller.setPID(p, i, d);
         int armPos = armMotor.getCurrentPosition();
         double pid = controller.calculate(armPos, target);

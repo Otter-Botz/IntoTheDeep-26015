@@ -38,7 +38,7 @@ public class rbiddleBasket extends LinearOpMode {
     //Arm
     public DcMotor armMotor;
     // Common Class
-    AutoMechanisms mechanisms = new AutoMechanisms();
+
 
     ElapsedTime runtime = new ElapsedTime();
 
@@ -483,7 +483,7 @@ public class rbiddleBasket extends LinearOpMode {
         clawServo = hardwareMap.get(Servo.class, "clawServo");
         wristServo = hardwareMap.get(Servo.class, "wristServo");
 
-        org.firstinspires.ftc.teamcode.common.ArmSlider.init(hardwareMap);
+        ArmSlider.init(hardwareMap);
         PID_Arm.init(hardwareMap);
         claw.init(hardwareMap);
         vroom.init(hardwareMap);

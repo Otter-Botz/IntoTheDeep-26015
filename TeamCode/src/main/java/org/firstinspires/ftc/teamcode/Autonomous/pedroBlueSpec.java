@@ -1,14 +1,9 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
-import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Autonomous.PinPoint.AutoMechanisms;
 import org.firstinspires.ftc.teamcode.common.ArmSlider;
 import org.firstinspires.ftc.teamcode.common.PID_Arm;
-import org.firstinspires.ftc.teamcode.common.PID_Slider;
 import org.firstinspires.ftc.teamcode.common.Slider;
 import org.firstinspires.ftc.teamcode.common.claw;
 import org.firstinspires.ftc.teamcode.common.wrist;
@@ -34,7 +29,7 @@ public class pedroBlueSpec extends OpMode {
 
 
 
-    AutoMechanisms mechanisms = new AutoMechanisms();
+
 
     //start position
     private final Pose startPose = new Pose(10,60, Math.toRadians(0));
