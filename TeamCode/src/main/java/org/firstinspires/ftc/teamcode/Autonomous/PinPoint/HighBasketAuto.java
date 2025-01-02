@@ -45,15 +45,6 @@ public class HighBasketAuto extends LinearOpMode {
             telemetry.update();
 
 
-            otterBotzCommon.sliderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            otterBotzCommon.sliderMotorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            otterBotzCommon.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            otterBotzCommon.sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            otterBotzCommon.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            otterBotzCommon.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            otterBotzCommon.sliderMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            otterBotzCommon.sliderMotorMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
             // Adjust minRange using D-Pad
             if (gamepad1.dpad_down) {
                 minRange -= 2; // Decrease minRange
@@ -80,6 +71,10 @@ public class HighBasketAuto extends LinearOpMode {
 
         //X = Y and Y = x
         //Make sure claw is able to hold sample
+        otterBotzCommon.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        otterBotzCommon.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        otterBotzCommon.sliderMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        otterBotzCommon.sliderMotorMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         otterBotzCommon.odo.resetPosAndIMU();
         sleep(300);
         otterBotzCommon.set(otterBotzCommon.ClawClose);
@@ -97,14 +92,16 @@ public class HighBasketAuto extends LinearOpMode {
 //        otterBotzCommon.driveToPos(-ticksPerInchForward * 24.5,ticksPerInchSideways * 8);
 
         //Score 1
-//        otterBotzCommon.scoreHighBasket();
+        otterBotzCommon.scoreHighBasket();
+        sleep(1000);
+        otterBotzCommon.slidersDown();
+        sleep(5000);
+//        otterBotzCommon.armDownSliderOut();
 //        sleep(1000);
-//        otterBotzCommon.slidersDown();
-//        sleep(5000);
-        otterBotzCommon.armDownSliderOut();
-        sleep(1000);
-        otterBotzCommon.armUpSliderIn();
-        sleep(1000);
+//        otterBotzCommon.armUpSliderIn();
+//        sleep(1000);
+
+        //Old Code
 //        sleep(500);
 //        //Slider Down
 //        armDown();

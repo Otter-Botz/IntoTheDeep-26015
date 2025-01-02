@@ -24,22 +24,22 @@ public class AutoCommonClass implements autoCommonInterface {
     private final Telemetry telemetry;
 
     //Drive Motors
-    DcMotor frontLeftMotor;
-    DcMotor backLeftMotor;
-    DcMotor frontRightMotor;
-    DcMotor backRightMotor;
+    public DcMotor frontLeftMotor;
+    public DcMotor backLeftMotor;
+    public DcMotor frontRightMotor;
+    public DcMotor backRightMotor;
 
     //Servo
-    private Servo clawServo;
-    static Servo armSliderServo;
-    private Servo wristServo;
+    public Servo clawServo;
+    public static Servo armSliderServo;
+    public Servo wristServo;
 
     //Slide Motors
-    DcMotor sliderMotorMotor;
-    DcMotor sliderMotor;
+    public DcMotor sliderMotorMotor;
+    public DcMotor sliderMotor;
 
     //PID_Arm Motor
-    DcMotor armMotor;
+    public DcMotor armMotor;
 
     // Odo Pods and IMU
     GoBildaPinpointDriver odo;
@@ -57,6 +57,11 @@ public class AutoCommonClass implements autoCommonInterface {
 
     //Init
     private void initSlider() {
+
+        sliderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        sliderMotorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         sliderMotor = hardwareMap.get(DcMotor.class, "slideMotor");
         sliderMotorMotor = hardwareMap.get(DcMotor.class, "slideMotorMotor");
@@ -125,6 +130,7 @@ public class AutoCommonClass implements autoCommonInterface {
         initSlider();
         initArmMotor();
         initPinPoint();
+
     }
 
     //Servo Positions
@@ -185,8 +191,9 @@ public class AutoCommonClass implements autoCommonInterface {
 
 
     public void sliderUp() {
-        sliderMotor.setTargetPosition(12);
-        sliderMotorMotor.setTargetPosition(12);
+        //7 Previous Value
+        sliderMotor.setTargetPosition(-800);
+        sliderMotorMotor.setTargetPosition(-800);
 
         sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -210,6 +217,27 @@ public class AutoCommonClass implements autoCommonInterface {
         sliderMotorMotor.setPower(0.01);
     }
 
+    public void moveSliders(int position, double power) {
+
+        while(this.sliderMotor.getCurrentPosition()!=position || this.sliderMotorMotor.getCurrentPosition()!=position){
+
+            this.sliderMotor.setTargetPosition(position);
+            this.sliderMotorMotor.setTargetPosition(position);
+            this.sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            this.sliderMotorMotor.setPower(0.2);  // Adjust power as needed
+            this.sliderMotor.setPower(0.2);
+
+        }
+
+    }
+
+
+
+    public void sliderDownStart() {
+
+    }
+
 
     public void scoreHighBasket() {
         sliderUp();
@@ -217,8 +245,8 @@ public class AutoCommonClass implements autoCommonInterface {
     }
 
     public void mainSliderDown() {
-        sliderMotor.setTargetPosition(0);
-        sliderMotorMotor.setTargetPosition(0);
+        sliderMotor.setTargetPosition(2);
+        sliderMotorMotor.setTargetPosition(2);
 
         sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -338,6 +366,177 @@ public class AutoCommonClass implements autoCommonInterface {
         clawServo.setPosition(ClawOpen);
     }
 
+    private DcMotor slider1;
+    private DcMotor slider2;
+
+    // PID coefficients
+    private static final double Kp = 0.01;
+    private static final double Ki = 0.0;
+    private static final double Kd = 0.0;
+
+    // PID variables
+    private double integral1 = 0;
+    private double lastError1 = 0;
+    private double integral2 = 0;
+    private double lastError2 = 0;
+
+    private void moveToPosition(int targetPosition1, int targetPosition2) {
+        boolean slider1AtTarget = false;
+        boolean slider2AtTarget = false;
+
+        while (opModeIsActive() && (!slider1AtTarget || !slider2AtTarget)) {
+            // Compute errors
+            double error1 = targetPosition1 - slider1.getCurrentPosition();
+            double error2 = targetPosition2 - slider2.getCurrentPosition();
+
+            // Compute integral
+            integral1 += error1;
+            integral2 += error2;
+
+            // Compute derivative
+            double derivative1 = error1 - lastError1;
+            double derivative2 = error2 - lastError2;
+
+            // Update last error
+            lastError1 = error1;
+            lastError2 = error2;
+
+            // Compute power using PID formula
+            double power1 = (Kp * error1) + (Ki * integral1) + (Kd * derivative1);
+            double power2 = (Kp * error2) + (Ki * integral2) + (Kd * derivative2);
+
+            // Clamp power to prevent excessive values
+            power1 = Math.max(-1.0, Math.min(1.0, power1));
+            power2 = Math.max(-1.0, Math.min(1.0, power2));
+
+            // Set motor powers
+            slider1.setPower(power1);
+            slider2.setPower(power2);
+
+            // Check if sliders are at target position (with a tolerance)
+            slider1AtTarget = Math.abs(error1) < 10; // Tolerance of 10 ticks
+            slider2AtTarget = Math.abs(error2) < 10;
+
+            // Telemetry for debugging
+            telemetry.addData("Target Position 1", targetPosition1);
+            telemetry.addData("Current Position 1", slider1.getCurrentPosition());
+            telemetry.addData("Power 1", power1);
+            telemetry.addData("Target Position 2", targetPosition2);
+            telemetry.addData("Current Position 2", slider2.getCurrentPosition());
+            telemetry.addData("Power 2", power2);
+            telemetry.update();
+        }
+
+        // Stop motors
+        slider1.setPower(0);
+        slider2.setPower(0);
+    }
+
+    // PIDF coefficients
+    private static final double KP = 1.0;
+    private static final double KI = 0.0;
+    private static final double KD = 0.1;
+    private static final double KF = 0.05;
+
+    // PIDF variables
+    private double slider1Integral = 0;
+    private double slider2Integral = 0;
+    private double slider1PrevError = 0;
+    private double slider2PrevError = 0;
+
+    private ElapsedTime timer = new ElapsedTime();
+
+    public void runOpMode() {
+        // Initialize motors
+        slider1 = hardwareMap.get(DcMotor.class, "slider1");
+        slider2 = hardwareMap.get(DcMotor.class, "slider2");
+
+        // Reset encoders
+        slider1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slider2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        // Set motors to run using encoders
+        slider1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        slider2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        // Wait for the start of the OpMode
+        timer.reset();
+
+        // Move sliders to target positions in sequence
+        moveSliders(1000, 500, 3.0);  // Example: Move to 1000 for slider1 and 500 for slider2 within 3 seconds
+        moveSliders(0, 0, 2.0);       // Move both sliders back to their starting positions
+    }
+
+    private void moveSliders(int slider1Target, int slider2Target, double timeout) {
+        ElapsedTime runtime = new ElapsedTime();
+        runtime.reset();
+
+        while (opModeIsActive() && runtime.seconds() < timeout) {
+            // Get current positions
+            int slider1Current = slider1.getCurrentPosition();
+            int slider2Current = slider2.getCurrentPosition();
+
+            // Simulated velocity (optional; replace with actual velocity measurement if available)
+            double slider1Velocity = slider1.getPower();
+            double slider2Velocity = slider2.getPower();
+
+            // Compute PIDF outputs
+            double slider1Power = calculatePIDF(slider1Target, slider1Current, slider1Velocity, true);
+            double slider2Power = calculatePIDF(slider2Target, slider2Current, slider2Velocity, false);
+
+            // Apply power to motors
+            slider1.setPower(slider1Power);
+            slider2.setPower(slider2Power);
+
+            // Telemetry for debugging
+            telemetry.addData("Slider 1 Position", slider1Current);
+            telemetry.addData("Slider 1 Target", slider1Target);
+            telemetry.addData("Slider 1 Power", slider1Power);
+            telemetry.addData("Slider 2 Position", slider2Current);
+            telemetry.addData("Slider 2 Target", slider2Target);
+            telemetry.addData("Slider 2 Power", slider2Power);
+            telemetry.update();
+
+            // Stop if both sliders are within tolerance
+            if (Math.abs(slider1Target - slider1Current) < 10 && Math.abs(slider2Target - slider2Current) < 10) {
+                break;
+            }
+        }
+
+        // Stop the motors after reaching target
+        slider1.setPower(0);
+        slider2.setPower(0);
+    }
+
+    private double calculatePIDF(int target, int current, double velocity, boolean isNormal) {
+        double error = target - current;
+        double deltaTime = timer.seconds();
+        timer.reset();
+
+        // Integral calculation
+        if (isNormal) {
+            slider1Integral += error * deltaTime;
+        } else {
+            slider2Integral += error * deltaTime;
+        }
+
+        // Derivative calculation
+        double derivative;
+        if (isNormal) {
+            derivative = (error - slider1PrevError) / deltaTime;
+            slider1PrevError = error;
+        } else {
+            derivative = (error - slider2PrevError) / deltaTime;
+            slider2PrevError = error;
+        }
+
+        // PIDF formula
+        double output = KP * error + KI * (isNormal ? slider1Integral : slider2Integral) +
+                KD * derivative + KF * velocity;
+
+        // Reverse logic for slider2
+        return isNormal ? output : -output;
+    }
 
     //PinPoint Movement
 
