@@ -69,6 +69,19 @@ public class AutoCommonClass implements autoCommonInterface {
 
     }
 
+    private void initSliderReverse() {
+
+        sliderMotor = hardwareMap.get(DcMotor.class, "slideMotor");
+        sliderMotorMotor = hardwareMap.get(DcMotor.class, "slideMotorMotor");
+
+        sliderMotor.setDirection(DcMotor.Direction.FORWARD);
+        sliderMotorMotor.setDirection(DcMotor.Direction.REVERSE);
+
+        sliderMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        sliderMotorMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+    }
+
     private void initArmMotor() {
         armMotor = hardwareMap.get(DcMotor.class, "armMotor");
         controller = new PIDController(p, i, d);
@@ -292,11 +305,69 @@ public class AutoCommonClass implements autoCommonInterface {
     }
 
 
+    public void sliderDownElapsedTime() {
+        timer.reset();
 
-    public void sliderDownStart() {
+        // In your loop, stop the motor after a certain time
+        if (timer.seconds() > 5.0) { // 5 seconds
 
+            sliderMotor.setTargetPosition(-900);
+            sliderMotorMotor.setTargetPosition(-900);
+
+            sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            sliderMotor.setPower(0.2);
+            sliderMotorMotor.setPower(0.2);
+
+        }
     }
 
+    public void sliderDown(int position) {
+
+        initSliderReverse();
+
+        // for testing - start
+        telemetry.addData("Motor Left Current", sliderMotor.getCurrentPosition());
+        telemetry.addData("Motor Right Current", sliderMotorMotor.getCurrentPosition());
+        telemetry.update();
+        sleep(3000);
+        // for testing - end
+
+        // Previous Value
+        sliderMotor.setTargetPosition(position);
+        sliderMotorMotor.setTargetPosition(position);
+
+        sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        // Set motor power and let them move to the target
+        sliderMotorMotor.setPower(-0.2);  // Adjust power as needed
+        sliderMotor.setPower(-0.2);
+
+        // Wait until motors reach their target
+        runtime.reset();
+
+        // for testing - start
+        telemetry.addData("Motor Left Current New", sliderMotor.getCurrentPosition());
+        telemetry.addData("Motor Right Current New", sliderMotorMotor.getCurrentPosition());
+        telemetry.update();
+        // for testing - end
+
+        while (opModeIsActive() && runtime.seconds() < 0.85) {
+            telemetry.addData("Motor Left Current Inside", sliderMotor.getCurrentPosition());
+            telemetry.addData("Motor Right Current Inside", sliderMotorMotor.getCurrentPosition());
+            telemetry.update();
+        }
+
+        // Stop the motors once target is reached
+        sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //sliderMotor.setPower(0.01);
+        //sliderMotorMotor.setPower(0.01);
+
+        initSlider();
+    }
 
     public void scoreHighBasket(int position) {
         sliderUp(position);
@@ -369,6 +440,7 @@ public class AutoCommonClass implements autoCommonInterface {
         // telemetry.addData("target", target);
         // telemetry.update();
     }
+
 
 
     public void armDown() {

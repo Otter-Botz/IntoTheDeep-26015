@@ -106,7 +106,9 @@ public class HighBasketAuto extends LinearOpMode {
 //        otterBotzCommon.moveSliders(-500,0.2);
 //        //otterBotzCommon.moveSlidersToPositionInRange(otterBotzCommon.sliderMotor, otterBotzCommon.sliderMotorMotor, 500, 500, minPos, maxPos, 0.8, this);sleep(1000);
         //otterBotzCommon.slidersDown();
-        sleep(5000);
+
+        sleep(1000);
+        otterBotzCommon.sliderDownElapsedTime();
 //        otterBotzCommon.armDownSliderOut();
 //        sleep(1000);
 //        otterBotzCommon.armUpSliderIn();
