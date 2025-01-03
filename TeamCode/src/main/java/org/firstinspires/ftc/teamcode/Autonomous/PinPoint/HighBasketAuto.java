@@ -33,15 +33,12 @@ public class HighBasketAuto extends LinearOpMode {
 
             telemetry.addData("PosX()", otterBotzCommon.odo.getPosX());
             telemetry.addData("PosY()", otterBotzCommon.odo.getPosY());
-
             telemetry.addData("yaw", otterBotzCommon.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
 
             // Display telemetry for driver adjustment
             telemetry.addLine("Adjust using gamepad:");
             telemetry.addData("Min Range", minRange + " ticks (D-Pad Up/Down)");
             telemetry.addData("Max Range", maxRange + " ticks (D-Pad Left/Right)");
-
-
             telemetry.update();
 
 
@@ -62,7 +59,6 @@ public class HighBasketAuto extends LinearOpMode {
             // Clamp ranges to valid encoder values
             minRange = Math.max(minRange, 0);
             maxRange = Math.max(maxRange, minRange);
-
         }
 
         // Wait
@@ -87,7 +83,6 @@ public class HighBasketAuto extends LinearOpMode {
         sleep(100);
         otterBotzCommon.set(otterBotzCommon.ArmSliderIn);
 
-
         // drive to basket
 //        otterBotzCommon.driveToPos(-ticksPerInchForward * 10, ticksPerInchSideways * 10);
 //        sleep(300);
@@ -101,13 +96,13 @@ public class HighBasketAuto extends LinearOpMode {
         int minPos = 0;    // Minimum encoder count
         int maxPos = 2000; // Maximum encoder count
 
-
-        otterBotzCommon.sliderUp(500);
+        otterBotzCommon.sliderUpElapsedTime(500);
 //        otterBotzCommon.moveSliders(-500,0.2);
 //        //otterBotzCommon.moveSlidersToPositionInRange(otterBotzCommon.sliderMotor, otterBotzCommon.sliderMotorMotor, 500, 500, minPos, maxPos, 0.8, this);sleep(1000);
-        //otterBotzCommon.slidersDown();
+//        otterBotzCommon.slidersDown();
 
-        sleep(1000);
+//        otterBotzCommon.moveToPosition(10,10);
+        sleep(500);
         otterBotzCommon.sliderDownElapsedTime();
 //        otterBotzCommon.armDownSliderOut();
 //        sleep(1000);
