@@ -58,11 +58,6 @@ public class AutoCommonClass implements autoCommonInterface {
     //Init
     private void initSlider() {
 
-        sliderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        sliderMotorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
         sliderMotor = hardwareMap.get(DcMotor.class, "slideMotor");
         sliderMotorMotor = hardwareMap.get(DcMotor.class, "slideMotorMotor");
 
@@ -190,10 +185,18 @@ public class AutoCommonClass implements autoCommonInterface {
     }
 
 
-    public void sliderUp() {
-        //7 Previous Value
-        sliderMotor.setTargetPosition(-800);
-        sliderMotorMotor.setTargetPosition(-800);
+    public void sliderUp(int position) {
+
+        // for testing - start
+        telemetry.addData("Motor Left Current", sliderMotor.getCurrentPosition());
+        telemetry.addData("Motor Right Current", sliderMotorMotor.getCurrentPosition());
+        telemetry.update();
+        sleep(3000);
+        // for testing - end
+
+        // Previous Value
+        sliderMotor.setTargetPosition(position);
+        sliderMotorMotor.setTargetPosition(position);
 
         sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -204,32 +207,88 @@ public class AutoCommonClass implements autoCommonInterface {
 
         // Wait until motors reach their target
         runtime.reset();
-        while (opModeIsActive() && (sliderMotor.isBusy() || sliderMotorMotor.isBusy()) && runtime.seconds() < 3) {
-            telemetry.addData("Motor Left Current", sliderMotor.getCurrentPosition());
-            telemetry.addData("Motor Right Current", sliderMotorMotor.getCurrentPosition());
+
+        // for testing - start
+        telemetry.addData("Motor Left Current New", sliderMotor.getCurrentPosition());
+        telemetry.addData("Motor Right Current New", sliderMotorMotor.getCurrentPosition());
+        telemetry.update();
+        // for testing - end
+
+        while (opModeIsActive() && runtime.seconds() < 0.85) {
+            telemetry.addData("Motor Left Current Inside", sliderMotor.getCurrentPosition());
+            telemetry.addData("Motor Right Current Inside", sliderMotorMotor.getCurrentPosition());
             telemetry.update();
         }
 
         // Stop the motors once target is reached
         sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        sliderMotor.setPower(0.01);
-        sliderMotorMotor.setPower(0.01);
+        //sliderMotor.setPower(0.01);
+        //sliderMotorMotor.setPower(0.01);
     }
 
     public void moveSliders(int position, double power) {
 
-        while(this.sliderMotor.getCurrentPosition()!=position || this.sliderMotorMotor.getCurrentPosition()!=position){
-
-            this.sliderMotor.setTargetPosition(position);
-            this.sliderMotorMotor.setTargetPosition(position);
-            this.sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.sliderMotorMotor.setPower(0.2);  // Adjust power as needed
-            this.sliderMotor.setPower(0.2);
-
+        while(sliderMotor.getCurrentPosition() > position){
+            sliderMotorMotor.setPower(power);  // Adjust power as needed
+            sliderMotor.setPower(power);
         }
 
+        if(sliderMotor.getCurrentPosition() > position) {
+            sliderMotor.setPower(0);
+            sliderMotorMotor.setPower(0);
+        }
+    }
+
+    public void moveSlides(int targetPos, int targetPos2, int minPosition, int maxPosition, double power, LinearOpMode opMode) {
+
+    }
+
+    public void moveSlidersToPositionInRange(
+            DcMotor slider1,
+            DcMotor slider2,
+            int targetPosition1,
+            int targetPosition2,
+            int minPosition,
+            int maxPosition,
+            double power,
+            LinearOpMode opMode
+    ) {
+
+        // Constrain target positions to the specified range
+        targetPosition1 = Math.max(minPosition, Math.min(maxPosition, targetPosition1));
+        targetPosition2 = Math.max(minPosition, Math.min(maxPosition, targetPosition2));
+
+        // Ensure sliders use encoders
+        slider1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slider2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        slider1.setTargetPosition(targetPosition1);
+        slider2.setTargetPosition(targetPosition2);
+
+        slider1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slider2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        // Set power to both sliders
+        slider1.setPower(power);
+        slider2.setPower(power);
+
+        // Wait until both sliders reach their positions
+        while (opMode.opModeIsActive() &&
+                (slider1.isBusy() || slider2.isBusy())) {
+            // Optionally, add telemetry here to display progress
+            opMode.telemetry.addData("Slider1 Position", slider1.getCurrentPosition());
+            opMode.telemetry.addData("Slider2 Position", slider2.getCurrentPosition());
+            opMode.telemetry.update();
+        }
+
+        // Stop the sliders once target positions are reached
+        slider1.setPower(0);
+        slider2.setPower(0);
+
+        // Reset the mode to avoid running unexpectedly in RUN_TO_POSITION
+        slider1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        slider2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
 
@@ -239,8 +298,8 @@ public class AutoCommonClass implements autoCommonInterface {
     }
 
 
-    public void scoreHighBasket() {
-        sliderUp();
+    public void scoreHighBasket(int position) {
+        sliderUp(position);
         lowbasketslider();
     }
 

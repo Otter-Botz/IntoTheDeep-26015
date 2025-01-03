@@ -71,6 +71,11 @@ public class HighBasketAuto extends LinearOpMode {
 
         //X = Y and Y = x
         //Make sure claw is able to hold sample
+        otterBotzCommon.sliderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        otterBotzCommon.sliderMotorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        otterBotzCommon.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        otterBotzCommon.sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         otterBotzCommon.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         otterBotzCommon.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         otterBotzCommon.sliderMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -92,9 +97,15 @@ public class HighBasketAuto extends LinearOpMode {
 //        otterBotzCommon.driveToPos(-ticksPerInchForward * 24.5,ticksPerInchSideways * 8);
 
         //Score 1
-        otterBotzCommon.scoreHighBasket();
-        sleep(1000);
-        otterBotzCommon.slidersDown();
+//        otterBotzCommon.scoreHighBasket();
+        int minPos = 0;    // Minimum encoder count
+        int maxPos = 2000; // Maximum encoder count
+
+
+        otterBotzCommon.sliderUp(500);
+//        otterBotzCommon.moveSliders(-500,0.2);
+//        //otterBotzCommon.moveSlidersToPositionInRange(otterBotzCommon.sliderMotor, otterBotzCommon.sliderMotorMotor, 500, 500, minPos, maxPos, 0.8, this);sleep(1000);
+        //otterBotzCommon.slidersDown();
         sleep(5000);
 //        otterBotzCommon.armDownSliderOut();
 //        sleep(1000);
