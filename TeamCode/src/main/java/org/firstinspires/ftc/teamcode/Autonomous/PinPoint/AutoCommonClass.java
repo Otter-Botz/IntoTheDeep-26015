@@ -201,6 +201,7 @@ public class AutoCommonClass implements autoCommonInterface {
         sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
+
     public void sliderDownElapsedTime() {
         sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -350,6 +351,7 @@ public class AutoCommonClass implements autoCommonInterface {
     }
 
     public void armDownSliderOut() {
+        sleep(200);
         runtime.reset();
         // Run tasks for the entire autonomous period
         while (runtime.seconds() < 1) {

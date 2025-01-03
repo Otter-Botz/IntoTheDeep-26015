@@ -74,6 +74,7 @@ public class HighBasketAuto extends LinearOpMode {
 
         otterBotzCommon.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         otterBotzCommon.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         otterBotzCommon.sliderMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         otterBotzCommon.sliderMotorMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         otterBotzCommon.odo.resetPosAndIMU();
@@ -84,40 +85,27 @@ public class HighBasketAuto extends LinearOpMode {
         otterBotzCommon.set(otterBotzCommon.ArmSliderIn);
 
         // drive to basket
-//        otterBotzCommon.driveToPos(-ticksPerInchForward * 10, ticksPerInchSideways * 10);
-//        sleep(300);
-//        otterBotzCommon.driveToPos(-ticksPerInchForward * 20, ticksPerInchSideways * 10);
-//        otterBotzCommon.gyroTurnToAngle(40);
-//        // 24.5 Barely Making It In Basket
-//        otterBotzCommon.driveToPos(-ticksPerInchForward * 24.5,ticksPerInchSideways * 8);
+        otterBotzCommon.driveToPos(-ticksPerInchForward * 10, ticksPerInchSideways * 10);
+        sleep(300);
+        otterBotzCommon.driveToPos(-ticksPerInchForward * 20, ticksPerInchSideways * 10);
+        otterBotzCommon.gyroTurnToAngle(40);
+        // 24.5 Barely Making It In Basket
+        otterBotzCommon.driveToPos(-ticksPerInchForward * 24.5,ticksPerInchSideways * 8);
 
         //Score 1
-//        otterBotzCommon.scoreHighBasket();
-        int minPos = 0;    // Minimum encoder count
-        int maxPos = 2000; // Maximum encoder count
 
         otterBotzCommon.sliderUpElapsedTime(500);
-//        otterBotzCommon.moveSliders(-500,0.2);
-//        //otterBotzCommon.moveSlidersToPositionInRange(otterBotzCommon.sliderMotor, otterBotzCommon.sliderMotorMotor, 500, 500, minPos, maxPos, 0.8, this);sleep(1000);
-//        otterBotzCommon.slidersDown();
+        otterBotzCommon.AutoPIDArmmath(1207);
+        sleep(300);
+        otterBotzCommon.clawServo.setPosition(0.25);
 
-//        otterBotzCommon.moveToPosition(10,10);
         sleep(500);
-        otterBotzCommon.sliderDownElapsedTime();
-//        otterBotzCommon.armDownSliderOut();
-//        sleep(1000);
-//        otterBotzCommon.armUpSliderIn();
-//        sleep(1000);
 
-        //Old Code
-//        sleep(500);
-//        //Slider Down
-//        armDown();
-//        headingCorrectBasket();
-//        wrist.set(wrist.up);
+        otterBotzCommon.sliderDownElapsedTime();
+        otterBotzCommon.headingCorrectBasket();
+        otterBotzCommon.armDownSliderOut();
 
         //Move to first sample
-//        otterBotzCommon.armDown();
 //        otterBotzCommon.driveToPos(-ticksPerInchForward * 19.5, ticksPerInchSideways * 26.5);
 //        otterBotzCommon.set(otterBotzCommon.ClawOpen);
 //        sleep(100);
