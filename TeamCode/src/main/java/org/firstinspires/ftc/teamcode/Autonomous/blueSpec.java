@@ -196,11 +196,12 @@ public class blueSpec extends OpMode {
                         .setLinearHeadingInterpolation(pushThirdSamplePose.getHeading(),pickUpPose.getHeading())
                         .build();
                 scoreSpec = follower.pathBuilder()
-                        .addPath(new BezierLine(new Point(pickUpPose), new Point(scorePoseTurned)))
+
+                        .addPath(new BezierCurve(new Point(pickUpPose), new Point(cycleControlPose), new Point(scorePoseTurned)))
                         .setLinearHeadingInterpolation(pickUpPose.getHeading(), scorePoseTurned.getHeading())
                         .build();
                 goBackPickUp  = follower.pathBuilder()
-                        .addPath(new BezierLine(new Point(scorePoseTurned), new Point(pickUpPose)))
+                        .addPath(new BezierCurve(new Point(scorePoseTurned),new Point(cycleControlPose),  new Point(pickUpPose)))
                         .setLinearHeadingInterpolation(scorePoseTurned.getHeading(), pickUpPose.getHeading())
                         .build();
 
@@ -242,7 +243,7 @@ public class blueSpec extends OpMode {
                                         /* Grab Sample */
 
                                         /* Since this is a pathChain, we can have Pedro hold the end point while we are scoring the sample */
-                                        follower.followPath(lineToSampleOne, false);
+                                        follower.followPath(lineToSampleOne, true);
                                         setPathState(3);
                                 }
                                 break;
@@ -252,7 +253,7 @@ public class blueSpec extends OpMode {
                                         /* Score Sample */
 
                                         /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
-                                        follower.followPath(pushSampleOne, false);
+                                        follower.followPath(pushSampleOne, true);
                                         setPathState(4);
                                 }
                                 break;
