@@ -2,8 +2,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 import static android.os.SystemClock.sleep;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.linearOpMode;
-
+import com.arcrobotics.ftclib.controller.PIDController;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.BezierCurve;
@@ -11,47 +10,20 @@ import com.pedropathing.pathgen.BezierLine;
 import com.pedropathing.pathgen.Path;
 import com.pedropathing.pathgen.PathChain;
 import com.pedropathing.pathgen.Point;
-import com.pedropathing.util.Timer;
 import com.pedropathing.util.Constants;
+import com.pedropathing.util.Timer;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
-
-
-import com.pedropathing.follower.Follower;
-import com.pedropathing.localization.Pose;
-import com.pedropathing.pathgen.BezierCurve;
-import com.pedropathing.pathgen.BezierLine;
-import com.pedropathing.pathgen.Path;
-import com.pedropathing.pathgen.PathChain;
-import com.pedropathing.pathgen.Point;
-import com.pedropathing.util.Constants;
-import com.pedropathing.util.Timer;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.arcrobotics.ftclib.controller.PIDController;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Autonomous.PinPoint.AutoCommonClass;
 import org.firstinspires.ftc.teamcode.Autonomous.PinPoint.GoBildaPinpointDriver;
-import org.firstinspires.ftc.teamcode.common.PID_Arm;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants.FConstants;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants.LConstants;
-
-
-/**
- * This is an example auto that showcases movement and control of two servos autonomously.
- * It is a 0+4 (Specimen + Sample) bucket auto. It scores a neutral preload and then pickups 3 samples from the ground and scores them before parking.
- * There are examples of different ways to build paths.
- * A path progression method has been created and can advance based on time, position, or other factors.
- *
- * @author Baron Henderson - 20077 The Indubitables
- * @version 2.0, 11/28/2024
- */
 
 @Autonomous(name = "Example Auto Blue", group = "Examples")
 public class AutoV2 extends OpMode {
@@ -74,12 +46,45 @@ public class AutoV2 extends OpMode {
     public double ArmSliderIn = 0;
     public double ArmSliderMiddle = 0.5;
 
+    private static PIDController controller;
+    //p = 0.005 i = 0 d = 0.0001 f=0.01
+    private static final double p = 0.005;
+    private static final double i = 0;
+    private static final double d = 0.0001;
+    private static final double f = 0.01;
+    private final double target = 100;
+    private final double ticks_in_degrees = 2786.2 / 360;
 
+    private final ElapsedTime timer = new ElapsedTime();
 
+    public DcMotor frontLeftMotor;
+    public DcMotor backLeftMotor;
+    public DcMotor frontRightMotor;
+    public DcMotor backRightMotor;
 
+    //Servo
+    public Servo clawServo;
+    public static Servo armSliderServo;
+    public Servo wristServo;
 
-    /** This is the variable where we store the state of our auto.
-     * It is used by the pathUpdate method. */
+    //Slide Motors
+    public DcMotor sliderMotorMotor;
+    public DcMotor sliderMotor;
+
+    //PID_Arm Motor
+    public DcMotor armMotor;
+
+    // Odo Pods and IMU
+    GoBildaPinpointDriver odo;
+    IMU imu;
+
+    //Elapsed Time
+    ElapsedTime runtime = new ElapsedTime();
+
+    /**
+     * This is the variable where we store the state of our auto.
+     * It is used by the pathUpdate method.
+     */
     private int pathState;
 
     /* Create and Define Poses + Paths
@@ -91,34 +96,50 @@ public class AutoV2 extends OpMode {
      * Lets assume our robot is 18 by 18 inches
      * Lets assume the Robot is facing the human player and we want to score in the bucket */
 
-    /** Start Pose of our robot */
+    /**
+     * Start Pose of our robot
+     */
     private final Pose startPose = new Pose(9, 111, Math.toRadians(270));
 
-    /** Scoring Pose of our robot. It is facing the submersible at a -45 degree (315 degree) angle. */
+    /**
+     * Scoring Pose of our robot. It is facing the submersible at a -45 degree (315 degree) angle.
+     */
     private final Pose scorePose = new Pose(14, 129, Math.toRadians(315));
 
-    /** Lowest (First) Sample from the Spike Mark */
+    /**
+     * Lowest (First) Sample from the Spike Mark
+     */
     private final Pose pickup1Pose = new Pose(37, 121, Math.toRadians(0));
 
-    /** Middle (Second) Sample from the Spike Mark */
+    /**
+     * Middle (Second) Sample from the Spike Mark
+     */
     private final Pose pickup2Pose = new Pose(43, 130, Math.toRadians(0));
 
-    /** Highest (Third) Sample from the Spike Mark */
+    /**
+     * Highest (Third) Sample from the Spike Mark
+     */
     private final Pose pickup3Pose = new Pose(49, 135, Math.toRadians(0));
 
-    /** Park Pose for our robot, after we do all of the scoring. */
+    /**
+     * Park Pose for our robot, after we do all of the scoring.
+     */
     private final Pose parkPose = new Pose(60, 98, Math.toRadians(90));
 
-    /** Park Control Pose for our robot, this is used to manipulate the bezier curve that we will create for the parking.
-     * The Robot will not go to this pose, it is used a control point for our bezier curve. */
+    /**
+     * Park Control Pose for our robot, this is used to manipulate the bezier curve that we will create for the parking.
+     * The Robot will not go to this pose, it is used a control point for our bezier curve.
+     */
     private final Pose parkControlPose = new Pose(60, 98, Math.toRadians(90));
 
     /* These are our Paths and PathChains that we will define in buildPaths() */
     private Path scorePreload, park;
     private PathChain grabPickup1, grabPickup2, grabPickup3, scorePickup1, scorePickup2, scorePickup3;
 
-    /** Build the paths for the auto (adds, for example, constant/linear headings while doing paths)
-     * It is necessary to do this so that all the paths are built before the auto starts. **/
+    /**
+     * Build the paths for the auto (adds, for example, constant/linear headings while doing paths)
+     * It is necessary to do this so that all the paths are built before the auto starts.
+     **/
     public void buildPaths() {
 
         /* There are two major types of paths components: BezierCurves and BezierLines.
@@ -184,9 +205,11 @@ public class AutoV2 extends OpMode {
         park.setLinearHeadingInterpolation(scorePose.getHeading(), parkPose.getHeading());
     }
 
-    /** This switch is called continuously and runs the pathing, at certain points, it triggers the action state.
+    /**
+     * This switch is called continuously and runs the pathing, at certain points, it triggers the action state.
      * Everytime the switch changes case, it will reset the timer. (This is because of the setPathState() method)
-     * The followPath() function sets the follower to run the specific path, but does NOT wait for it to finish before moving on. */
+     * The followPath() function sets the follower to run the specific path, but does NOT wait for it to finish before moving on.
+     */
     public void autonomousPathUpdate() {
         switch (pathState) {
             case 0:
@@ -215,7 +238,7 @@ public class AutoV2 extends OpMode {
                     sliderDownElapsedTime();
 
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
-                    follower.followPath(grabPickup1,true);
+                    follower.followPath(grabPickup1, true);
                     setPathState(2);
                 }
                 break;
@@ -227,7 +250,7 @@ public class AutoV2 extends OpMode {
                     sleep(300);
                     armUpSliderIn();
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are scoring the sample */
-                    follower.followPath(scorePickup1,true);
+                    follower.followPath(scorePickup1, true);
                     setPathState(3);
                 }
                 break;
@@ -244,7 +267,7 @@ public class AutoV2 extends OpMode {
                     sliderDownElapsedTime();
 
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
-                    follower.followPath(grabPickup2,true);
+                    follower.followPath(grabPickup2, true);
                     setPathState(4);
                 }
                 break;
@@ -256,7 +279,7 @@ public class AutoV2 extends OpMode {
                     sleep(300);
                     armUpSliderIn();
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are scoring the sample */
-                    follower.followPath(scorePickup2,true);
+                    follower.followPath(scorePickup2, true);
                     setPathState(5);
                 }
                 break;
@@ -273,7 +296,7 @@ public class AutoV2 extends OpMode {
                     sliderDownElapsedTime();
 
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
-                    follower.followPath(grabPickup3,true);
+                    follower.followPath(grabPickup3, true);
                     setPathState(6);
                 }
                 break;
@@ -302,7 +325,7 @@ public class AutoV2 extends OpMode {
                     sliderDownElapsedTime();
 
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are parked */
-                    follower.followPath(park,true);
+                    follower.followPath(park, true);
                     setPathState(8);
                 }
                 break;
@@ -318,17 +341,20 @@ public class AutoV2 extends OpMode {
         }
     }
 
-    /** These change the states of the paths and actions
-     * It will also reset the timers of the individual switches **/
+    /**
+     * These change the states of the paths and actions
+     * It will also reset the timers of the individual switches
+     **/
     public void setPathState(int pState) {
         pathState = pState;
         pathTimer.resetTimer();
     }
 
-    /** This is the main loop of the OpMode, it will run repeatedly after clicking "Play". **/
+    /**
+     * This is the main loop of the OpMode, it will run repeatedly after clicking "Play".
+     **/
     @Override
     public void loop() {
-
         // These loop the movements of the robot
         follower.update();
         autonomousPathUpdate();
@@ -342,7 +368,9 @@ public class AutoV2 extends OpMode {
 
     }
 
-    /** This method is called once at the init of the OpMode. **/
+    /**
+     * This method is called once at the init of the OpMode.
+     **/
     @Override
     public void init() {
         pathTimer = new Timer();
@@ -356,47 +384,29 @@ public class AutoV2 extends OpMode {
         initAuto();
     }
 
-    /** This method is called continuously after Init while waiting for "play". **/
+    /**
+     * This method is called continuously after Init while waiting for "play".
+     **/
     @Override
-    public void init_loop() {}
+    public void init_loop() {
+    }
 
-    /** This method is called once at the start of the OpMode.
-     * It runs all the setup actions, including building paths and starting the path system **/
+    /**
+     * This method is called once at the start of the OpMode.
+     * It runs all the setup actions, including building paths and starting the path system
+     **/
     @Override
     public void start() {
         opmodeTimer.resetTimer();
         setPathState(0);
     }
 
-    /** We do not use this because everything should automatically disable **/
+    /**
+     * We do not use this because everything should automatically disable
+     **/
     @Override
     public void stop() {
     }
-
-    public DcMotor frontLeftMotor;
-    public DcMotor backLeftMotor;
-    public DcMotor frontRightMotor;
-    public DcMotor backRightMotor;
-
-    //Servo
-    public Servo clawServo;
-    public static Servo armSliderServo;
-    public Servo wristServo;
-
-    //Slide Motors
-    public DcMotor sliderMotorMotor;
-    public DcMotor sliderMotor;
-
-    //PID_Arm Motor
-    public DcMotor armMotor;
-
-    // Odo Pods and IMU
-    GoBildaPinpointDriver odo;
-    IMU imu;
-
-    //Elapsed Time
-    ElapsedTime runtime = new ElapsedTime();
-
 
     //Init Full Auto
     private void initAuto() {
@@ -464,17 +474,6 @@ public class AutoV2 extends OpMode {
         odo.resetPosAndIMU();
     }
 
-    private void initSliderReverse() {
-        sliderMotor = hardwareMap.get(DcMotor.class, "slideMotor");
-        sliderMotorMotor = hardwareMap.get(DcMotor.class, "slideMotorMotor");
-
-        sliderMotor.setDirection(DcMotor.Direction.FORWARD);
-        sliderMotorMotor.setDirection(DcMotor.Direction.REVERSE);
-
-        sliderMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        sliderMotorMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    }
-
     public void sliderUpElapsedTime(int position) {
         // Previous Value
         sliderMotor.setTargetPosition(position);
@@ -505,17 +504,7 @@ public class AutoV2 extends OpMode {
 
     }
 
-    private static PIDController controller;
-    //p = 0.005 i = 0 d = 0.0001 f=0.01
-    private static final double p = 0.005;
-    private static final double i = 0;
-    private static final double d = 0.0001;
-    private static final double f = 0.01;
-    private final double target = 100;
-    private final double ticks_in_degrees = 2786.2 / 360;
-
     //Math
-
     public void AutoPIDArmmath(double target) {
         controller.setPID(p, i, d);
         int armPos = armMotor.getCurrentPosition();
@@ -527,9 +516,6 @@ public class AutoV2 extends OpMode {
         // telemetry.addData("target", target);
         // telemetry.update();
     }
-
-
-    private ElapsedTime timer = new ElapsedTime();
 
     public void sliderDownElapsedTime() {
         sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -583,7 +569,4 @@ public class AutoV2 extends OpMode {
         }
         armSliderServo.setPosition(ArmSliderIn);
     }
-
-
-
 }
