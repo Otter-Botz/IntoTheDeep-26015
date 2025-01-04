@@ -85,24 +85,25 @@ public class HighBasketAuto extends LinearOpMode {
         otterBotzCommon.set(otterBotzCommon.ArmSliderIn);
 
         // drive to basket
-        otterBotzCommon.driveToPos(-ticksPerInchForward * 10, ticksPerInchSideways * 10);
-        sleep(300);
-        otterBotzCommon.driveToPos(-ticksPerInchForward * 20, ticksPerInchSideways * 10);
-        otterBotzCommon.gyroTurnToAngle(40);
-        // 24.5 Barely Making It In Basket
-        otterBotzCommon.driveToPos(-ticksPerInchForward * 24.5,ticksPerInchSideways * 8);
+//        otterBotzCommon.driveToPos(-ticksPerInchForward * 10, ticksPerInchSideways * 10);
+//        sleep(300);
+//        otterBotzCommon.driveToPos(-ticksPerInchForward * 20, ticksPerInchSideways * 10);
+//        otterBotzCommon.gyroTurnToAngle(40);
+//        // 24.5 Barely Making It In Basket
+//        otterBotzCommon.driveToPos(-ticksPerInchForward * 24.5,ticksPerInchSideways * 8);
 
         //Score 1
 
         otterBotzCommon.sliderUpElapsedTime(500);
-        otterBotzCommon.AutoPIDArmmath(1207);
-        sleep(300);
+        sleep(500);
+        otterBotzCommon.AutoPIDArmmath(1100);
+        sleep(500);
         otterBotzCommon.clawServo.setPosition(0.25);
 
         sleep(500);
 
         otterBotzCommon.sliderDownElapsedTime();
-        otterBotzCommon.headingCorrectBasket();
+        //otterBotzCommon.headingCorrectBasket();
         otterBotzCommon.armDownSliderOut();
 
         //Move to first sample

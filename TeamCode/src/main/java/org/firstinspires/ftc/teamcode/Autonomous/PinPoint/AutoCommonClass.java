@@ -5,7 +5,6 @@ import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gam
 
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -15,9 +14,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.teamcode.Autonomous.AutoV2;
 
 public class AutoCommonClass implements autoCommonInterface {
-    private final LinearOpMode linearOpMode;
+    private final HighBasketAuto linearOpMode;
     private final HardwareMap hardwareMap;
     private final Telemetry telemetry;
 
@@ -62,7 +62,7 @@ public class AutoCommonClass implements autoCommonInterface {
     public double ArmSliderMiddle = 0.5;
 
     //Calling Class
-    public AutoCommonClass(LinearOpMode callingLinearOpMode) {
+    public AutoCommonClass(HighBasketAuto callingLinearOpMode) {
         this.linearOpMode = callingLinearOpMode;
         this.hardwareMap = callingLinearOpMode.hardwareMap;
         this.telemetry = callingLinearOpMode.telemetry;
@@ -190,6 +190,8 @@ public class AutoCommonClass implements autoCommonInterface {
 
         // Wait until motors reach their target
         runtime.reset();
+        //Tune Runtime Value to move the sliders more or less up
+
         while (opModeIsActive() && runtime.seconds() < 0.7) {
             telemetry.addData("Motor Left Current Inside", sliderMotor.getCurrentPosition());
             telemetry.addData("Motor Right Current Inside", sliderMotorMotor.getCurrentPosition());
@@ -199,6 +201,9 @@ public class AutoCommonClass implements autoCommonInterface {
         // Stop the motors once target is reached
         sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        sleep(200);
+        AutoPIDArmmath(1115);
     }
 
 

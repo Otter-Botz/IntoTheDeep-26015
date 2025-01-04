@@ -1,5 +1,9 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
+import static android.os.SystemClock.sleep;
+
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.linearOpMode;
+
 import com.pedropathing.follower.Follower;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.BezierCurve;
@@ -9,6 +13,7 @@ import com.pedropathing.pathgen.PathChain;
 import com.pedropathing.pathgen.Point;
 import com.pedropathing.util.Timer;
 import com.pedropathing.util.Constants;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
@@ -25,7 +30,14 @@ import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.arcrobotics.ftclib.controller.PIDController;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.Autonomous.PinPoint.AutoCommonClass;
+import org.firstinspires.ftc.teamcode.Autonomous.PinPoint.GoBildaPinpointDriver;
 import org.firstinspires.ftc.teamcode.common.PID_Arm;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants.FConstants;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants.LConstants;
@@ -46,6 +58,25 @@ public class AutoV2 extends OpMode {
 
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
+
+    //Claw Positions
+    public double ClawOpen = 0.25;
+    public double ClawClose = 0;
+
+    //Wrist Positions
+    public double WristUp = 0.25;
+    public double WristSubmersible = 0.5;
+    public double WristDown = 0;
+    public double WristMiddle = 0.25;
+
+    //Arm Slider Positions
+    public double ArmSliderOut = 1;
+    public double ArmSliderIn = 0;
+    public double ArmSliderMiddle = 0.5;
+
+
+
+
 
     /** This is the variable where we store the state of our auto.
      * It is used by the pathUpdate method. */
@@ -172,7 +203,16 @@ public class AutoV2 extends OpMode {
 
                 /* This case checks the robot's position and will wait until the robot position is close (1 inch away) from the scorePose's position */
                 if (!follower.isBusy()) {
+
                     /* Score Preload */
+                    //Need to be tested
+                    sliderUpElapsedTime(500);
+                    sleep(400);
+                    AutoPIDArmmath(1115);
+                    sleep(300);
+                    clawServo.setPosition(0.25);
+                    sleep(500);
+                    sliderDownElapsedTime();
 
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
                     follower.followPath(grabPickup1,true);
@@ -183,7 +223,9 @@ public class AutoV2 extends OpMode {
                 /* This case checks the robot's position and will wait until the robot position is close (1 inch away) from the pickup1Pose's position */
                 if (!follower.isBusy()) {
                     /* Grab Sample */
-
+                    armDownSliderOut();
+                    sleep(300);
+                    armUpSliderIn();
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are scoring the sample */
                     follower.followPath(scorePickup1,true);
                     setPathState(3);
@@ -193,6 +235,13 @@ public class AutoV2 extends OpMode {
                 /* This case checks the robot's position and will wait until the robot position is close (1 inch away) from the scorePose's position */
                 if (!follower.isBusy()) {
                     /* Score Sample */
+                    sliderUpElapsedTime(500);
+                    sleep(400);
+                    AutoPIDArmmath(1115);
+                    sleep(300);
+                    clawServo.setPosition(0.25);
+                    sleep(500);
+                    sliderDownElapsedTime();
 
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
                     follower.followPath(grabPickup2,true);
@@ -203,7 +252,9 @@ public class AutoV2 extends OpMode {
                 /* This case checks the robot's position and will wait until the robot position is close (1 inch away) from the pickup2Pose's position */
                 if (!follower.isBusy()) {
                     /* Grab Sample */
-
+                    armDownSliderOut();
+                    sleep(300);
+                    armUpSliderIn();
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are scoring the sample */
                     follower.followPath(scorePickup2,true);
                     setPathState(5);
@@ -213,6 +264,13 @@ public class AutoV2 extends OpMode {
                 /* This case checks the robot's position and will wait until the robot position is close (1 inch away) from the scorePose's position */
                 if (!follower.isBusy()) {
                     /* Score Sample */
+                    sliderUpElapsedTime(500);
+                    sleep(400);
+                    AutoPIDArmmath(1115);
+                    sleep(300);
+                    clawServo.setPosition(0.25);
+                    sleep(500);
+                    sliderDownElapsedTime();
 
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
                     follower.followPath(grabPickup3,true);
@@ -223,7 +281,9 @@ public class AutoV2 extends OpMode {
                 /* This case checks the robot's position and will wait until the robot position is close (1 inch away) from the pickup3Pose's position */
                 if (!follower.isBusy()) {
                     /* Grab Sample */
-
+                    armDownSliderOut();
+                    sleep(300);
+                    armUpSliderIn();
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are scoring the sample */
                     follower.followPath(scorePickup3, true);
                     setPathState(7);
@@ -233,6 +293,13 @@ public class AutoV2 extends OpMode {
                 /* This case checks the robot's position and will wait until the robot position is close (1 inch away) from the scorePose's position */
                 if (!follower.isBusy()) {
                     /* Score Sample */
+                    sliderUpElapsedTime(500);
+                    sleep(400);
+                    AutoPIDArmmath(1115);
+                    sleep(300);
+                    clawServo.setPosition(0.25);
+                    sleep(500);
+                    sliderDownElapsedTime();
 
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are parked */
                     follower.followPath(park,true);
@@ -272,6 +339,7 @@ public class AutoV2 extends OpMode {
         telemetry.addData("y", follower.getPose().getY());
         telemetry.addData("heading", follower.getPose().getHeading());
         telemetry.update();
+
     }
 
     /** This method is called once at the init of the OpMode. **/
@@ -285,6 +353,7 @@ public class AutoV2 extends OpMode {
         follower = new Follower(hardwareMap);
         follower.setStartingPose(startPose);
         buildPaths();
+        initAuto();
     }
 
     /** This method is called continuously after Init while waiting for "play". **/
@@ -303,4 +372,218 @@ public class AutoV2 extends OpMode {
     @Override
     public void stop() {
     }
+
+    public DcMotor frontLeftMotor;
+    public DcMotor backLeftMotor;
+    public DcMotor frontRightMotor;
+    public DcMotor backRightMotor;
+
+    //Servo
+    public Servo clawServo;
+    public static Servo armSliderServo;
+    public Servo wristServo;
+
+    //Slide Motors
+    public DcMotor sliderMotorMotor;
+    public DcMotor sliderMotor;
+
+    //PID_Arm Motor
+    public DcMotor armMotor;
+
+    // Odo Pods and IMU
+    GoBildaPinpointDriver odo;
+    IMU imu;
+
+    //Elapsed Time
+    ElapsedTime runtime = new ElapsedTime();
+
+
+    //Init Full Auto
+    private void initAuto() {
+        initImu();
+        initDriveMotors();
+        initServo();
+        initSlider();
+        initArmMotor();
+        initPinPoint();
+    }
+
+    private void initImu() {
+        // Retrieve the IMU from the hardware map
+        imu = hardwareMap.get(IMU.class, "imu");
+        // Adjust the orientation parameters to match your robot
+        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+                RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                RevHubOrientationOnRobot.UsbFacingDirection.LEFT));
+        // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
+        imu.initialize(parameters);
+        imu.resetYaw();
+    }
+
+    private void initDriveMotors() {
+        frontLeftMotor = hardwareMap.get(DcMotor.class, "leftFront");
+        backLeftMotor = hardwareMap.get(DcMotor.class, "leftBack");
+        frontRightMotor = hardwareMap.get(DcMotor.class, "rightFront");
+        backRightMotor = hardwareMap.get(DcMotor.class, "rightBack");
+
+        frontLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+    }
+
+    private void initServo() {
+        // Claw/Wrist
+        clawServo = hardwareMap.get(Servo.class, "clawServo");
+        wristServo = hardwareMap.get(Servo.class, "wristServo");
+
+        //Arm Slider
+        armSliderServo = hardwareMap.get(Servo.class, "servoSlide");
+    }
+
+    private void initSlider() {
+        sliderMotor = hardwareMap.get(DcMotor.class, "slideMotor");
+        sliderMotorMotor = hardwareMap.get(DcMotor.class, "slideMotorMotor");
+
+        sliderMotor.setDirection(DcMotor.Direction.REVERSE);
+        sliderMotorMotor.setDirection(DcMotor.Direction.FORWARD);
+
+        sliderMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        sliderMotorMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    }
+
+    private void initArmMotor() {
+        armMotor = hardwareMap.get(DcMotor.class, "armMotor");
+        controller = new PIDController(p, i, d);
+    }
+
+    private void initPinPoint() {
+        odo = hardwareMap.get(GoBildaPinpointDriver.class, "odo");
+        odo.setOffsets(150, -370); //these are tuned for 3110-0002-0001 Product Insight #1
+        odo.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_SWINGARM_POD);
+        odo.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD,
+                GoBildaPinpointDriver.EncoderDirection.REVERSED);
+        odo.resetPosAndIMU();
+    }
+
+    private void initSliderReverse() {
+        sliderMotor = hardwareMap.get(DcMotor.class, "slideMotor");
+        sliderMotorMotor = hardwareMap.get(DcMotor.class, "slideMotorMotor");
+
+        sliderMotor.setDirection(DcMotor.Direction.FORWARD);
+        sliderMotorMotor.setDirection(DcMotor.Direction.REVERSE);
+
+        sliderMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        sliderMotorMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    }
+
+    public void sliderUpElapsedTime(int position) {
+        // Previous Value
+        sliderMotor.setTargetPosition(position);
+        sliderMotorMotor.setTargetPosition(position);
+
+        sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        // Set motor power and let them move to the target
+        sliderMotorMotor.setPower(1);  // Adjust power as needed
+        sliderMotor.setPower(1);
+
+        // Wait until motors reach their target
+        runtime.reset();
+        //Tune Runtime Value to move the sliders more or less up
+
+        //Check if this will work
+        //Originally was Opmode is active
+        while (sliderMotor.isBusy() && runtime.seconds() < 0.7) {
+            telemetry.addData("Motor Left Current Inside", sliderMotor.getCurrentPosition());
+            telemetry.addData("Motor Right Current Inside", sliderMotorMotor.getCurrentPosition());
+            telemetry.update();
+        }
+
+        // Stop the motors once target is reached
+        sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+    }
+
+    private static PIDController controller;
+    //p = 0.005 i = 0 d = 0.0001 f=0.01
+    private static final double p = 0.005;
+    private static final double i = 0;
+    private static final double d = 0.0001;
+    private static final double f = 0.01;
+    private final double target = 100;
+    private final double ticks_in_degrees = 2786.2 / 360;
+
+    //Math
+
+    public void AutoPIDArmmath(double target) {
+        controller.setPID(p, i, d);
+        int armPos = armMotor.getCurrentPosition();
+        double pid = controller.calculate(armPos, target);
+        double ff = Math.cos(Math.toRadians(target / ticks_in_degrees)) * f;
+        double power = pid + ff;
+        armMotor.setPower(power);
+        // telemetry.addData("pos", slidePos);
+        // telemetry.addData("target", target);
+        // telemetry.update();
+    }
+
+
+    private ElapsedTime timer = new ElapsedTime();
+
+    public void sliderDownElapsedTime() {
+        sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        sliderMotor.setPower(-1);
+        sliderMotorMotor.setPower(-1);
+
+        timer.reset();
+        // In your loop, stop the motor after a certain time
+        while (timer.seconds() < 0.1) {
+            telemetry.addData("Motor Left Current Inside", sliderMotor.getCurrentPosition());
+            telemetry.addData("Motor Right Current Inside", sliderMotorMotor.getCurrentPosition());
+            telemetry.update();
+        }
+
+        // Stop the sliders once target positions are reached
+        sliderMotor.setPower(0);
+        sliderMotorMotor.setPower(0);
+    }
+
+    public void armDown() {
+        runtime.reset();
+        // Run tasks for the entire autonomous period
+        while (runtime.seconds() < 1) {
+            AutoPIDArmmath(0);
+        }
+    }
+
+    public void armDownSliderOut() {
+        sleep(200);
+        runtime.reset();
+        // Run tasks for the entire autonomous period
+        while (runtime.seconds() < 1) {
+            AutoPIDArmmath(200);
+        }
+        armSliderServo.setPosition(ArmSliderOut);
+        sleep(300);
+        clawServo.setPosition(ClawOpen);
+        sleep(600);
+        clawServo.setPosition(ClawClose);
+        sleep(200);
+        wristServo.setPosition(WristUp);
+    }
+
+    public void armUpSliderIn() {
+        runtime.reset();
+        // Run tasks for the entire autonomous period
+        while (runtime.seconds() < 1) {
+            AutoPIDArmmath(950);
+        }
+        armSliderServo.setPosition(ArmSliderIn);
+    }
+
+
+
 }
