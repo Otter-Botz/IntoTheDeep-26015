@@ -192,7 +192,7 @@ public class AutoCommonClass implements autoCommonInterface {
         runtime.reset();
         //Tune Runtime Value to move the sliders more or less up
 
-        while (opModeIsActive() && runtime.seconds() < 0.7) {
+        while (opModeIsActive() && runtime.seconds() < 0.8) {
             telemetry.addData("Motor Left Current Inside", sliderMotor.getCurrentPosition());
             telemetry.addData("Motor Right Current Inside", sliderMotorMotor.getCurrentPosition());
             telemetry.update();
@@ -202,8 +202,6 @@ public class AutoCommonClass implements autoCommonInterface {
         sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        sleep(200);
-        AutoPIDArmmath(1115);
     }
 
 
@@ -375,7 +373,7 @@ public class AutoCommonClass implements autoCommonInterface {
         runtime.reset();
         // Run tasks for the entire autonomous period
         while (runtime.seconds() < 1) {
-            AutoPIDArmmath(950);
+            AutoPIDArmmath(900);
         }
         armSliderServo.setPosition(ArmSliderIn);
     }

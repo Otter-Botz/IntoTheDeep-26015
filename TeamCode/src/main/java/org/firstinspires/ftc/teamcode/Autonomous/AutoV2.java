@@ -236,17 +236,17 @@ public class AutoV2 extends OpMode {
 
                         /* Score Preload */
                         //Need to be tested
-//                    sliderUpElapsedTime(500);
-//                    sleep(400);
-//                    AutoPIDArmmath(1115);
-//                    sleep(300);
-//                    clawServo.setPosition(0.25);
-//                    sleep(500);
-//                    sliderDownElapsedTime();
+                        armUpSliderIn();
+                        sleep(200);
+                        sliderUpElapsedTime(500);
+                        sleep(300);
+//                        clawServo.setPosition(0.25);
+//                        sleep(100);
+                        sliderDownElapsedTime();
 
                         /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
                         follower.followPath(grabPickup1, true);
-                        setPathState(2);
+                        setPathState(-1);
                     }
 
                 break;
@@ -305,7 +305,7 @@ public class AutoV2 extends OpMode {
 
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
                     follower.followPath(grabPickup3, true);
-                    setPathState(-1);
+                    setPathState(6);
                 }
                 break;
             case 6:
@@ -343,7 +343,7 @@ public class AutoV2 extends OpMode {
                     /* Level 1 Ascent */
 
                     /* Set the state to a Case we won't use or define, so it just stops running an new paths */
-                    setPathState(9);
+                    setPathState(-1);
                 }
                 break;
         }
@@ -525,6 +525,8 @@ public class AutoV2 extends OpMode {
     }
 
     public void sliderDownElapsedTime() {
+        armRest();
+
         sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
@@ -544,11 +546,11 @@ public class AutoV2 extends OpMode {
         sliderMotorMotor.setPower(0);
     }
 
-    public void armDown() {
+    public void armRest() {
         runtime.reset();
         // Run tasks for the entire autonomous period
         while (runtime.seconds() < 1) {
-            AutoPIDArmmath(0);
+            AutoPIDArmmath(900);
         }
     }
 
@@ -572,7 +574,7 @@ public class AutoV2 extends OpMode {
         runtime.reset();
         // Run tasks for the entire autonomous period
         while (runtime.seconds() < 1) {
-            AutoPIDArmmath(950);
+            AutoPIDArmmath(1115);
         }
         armSliderServo.setPosition(ArmSliderIn);
     }

@@ -94,17 +94,21 @@ public class HighBasketAuto extends LinearOpMode {
 
         //Score 1
 
+
+
+
+        otterBotzCommon.armUpSliderIn();
+        sleep(600);
         otterBotzCommon.sliderUpElapsedTime(500);
+
         sleep(500);
-        otterBotzCommon.AutoPIDArmmath(1100);
-        sleep(500);
-        otterBotzCommon.clawServo.setPosition(0.25);
+        //otterBotzCommon.clawServo.setPosition(0.25);
 
         sleep(500);
 
         otterBotzCommon.sliderDownElapsedTime();
         //otterBotzCommon.headingCorrectBasket();
-        otterBotzCommon.armDownSliderOut();
+
 
         //Move to first sample
 //        otterBotzCommon.driveToPos(-ticksPerInchForward * 19.5, ticksPerInchSideways * 26.5);
