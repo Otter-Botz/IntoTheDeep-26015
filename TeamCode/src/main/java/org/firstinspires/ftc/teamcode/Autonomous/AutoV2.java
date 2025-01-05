@@ -25,7 +25,7 @@ import org.firstinspires.ftc.teamcode.Autonomous.PinPoint.GoBildaPinpointDriver;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants.FConstants;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants.LConstants;
 
-@Autonomous(name = "Example Auto Blue", group = "Examples")
+@Autonomous(name = "0+4Blue", group = "Otter")
 public class AutoV2 extends OpMode {
 
     private Follower follower;
@@ -88,7 +88,7 @@ public class AutoV2 extends OpMode {
     private int pathState;
 
     /* Create and Define Poses + Paths
-     * Poses are built with three constructors: x, y, and heading (in Radians).
+     * Poses are built with th  ree constructors: x, y, and heading (in Radians).
      * Pedro uses 0 - 144 for x and y, with 0, 0 being on the bottom left.
      * (For Into the Deep, this would be Blue Observation Zone (0,0) to Red Observation Zone (144,144).)
      * Even though Pedro uses a different coordinate system than RR, you can convert any roadrunner pose by adding +72 both the x and y.
@@ -104,22 +104,26 @@ public class AutoV2 extends OpMode {
     /**
      * Scoring Pose of our robot. It is facing the submersible at a -45 degree (315 degree) angle.
      */
-    private final Pose scorePose = new Pose(14, 129, Math.toRadians(315));
+    private final Pose scorePose = new Pose(16, 125, Math.toRadians(315));
 
     /**
      * Lowest (First) Sample from the Spike Mark
      */
-    private final Pose pickup1Pose = new Pose(37, 121, Math.toRadians(0));
+    //Originally
+    private final Pose pickup1Pose = new Pose(30, 130, Math.toRadians(0));
+
+    //24 Previous Value
+    private final Pose scorePickup1Pose = new Pose(24,130, Math.toRadians(315));
 
     /**
      * Middle (Second) Sample from the Spike Mark
      */
-    private final Pose pickup2Pose = new Pose(43, 130, Math.toRadians(0));
+    private final Pose pickup2Pose = new Pose(30, 135, Math.toRadians(0));
 
     /**
      * Highest (Third) Sample from the Spike Mark
      */
-    private final Pose pickup3Pose = new Pose(49, 135, Math.toRadians(0));
+    private final Pose pickup3Pose = new Pose(30, 135, Math.toRadians(45));
 
     /**
      * Park Pose for our robot, after we do all of the scoring.
@@ -172,20 +176,20 @@ public class AutoV2 extends OpMode {
 
         /* This is our scorePickup1 PathChain. We are using a single path with a BezierLine, which is a straight line. */
         scorePickup1 = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(pickup1Pose), new Point(scorePose)))
-                .setLinearHeadingInterpolation(pickup1Pose.getHeading(), scorePose.getHeading())
+                .addPath(new BezierLine(new Point(pickup1Pose), new Point(scorePickup1Pose)))
+                .setLinearHeadingInterpolation(pickup1Pose.getHeading(), scorePickup1Pose.getHeading())
                 .build();
 
         /* This is our grabPickup2 PathChain. We are using a single path with a BezierLine, which is a straight line. */
         grabPickup2 = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(scorePose), new Point(pickup2Pose)))
-                .setLinearHeadingInterpolation(scorePose.getHeading(), pickup2Pose.getHeading())
+                .addPath(new BezierLine(new Point(scorePickup1Pose), new Point(pickup2Pose)))
+                .setLinearHeadingInterpolation(scorePickup1Pose.getHeading(), pickup2Pose.getHeading())
                 .build();
 
         /* This is our scorePickup2 PathChain. We are using a single path with a BezierLine, which is a straight line. */
         scorePickup2 = follower.pathBuilder()
-                .addPath(new BezierLine(new Point(pickup2Pose), new Point(scorePose)))
-                .setLinearHeadingInterpolation(pickup2Pose.getHeading(), scorePose.getHeading())
+                .addPath(new BezierLine(new Point(pickup2Pose), new Point(scorePickup1Pose)))
+                .setLinearHeadingInterpolation(pickup2Pose.getHeading(), scorePickup1Pose.getHeading())
                 .build();
 
         /* This is our grabPickup3 PathChain. We are using a single path with a BezierLine, which is a straight line. */
@@ -225,30 +229,34 @@ public class AutoV2 extends OpMode {
                 */
 
                 /* This case checks the robot's position and will wait until the robot position is close (1 inch away) from the scorePose's position */
-                if (!follower.isBusy()) {
 
-                    /* Score Preload */
-                    //Need to be tested
-                    sliderUpElapsedTime(500);
-                    sleep(400);
-                    AutoPIDArmmath(1115);
-                    sleep(300);
-                    clawServo.setPosition(0.25);
-                    sleep(500);
-                    sliderDownElapsedTime();
+                    //AutoPIDArmmath(1115);
 
-                    /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
-                    follower.followPath(grabPickup1, true);
-                    setPathState(2);
-                }
+                    if (!follower.isBusy()) {
+
+                        /* Score Preload */
+                        //Need to be tested
+//                    sliderUpElapsedTime(500);
+//                    sleep(400);
+//                    AutoPIDArmmath(1115);
+//                    sleep(300);
+//                    clawServo.setPosition(0.25);
+//                    sleep(500);
+//                    sliderDownElapsedTime();
+
+                        /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
+                        follower.followPath(grabPickup1, true);
+                        setPathState(2);
+                    }
+
                 break;
             case 2:
                 /* This case checks the robot's position and will wait until the robot position is close (1 inch away) from the pickup1Pose's position */
                 if (!follower.isBusy()) {
                     /* Grab Sample */
-                    armDownSliderOut();
-                    sleep(300);
-                    armUpSliderIn();
+//                    armDownSliderOut();
+//                    sleep(300);
+//                    armUpSliderIn();
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are scoring the sample */
                     follower.followPath(scorePickup1, true);
                     setPathState(3);
@@ -258,13 +266,13 @@ public class AutoV2 extends OpMode {
                 /* This case checks the robot's position and will wait until the robot position is close (1 inch away) from the scorePose's position */
                 if (!follower.isBusy()) {
                     /* Score Sample */
-                    sliderUpElapsedTime(500);
-                    sleep(400);
-                    AutoPIDArmmath(1115);
-                    sleep(300);
-                    clawServo.setPosition(0.25);
-                    sleep(500);
-                    sliderDownElapsedTime();
+//                    sliderUpElapsedTime(500);
+//                    sleep(400);
+//                    AutoPIDArmmath(1115);
+//                    sleep(300);
+//                    clawServo.setPosition(0.25);
+//                    sleep(500);
+//                    sliderDownElapsedTime();
 
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
                     follower.followPath(grabPickup2, true);
@@ -275,9 +283,9 @@ public class AutoV2 extends OpMode {
                 /* This case checks the robot's position and will wait until the robot position is close (1 inch away) from the pickup2Pose's position */
                 if (!follower.isBusy()) {
                     /* Grab Sample */
-                    armDownSliderOut();
-                    sleep(300);
-                    armUpSliderIn();
+//                    armDownSliderOut();
+//                    sleep(300);
+//                    armUpSliderIn();
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are scoring the sample */
                     follower.followPath(scorePickup2, true);
                     setPathState(5);
@@ -287,26 +295,26 @@ public class AutoV2 extends OpMode {
                 /* This case checks the robot's position and will wait until the robot position is close (1 inch away) from the scorePose's position */
                 if (!follower.isBusy()) {
                     /* Score Sample */
-                    sliderUpElapsedTime(500);
-                    sleep(400);
-                    AutoPIDArmmath(1115);
-                    sleep(300);
-                    clawServo.setPosition(0.25);
-                    sleep(500);
-                    sliderDownElapsedTime();
+//                    sliderUpElapsedTime(500);
+//                    sleep(400);
+//                    AutoPIDArmmath(1115);
+//                    sleep(300);
+//                    clawServo.setPosition(0.25);
+//                    sleep(500);
+//                    sliderDownElapsedTime();
 
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
                     follower.followPath(grabPickup3, true);
-                    setPathState(6);
+                    setPathState(-1);
                 }
                 break;
             case 6:
                 /* This case checks the robot's position and will wait until the robot position is close (1 inch away) from the pickup3Pose's position */
                 if (!follower.isBusy()) {
                     /* Grab Sample */
-                    armDownSliderOut();
-                    sleep(300);
-                    armUpSliderIn();
+//                    armDownSliderOut();
+//                    sleep(300);
+//                    armUpSliderIn();
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are scoring the sample */
                     follower.followPath(scorePickup3, true);
                     setPathState(7);
@@ -316,13 +324,13 @@ public class AutoV2 extends OpMode {
                 /* This case checks the robot's position and will wait until the robot position is close (1 inch away) from the scorePose's position */
                 if (!follower.isBusy()) {
                     /* Score Sample */
-                    sliderUpElapsedTime(500);
-                    sleep(400);
-                    AutoPIDArmmath(1115);
-                    sleep(300);
-                    clawServo.setPosition(0.25);
-                    sleep(500);
-                    sliderDownElapsedTime();
+//                    sliderUpElapsedTime(500);
+//                    sleep(400);
+//                    AutoPIDArmmath(1115);
+//                    sleep(300);
+//                    clawServo.setPosition(0.25);
+//                    sleep(500);
+//                    sliderDownElapsedTime();
 
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are parked */
                     follower.followPath(park, true);
@@ -335,7 +343,7 @@ public class AutoV2 extends OpMode {
                     /* Level 1 Ascent */
 
                     /* Set the state to a Case we won't use or define, so it just stops running an new paths */
-                    setPathState(-1);
+                    setPathState(9);
                 }
                 break;
         }
@@ -365,7 +373,6 @@ public class AutoV2 extends OpMode {
         telemetry.addData("y", follower.getPose().getY());
         telemetry.addData("heading", follower.getPose().getHeading());
         telemetry.update();
-
     }
 
     /**
