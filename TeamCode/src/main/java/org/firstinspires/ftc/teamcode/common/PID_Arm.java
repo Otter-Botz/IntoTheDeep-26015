@@ -82,7 +82,7 @@ public class PID_Arm {
     public final double Up = 1115;
     public final double Down = 0;
     //to be tested
-    public final double Auto_grab = 200;
+    public final double Auto_grab = 320;
     public final double Auto_belowRung = 1500;
     public final double Auto_aboveRung = 1200;
 
@@ -106,6 +106,9 @@ public class PID_Arm {
 
     public void down() {
         target = 221;
+    }
+    public void autoGrab(){
+        target = 320;
     }
 
 
