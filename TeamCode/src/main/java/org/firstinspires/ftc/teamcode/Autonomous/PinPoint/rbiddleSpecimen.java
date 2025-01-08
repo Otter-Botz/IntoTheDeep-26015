@@ -34,7 +34,7 @@ public class rbiddleSpecimen extends LinearOpMode {
     private Servo clawServo;
     private Servo wristServo;
 
-    AutoMechanisms mechanisms = new AutoMechanisms();
+
 
     double tickPerInch = 23;
 
@@ -55,43 +55,24 @@ public class rbiddleSpecimen extends LinearOpMode {
         }
         resetRuntime();
 
-        mechanisms.belowRung();
-        mechanisms.wristUp();
+
         driveToPos(600, 100);
         //mechanisms.aboveRung();
-        mechanisms.clawOpen();
         driveToPos(450, -(tickPerInch * 42));
        /// mechanisms.downGrab();
-        mechanisms.wristDown();
         sleep(1000);
-        mechanisms.clawClose();
-        mechanisms.wristUp();
-        mechanisms.backGrab();
-        mechanisms.clawOpen();
         driveToPos(450,-(tickPerInch * 53));
        // mechanisms.downGrab();
-        mechanisms.wristDown();
         sleep(1000);
-        mechanisms.clawClose();
-        mechanisms.wristUp();
-        mechanisms.backGrab();
-        mechanisms.clawOpen();
-        mechanisms.belowRung();
         sleep(2000);
-        mechanisms.backGrab();
-        mechanisms.clawClose();
         driveToPos(-1334,(tickPerInch * 13));
-        mechanisms.belowRung();
         //mechanisms.aboveRung();
-        mechanisms.clawOpen();
         driveToPos(1334,-(tickPerInch * 13));
-        mechanisms.backGrab();
-        mechanisms.clawClose();
+
         driveToPos(-1334,(tickPerInch * 13));
-        mechanisms.belowRung();
+
         //mechanisms.aboveRung();
-        mechanisms.clawOpen();
-        mechanisms.backGrab();
+
         driveToPos(1403,(tickPerInch * 26));
         driveToPos(1403,-(tickPerInch * 44));
 

@@ -11,10 +11,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class vroomVroom  {
-   private DcMotor frontLeftMotor;
-   private DcMotor backLeftMotor;
-   private DcMotor frontRightMotor;
-   private DcMotor backRightMotor;
+   DcMotor frontLeftMotor;
+   DcMotor backLeftMotor;
+   DcMotor frontRightMotor;
+   DcMotor backRightMotor;
 
     private IMU imu;
 
@@ -29,7 +29,7 @@ public class vroomVroom  {
             backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
-             imu = hwMap.get(IMU.class, "imu");
+            imu = hwMap.get(IMU.class, "imu");
             // Adjust the orientation parameters to match your robot
             IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
                     RevHubOrientationOnRobot.LogoFacingDirection.UP,

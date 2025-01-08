@@ -11,9 +11,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 
 
-
-/// DONT DELETE COMMENT
 /*
+/// DONT DELETE COMMENT
+
 @Config
 @TeleOp
 public class PID_Arm extends OpMode {
@@ -56,9 +56,11 @@ public class PID_Arm extends OpMode {
 }
 
 
-
-
  */
+
+
+
+
 
 
 //import org.firstinspires.ftc.teamcode.common.interfaces.PIDArm;
@@ -89,14 +91,6 @@ public class PID_Arm {
 
     public static DcMotor armMotor;
 
-    public PID_Arm() {
-
-    }
-
-    public void AutoUp() {
-        target = 1115;
-    }
-
 
 
 
@@ -108,14 +102,7 @@ public class PID_Arm {
         target = 1180;
     }
 
-    public void idle() {
-         target = 300;
-    }
 
-    public void armRespond(double value) {
-        value = value * 1;
-        target = target - value;
-    }
 
     public void down() {
         target = 221;
@@ -135,7 +122,7 @@ public class PID_Arm {
         // telemetry.update();
     }
 
-    public void  math(double target) {
+    public void math(double target) {
         controller.setPID(p, i, d);
         int armPos = armMotor.getCurrentPosition();
         double pid = controller.calculate(armPos, target);
@@ -159,6 +146,8 @@ public class PID_Arm {
         controller  = new PIDController(p,i,d);
     }
 }
+
+
 
 
 

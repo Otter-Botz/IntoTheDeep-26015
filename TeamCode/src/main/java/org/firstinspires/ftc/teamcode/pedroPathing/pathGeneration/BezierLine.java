@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author Harrison Womack - 10158 Scott's Bots
  * @version 1.0, 3/9/2024
  */
-public class BezierLine extends BezierCurve {
+public class  BezierLine extends BezierCurve {
 
     private Point startPoint;
     private Point endPoint;
