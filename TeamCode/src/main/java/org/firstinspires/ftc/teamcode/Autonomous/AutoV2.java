@@ -445,6 +445,8 @@ public class AutoV2 extends OpMode {
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
+    //Test
+
     private void initServo() {
         // Claw/Wrist
         clawServo = hardwareMap.get(Servo.class, "clawServo");
