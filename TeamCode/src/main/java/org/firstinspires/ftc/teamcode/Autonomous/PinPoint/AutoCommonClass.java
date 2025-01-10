@@ -3,11 +3,8 @@ package org.firstinspires.ftc.teamcode.Autonomous.PinPoint;
 import static android.os.SystemClock.sleep;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
 
-import android.net.wifi.p2p.nsd.WifiP2pDnsSdServiceRequest;
-
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -17,9 +14,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.teamcode.Autonomous.AutoV2;
 
 public class AutoCommonClass implements autoCommonInterface {
-    private final LinearOpMode linearOpMode;
+    private final HighBasketAuto linearOpMode;
     private final HardwareMap hardwareMap;
     private final Telemetry telemetry;
 
@@ -48,37 +46,49 @@ public class AutoCommonClass implements autoCommonInterface {
     //Elapsed Time
     ElapsedTime runtime = new ElapsedTime();
 
+    //Claw Positions
+    public double ClawOpen = 0.25;
+    public double ClawClose = 0;
+
+    //Wrist Positions
+    public double WristUp = 0.25;
+    public double WristSubmersible = 0.5;
+    public double WristDown = 0;
+    public double WristMiddle = 0.25;
+
+    //Arm Slider Positions
+    public double ArmSliderOut = 1;
+    public double ArmSliderIn = 0;
+    public double ArmSliderMiddle = 0.5;
+
     //Calling Class
-    public AutoCommonClass(LinearOpMode callingLinearOpMode) {
+    public AutoCommonClass(HighBasketAuto callingLinearOpMode) {
         this.linearOpMode = callingLinearOpMode;
         this.hardwareMap = callingLinearOpMode.hardwareMap;
         this.telemetry = callingLinearOpMode.telemetry;
     }
 
-    //Init
-    private void initSlider() {
-
-        sliderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        sliderMotorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        sliderMotor = hardwareMap.get(DcMotor.class, "slideMotor");
-        sliderMotorMotor = hardwareMap.get(DcMotor.class, "slideMotorMotor");
-
-        sliderMotor.setDirection(DcMotor.Direction.REVERSE);
-        sliderMotorMotor.setDirection(DcMotor.Direction.FORWARD);
-
-        sliderMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        sliderMotorMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
+    //Init Full Auto
+    public void initAuto() {
+        initImu();
+        initDriveMotors();
+        initServo();
+        initSlider();
+        initArmMotor();
+        initPinPoint();
     }
 
-    private void initArmMotor() {
-        armMotor = hardwareMap.get(DcMotor.class, "armMotor");
-        controller = new PIDController(p, i, d);
+    private void initImu() {
+        // Retrieve the IMU from the hardware map
+        imu = hardwareMap.get(IMU.class, "imu");
+        // Adjust the orientation parameters to match your robot
+        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+                RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                RevHubOrientationOnRobot.UsbFacingDirection.LEFT));
+        // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
+        imu.initialize(parameters);
+        imu.resetYaw();
     }
-
 
     private void initDriveMotors() {
         frontLeftMotor = hardwareMap.get(DcMotor.class, "leftFront");
@@ -99,16 +109,20 @@ public class AutoCommonClass implements autoCommonInterface {
         armSliderServo = hardwareMap.get(Servo.class, "servoSlide");
     }
 
-    private void initImu() {
-        // Retrieve the IMU from the hardware map
-        imu = hardwareMap.get(IMU.class, "imu");
-        // Adjust the orientation parameters to match your robot
-        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                RevHubOrientationOnRobot.UsbFacingDirection.LEFT));
-        // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
-        imu.initialize(parameters);
-        imu.resetYaw();
+    private void initSlider() {
+        sliderMotor = hardwareMap.get(DcMotor.class, "slideMotor");
+        sliderMotorMotor = hardwareMap.get(DcMotor.class, "slideMotorMotor");
+
+        sliderMotor.setDirection(DcMotor.Direction.REVERSE);
+        sliderMotorMotor.setDirection(DcMotor.Direction.FORWARD);
+
+        sliderMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        sliderMotorMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+    }
+
+    private void initArmMotor() {
+        armMotor = hardwareMap.get(DcMotor.class, "armMotor");
+        controller = new PIDController(p, i, d);
     }
 
     private void initPinPoint() {
@@ -120,36 +134,16 @@ public class AutoCommonClass implements autoCommonInterface {
         odo.resetPosAndIMU();
     }
 
-    //Init Full Auto
+    private void initSliderReverse() {
+        sliderMotor = hardwareMap.get(DcMotor.class, "slideMotor");
+        sliderMotorMotor = hardwareMap.get(DcMotor.class, "slideMotorMotor");
 
-    public void initAuto() {
+        sliderMotor.setDirection(DcMotor.Direction.FORWARD);
+        sliderMotorMotor.setDirection(DcMotor.Direction.REVERSE);
 
-        initImu();
-        initDriveMotors();
-        initServo();
-        initSlider();
-        initArmMotor();
-        initPinPoint();
-
+        sliderMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        sliderMotorMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
-
-    //Servo Positions
-
-    //Claw Positions
-    public double ClawOpen = 0.25;
-    public double ClawClose = 0;
-
-    //Wrist Positions
-    public double WristUp = 0.25;
-    public double WristSubmersible = 0.5;
-    public double WristDown = 0;
-    public double WristMiddle = 0.25;
-
-    //Arm Slider Positions
-    public double ArmSliderOut = 1;
-    public double ArmSliderIn = 0;
-    public double ArmSliderMiddle = 0.5;
-
 
     @Override
     public void set(double position) {
@@ -162,7 +156,6 @@ public class AutoCommonClass implements autoCommonInterface {
     private int maxRange = -10;
 
     //Adjust Positions
-
     public void MainSliderPositionChange() {
         // Adjust minRange using D-Pad
         if (gamepad1.dpad_down) {
@@ -183,64 +176,103 @@ public class AutoCommonClass implements autoCommonInterface {
         maxRange = Math.max(maxRange, minRange);
     }
 
-
-    public void SliderMath() {
-        // logic: Set target positions for motors
-        int targetPosition = (minRange + maxRange) / 2; // Midpoint of range
-    }
-
-
-    public void sliderUp() {
-        //7 Previous Value
-        sliderMotor.setTargetPosition(-800);
-        sliderMotorMotor.setTargetPosition(-800);
+    public void sliderUpElapsedTime(int position) {
+        // Previous Value
+        sliderMotor.setTargetPosition(position);
+        sliderMotorMotor.setTargetPosition(position);
 
         sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         // Set motor power and let them move to the target
-        sliderMotorMotor.setPower(0.2);  // Adjust power as needed
-        sliderMotor.setPower(0.2);
+        sliderMotorMotor.setPower(1);  // Adjust power as needed
+        sliderMotor.setPower(1);
 
         // Wait until motors reach their target
         runtime.reset();
-        while (opModeIsActive() && (sliderMotor.isBusy() || sliderMotorMotor.isBusy()) && runtime.seconds() < 3) {
-            telemetry.addData("Motor Left Current", sliderMotor.getCurrentPosition());
-            telemetry.addData("Motor Right Current", sliderMotorMotor.getCurrentPosition());
+        //Tune Runtime Value to move the sliders more or less up
+
+        while (opModeIsActive() && runtime.seconds() < 0.8) {
+            telemetry.addData("Motor Left Current Inside", sliderMotor.getCurrentPosition());
+            telemetry.addData("Motor Right Current Inside", sliderMotorMotor.getCurrentPosition());
             telemetry.update();
         }
 
         // Stop the motors once target is reached
         sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        sliderMotor.setPower(0.01);
-        sliderMotorMotor.setPower(0.01);
+
     }
 
-    public void moveSliders(int position, double power) {
 
-        while(this.sliderMotor.getCurrentPosition()!=position || this.sliderMotorMotor.getCurrentPosition()!=position){
+    public void sliderDownElapsedTime() {
+        sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            this.sliderMotor.setTargetPosition(position);
-            this.sliderMotorMotor.setTargetPosition(position);
-            this.sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            this.sliderMotorMotor.setPower(0.2);  // Adjust power as needed
-            this.sliderMotor.setPower(0.2);
+        sliderMotor.setPower(-1);
+        sliderMotorMotor.setPower(-1);
 
+        timer.reset();
+        // In your loop, stop the motor after a certain time
+        while (timer.seconds() < 0.1) {
+            telemetry.addData("Motor Left Current Inside", sliderMotor.getCurrentPosition());
+            telemetry.addData("Motor Right Current Inside", sliderMotorMotor.getCurrentPosition());
+            telemetry.update();
         }
 
+        // Stop the sliders once target positions are reached
+        sliderMotor.setPower(0);
+        sliderMotorMotor.setPower(0);
     }
 
+    public void sliderDown(int position) {
 
+        initSliderReverse();
 
-    public void sliderDownStart() {
+        // for testing - start
+        telemetry.addData("Motor Left Current", sliderMotor.getCurrentPosition());
+        telemetry.addData("Motor Right Current", sliderMotorMotor.getCurrentPosition());
+        telemetry.update();
+        sleep(3000);
+        // for testing - end
 
+        // Previous Value
+        sliderMotor.setTargetPosition(position);
+        sliderMotorMotor.setTargetPosition(position);
+
+        sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        sliderMotorMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        // Set motor power and let them move to the target
+        sliderMotorMotor.setPower(-0.2);  // Adjust power as needed
+        sliderMotor.setPower(-0.2);
+
+        // Wait until motors reach their target
+        runtime.reset();
+
+        // for testing - start
+        telemetry.addData("Motor Left Current New", sliderMotor.getCurrentPosition());
+        telemetry.addData("Motor Right Current New", sliderMotorMotor.getCurrentPosition());
+        telemetry.update();
+        // for testing - end
+
+        while (opModeIsActive() && runtime.seconds() < 0.85) {
+            telemetry.addData("Motor Left Current Inside", sliderMotor.getCurrentPosition());
+            telemetry.addData("Motor Right Current Inside", sliderMotorMotor.getCurrentPosition());
+            telemetry.update();
+        }
+
+        // Stop the motors once target is reached
+        sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //sliderMotor.setPower(0.01);
+        //sliderMotorMotor.setPower(0.01);
+
+        initSlider();
     }
 
-
-    public void scoreHighBasket() {
-        sliderUp();
+    public void scoreHighBasket(int position) {
+        sliderUpElapsedTime(position);
         lowbasketslider();
     }
 
@@ -312,6 +344,7 @@ public class AutoCommonClass implements autoCommonInterface {
     }
 
 
+
     public void armDown() {
         runtime.reset();
         // Run tasks for the entire autonomous period
@@ -321,6 +354,7 @@ public class AutoCommonClass implements autoCommonInterface {
     }
 
     public void armDownSliderOut() {
+        sleep(200);
         runtime.reset();
         // Run tasks for the entire autonomous period
         while (runtime.seconds() < 1) {
@@ -339,7 +373,7 @@ public class AutoCommonClass implements autoCommonInterface {
         runtime.reset();
         // Run tasks for the entire autonomous period
         while (runtime.seconds() < 1) {
-            AutoPIDArmmath(950);
+            AutoPIDArmmath(900);
         }
         armSliderServo.setPosition(ArmSliderIn);
     }
@@ -366,8 +400,7 @@ public class AutoCommonClass implements autoCommonInterface {
         clawServo.setPosition(ClawOpen);
     }
 
-    private DcMotor slider1;
-    private DcMotor slider2;
+
 
     // PID coefficients
     private static final double Kp = 0.01;
@@ -380,14 +413,14 @@ public class AutoCommonClass implements autoCommonInterface {
     private double integral2 = 0;
     private double lastError2 = 0;
 
-    private void moveToPosition(int targetPosition1, int targetPosition2) {
+    public void moveToPosition(int targetPosition1, int targetPosition2) {
         boolean slider1AtTarget = false;
         boolean slider2AtTarget = false;
 
         while (opModeIsActive() && (!slider1AtTarget || !slider2AtTarget)) {
             // Compute errors
-            double error1 = targetPosition1 - slider1.getCurrentPosition();
-            double error2 = targetPosition2 - slider2.getCurrentPosition();
+            double error1 = targetPosition1 - sliderMotor.getCurrentPosition();
+            double error2 = targetPosition2 - sliderMotorMotor.getCurrentPosition();
 
             // Compute integral
             integral1 += error1;
@@ -410,8 +443,8 @@ public class AutoCommonClass implements autoCommonInterface {
             power2 = Math.max(-1.0, Math.min(1.0, power2));
 
             // Set motor powers
-            slider1.setPower(power1);
-            slider2.setPower(power2);
+            sliderMotor.setPower(power1);
+            sliderMotorMotor.setPower(power2);
 
             // Check if sliders are at target position (with a tolerance)
             slider1AtTarget = Math.abs(error1) < 10; // Tolerance of 10 ticks
@@ -419,17 +452,17 @@ public class AutoCommonClass implements autoCommonInterface {
 
             // Telemetry for debugging
             telemetry.addData("Target Position 1", targetPosition1);
-            telemetry.addData("Current Position 1", slider1.getCurrentPosition());
+            telemetry.addData("Current Position 1", sliderMotor.getCurrentPosition());
             telemetry.addData("Power 1", power1);
             telemetry.addData("Target Position 2", targetPosition2);
-            telemetry.addData("Current Position 2", slider2.getCurrentPosition());
+            telemetry.addData("Current Position 2", sliderMotorMotor.getCurrentPosition());
             telemetry.addData("Power 2", power2);
             telemetry.update();
         }
 
         // Stop motors
-        slider1.setPower(0);
-        slider2.setPower(0);
+        sliderMotor.setPower(0);
+        sliderMotorMotor.setPower(0);
     }
 
     // PIDF coefficients
@@ -446,26 +479,6 @@ public class AutoCommonClass implements autoCommonInterface {
 
     private ElapsedTime timer = new ElapsedTime();
 
-    public void runOpMode() {
-        // Initialize motors
-        slider1 = hardwareMap.get(DcMotor.class, "slider1");
-        slider2 = hardwareMap.get(DcMotor.class, "slider2");
-
-        // Reset encoders
-        slider1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        slider2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        // Set motors to run using encoders
-        slider1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        slider2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        // Wait for the start of the OpMode
-        timer.reset();
-
-        // Move sliders to target positions in sequence
-        moveSliders(1000, 500, 3.0);  // Example: Move to 1000 for slider1 and 500 for slider2 within 3 seconds
-        moveSliders(0, 0, 2.0);       // Move both sliders back to their starting positions
-    }
 
     private void moveSliders(int slider1Target, int slider2Target, double timeout) {
         ElapsedTime runtime = new ElapsedTime();
@@ -473,20 +486,20 @@ public class AutoCommonClass implements autoCommonInterface {
 
         while (opModeIsActive() && runtime.seconds() < timeout) {
             // Get current positions
-            int slider1Current = slider1.getCurrentPosition();
-            int slider2Current = slider2.getCurrentPosition();
+            int slider1Current = sliderMotor.getCurrentPosition();
+            int slider2Current = sliderMotorMotor.getCurrentPosition();
 
             // Simulated velocity (optional; replace with actual velocity measurement if available)
-            double slider1Velocity = slider1.getPower();
-            double slider2Velocity = slider2.getPower();
+            double slider1Velocity = sliderMotor.getPower();
+            double slider2Velocity = sliderMotorMotor.getPower();
 
             // Compute PIDF outputs
             double slider1Power = calculatePIDF(slider1Target, slider1Current, slider1Velocity, true);
             double slider2Power = calculatePIDF(slider2Target, slider2Current, slider2Velocity, false);
 
             // Apply power to motors
-            slider1.setPower(slider1Power);
-            slider2.setPower(slider2Power);
+            sliderMotor.setPower(slider1Power);
+            sliderMotorMotor.setPower(slider2Power);
 
             // Telemetry for debugging
             telemetry.addData("Slider 1 Position", slider1Current);
@@ -504,8 +517,8 @@ public class AutoCommonClass implements autoCommonInterface {
         }
 
         // Stop the motors after reaching target
-        slider1.setPower(0);
-        slider2.setPower(0);
+        sliderMotor.setPower(0);
+        sliderMotorMotor.setPower(0);
     }
 
     private double calculatePIDF(int target, int current, double velocity, boolean isNormal) {
@@ -539,8 +552,6 @@ public class AutoCommonClass implements autoCommonInterface {
     }
 
     //PinPoint Movement
-
-
     public void driveToPos(double targetX, double targetY) {
         odo.update();
         boolean telemAdded = false;
@@ -664,6 +675,5 @@ public class AutoCommonClass implements autoCommonInterface {
         double error = 80 - heading;
         gyroTurnToAngle(error);
     }
-
 }
 

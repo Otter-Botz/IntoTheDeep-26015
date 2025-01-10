@@ -33,15 +33,12 @@ public class HighBasketAuto extends LinearOpMode {
 
             telemetry.addData("PosX()", otterBotzCommon.odo.getPosX());
             telemetry.addData("PosY()", otterBotzCommon.odo.getPosY());
-
             telemetry.addData("yaw", otterBotzCommon.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES));
 
             // Display telemetry for driver adjustment
             telemetry.addLine("Adjust using gamepad:");
             telemetry.addData("Min Range", minRange + " ticks (D-Pad Up/Down)");
             telemetry.addData("Max Range", maxRange + " ticks (D-Pad Left/Right)");
-
-
             telemetry.update();
 
 
@@ -62,7 +59,6 @@ public class HighBasketAuto extends LinearOpMode {
             // Clamp ranges to valid encoder values
             minRange = Math.max(minRange, 0);
             maxRange = Math.max(maxRange, minRange);
-
         }
 
         // Wait
@@ -71,8 +67,14 @@ public class HighBasketAuto extends LinearOpMode {
 
         //X = Y and Y = x
         //Make sure claw is able to hold sample
+        otterBotzCommon.sliderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        otterBotzCommon.sliderMotorMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        otterBotzCommon.sliderMotorMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        otterBotzCommon.sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         otterBotzCommon.armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         otterBotzCommon.armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         otterBotzCommon.sliderMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         otterBotzCommon.sliderMotorMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         otterBotzCommon.odo.resetPosAndIMU();
@@ -81,7 +83,6 @@ public class HighBasketAuto extends LinearOpMode {
         otterBotzCommon.set(otterBotzCommon.WristUp);
         sleep(100);
         otterBotzCommon.set(otterBotzCommon.ArmSliderIn);
-
 
         // drive to basket
 //        otterBotzCommon.driveToPos(-ticksPerInchForward * 10, ticksPerInchSideways * 10);
@@ -92,24 +93,24 @@ public class HighBasketAuto extends LinearOpMode {
 //        otterBotzCommon.driveToPos(-ticksPerInchForward * 24.5,ticksPerInchSideways * 8);
 
         //Score 1
-        otterBotzCommon.scoreHighBasket();
-        sleep(1000);
-        otterBotzCommon.slidersDown();
-        sleep(5000);
-//        otterBotzCommon.armDownSliderOut();
-//        sleep(1000);
-//        otterBotzCommon.armUpSliderIn();
-//        sleep(1000);
 
-        //Old Code
-//        sleep(500);
-//        //Slider Down
-//        armDown();
-//        headingCorrectBasket();
-//        wrist.set(wrist.up);
+
+
+
+        otterBotzCommon.armUpSliderIn();
+        sleep(600);
+        otterBotzCommon.sliderUpElapsedTime(500);
+
+        sleep(500);
+        //otterBotzCommon.clawServo.setPosition(0.25);
+
+        sleep(500);
+
+        otterBotzCommon.sliderDownElapsedTime();
+        //otterBotzCommon.headingCorrectBasket();
+
 
         //Move to first sample
-//        otterBotzCommon.armDown();
 //        otterBotzCommon.driveToPos(-ticksPerInchForward * 19.5, ticksPerInchSideways * 26.5);
 //        otterBotzCommon.set(otterBotzCommon.ClawOpen);
 //        sleep(100);

@@ -19,7 +19,6 @@ public class wrist implements armSystem {
 
 
 
-
     @Override
     public void set(double position) {
         wristServo.setPosition(position);
@@ -33,5 +32,15 @@ public class wrist implements armSystem {
     @Override
     public void init(HardwareMap hwMap) {
         wristServo = hwMap.get(Servo.class,  "wristServo");
+    }
+
+    public void up (){
+        wristServo.setPosition(0.5);
+    }
+    public void autoUp (){
+        wristServo.setPosition(0.25);
+    }
+    public void down (){
+        wristServo.setPosition(0);
     }
 }
