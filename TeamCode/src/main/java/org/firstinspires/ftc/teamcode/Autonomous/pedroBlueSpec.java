@@ -1,10 +1,14 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
+//import org.firstinspires.ftc.teamcode.Autonomous.PinPoint.AutoMechanisms;
 import org.firstinspires.ftc.teamcode.common.ArmSlider;
 import org.firstinspires.ftc.teamcode.common.PID_Arm;
+import org.firstinspires.ftc.teamcode.common.PID_Slider;
 import org.firstinspires.ftc.teamcode.common.Slider;
 import org.firstinspires.ftc.teamcode.common.claw;
 import org.firstinspires.ftc.teamcode.common.wrist;
@@ -15,6 +19,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Path;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.PathChain;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Point;
 import org.firstinspires.ftc.teamcode.pedroPathing.util.Timer;
+
 public class pedroBlueSpec extends OpMode {
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
@@ -29,15 +34,15 @@ public class pedroBlueSpec extends OpMode {
 
 
 
-
+  //  AutoMechanisms mechanisms = new AutoMechanisms();
 
     //start position
-    private final Pose startPose = new Pose(7.5,63.3, Math.toRadians(0));
+    private final Pose startPose = new Pose(10,60, Math.toRadians(0));
 
 
     //push first sample into observation zone
-    private final Pose Move1 = new Pose(29.5, 38.6, Math.toRadians(0));
-    private final Pose Move2 = new Pose(60,38.6, Math.toRadians(0));
+    private final Pose Move1 = new Pose(29.5, 40.6, Math.toRadians(0));
+    private final Pose Move2 = new Pose(60,40.6, Math.toRadians(0));
     private final Pose Move3 = new Pose(60, 26.7, Math.toRadians(0));
     private final Pose pushFirstSample = new Pose(10, 26.7, Math.toRadians(0));
 
@@ -53,8 +58,7 @@ public class pedroBlueSpec extends OpMode {
     private final Pose waitForHp = new Pose(22,9, Math.toRadians(0));
 
     //drive to rung and score 1
-    private final Pose  score = new Pose(30,70.4, Math.toRadians(0));
-    //backup after score
+    private final Pose score = new Pose(35,70.4, Math.toRadians(0));
 
     private Path scorePreload,park;
     private PathChain MoveOne, MoveTwo, MoveThree, PushFirstSample, comeBack1, moveOne, PushSecondSample, ComeBack2, moveTwo, PushThirdSample, WaitForHP, pickup1, Score1, pickup2, score2, pickup3, score3;
@@ -152,8 +156,6 @@ public class pedroBlueSpec extends OpMode {
         park = new Path(new BezierLine(new Point(score), new Point(pushThirdSample)));
                 park.setLinearHeadingInterpolation(score.getHeading(), pushThirdSample.getHeading());
 
-
-
     }
 
     public void autonomousPathUpdate(){
@@ -162,76 +164,87 @@ public class pedroBlueSpec extends OpMode {
                 follower.followPath(scorePreload);
                 setPathState(1);
                 break;
-
             case 1:
                 if (follower.getPose().getX() > (score.getX() - 1) && follower.getPose().getY() > (score.getY() - 1)){
-                   // arm.specimen();
-                   // claw.AutoOpen();
+                    arm.specimen();
+                    claw.AutoOpen();
+                    follower.followPath(scorePreload,true);
+                    setPathState(2);
+                }
+                break;
+            case 2:
+                if (follower.getPose().getX() > (Move1.getX() - 1) && follower.getPose().getY() > (Move1.getY() - 1)){
+                    arm.down();
                     follower.followPath(MoveOne,true);
                     setPathState(3);
                 }
                 break;
-
-            case 2:
-                if (follower.getPose().getX() > (Move1.getX() - 2) && follower.getPose().getY() > (Move1.getY() - 2)){
-                   // arm.down();
-                    follower.followPath(MoveTwo,true);
-                    setPathState(4);
-                }
-                break;
-
             case 3:
                 if (follower.getPose().getX() > (Move2.getX() - 1) && follower.getPose().getY() > (Move2.getY() - 1)){
-                    follower.followPath(MoveThree,true);
+                    follower.followPath(MoveTwo,true);
                     setPathState(4);
                 }
                 break;
             case 4:
                 if (follower.getPose().getX() > (Move3.getX() - 1) && follower.getPose().getY() > (Move3.getY() - 1)){
-                    follower.followPath(PushFirstSample,true);
+                    follower.followPath(MoveThree,true);
                     setPathState(5);
                 }
                 break;
             case 5:
                 if (follower.getPose().getX() > (pushFirstSample.getX() - 1) && follower.getPose().getY() > (pushFirstSample.getY() - 1)){
-                    follower.followPath(comeBack1,true);
+                    follower.followPath(PushFirstSample,true);
                     setPathState(6);
                 }
                 break;
             case 6:
                 if (follower.getPose().getX() > (Move3.getX() - 1) && follower.getPose().getY() > (Move3.getY() - 1)){
-                    follower.followPath(moveOne,true);
+                    follower.followPath(comeBack1,true);
                     setPathState(7);
                 }
                 break;
             case 7:
                 if (follower.getPose().getX() > (move1.getX() - 1) && follower.getPose().getY() > (move1.getY() - 1)){
-                    follower.followPath(PushSecondSample,true);
+                    follower.followPath(moveOne,true);
                     setPathState(8);
                 }
                 break;
             case 8:
                 if (follower.getPose().getX() > (pushSecondSample.getX() - 1) && follower.getPose().getY() > (pushSecondSample.getY() - 1)){
-                    follower.followPath(ComeBack2,true);
+                    follower.followPath(PushSecondSample,true);
                     setPathState(9);
                 }
                 break;
             case 9:
                 if (follower.getPose().getX() > (move1.getX() - 1) && follower.getPose().getY() > (move1.getY() - 1)){
-                    follower.followPath(moveTwo,true);
+                    follower.followPath(ComeBack2,true);
                     setPathState(10);
                 }
                 break;
             case 10:
                 if (follower.getPose().getX() > (move2.getX() - 1) && follower.getPose().getY() > (move2.getY() - 1)){
-                    follower.followPath(PushThirdSample,true);
+                    follower.followPath(moveTwo,true);
                     setPathState(11);
                 }
+                break;
+            case 11:
+                if (follower.getPose().getX() > (pushThirdSample.getX() - 1) && follower.getPose().getY() > (pushThirdSample.getY() - 1)){
+                    follower.followPath(PushThirdSample,true);
+                    setPathState(12);
+                }
+                break;
+            case 12:
+                if (follower.getPose().getX() > (waitForHp.getX() - 1) && follower.getPose().getY() > (waitForHp.getY() - 1)){
+
+                    follower.followPath(WaitForHP,true);
+                    setPathState(13);
+                }
+                break;
+            case 13:
 
 
 
-
-        }
+                }
     }
 
     public void setPathState(int pState){
@@ -255,15 +268,7 @@ public class pedroBlueSpec extends OpMode {
 
     @Override
     public void loop() {
-        follower.update();
-        autonomousPathUpdate();
 
-        // Feedback to Driver Hub
-        telemetry.addData("path state", pathState);
-        telemetry.addData("x", follower.getPose().getX());
-        telemetry.addData("y", follower.getPose().getY());
-        telemetry.addData("heading", follower.getPose().getHeading());
-        telemetry.update();
     }
 
     public void start(){
