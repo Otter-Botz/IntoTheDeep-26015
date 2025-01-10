@@ -109,7 +109,7 @@ public class TeleOpFinal extends LinearOpMode {
 
 
             if (gamepad2.left_bumper) {
-                claw.clawServo.setPosition(0);
+                claw.clawServo.setPosition(0.1);
             } else if (gamepad2.left_bumper) {
                 wrist.wristServo.setPosition(0);
             }

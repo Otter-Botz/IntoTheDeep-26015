@@ -110,7 +110,7 @@ public class AutoV2 extends OpMode {
      * Lowest (First) Sample from the Spike Mark
      */
     //Originally
-    private final Pose pickup1Pose = new Pose(30, 130, Math.toRadians(0));
+    private final Pose pickup1Pose = new Pose(31, 130, Math.toRadians(0));
 
     //24 Previous Value
     private final Pose scorePickup1Pose = new Pose(24,130, Math.toRadians(315));
@@ -236,17 +236,19 @@ public class AutoV2 extends OpMode {
 
                         /* Score Preload */
                         //Need to be tested
+                        wristServo.setPosition(0.5);
+                        sleep(300);
                         armUpSliderIn();
                         sleep(200);
                         sliderUpElapsedTime(500);
                         sleep(300);
-//                        clawServo.setPosition(0.25);
-//                        sleep(100);
+                        clawServo.setPosition(0.25);
+                        sleep(100);
                         sliderDownElapsedTime();
 
                         /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
                         follower.followPath(grabPickup1, true);
-                        setPathState(-1);
+                        setPathState(2);
                     }
 
                 break;
@@ -254,12 +256,19 @@ public class AutoV2 extends OpMode {
                 /* This case checks the robot's position and will wait until the robot position is close (1 inch away) from the pickup1Pose's position */
                 if (!follower.isBusy()) {
                     /* Grab Sample */
-//                    armDownSliderOut();
-//                    sleep(300);
-//                    armUpSliderIn();
+                    clawServo.setPosition(0.25);
+                    sleep(200);
+                    armSliderServo.setPosition(0.6);
+                    sleep(200);
+                    wristServo.setPosition(0);
+                    sleep(550);
+                    armDownSliderOut();
+                    sleep(5000);
+                    //armUpSliderIn();
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are scoring the sample */
                     follower.followPath(scorePickup1, true);
-                    setPathState(3);
+                    //3
+                    setPathState(-1);
                 }
                 break;
             case 3:
@@ -501,7 +510,7 @@ public class AutoV2 extends OpMode {
 
         //Check if this will work
         //Originally was Opmode is active
-        while (sliderMotor.isBusy() && runtime.seconds() < 0.7) {
+        while (sliderMotor.isBusy() && runtime.seconds() < 1) {
             telemetry.addData("Motor Left Current Inside", sliderMotor.getCurrentPosition());
             telemetry.addData("Motor Right Current Inside", sliderMotorMotor.getCurrentPosition());
             telemetry.update();
@@ -537,7 +546,7 @@ public class AutoV2 extends OpMode {
 
         timer.reset();
         // In your loop, stop the motor after a certain time
-        while (timer.seconds() < 0.1) {
+        while (timer.seconds() < 0.6) {
             telemetry.addData("Motor Left Current Inside", sliderMotor.getCurrentPosition());
             telemetry.addData("Motor Right Current Inside", sliderMotorMotor.getCurrentPosition());
             telemetry.update();
@@ -557,16 +566,6 @@ public class AutoV2 extends OpMode {
     }
 
     public void armDownSliderOut() {
-        sleep(200);
-        runtime.reset();
-        // Run tasks for the entire autonomous period
-        while (runtime.seconds() < 1) {
-            AutoPIDArmmath(200);
-        }
-        armSliderServo.setPosition(ArmSliderOut);
-        sleep(300);
-        clawServo.setPosition(ClawOpen);
-        sleep(600);
         clawServo.setPosition(ClawClose);
         sleep(200);
         wristServo.setPosition(WristUp);
@@ -576,7 +575,7 @@ public class AutoV2 extends OpMode {
         runtime.reset();
         // Run tasks for the entire autonomous period
         while (runtime.seconds() < 1) {
-            AutoPIDArmmath(1115);
+            AutoPIDArmmath(950);
         }
         armSliderServo.setPosition(ArmSliderIn);
     }
