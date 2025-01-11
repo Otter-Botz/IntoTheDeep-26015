@@ -235,7 +235,6 @@ public class pedroBlueSpec extends OpMode {
                 break;
             case 12:
                 if (follower.getPose().getX() > (waitForHp.getX() - 1) && follower.getPose().getY() > (waitForHp.getY() - 1)){
-
                     follower.followPath(WaitForHP,true);
                     setPathState(13);
                 }
