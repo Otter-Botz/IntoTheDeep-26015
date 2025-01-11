@@ -59,8 +59,8 @@ public class blueSpec extends OpMode {
          * Scoring specimen preload
          */
         private final Pose scorePose = new Pose(35, 70.4, Math.toRadians(0));
+        private final Pose turnPose = new Pose(13, 29, Math.toRadians(180));
         private final Pose scorePoseTurned = new Pose(35, 70.4, Math.toRadians(180));
-
 
         /**
          * Bezier Curve Points to move to push first sample
@@ -104,7 +104,7 @@ public class blueSpec extends OpMode {
         /**
          * Bezier curve points to cycle specimen
          */
-        private final Pose cycleControlPose = new Pose(13, 70.4, Math.toRadians(0));
+        private final Pose cycleControlPose = new Pose(6, 73.4, Math.toRadians(0));
         /**
          * Park
          */
@@ -140,7 +140,6 @@ public class blueSpec extends OpMode {
                 /* This is our scorePreload path. We are using a BezierLine, which is a straight line. */
                 scorePreload = new Path(new BezierLine(new Point(startPose), new Point(scorePose)));
                 scorePreload.setLinearHeadingInterpolation(startPose.getHeading(), scorePose.getHeading());
-
         /* Here is an example for Constant Interpolation
         scorePreload.setConstantInterpolation(startPose.getHeading()); */
 
@@ -197,18 +196,19 @@ public class blueSpec extends OpMode {
                         .build();
                 scoreSpec = follower.pathBuilder()
 
-                        .addPath(new BezierCurve(new Point(pickUpPose), new Point(cycleControlPose), new Point(scorePoseTurned)))
-                        .setLinearHeadingInterpolation(pickUpPose.getHeading(), scorePoseTurned.getHeading())
+                        .addPath(new BezierLine(new Point(pickUpPose), new Point(scorePose)))
+                        .setLinearHeadingInterpolation(pickUpPose.getHeading(), scorePose.getHeading())
                         .build();
                 goBackPickUp  = follower.pathBuilder()
-                        .addPath(new BezierCurve(new Point(scorePoseTurned),new Point(cycleControlPose),  new Point(pickUpPose)))
-                        .setLinearHeadingInterpolation(scorePoseTurned.getHeading(), pickUpPose.getHeading())
+                        .addPath(new BezierLine(new Point(scorePose), new Point(pickUpPose)))
+                        .setLinearHeadingInterpolation(scorePose.getHeading(), pickUpPose.getHeading())
                         .build();
+
 
 
                 /* This is our park path. We are using a BezierCurve with 3 points, which is a curved line that is curved based off of the control point */
-                park = new Path(new BezierLine(new Point(scorePoseTurned),new Point(parkPose)));
-                park.setLinearHeadingInterpolation(scorePoseTurned.getHeading(), parkPose.getHeading());
+                park = new Path(new BezierLine(new Point(scorePose),new Point(parkPose)));
+                park.setLinearHeadingInterpolation(scorePose.getHeading(), parkPose.getHeading());
         }
 
         /**
@@ -217,6 +217,7 @@ public class blueSpec extends OpMode {
          * The followPath() function sets the follower to run the specific path, but does NOT wait for it to finish before moving on.
          */
         public void autonomousPathUpdate() {
+
                 switch (pathState) {
                         case 0:
                                 follower.followPath(scorePreload);
@@ -244,6 +245,7 @@ public class blueSpec extends OpMode {
 
                                         /* Since this is a pathChain, we can have Pedro hold the end point while we are scoring the sample */
                                         follower.followPath(lineToSampleOne, true);
+
                                         setPathState(3);
                                 }
                                 break;
@@ -342,7 +344,8 @@ public class blueSpec extends OpMode {
                                         follower.followPath(goBackPickUp, true);
                                         setPathState(13);
                                 }
-                                break;
+
+
                         case 13:
                                 if (!follower.isBusy()) {
                                         /* Grab Sample */
@@ -361,6 +364,7 @@ public class blueSpec extends OpMode {
                                         setPathState(15);
                                 }
                                 break;
+
                         case 15:
                                 if (!follower.isBusy()) {
                                         /* Grab Sample */
@@ -407,6 +411,7 @@ public class blueSpec extends OpMode {
                 telemetry.addData("y", follower.getPose().getY());
                 telemetry.addData("heading", follower.getPose().getHeading());
                 telemetry.update();
+                arm.math();
 
         }
 
@@ -422,6 +427,7 @@ public class blueSpec extends OpMode {
                 follower = new Follower(hardwareMap);
                 follower.setStartingPose(startPose);
                 buildPaths();
+                arm.init(hardwareMap);
         }
 
         /**

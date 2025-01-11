@@ -101,6 +101,14 @@ public class TeleOpFinal extends LinearOpMode {
             } else if (gamepad2.a) {
                 submersible();
             }
+            else if (gamepad2.y) {
+                ArmUpSliderOut();
+            }
+
+            if (gamepad2.dpad_up) {
+                ArmSlider.set(ArmSlider.in);
+            }
+
 
 
 
@@ -109,7 +117,7 @@ public class TeleOpFinal extends LinearOpMode {
 
 
             if (gamepad2.left_bumper) {
-                claw.clawServo.setPosition(0);
+                claw.clawServo.setPosition(0.1);
             } else if (gamepad2.left_bumper) {
                 wrist.wristServo.setPosition(0);
             }
@@ -165,6 +173,12 @@ public class TeleOpFinal extends LinearOpMode {
         } else if(wrist.getPosition() != wrist.up){
             wrist.set(wrist.up);
         }
+    }
+
+    public void ArmUpSliderOut() {
+        PID_Arm.up();
+        ArmSlider.set(ArmSlider.out);
+        wrist.set(wrist.up);
     }
 
     public void highbasket() {

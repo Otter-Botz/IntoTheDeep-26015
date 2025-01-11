@@ -99,8 +99,9 @@ public class PID_Arm {
     }
 
     public void up() {
-        target = 1180;
+        target = 1100;
     }
+
 
 
 
