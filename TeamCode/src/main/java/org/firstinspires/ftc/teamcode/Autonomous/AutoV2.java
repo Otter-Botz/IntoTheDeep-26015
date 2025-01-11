@@ -1,11 +1,18 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
+import static android.os.SystemClock.sleep;
+
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
+import com.pedropathing.util.Constants;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 //import org.firstinspires.ftc.teamcode.Autonomous.PinPoint.AutoMechanisms;
 import org.firstinspires.ftc.teamcode.common.ArmSlider;
@@ -14,9 +21,12 @@ import org.firstinspires.ftc.teamcode.common.PID_Slider;
 import org.firstinspires.ftc.teamcode.common.Slider;
 import org.firstinspires.ftc.teamcode.common.claw;
 import org.firstinspires.ftc.teamcode.common.wrist;
+import org.firstinspires.ftc.teamcode.pedroPathing.Constants.FConstants;
+import org.firstinspires.ftc.teamcode.pedroPathing.Constants.LConstants;
 import org.firstinspires.ftc.teamcode.pedroPathing.follower.Follower;
 import org.firstinspires.ftc.teamcode.pedroPathing.localization.GoBildaPinpointDriver;
 import org.firstinspires.ftc.teamcode.pedroPathing.localization.Pose;
+import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.BezierCurve;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.BezierLine;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Path;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.PathChain;
@@ -78,6 +88,9 @@ public class AutoV2 extends OpMode {
 
     //Elapsed Time
     ElapsedTime runtime = new ElapsedTime();
+
+    //Arm
+    PID_Arm arm = new PID_Arm();
 
     /**
      * This is the variable where we store the state of our auto.
@@ -234,19 +247,20 @@ public class AutoV2 extends OpMode {
 
                         /* Score Preload */
                         //Need to be tested
+                        clawServo.setPosition(0);
+                        sleep(50);
                         wristServo.setPosition(0.5);
                         sleep(300);
-                        armUpSliderIn();
-                        sleep(200);
+                        arm.up();
+                        sleep(600);
+                        //armUpSliderIn();
                         sliderUpElapsedTime(500);
-                        sleep(300);
-                        clawServo.setPosition(0.25);
-                        sleep(100);
-                        sliderDownElapsedTime();
 
+                        sliderDownElapsedTime();
+                        clawServo.setPosition(0.25);
                         /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
                         follower.followPath(grabPickup1, true);
-                        setPathState(2);
+                        setPathState(-1);
                     }
 
                 break;
@@ -260,8 +274,8 @@ public class AutoV2 extends OpMode {
                     sleep(200);
                     wristServo.setPosition(0);
                     sleep(550);
-                    armDownSliderOut();
-                    sleep(5000);
+                    //arm.target = 100;
+                    sleep(1000);
                     //armUpSliderIn();
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are scoring the sample */
                     follower.followPath(scorePickup1, true);
@@ -380,6 +394,7 @@ public class AutoV2 extends OpMode {
         telemetry.addData("y", follower.getPose().getY());
         telemetry.addData("heading", follower.getPose().getHeading());
         telemetry.update();
+        arm.math();
     }
 
     /**
@@ -396,6 +411,7 @@ public class AutoV2 extends OpMode {
         follower.setStartingPose(startPose);
         buildPaths();
         initAuto();
+        arm.init(hardwareMap);
     }
 
     /**
@@ -479,6 +495,8 @@ public class AutoV2 extends OpMode {
     private void initArmMotor() {
         armMotor = hardwareMap.get(DcMotor.class, "armMotor");
         controller = new PIDController(p, i, d);
+        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     private void initPinPoint() {
@@ -491,6 +509,8 @@ public class AutoV2 extends OpMode {
     }
 
     public void sliderUpElapsedTime(int position) {
+        boolean SliderUp = false;
+
         // Previous Value
         sliderMotor.setTargetPosition(position);
         sliderMotorMotor.setTargetPosition(position);
@@ -544,7 +564,7 @@ public class AutoV2 extends OpMode {
 
         timer.reset();
         // In your loop, stop the motor after a certain time
-        while (timer.seconds() < 0.6) {
+        while (timer.seconds() < 0.8) {
             telemetry.addData("Motor Left Current Inside", sliderMotor.getCurrentPosition());
             telemetry.addData("Motor Right Current Inside", sliderMotorMotor.getCurrentPosition());
             telemetry.update();
