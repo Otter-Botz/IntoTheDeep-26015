@@ -115,6 +115,7 @@ public class AutoV2 extends OpMode {
     /**
      * Scoring Pose of our robot. It is facing the submersible at a -45 degree (315 degree) angle.
      */
+    //15
     private final Pose scorePose = new Pose(16, 125, Math.toRadians(315));
 
     /**
@@ -124,12 +125,12 @@ public class AutoV2 extends OpMode {
     private final Pose pickup1Pose = new Pose(33, 130, Math.toRadians(0));
 
     //24 Previous Value and 130
-    private final Pose scorePickup1Pose = new Pose(24,134, Math.toRadians(315));
+    private final Pose scorePickup1Pose = new Pose(27,134, Math.toRadians(315));
 
     /**
      * Middle (Second) Sample from the Spike Mark
      */
-    private final Pose pickup2Pose = new Pose(30, 137, Math.toRadians(0));
+    private final Pose pickup2Pose = new Pose(33, 137, Math.toRadians(0));
 
     /**
      * Highest (Third) Sample from the Spike Mark
@@ -246,7 +247,7 @@ public class AutoV2 extends OpMode {
                         /* Score Preload */
                         clawServo.setPosition(0);
                         wristServo.setPosition(0.5);
-                        moveArm(1100,1);
+                        moveArm(900,1);
                         sliderUpElapsedTime(500, 1.1);
                         moveArm(1200,0.75);
                         clawServo.setPosition(0.25);
@@ -265,9 +266,10 @@ public class AutoV2 extends OpMode {
                 /* This case checks the robot's position and will wait until the robot position is close (1 inch away) from the pickup1Pose's position */
                 if (!follower.isBusy()) {
                     /* Grab Sample 2*/
-                    armSliderServo.setPosition(0.2);
+                    sleep(1000);
+                    armSliderServo.setPosition(0.18);
                     wristServo.setPosition(0);
-                    moveArm(215,1);
+                    moveArm(215,1.5);
                     sleep(300);
                     clawServo.setPosition(0);
                     wristServo.setPosition(0.5);
@@ -296,7 +298,7 @@ public class AutoV2 extends OpMode {
                     sliderDownElapsedTime(0.8);
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
                     follower.followPath(grabPickup2, true);
-                    setPathState(-1 );
+                    setPathState(-1);
                 }
                 break;
             case 4:
