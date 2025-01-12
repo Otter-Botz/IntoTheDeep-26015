@@ -33,7 +33,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.PathChain;
 import org.firstinspires.ftc.teamcode.pedroPathing.pathGeneration.Point;
 import org.firstinspires.ftc.teamcode.pedroPathing.util.Timer;
 
-@Autonomous(name = "0+4Blue", group = "Otter")
+@Autonomous(name = "0+4Red", group = "Otter")
 public class AutoV2 extends OpMode {
 
     private Follower follower;
@@ -121,10 +121,10 @@ public class AutoV2 extends OpMode {
      * Lowest (First) Sample from the Spike Mark
      */
     //Originally
-    private final Pose pickup1Pose = new Pose(31, 130, Math.toRadians(0));
+    private final Pose pickup1Pose = new Pose(33, 130, Math.toRadians(0));
 
     //24 Previous Value and 130
-    private final Pose scorePickup1Pose = new Pose(24,127, Math.toRadians(315));
+    private final Pose scorePickup1Pose = new Pose(24,134, Math.toRadians(315));
 
     /**
      * Middle (Second) Sample from the Spike Mark
@@ -248,16 +248,16 @@ public class AutoV2 extends OpMode {
                         wristServo.setPosition(0.5);
                         moveArm(1100,1);
                         sliderUpElapsedTime(500, 1.1);
-                        moveArm(1200,1.25);
+                        moveArm(1200,0.75);
                         clawServo.setPosition(0.25);
                         sleep(300);
-                        moveArm(1000,1);
+                        moveArm(1000,0.75);
                         sliderDownElapsedTime(0.8);
 
                         /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
                         follower.followPath(grabPickup1, true);
                         //2
-                        setPathState(-1);
+                        setPathState(2);
                     }
 
                 break;
@@ -265,13 +265,14 @@ public class AutoV2 extends OpMode {
                 /* This case checks the robot's position and will wait until the robot position is close (1 inch away) from the pickup1Pose's position */
                 if (!follower.isBusy()) {
                     /* Grab Sample 2*/
-                    armSliderServo.setPosition(0.4);
+                    armSliderServo.setPosition(0.2);
                     wristServo.setPosition(0);
                     moveArm(250,1);
                     sleep(300);
                     clawServo.setPosition(0);
-                    sleep(500);
                     wristServo.setPosition(0.5);
+                    sleep(500);
+
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are scoring the sample */
                     follower.followPath(scorePickup1, true);
                     //3
@@ -282,18 +283,20 @@ public class AutoV2 extends OpMode {
                 /* This case checks the robot's position and will wait until the robot position is close (1 inch away) from the scorePose's position */
                 if (!follower.isBusy()) {
                     /* Score Sample 2 */
+                    moveArm(200,1);
+                    armSliderServo.setPosition(0);
+                    clawServo.setPosition(0);
+                    wristServo.setPosition(0.5);
                     moveArm(1100,1);
-                    armSliderServo.setPosition(1);
-                    sliderUpElapsedTime(500,0.3);
+                    sliderUpElapsedTime(500, 1.1);
                     moveArm(1200,1.25);
                     clawServo.setPosition(0.25);
                     sleep(300);
                     moveArm(1000,1);
-                    sliderDownElapsedTime(0.2);
-
+                    sliderDownElapsedTime(0.8);
                     /* Since this is a pathChain, we can have Pedro hold the end point while we are grabbing the sample */
                     follower.followPath(grabPickup2, true);
-                    setPathState(-1);
+                    setPathState(-1 );
                 }
                 break;
             case 4:
