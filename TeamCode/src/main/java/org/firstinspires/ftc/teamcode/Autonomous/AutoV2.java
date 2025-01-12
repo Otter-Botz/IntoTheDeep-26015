@@ -129,7 +129,7 @@ public class AutoV2 extends OpMode {
     /**
      * Middle (Second) Sample from the Spike Mark
      */
-    private final Pose pickup2Pose = new Pose(30, 135, Math.toRadians(0));
+    private final Pose pickup2Pose = new Pose(30, 137, Math.toRadians(0));
 
     /**
      * Highest (Third) Sample from the Spike Mark
@@ -267,7 +267,7 @@ public class AutoV2 extends OpMode {
                     /* Grab Sample 2*/
                     armSliderServo.setPosition(0.2);
                     wristServo.setPosition(0);
-                    moveArm(250,1);
+                    moveArm(215,1);
                     sleep(300);
                     clawServo.setPosition(0);
                     wristServo.setPosition(0.5);
