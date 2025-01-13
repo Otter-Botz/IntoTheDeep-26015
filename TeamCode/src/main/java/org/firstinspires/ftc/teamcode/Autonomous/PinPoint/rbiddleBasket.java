@@ -111,13 +111,16 @@ public class rbiddleBasket extends LinearOpMode {
         wrist.set(wrist.up);
 
         //Move to first sample
-        driveToPos(-ticksPerInchForward * 19.5, ticksPerInchSideways * 26.5);
+        //26.5
+        //19.5
+        driveToPos(-ticksPerInchForward * 20.5, ticksPerInchSideways * 24);
 
-        armSliderServo.setPosition(0.40);
+        armSliderServo.setPosition(0.80);
         wristServo.setPosition(0);
-        armDown(215,1.5);
+        armDown(240,1.5);
         sleep(300);
         clawServo.setPosition(0);
+        sleep(300);
         wristServo.setPosition(0.5);
 
         // Move to basket
@@ -136,46 +139,48 @@ public class rbiddleBasket extends LinearOpMode {
         //Slider Down
         armDown(800,0.8);
         sliderDownElapsedTime(0.8);
-        headingCorrectBasket();
-        armDown(800,2);
+        gyroTurnToAngle(40);
+        armDown(221,3);
         wrist.set(wrist.up);
 
-        //Move to second sample
-        driveToPos(-ticksPerInchForward * 32, ticksPerInchSideways * 26.5);
 
-        //Pick Up Second Sample
 
-        armSliderServo.setPosition(0.40);
-        wristServo.setPosition(0);
-        armDown(215,1.5);
-        sleep(300);
-        clawServo.setPosition(0);
-        wristServo.setPosition(0.5);
-
-        armSliderServo.setPosition(0);
-
-        //Move to basket
-        driveToPos(-ticksPerInchForward * 31, ticksPerInchSideways * 26.5);
-        sleep(500);
-        driveToPos(-ticksPerInchForward * 31,ticksPerInchSideways * 14);
-        gyroTurnToAngle(-39);
-
-        //Score 3
-        sliderUpElapsedTime(500,1.1);
-        lowbasketsliderwithoutwrist();
-        //sleep(500);
-        //Slider Down
-        armDown(800,0.8);
-        sliderDownElapsedTime(0.8);
-        headingCorrectBasket();
-        armDown(800,2);
-        wrist.set(wrist.up);
+//        //Move to second sample
+//        driveToPos(-ticksPerInchForward * 32, ticksPerInchSideways * 26.5);
+//
+//        //Pick Up Second Sample
+//
+//        armSliderServo.setPosition(0.40);
+//        wristServo.setPosition(0);
+//        armDown(215,1.5);
+//        sleep(300);
+//        clawServo.setPosition(0);
+//        wristServo.setPosition(0.5);
+//
+//        armSliderServo.setPosition(0);
+//
+//        //Move to basket
+//        driveToPos(-ticksPerInchForward * 31, ticksPerInchSideways * 26.5);
+//        sleep(500);
+//        driveToPos(-ticksPerInchForward * 31,ticksPerInchSideways * 14);
+//        gyroTurnToAngle(-39);
+//
+//        //Score 3
+//        sliderUpElapsedTime(500,1.1);
+//        lowbasketsliderwithoutwrist();
+//        //sleep(500);
+//        //Slider Down
+//        armDown(800,0.8);
+//        sliderDownElapsedTime(0.8);
+//        headingCorrectBasket();
+//        armDown(800,2);
+//        wrist.set(wrist.up);
 
         //Park
-        driveToPos(-ticksPerInchForward * 7, ticksPerInchSideways * 40);
-        gyroTurnToAngle(30);
-        driveToPos(-ticksPerInchForward * 3, ticksPerInchSideways * 50);
-        driveToPos(-ticksPerInchForward * 3, ticksPerInchSideways * 60);
+//        driveToPos(-ticksPerInchForward * 7, ticksPerInchSideways * 40);
+//        gyroTurnToAngle(30);
+//        driveToPos(-ticksPerInchForward * 3, ticksPerInchSideways * 50);
+//        driveToPos(-ticksPerInchForward * 3, ticksPerInchSideways * 60);
 
     }
 
@@ -236,11 +241,12 @@ public class rbiddleBasket extends LinearOpMode {
         armSliderServo.setPosition(0);
         runtime.reset();
         // Run tasks for the entire autonomous period
-        while (runtime.seconds() < 1.75) {
-            PID_Arm.math(1100);
+        while (runtime.seconds() < 2.50) {
+            PID_Arm.math(1170);
         }
 
         claw.AutoOpen();
+        sleep(500);
     }
 
     public void  armDown(double position, double runTime) {
